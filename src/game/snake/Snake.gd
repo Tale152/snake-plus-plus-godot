@@ -1,6 +1,6 @@
 extends Node2D
 
-const MoveSetEnum = preload("../../enums/MoveSetEnum.gd")
+const DirectionsEnum = preload("../../enums/DirectionsEnum.gd")
 
 const SPRITE_SIZE = 16
 const DELTA_SECONDS = 0.5
@@ -32,7 +32,7 @@ func on_collision(collidable):
 
 func init_variables():
 	current_position = Vector2.ZERO
-	current_direction = MoveSetEnum.MOVE_SET.RIGHT
+	current_direction = DirectionsEnum.DIRECTIONS.RIGHT
 	movement_elapsed_seconds = 0
 	is_also_tail = true
 	can_input_direction = true
@@ -40,13 +40,13 @@ func init_variables():
 func manage_input():
 	if can_input_direction:
 		if Input.is_action_pressed(ACTION_MOVE_RIGHT):
-			set_current_direction(MoveSetEnum.MOVE_SET.RIGHT)
+			set_current_direction(DirectionsEnum.DIRECTIONS.RIGHT)
 		if Input.is_action_pressed(ACTION_MOVE_LEFT):
-			set_current_direction(MoveSetEnum.MOVE_SET.LEFT)
+			set_current_direction(DirectionsEnum.DIRECTIONS.LEFT)
 		if Input.is_action_pressed(ACTION_MOVE_DOWN):
-			set_current_direction(MoveSetEnum.MOVE_SET.DOWN)
+			set_current_direction(DirectionsEnum.DIRECTIONS.DOWN)
 		if Input.is_action_pressed(ACTION_MOVE_UP):
-			set_current_direction(MoveSetEnum.MOVE_SET.UP)
+			set_current_direction(DirectionsEnum.DIRECTIONS.UP)
 
 func set_current_direction(direction):
 	current_direction = direction
@@ -58,12 +58,12 @@ func manage_movement(delta):
 		movement_elapsed_seconds -= DELTA_SECONDS
 		can_input_direction = true
 		match current_direction:
-			MoveSetEnum.MOVE_SET.RIGHT:
+			DirectionsEnum.DIRECTIONS.RIGHT:
 				current_position.x += SPRITE_SIZE
-			MoveSetEnum.MOVE_SET.LEFT:
+			DirectionsEnum.DIRECTIONS.LEFT:
 				current_position.x -= SPRITE_SIZE
-			MoveSetEnum.MOVE_SET.UP:
+			DirectionsEnum.DIRECTIONS.UP:
 				current_position.y -= SPRITE_SIZE
-			MoveSetEnum.MOVE_SET.DOWN:
+			DirectionsEnum.DIRECTIONS.DOWN:
 				current_position.y += SPRITE_SIZE
 		$Head.move_to(current_direction, is_also_tail, current_position)

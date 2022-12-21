@@ -1,6 +1,6 @@
 extends Area2D
 
-const MoveSetEnum = preload("../../enums/MoveSetEnum.gd")
+const DirectionsEnum = preload("../../enums/DirectionsEnum.gd")
 
 const HEAD_UP_ANIMATION = "head_up"
 const HEAD_RIGHT_ANIMATION = "head_right"
@@ -17,13 +17,13 @@ func move_to(direction, is_also_tail, new_position):
 	
 func set_sprite(direction, is_also_tail):
 	match direction:
-		MoveSetEnum.MOVE_SET.UP:
+		DirectionsEnum.DIRECTIONS.UP:
 			set_head_sprite_vertical(is_also_tail, false)
-		MoveSetEnum.MOVE_SET.DOWN:
+		DirectionsEnum.DIRECTIONS.DOWN:
 			set_head_sprite_vertical(is_also_tail, true)
-		MoveSetEnum.MOVE_SET.RIGHT:
+		DirectionsEnum.DIRECTIONS.RIGHT:
 			set_head_sprite_horizontal(is_also_tail, false)
-		MoveSetEnum.MOVE_SET.LEFT:
+		DirectionsEnum.DIRECTIONS.LEFT:
 			set_head_sprite_horizontal(is_also_tail, true)
 	
 func set_head_sprite_horizontal(is_also_tail, is_going_left):

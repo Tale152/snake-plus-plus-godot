@@ -1,4 +1,4 @@
-enum MOVE_SET {
+enum DIRECTIONS {
 	LEFT,
 	RIGHT,
 	UP,
