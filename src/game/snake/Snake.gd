@@ -28,7 +28,7 @@ func _process(delta):
 	manage_movement(delta)
 
 func on_collision(collidable):
-	collidable.on_collision(self)
+	collidable.on_snake_head_collision(self)
 
 func init_variables():
 	current_position = Vector2.ZERO
