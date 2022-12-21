@@ -15,7 +15,7 @@ var current_direction
 var is_also_tail #TODO to be replaced; use the number of body parts
 var can_input_direction
 var current_position
-
+	
 func _ready():
 	init_variables()
 	$Head.initialize(
@@ -26,6 +26,9 @@ func _ready():
 func _process(delta):
 	manage_input()
 	manage_movement(delta)
+
+func on_collision(collidable):
+	collidable.on_collision(self)
 
 func init_variables():
 	current_position = Vector2.ZERO
