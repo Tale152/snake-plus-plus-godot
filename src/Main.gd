@@ -14,9 +14,13 @@ const ACTION_MOVE_UP = "move_up"
 const ACTION_MOVE_DOWN = "move_down"
 
 const CELL_SIZE = 16
+var edibles
+var to_be_removed_queue
 
 func _ready():
 	movement_elapsed_seconds = 0
+	edibles = []
+	to_be_removed_queue = []
 	can_set_direction = true
 	$Snake.initialize(DIRECTIONS.RIGHT, Vector2(0, 0), Vector2(320, 160))
 	$Timer.start()
@@ -44,11 +48,21 @@ func _process(delta):
 		can_set_direction = true
 		movement_elapsed_seconds -= current_delta_seconds
 		$Snake.move(CELL_SIZE)
+		
+	for r in to_be_removed_queue:
+		r.queue_free()
+	to_be_removed_queue.clear()
 
 func _on_Timer_timeout():
 	var apple_instance = APPLE.instance()
 	add_child(apple_instance)
 	var x = (randi()%20)*16
 	var y = (randi()%10)*16
-	apple_instance.spawn(Vector2(x, y), $Snake)
+	apple_instance.spawn(Vector2(x, y), $Snake, self)
+	edibles.push_back(apple_instance)
+	
+func remove_edible(edible):
+	edibles.erase(edible)
+	if edible != null:
+		to_be_removed_queue.push_back(edible)
 

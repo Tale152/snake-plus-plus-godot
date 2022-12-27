@@ -1,14 +1,22 @@
 extends Area2D
 
-signal collision(collidable)
+signal snake_head_collision(collidable)
 
-func spawn(spawn_position, snake):
+var e
+var s
+
+func spawn(spawn_position, snake, engine):
+	s = snake
+	e = engine
 	position = spawn_position
-	self.connect("collision", snake, "on_collision")
+	self.connect("snake_head_collision", snake, "on_collision")
 
 func _on_Apple_area_entered(area):
-	emit_signal("collision", self)
-	self.queue_free()
+	if area == s.get_node("Head"):
+		emit_signal("snake_head_collision", self)
+		self.hide()
+		e.remove_edible(self)
 	
-func on_snake_head_collision(snake):
-	snake.properties.potential_length += 1
+	
+func on_snake_head_collision():
+	s.properties.potential_length += 1

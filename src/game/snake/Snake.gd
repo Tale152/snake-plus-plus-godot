@@ -17,7 +17,7 @@ func initialize(direction, coordinates, field_size):
 	$Head.initialize(tmp)
 
 func on_collision(collidable):
-	collidable.on_snake_head_collision(self)
+	collidable.on_snake_head_collision()
 	
 func move(sprite_size):
 	var previous_part_old_placement = _move_body(sprite_size)
