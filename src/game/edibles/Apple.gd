@@ -11,4 +11,4 @@ func _on_Apple_area_entered(area):
 	self.queue_free()
 	
 func on_snake_head_collision(snake):
-	snake.increase_length(1)
+	snake.properties.potential_length += 1

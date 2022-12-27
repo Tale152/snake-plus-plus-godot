@@ -8,41 +8,42 @@ const BODY_STRAIGHT_RIGHT_ANIMATION = "body_straight_right"
 const TAIL_UP_ANIMATION = "tail_up"
 const TAIL_RIGHT_ANIMATION = "tail_right"
 
-func spawn(starting_position, direction, next_body_placement):
-	move(starting_position, direction, next_body_placement)
+var placement
 
-func move(starting_position, direction, next_body_placement):
-	position = starting_position
-	set_sprite(direction, next_body_placement)
+func spawn(starting_placement):
+	move_to(starting_placement)
 
-func set_sprite(direction, next_body_placement):
-	if(next_body_placement == null):
-		set_tail_sprite(direction)
-	elif DirectionsEnum.are_opposite(direction, next_body_placement):
-		set_body_straight_sprite(direction)
-	elif DirectionsEnum.are_diagonal(direction, next_body_placement):
-		set_body_diagonal_sprite(direction, next_body_placement)
+func move_to(new_placement):
+	placement = new_placement
+	position = new_placement.coordinates
+	set_sprite()
+
+func set_sprite():
+	if(placement.previous_direction == null):
+		set_tail_sprite()
+	elif DirectionsEnum.are_opposite(placement.next_direction, placement.previous_direction):
+		set_body_straight_sprite()
+	elif DirectionsEnum.are_diagonal(placement.next_direction, placement.previous_direction):
+		set_body_diagonal_sprite()
 	else:
 		push_error(
 			"A body part cannot be neither opposite nor diagonal compared to the next body part"
 		)
 
-func set_tail_sprite(direction):
+func set_tail_sprite():
 	set_single_direction_body_sprite(
-		direction,
 		TAIL_UP_ANIMATION,
 		TAIL_RIGHT_ANIMATION
 	)
 
-func set_body_straight_sprite(direction):
+func set_body_straight_sprite():
 	set_single_direction_body_sprite(
-		direction,
 		BODY_STRAIGHT_UP_ANIMATION,
 		BODY_STRAIGHT_RIGHT_ANIMATION
 	)
 
-func set_single_direction_body_sprite(direction, up_sprite, right_sprite):
-	match direction:
+func set_single_direction_body_sprite(up_sprite, right_sprite):
+	match placement.next_direction:
 		DirectionsEnum.DIRECTIONS.UP:
 			set_animated_sprite(up_sprite, false, false)
 		DirectionsEnum.DIRECTIONS.DOWN:
@@ -52,12 +53,10 @@ func set_single_direction_body_sprite(direction, up_sprite, right_sprite):
 		DirectionsEnum.DIRECTIONS.LEFT:
 			set_animated_sprite(right_sprite, false, true)
 
-func set_body_diagonal_sprite(direction, next_body_placement):
-	set_animated_sprite(
-		BODY_DIAGONAL_ANIMATION,
-		direction == DirectionsEnum.DIRECTIONS.DOWN,
-		next_body_placement == DirectionsEnum.DIRECTIONS.LEFT
-	)
+func set_body_diagonal_sprite():
+	var flip_v = (placement.next_direction == DirectionsEnum.DIRECTIONS.DOWN) || (placement.previous_direction == DirectionsEnum.DIRECTIONS.DOWN)
+	var flip_h = (placement.next_direction == DirectionsEnum.DIRECTIONS.LEFT) || (placement.previous_direction == DirectionsEnum.DIRECTIONS.LEFT)
+	set_animated_sprite(BODY_DIAGONAL_ANIMATION, flip_v, flip_h)
 
 func set_animated_sprite(animation, flip_v, flip_h):
 	$AnimatedSprite.animation = animation

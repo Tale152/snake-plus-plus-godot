@@ -14,6 +14,12 @@ config/name="snake-plus-plus-godot"
 run/main_scene="res://src/Main.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=320
+window/size/height=160
+window/size/resizable=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
