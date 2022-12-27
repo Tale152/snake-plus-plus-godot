@@ -1,5 +1,7 @@
 extends Area2D
 
+signal snake_head_collision(collidable)
+
 const DirectionsEnum = preload("res://src/enums/DirectionsEnum.gd")
 
 const BODY_DIAGONAL_ANIMATION = "body_diagonal"
@@ -9,8 +11,13 @@ const TAIL_UP_ANIMATION = "tail_up"
 const TAIL_RIGHT_ANIMATION = "tail_right"
 
 var placement
+var s
+var e
 
-func spawn(starting_placement):
+func spawn(starting_placement, snake, engine):
+	self.connect("snake_head_collision", snake, "on_collision")
+	s = snake
+	e = engine
 	move_to(starting_placement)
 
 func move_to(new_placement):
@@ -62,3 +69,11 @@ func set_animated_sprite(animation, flip_v, flip_h):
 	$AnimatedSprite.animation = animation
 	$AnimatedSprite.flip_v = flip_v
 	$AnimatedSprite.flip_h = flip_h
+
+
+func _on_BodyPart_area_entered(area):
+	if area == s.get_node("Head"):
+		emit_signal("snake_head_collision", self)
+
+func on_snake_head_collision():
+	e.game_over = true

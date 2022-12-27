@@ -8,8 +8,10 @@ const Placement = preload("./Placement.gd").Placement
 var properties
 var body_parts
 var field_s
+var e
 	
-func initialize(direction, coordinates, field_size):
+func initialize(direction, coordinates, field_size, engine):
+	e = engine
 	properties = Properties.new(direction)
 	field_s = field_size
 	body_parts = []
@@ -84,7 +86,7 @@ func _lenghten_body_if_necessary(previous_part_old_placement):
 			previous_tail.move_to(previous_tail.placement)
 		# creating new body part
 		var new_body_part = BodyPart.instance()
-		new_body_part.spawn(previous_part_old_placement)
+		new_body_part.spawn(previous_part_old_placement, self, e)
 		add_child(new_body_part)
 		body_parts.push_back(new_body_part)
 		
