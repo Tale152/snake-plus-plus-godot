@@ -11,9 +11,4 @@ margin_right = 320.0
 margin_bottom = 160.0
 color = Color( 1, 0.866667, 0.866667, 1 )
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
-
 [node name="Snake" parent="." instance=ExtResource( 1 )]
-
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,5 +1,9 @@
 extends Node
 
+const FIELD_CELLS_WIDTH = 20
+const FIELD_CELLS_HEIGHT = 10
+const CELL_SIZE = 16
+
 const APPLE = preload("res://src/game/edibles/Apple.tscn")
 const DIRECTIONS = preload("res://src/enums/DirectionsEnum.gd").DIRECTIONS
 
@@ -13,17 +17,27 @@ const ACTION_MOVE_LEFT = "move_left"
 const ACTION_MOVE_UP = "move_up"
 const ACTION_MOVE_DOWN = "move_down"
 
-const CELL_SIZE = 16
+const EDIBLE_SPAWN_DELTA_SECONDS = 1
+var edible_spawn_elapsed_seconds
+const EDIBLE_SPAWN_PROBABILITY = 0.25
+
 var edibles
 var to_be_removed_queue
 
+var rng = RandomNumberGenerator.new()
+
 func _ready():
+	rng.randomize()
 	movement_elapsed_seconds = 0
+	edible_spawn_elapsed_seconds = 0
 	edibles = []
 	to_be_removed_queue = []
 	can_set_direction = true
-	$Snake.initialize(DIRECTIONS.RIGHT, Vector2(0, 0), Vector2(320, 160))
-	$Timer.start()
+	$Snake.initialize(
+		DIRECTIONS.RIGHT,
+		Vector2(0, 0),
+		Vector2(FIELD_CELLS_WIDTH * CELL_SIZE, FIELD_CELLS_HEIGHT * CELL_SIZE)
+	)
 	
 func _process(delta):
 	if can_set_direction:
@@ -52,17 +66,32 @@ func _process(delta):
 	for r in to_be_removed_queue:
 		r.queue_free()
 	to_be_removed_queue.clear()
-
-func _on_Timer_timeout():
-	var apple_instance = APPLE.instance()
-	add_child(apple_instance)
-	var x = (randi()%20)*16
-	var y = (randi()%10)*16
-	apple_instance.spawn(Vector2(x, y), $Snake, self)
-	edibles.push_back(apple_instance)
 	
+	edible_spawn_elapsed_seconds += delta
+	if(edible_spawn_elapsed_seconds >= EDIBLE_SPAWN_DELTA_SECONDS):
+		edible_spawn_elapsed_seconds -= edible_spawn_elapsed_seconds
+		var r = rng.randf()
+		if r <= EDIBLE_SPAWN_PROBABILITY:
+			var apple_instance = APPLE.instance()
+			var found = false
+			var spawn_position
+			while !found:
+				var x = (rng.randi()%FIELD_CELLS_WIDTH)*CELL_SIZE
+				var y = (rng.randi()%FIELD_CELLS_HEIGHT)*CELL_SIZE
+				spawn_position = Vector2(x, y)
+				found = !is_overlapping(spawn_position, [$Snake.get_node("Head")]) && !is_overlapping(spawn_position, $Snake.body_parts) && !is_overlapping(spawn_position, edibles)
+			add_child(apple_instance)
+			apple_instance.spawn(spawn_position, $Snake, self)
+			edibles.push_back(apple_instance)
+
 func remove_edible(edible):
 	edibles.erase(edible)
 	if edible != null:
 		to_be_removed_queue.push_back(edible)
+
+func is_overlapping(position, nodes):
+	for n in nodes:
+		if n.position == position:
+			return true
+	return false
 
