@@ -19,7 +19,8 @@ const ACTION_MOVE_DOWN = "move_down"
 
 const EDIBLE_SPAWN_DELTA_SECONDS = 1
 var edible_spawn_elapsed_seconds
-const EDIBLE_SPAWN_PROBABILITY = 0.25
+const EDIBLE_SPAWN_PROBABILITY = 0.8
+const MAX_APPLES = 6
 
 var edibles
 var to_be_removed_queue
@@ -75,19 +76,20 @@ func _process(delta):
 		edible_spawn_elapsed_seconds += delta
 		if(edible_spawn_elapsed_seconds >= EDIBLE_SPAWN_DELTA_SECONDS):
 			edible_spawn_elapsed_seconds -= edible_spawn_elapsed_seconds
-			var r = rng.randf()
-			if r <= EDIBLE_SPAWN_PROBABILITY:
-				var apple_instance = APPLE.instance()
-				var found = false
-				var spawn_position
-				while !found:
-					var x = (rng.randi()%FIELD_CELLS_WIDTH)*CELL_SIZE
-					var y = (rng.randi()%FIELD_CELLS_HEIGHT)*CELL_SIZE
-					spawn_position = Vector2(x, y)
-					found = !is_overlapping(spawn_position, [$Snake.get_node("Head")]) && !is_overlapping(spawn_position, $Snake.body_parts) && !is_overlapping(spawn_position, edibles)
-				add_child(apple_instance)
-				apple_instance.spawn(spawn_position, $Snake, self)
-				edibles.push_back(apple_instance)
+			if edibles.size() < MAX_APPLES:
+				var r = rng.randf()
+				if r <= EDIBLE_SPAWN_PROBABILITY:
+					var apple_instance = APPLE.instance()
+					var found = false
+					var spawn_position
+					while !found:
+						var x = (rng.randi()%FIELD_CELLS_WIDTH)*CELL_SIZE
+						var y = (rng.randi()%FIELD_CELLS_HEIGHT)*CELL_SIZE
+						spawn_position = Vector2(x, y)
+						found = !is_overlapping(spawn_position, [$Snake.get_node("Head")]) && !is_overlapping(spawn_position, $Snake.body_parts) && !is_overlapping(spawn_position, edibles)
+					add_child(apple_instance)
+					apple_instance.spawn(spawn_position, $Snake, self)
+					edibles.push_back(apple_instance)
 
 func remove_edible(edible):
 	edibles.erase(edible)
