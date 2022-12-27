@@ -12,7 +12,7 @@ margin_bottom = 160.0
 color = Color( 1, 0.866667, 0.866667, 1 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 
 [node name="Snake" parent="." instance=ExtResource( 1 )]
 

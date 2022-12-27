@@ -3,7 +3,8 @@ extends Node
 const APPLE = preload("res://src/game/edibles/Apple.tscn")
 const DIRECTIONS = preload("res://src/enums/DirectionsEnum.gd").DIRECTIONS
 
-const DELTA_SECONDS = 0.5
+const BASE_DELTA_SECONDS = 0.5
+const SPEEDUP_FACTOR = 0.99
 var movement_elapsed_seconds
 var can_set_direction
 
@@ -12,13 +13,12 @@ const ACTION_MOVE_LEFT = "move_left"
 const ACTION_MOVE_UP = "move_up"
 const ACTION_MOVE_DOWN = "move_down"
 
+const CELL_SIZE = 16
+
 func _ready():
 	movement_elapsed_seconds = 0
 	can_set_direction = true
 	$Snake.initialize(DIRECTIONS.RIGHT, Vector2(0, 0), Vector2(320, 160))
-	var apple_instance = APPLE.instance()
-	add_child(apple_instance)
-	apple_instance.spawn(Vector2(80, 0), $Snake)
 	$Timer.start()
 	
 func _process(delta):
@@ -37,10 +37,13 @@ func _process(delta):
 			$Snake.properties.current_direction = DIRECTIONS.UP
 		
 	movement_elapsed_seconds += delta
-	if(movement_elapsed_seconds >= DELTA_SECONDS):
+	var current_delta_seconds = BASE_DELTA_SECONDS
+	for i in $Snake.properties.current_length - 1:
+		current_delta_seconds *= SPEEDUP_FACTOR
+	if(movement_elapsed_seconds >= current_delta_seconds):
 		can_set_direction = true
-		movement_elapsed_seconds -= DELTA_SECONDS
-		$Snake.move(16)
+		movement_elapsed_seconds -= current_delta_seconds
+		$Snake.move(CELL_SIZE)
 
 func _on_Timer_timeout():
 	var apple_instance = APPLE.instance()
