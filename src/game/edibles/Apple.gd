@@ -8,6 +8,7 @@ func spawn(spawn_position, snake):
 
 func _on_Apple_area_entered(area):
 	emit_signal("collision", self)
+	self.queue_free()
 	
 func on_snake_head_collision(snake):
-	print("TODO: do something on collision")
+	snake.increase_length(1)
