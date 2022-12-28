@@ -5,6 +5,7 @@ const FIELD_CELLS_HEIGHT = 10
 const CELL_SIZE = 16
 
 const APPLE = preload("res://src/game/edibles/Apple.tscn")
+const BAD_APPLE = preload("res://src/game/edibles/BadApple.tscn")
 const DIRECTIONS = preload("res://src/enums/DirectionsEnum.gd").DIRECTIONS
 
 const BASE_DELTA_SECONDS = 0.5
@@ -21,6 +22,7 @@ const EDIBLE_SPAWN_DELTA_SECONDS = 1
 var edible_spawn_elapsed_seconds
 const EDIBLE_SPAWN_PROBABILITY = 0.8
 const MAX_APPLES = 6
+const MAX_BAD_APPLES = 4
 
 var edibles
 var to_be_removed_queue
@@ -76,20 +78,34 @@ func _process(delta):
 		edible_spawn_elapsed_seconds += delta
 		if(edible_spawn_elapsed_seconds >= EDIBLE_SPAWN_DELTA_SECONDS):
 			edible_spawn_elapsed_seconds -= edible_spawn_elapsed_seconds
-			if edibles.size() < MAX_APPLES:
-				var r = rng.randf()
-				if r <= EDIBLE_SPAWN_PROBABILITY:
-					var apple_instance = APPLE.instance()
-					var found = false
-					var spawn_position
-					while !found:
-						var x = (rng.randi()%FIELD_CELLS_WIDTH)*CELL_SIZE
-						var y = (rng.randi()%FIELD_CELLS_HEIGHT)*CELL_SIZE
-						spawn_position = Vector2(x, y)
-						found = !is_overlapping(spawn_position, [$Snake.get_node("Head")]) && !is_overlapping(spawn_position, $Snake.body_parts) && !is_overlapping(spawn_position, edibles)
-					add_child(apple_instance)
-					apple_instance.spawn(spawn_position, $Snake, self)
-					edibles.push_back(apple_instance)
+			if rng.randf() <= 0.5:
+				if count_edible_instances(edibles, "Apple") < MAX_APPLES:
+					if rng.randf() <= EDIBLE_SPAWN_PROBABILITY:
+						var apple_instance = APPLE.instance()
+						var found = false
+						var spawn_position
+						while !found:
+							var x = (rng.randi()%FIELD_CELLS_WIDTH)*CELL_SIZE
+							var y = (rng.randi()%FIELD_CELLS_HEIGHT)*CELL_SIZE
+							spawn_position = Vector2(x, y)
+							found = !is_overlapping(spawn_position, [$Snake.get_node("Head")]) && !is_overlapping(spawn_position, $Snake.body_parts) && !is_overlapping(spawn_position, edibles)
+						add_child(apple_instance)
+						apple_instance.spawn(spawn_position, $Snake, self)
+						edibles.push_back(apple_instance)
+			else:
+				if count_edible_instances(edibles, "BadApple") < MAX_BAD_APPLES:
+					if rng.randf() <= EDIBLE_SPAWN_PROBABILITY:
+						var bad_apple_instance = BAD_APPLE.instance()
+						var found = false
+						var spawn_position
+						while !found:
+							var x = (rng.randi()%FIELD_CELLS_WIDTH)*CELL_SIZE
+							var y = (rng.randi()%FIELD_CELLS_HEIGHT)*CELL_SIZE
+							spawn_position = Vector2(x, y)
+							found = !is_overlapping(spawn_position, [$Snake.get_node("Head")]) && !is_overlapping(spawn_position, $Snake.body_parts) && !is_overlapping(spawn_position, edibles)
+						add_child(bad_apple_instance)
+						bad_apple_instance.spawn(spawn_position, $Snake, self)
+						edibles.push_back(bad_apple_instance)
 
 func remove_edible(edible):
 	edibles.erase(edible)
@@ -101,4 +117,11 @@ func is_overlapping(position, nodes):
 		if n.position == position:
 			return true
 	return false
+	
+func count_edible_instances(edibles, type):
+	var res = 0
+	for e in edibles:
+		if e.get_type() == type:
+			res += 1
+	return res
 
