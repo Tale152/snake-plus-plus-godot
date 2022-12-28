@@ -22,10 +22,25 @@ func on_collision(collidable):
 	collidable.on_snake_head_collision()
 	
 func move(sprite_size):
+	_shorten_body_if_necessary()
 	var previous_part_old_placement = _move_body(sprite_size)
 	_lenghten_body_if_necessary(previous_part_old_placement)
 	_render_snake()
-	
+
+func _shorten_body_if_necessary():
+	var to_remove = properties.potential_length - properties.current_length
+	if to_remove < 0:
+		properties.current_length = properties.potential_length
+		to_remove *= -1
+		for i in to_remove:
+			var removed = body_parts.pop_back()
+			if removed != null:
+				removed.queue_free()
+		if properties.current_length > 1:
+			body_parts[-1].placement.previous_direction = null
+		else:
+			$Head.placement.previous_direction = null
+		
 func _move_body(sprite_size):
 	# storing previous head placement
 	var previous_part_old_placement = Placement.new(
