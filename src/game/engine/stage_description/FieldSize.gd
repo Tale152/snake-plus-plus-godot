@@ -1,13 +1,14 @@
-class FieldSize extends Reference:
-	var _height: int
-	var _width: int
+class_name FieldSize extends Reference
 
-	func _init(height: int, width: int):
-		_height = height
-		_width = width
+var _height: int
+var _width: int
 
-	func get_height() -> int:
-		return _height
+func _init(height: int, width: int):
+	_height = height
+	_width = width
 
-	func get_width() -> int:
-		return _width
+func get_height() -> int:
+	return _height
+
+func get_width() -> int:
+	return _width
