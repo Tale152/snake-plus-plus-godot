@@ -3,7 +3,7 @@ class_name FieldSize extends Reference
 var _height: int
 var _width: int
 
-func _init(height: int, width: int):
+func _init(width: int, height: int):
 	_height = height
 	_width = width
 
