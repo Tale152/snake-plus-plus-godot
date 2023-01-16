@@ -27,6 +27,13 @@ func move(sprite_size):
 	_lenghten_body_if_necessary(previous_part_old_placement)
 	_render_snake()
 
+func get_body_points() -> Array:
+	var res = []
+	res.push_back(ImmutablePoint.new($Head.position.x, $Head.position.y))
+	for b in body_parts:
+		res.push_back(ImmutablePoint.new(b.position.x, b.position.y))
+	return res
+	
 func _shorten_body_if_necessary():
 	var to_remove = properties.potential_length - properties.current_length
 	if to_remove < 0:
