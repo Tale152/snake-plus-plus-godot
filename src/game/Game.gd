@@ -11,6 +11,7 @@ var _setup_completed
 var _snake
 var _movement_elapsed_seconds
 var _player_can_set_direction
+var _cells
 
 # --- core functions ---
 func setup(
@@ -19,6 +20,7 @@ func setup(
 ):
 	_stage_description = stage_description
 	_visual_parameters = visual_parameters
+	_init_cells()
 	_setup_snake()
 	_setup_snake_movement()
 	_setup_completed = true
@@ -29,6 +31,13 @@ func _process(delta):
 		_handle_snake_movement(delta)
 
 # --- private setup functions ---
+
+func _init_cells():
+	_cells = []
+	for x in _stage_description.get_field_size().get_width():
+		for y in _stage_description.get_field_size().get_height():
+			_cells.push_back(ImmutablePoint.new(x, y))
+
 func _setup_snake():
 	_snake = Snake.instance()
 	_snake.initialize(
@@ -78,3 +87,25 @@ func _handle_snake_movement(delta: float):
 		_player_can_set_direction = true
 		_movement_elapsed_seconds -= current_delta_seconds
 		_snake.move(_visual_parameters.get_cell_pixels_size())
+
+func _get_free_cells() -> Array:
+	var res = _cells.duplicate(false)
+	for s in _snake.get_body_points():
+		# TODO snake's body parts and head should have their pre-calulated point
+		var p = ImmutablePoint.new(
+			s.get_x() / _visual_parameters.get_cell_pixels_size(),
+			s.get_y() / _visual_parameters.get_cell_pixels_size()
+		)
+		var i = _get_point_in_array(res, p)
+		if i != -1:
+			res.pop_at(i)
+		# TODO check from existing edibles
+	return res
+
+func _get_point_in_array(array, point) -> int:
+	var i = 0
+	for p in array:
+		if p.equals_to(point):
+			return i
+		i += 1
+	return -1
