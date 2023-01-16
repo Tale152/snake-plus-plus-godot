@@ -6,7 +6,7 @@ var e
 var s
 
 func get_type():
-	return "Apple"
+	return InstantaneousEdiblesTypes.APPLE()
 	
 func spawn(spawn_position, snake, engine):
 	s = snake
