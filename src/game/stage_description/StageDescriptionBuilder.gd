@@ -86,11 +86,12 @@ func _are_all_instantaneous_edibles_rules_valid():
 	
 	
 func _is_instantaneous_edible_rules_valid(r: InstantaneousEdibleRules):
-	# checking type, spawn_probability and life_span
+	# checking type, spawn_probability, life_span and max_instances
 	if !(
 		InstantaneousEdiblesTypes.get_types().find(r.get_type()) != -1
 		&& r.get_spawn_probability() > 0 && r.get_spawn_probability() <= 1
 		&& (r.get_life_span() == - 1 || r.get_life_span() > 0)
+		&& r.get_max_instances() > 0
 	):
 		return false
 	# checking spawn_locations are in field and not duplicated
