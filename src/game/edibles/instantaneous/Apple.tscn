@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/skins/simple/Apple.png" type="Texture" id=1]
-[ext_resource path="res://src/game/edibles/Apple.gd" type="Script" id=2]
+[ext_resource path="res://src/game/edibles/instantaneous/Apple.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 6.75, 7.25 )

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/game/edibles/BadApple.gd" type="Script" id=1]
+[ext_resource path="res://src/game/edibles/instantaneous/BadApple.gd" type="Script" id=1]
 [ext_resource path="res://assets/skins/simple/BadApple.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
