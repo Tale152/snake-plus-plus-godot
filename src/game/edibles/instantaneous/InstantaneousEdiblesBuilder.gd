@@ -57,7 +57,8 @@ func _get_valid_placement() -> ImmutablePoint:
 			if ImmutablePoint.get_point_index_in_array(_free_cells, l) != -1:
 				target_array.push_back(l)
 	if target_array.size() > 0:
-		return target_array[_rng.randomize().randi() % target_array.size()]
+		_rng.randomize()
+		return target_array[_rng.randi() % target_array.size()]
 	else:
 		return null
 
