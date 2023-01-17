@@ -76,4 +76,4 @@ func _on_BodyPart_area_entered(area):
 		emit_signal("snake_head_collision", self)
 
 func on_snake_head_collision():
-	e.game_over = true
+	e.set_game_over(true)

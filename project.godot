@@ -8,6 +8,70 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "FieldSize",
+"language": "GDScript",
+"path": "res://src/game/stage_description/FieldSize.gd"
+}, {
+"base": "Reference",
+"class": "ImmutablePoint",
+"language": "GDScript",
+"path": "res://src/game/utils/point/ImmutablePoint.gd"
+}, {
+"base": "Reference",
+"class": "InstantaneousEdibleRules",
+"language": "GDScript",
+"path": "res://src/game/stage_description/edibles/InstantaneousEdibleRules.gd"
+}, {
+"base": "Reference",
+"class": "InstantaneousEdiblesBuilder",
+"language": "GDScript",
+"path": "res://src/game/edibles/instantaneous/InstantaneousEdiblesBuilder.gd"
+}, {
+"base": "Reference",
+"class": "InstantaneousEdiblesTypes",
+"language": "GDScript",
+"path": "res://src/game/edibles/instantaneous/InstantaneousEdiblesTypes.gd"
+}, {
+"base": "Reference",
+"class": "MovementInput",
+"language": "GDScript",
+"path": "res://src/game/player_input/MovementInput.gd"
+}, {
+"base": "ImmutablePoint",
+"class": "MutablePoint",
+"language": "GDScript",
+"path": "res://src/game/utils/point/MutablePoint.gd"
+}, {
+"base": "Reference",
+"class": "StageDescription",
+"language": "GDScript",
+"path": "res://src/game/stage_description/StageDescription.gd"
+}, {
+"base": "Reference",
+"class": "StageDescriptionBuilder",
+"language": "GDScript",
+"path": "res://src/game/stage_description/StageDescriptionBuilder.gd"
+}, {
+"base": "Reference",
+"class": "VisualParameters",
+"language": "GDScript",
+"path": "res://src/game/visual_parameters/VisualParameters.gd"
+} ]
+_global_script_class_icons={
+"FieldSize": "",
+"ImmutablePoint": "",
+"InstantaneousEdibleRules": "",
+"InstantaneousEdiblesBuilder": "",
+"InstantaneousEdiblesTypes": "",
+"MovementInput": "",
+"MutablePoint": "",
+"StageDescription": "",
+"StageDescriptionBuilder": "",
+"VisualParameters": ""
+}
+
 [application]
 
 config/name="snake-plus-plus-godot"
