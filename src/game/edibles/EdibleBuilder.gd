@@ -1,8 +1,6 @@
-class_name InstantaneousEdiblesBuilder extends Reference
+class_name EdibleBuilder extends Reference
 
-# --- preloading instantaneous edibles scenes ---
-const Apple = preload("res://src/game/edibles/instantaneous/Apple.tscn")
-const BadApple = preload("res://src/game/edibles/instantaneous/BadApple.tscn")
+const Edible = preload("res://src/game/edibles/Edible.tscn")
 
 # --- persisting values in a game ---
 var _snake
@@ -11,26 +9,26 @@ var _visual_parameters: VisualParameters
 var _rng = RandomNumberGenerator.new()
 
 # --- specific values for instantiation ---
-var _rules: InstantaneousEdibleRules = null
+var _rules: EdibleRules = null
 var _free_cells: Array = []
 
 # I expect this arguments to be constants inside the same game,
-# thus using only one instance of InstantaneousEdiblesBuilder per game
+# thus using only one instance of EdibleBuilder per game
 func _init(snake, game, visual_parameters: VisualParameters):
 	_snake = snake
 	_game = game
 	_visual_parameters = visual_parameters
 
-func build_new() -> InstantaneousEdiblesBuilder:
+func build_new() -> EdibleBuilder:
 	_rules = null
 	_free_cells = []
 	return self
 
-func set_rules(rules: InstantaneousEdibleRules) -> InstantaneousEdiblesBuilder:
+func set_rules(rules: EdibleRules) -> EdibleBuilder:
 	_rules = rules
 	return self
 
-func set_free_cells(free_cells) -> InstantaneousEdiblesBuilder:
+func set_free_cells(free_cells) -> EdibleBuilder:
 	_free_cells = free_cells
 	return self
 
@@ -38,7 +36,7 @@ func build():
 	var placement = _get_valid_placement()
 	if placement == null:
 		return null
-	var instance = _get_selected_edible(_rules.get_type())
+	var instance = Edible.instance()
 	instance.spawn(
 		placement,
 		_rules,
@@ -61,10 +59,3 @@ func _get_valid_placement() -> ImmutablePoint:
 		return target_array[_rng.randi() % target_array.size()]
 	else:
 		return null
-
-# Expand everytime a new instantaneous edible is implemented
-func _get_selected_edible(type: String):
-	if type == InstantaneousEdiblesTypes.APPLE():
-		return Apple.instance()
-	elif type == InstantaneousEdiblesTypes.BAD_APPLE():
-		return BadApple.instance()

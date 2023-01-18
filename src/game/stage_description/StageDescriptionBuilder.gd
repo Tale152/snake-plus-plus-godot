@@ -7,7 +7,7 @@ var _snake_spawn_point: ImmutablePoint = null
 var _snake_initial_direction: int = -1
 var _snake_base_delta_seconds: float = -1
 var _snake_speedup_factor: float = -1
-var _instantaneous_edible_rules: Array = []
+var _edible_rules: Array = []
 
 func set_field_size(size: FieldSize) -> StageDescriptionBuilder:
 	_size = size
@@ -29,8 +29,8 @@ func set_snake_speedup_factor(speedup_factor: float) -> StageDescriptionBuilder:
 	_snake_speedup_factor = speedup_factor
 	return self
 
-func add_instantaneous_edible_rules(rules: InstantaneousEdibleRules) -> StageDescriptionBuilder:
-	_instantaneous_edible_rules.push_back(rules)
+func add_edible_rules(rules: EdibleRules) -> StageDescriptionBuilder:
+	_edible_rules.push_back(rules)
 	return self
 	
 func build() -> StageDescription:
@@ -41,7 +41,7 @@ func build() -> StageDescription:
 			_snake_initial_direction,
 			_snake_base_delta_seconds,
 			_snake_speedup_factor,
-			_instantaneous_edible_rules
+			_edible_rules
 		)
 	else:
 		return null
@@ -53,7 +53,7 @@ func _all_check_pass() -> bool:
 		&& _is_snake_initial_direction_valid()
 		&& _is_snake_base_delta_seconds_valid()
 		&& _is_snake_speedup_factor_valid()
-		&& _are_all_instantaneous_edibles_rules_valid()
+		&& _are_all_edibles_rules_valid()
 	)
 func _is_field_size_valid():
 	return _size != null && _size.get_height() > 0 && _size.get_width() > 0
@@ -75,20 +75,20 @@ func _is_snake_base_delta_seconds_valid():
 func _is_snake_speedup_factor_valid():
 	return _snake_speedup_factor > 0
 
-func _are_all_instantaneous_edibles_rules_valid():
+func _are_all_edibles_rules_valid():
 	# check rules are valid and that there are not multiple rules for same type
 	var types = []
-	for r in _instantaneous_edible_rules:
-		if !_is_instantaneous_edible_rules_valid(r) || types.find(r.get_type()) != -1:
+	for r in _edible_rules:
+		if !_is_edible_rules_valid(r) || types.find(r.get_type()) != -1:
 			return false
 		types.push_back(r.get_type())
 	return true
 	
 	
-func _is_instantaneous_edible_rules_valid(r: InstantaneousEdibleRules):
+func _is_edible_rules_valid(r: EdibleRules):
 	# checking type, spawn_probability, life_span and max_instances
 	if !(
-		InstantaneousEdiblesTypes.get_types().find(r.get_type()) != -1
+		EdibleTypes.get_types().find(r.get_type()) != -1
 		&& r.get_spawn_probability() > 0 && r.get_spawn_probability() <= 1
 		&& (r.get_life_span() == - 1 || r.get_life_span() > 0)
 		&& r.get_max_instances() > 0

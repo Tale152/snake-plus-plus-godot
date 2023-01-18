@@ -1,4 +1,4 @@
-class_name InstantaneousEdiblesTypes
+class_name EdibleTypes
 
 static func get_types() -> Array:
 	return [

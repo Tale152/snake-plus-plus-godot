@@ -21,7 +21,7 @@ var _player_can_set_direction = true
 var _cells
 var _to_be_removed_queue = []
 
-var _instantaneous_edibles_builder: InstantaneousEdiblesBuilder
+var _edible_builder: EdibleBuilder
 
 # --- core functions ---
 func setup(
@@ -32,7 +32,7 @@ func setup(
 	_visual_parameters = visual_parameters
 	_init_cells()
 	_setup_snake()
-	_instantaneous_edibles_builder = InstantaneousEdiblesBuilder.new(
+	_edible_builder = EdibleBuilder.new(
 		_snake,
 		self,
 		_visual_parameters
@@ -121,7 +121,7 @@ func _handle_edibles_spawn(delta: float):
 		# instantaneous edibles spawn attempts
 		for ir in _stage_description.get_instantaneous_edible_rules():
 			if _can_spawn(ir, _edibles):
-				var instance = _instantaneous_edibles_builder \
+				var instance = _edible_builder \
 					.build_new() \
 					.set_rules(ir) \
 					.set_free_cells(free_cells) \
