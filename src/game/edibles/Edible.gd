@@ -21,7 +21,9 @@ func spawn(
 	_game = game
 	var px = visual_parameters.get_cell_pixels_size()
 	position = Vector2(placement.get_x() * px, placement.get_y() * px)
-	var sprite = visual_parameters.get_sprite(_rules.get_type()).duplicate()
+	var sprite = visual_parameters \
+		.get_edible_sprite(_rules.get_type()) \
+		.duplicate()
 	sprite.set_offset(Vector2(px / 2, px / 2))
 	add_child(sprite)
 	self.connect("snake_head_collision", _snake, "on_collision")

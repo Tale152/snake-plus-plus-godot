@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://src/game/edibles/types/Apple.gd"
 }, {
 "base": "Reference",
+"class": "AssetFiles",
+"language": "GDScript",
+"path": "res://src/game/utils/AssetFiles.gd"
+}, {
+"base": "Reference",
 "class": "BadApple",
 "language": "GDScript",
 "path": "res://src/game/edibles/types/BadApple.gd"
@@ -33,6 +38,11 @@ _global_script_classes=[ {
 "class": "EdibleRulesBuiler",
 "language": "GDScript",
 "path": "res://src/game/stage_description/EdibleRulesBuilder.gd"
+}, {
+"base": "Reference",
+"class": "EdibleSprite",
+"language": "GDScript",
+"path": "res://src/game/visual_parameters/EdibleSprite.gd"
 }, {
 "base": "Reference",
 "class": "EdibleTypes",
@@ -76,10 +86,12 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Apple": "",
+"AssetFiles": "",
 "BadApple": "",
 "EdibleBuilder": "",
 "EdibleRules": "",
 "EdibleRulesBuiler": "",
+"EdibleSprite": "",
 "EdibleTypes": "",
 "FieldSize": "",
 "ImmutablePoint": "",
