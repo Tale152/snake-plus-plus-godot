@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Apple.png-4cf67f0735acffd5edc1f354bba22edc.stex"
+path="res://.import/Apple_0.png-74c944ad48a6fb09e9a9de4245e3eca9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/skins/simple/Apple.png"
-dest_files=[ "res://.import/Apple.png-4cf67f0735acffd5edc1f354bba22edc.stex" ]
+source_file="res://assets/skins/simple/Apple_0.png"
+dest_files=[ "res://.import/Apple_0.png-74c944ad48a6fb09e9a9de4245e3eca9.stex" ]
 
 [params]
 
