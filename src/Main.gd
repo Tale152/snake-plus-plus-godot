@@ -42,15 +42,15 @@ func _init():
 	if description == null:
 		print("Description is null")
 	else:
+		var visual_parameters = VisualParametersBuilder.new() \
+			.set_cell_pixels_size(CELL_PIXEL_SIZE) \
+			.add_edible_sprite(EdibleSprite.new("res://assets/skins/simple/edibles", "Apple")) \
+			.add_edible_sprite(EdibleSprite.new("res://assets/skins/simple/edibles", "BadApple")) \
+			.build()
+		
 		var game = Game.instance()
 		game.setup(
 			description, 
-			VisualParameters.new(
-				CELL_PIXEL_SIZE, 
-				[
-					EdibleSprite.new("res://assets/skins/simple/edibles", "Apple"),
-					EdibleSprite.new("res://assets/skins/simple/edibles", "BadApple"),
-				]
-			)
+			visual_parameters
 		)
 		add_child(game)

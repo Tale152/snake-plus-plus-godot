@@ -83,6 +83,11 @@ _global_script_classes=[ {
 "class": "VisualParameters",
 "language": "GDScript",
 "path": "res://src/game/visual_parameters/VisualParameters.gd"
+}, {
+"base": "Reference",
+"class": "VisualParametersBuilder",
+"language": "GDScript",
+"path": "res://src/game/visual_parameters/VisualParametersBuilder.gd"
 } ]
 _global_script_class_icons={
 "Apple": "",
@@ -99,7 +104,8 @@ _global_script_class_icons={
 "MutablePoint": "",
 "StageDescription": "",
 "StageDescriptionBuilder": "",
-"VisualParameters": ""
+"VisualParameters": "",
+"VisualParametersBuilder": ""
 }
 
 [application]
