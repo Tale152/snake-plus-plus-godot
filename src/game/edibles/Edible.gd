@@ -25,6 +25,7 @@ func spawn(
 		.get_edible_sprite(_rules.get_type()) \
 		.duplicate()
 	sprite.set_offset(Vector2(px / 2, px / 2))
+	sprite.play()
 	add_child(sprite)
 	self.connect("snake_head_collision", _snake, "on_collision")
 
