@@ -5,6 +5,14 @@ enum DIRECTIONS {
 	DOWN
 }
 
+static func get_directions() -> Array:
+	return [
+		DIRECTIONS.UP,
+		DIRECTIONS.DOWN,
+		DIRECTIONS.LEFT,
+		DIRECTIONS.RIGHT
+	]
+
 static func get_opposite(direction):
 	match direction:
 		DIRECTIONS.UP:
