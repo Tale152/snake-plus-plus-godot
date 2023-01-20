@@ -44,6 +44,7 @@ func _init():
 	else:
 		var visual_parameters = VisualParametersBuilder.new() \
 			.set_cell_pixels_size(CELL_PIXEL_SIZE) \
+			.set_snake_skin_path("res://assets/skins/simple/snake") \
 			.add_edible_sprite(EdibleSprite.new("res://assets/skins/simple/edibles", "Apple")) \
 			.add_edible_sprite(EdibleSprite.new("res://assets/skins/simple/edibles", "BadApple")) \
 			.build()
