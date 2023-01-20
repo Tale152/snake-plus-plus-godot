@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "AnimationUtils",
+"language": "GDScript",
+"path": "res://src/game/visual_parameters/utils/AnimationUtils.gd"
+}, {
+"base": "Reference",
 "class": "Apple",
 "language": "GDScript",
 "path": "res://src/game/edibles/types/Apple.gd"
@@ -105,6 +110,7 @@ _global_script_classes=[ {
 "path": "res://src/game/visual_parameters/VisualParametersBuilder.gd"
 } ]
 _global_script_class_icons={
+"AnimationUtils": "",
 "Apple": "",
 "AssetFiles": "",
 "BadApple": "",

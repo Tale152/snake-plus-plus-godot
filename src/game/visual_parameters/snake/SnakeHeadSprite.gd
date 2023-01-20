@@ -9,30 +9,17 @@ var _sprite: AnimatedSprite
 func _init(path: String, direction: int, is_tail: bool):
 	_direction = direction
 	_is_tail = is_tail
-	var sprite: AnimatedSprite = AnimatedSprite.new()
-	sprite.frames = SpriteFrames.new()
-	sprite.frames.add_animation("default")
+	_sprite = AnimationUtils.create_animated_sprite_with_animation("default")
 	var name = "head_"
 	if _is_tail:
 		name += "tail_"
 	if direction == DIRECTIONS.UP || direction == DIRECTIONS.DOWN:
 		name += "UP"
+		_sprite.flip_v = direction == DIRECTIONS.DOWN
 	else:
 		name += "RIGHT"
-	var i = 0
-	var searching_for_sprites = true
-	while searching_for_sprites:
-		var f = AssetFiles.build_asset_path(path, name, i)
-		if AssetFiles.asset_exists(f):
-			sprite.frames.add_frame("default", AssetFiles.load_asset(f), i)
-			i += 1
-		else:
-			searching_for_sprites = false
-	if direction == DIRECTIONS.DOWN:
-		sprite.flip_v = true
-	elif direction == DIRECTIONS.LEFT:
-		sprite.flip_h = true
-	_sprite = sprite
+		_sprite.flip_h = direction == DIRECTIONS.LEFT
+	AnimationUtils.add_frames_to_animation(_sprite.frames, "default", path, name)
 
 func get_direction() -> int:
 	return _direction
