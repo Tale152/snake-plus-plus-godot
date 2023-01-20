@@ -70,6 +70,16 @@ _global_script_classes=[ {
 "path": "res://src/game/utils/point/MutablePoint.gd"
 }, {
 "base": "Reference",
+"class": "SnakeHeadSprite",
+"language": "GDScript",
+"path": "res://src/game/visual_parameters/snake/SnakeHeadSprite.gd"
+}, {
+"base": "Reference",
+"class": "SnakeTailSprite",
+"language": "GDScript",
+"path": "res://src/game/visual_parameters/snake/SnakeTailSprite.gd"
+}, {
+"base": "Reference",
 "class": "StageDescription",
 "language": "GDScript",
 "path": "res://src/game/stage_description/StageDescription.gd"
@@ -102,6 +112,8 @@ _global_script_class_icons={
 "ImmutablePoint": "",
 "MovementInput": "",
 "MutablePoint": "",
+"SnakeHeadSprite": "",
+"SnakeTailSprite": "",
 "StageDescription": "",
 "StageDescriptionBuilder": "",
 "VisualParameters": "",
