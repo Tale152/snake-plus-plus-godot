@@ -1,9 +1,10 @@
 class_name AnimationUtils extends Reference
 
-static func create_animated_sprite_with_animation(animation_name: String) -> AnimatedSprite:
+static func create_animated_sprite_with_animation(animation_name: String = "default") -> AnimatedSprite:
 	var sprite: AnimatedSprite = AnimatedSprite.new()
 	sprite.frames = SpriteFrames.new()
-	sprite.frames.add_animation(animation_name)
+	if animation_name != "default":
+		sprite.frames.add_animation(animation_name)
 	return sprite
 
 static func add_frames_to_animation(

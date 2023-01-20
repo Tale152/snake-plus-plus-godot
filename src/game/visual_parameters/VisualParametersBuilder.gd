@@ -27,7 +27,7 @@ func build() -> VisualParameters:
 		head_sprites.push_back(SnakeHeadSprite.new(_snake_skin_path, d, false))
 		tail_sprites.push_back(SnakeTailSprite.new(_snake_skin_path, d))
 		for j in DirectionsEnum.get_directions():
-			if DirectionsEnum.are_diagonal(d,j):
+			if d != j:
 				body_sprites.push_back(SnakeBodySprite.new(_snake_skin_path, d, j))
 	return VisualParameters.new(
 		_cell_pixels_size,

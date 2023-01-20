@@ -9,8 +9,10 @@ var properties
 var body_parts
 var field_s
 var e
+var _visual_parameters
 	
-func initialize(direction, coordinates, field_size, engine):
+func initialize(direction, coordinates, field_size, engine, visual_parameters):
+	_visual_parameters = visual_parameters
 	e = engine
 	properties = Properties.new(direction)
 	field_s = field_size
@@ -108,7 +110,7 @@ func _lenghten_body_if_necessary(previous_part_old_placement):
 			previous_tail.move_to(previous_tail.placement)
 		# creating new body part
 		var new_body_part = BodyPart.instance()
-		new_body_part.spawn(previous_part_old_placement, self, e)
+		new_body_part.spawn(previous_part_old_placement, self, e, _visual_parameters)
 		add_child(new_body_part)
 		body_parts.push_back(new_body_part)
 		

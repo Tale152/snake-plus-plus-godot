@@ -71,7 +71,8 @@ func _setup_snake():
 			_stage_description.get_field_size().get_width() * _visual_parameters.get_cell_pixels_size(),
 			_stage_description.get_field_size().get_height() * _visual_parameters.get_cell_pixels_size()
 		),
-		self
+		self,
+		_visual_parameters
 	)
 	add_child(_snake)
 

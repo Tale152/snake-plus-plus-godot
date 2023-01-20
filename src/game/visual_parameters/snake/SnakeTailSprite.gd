@@ -7,7 +7,7 @@ var _sprite: AnimatedSprite
 
 func _init(path: String, direction: int):
 	_direction = direction
-	_sprite = AnimationUtils.create_animated_sprite_with_animation("default")
+	_sprite = AnimationUtils.create_animated_sprite_with_animation()
 	var name
 	if direction == DIRECTIONS.UP || direction == DIRECTIONS.DOWN:
 		name = "tail_UP"

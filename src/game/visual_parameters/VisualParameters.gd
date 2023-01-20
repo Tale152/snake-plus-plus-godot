@@ -22,26 +22,26 @@ func _init(
 func get_cell_pixels_size() -> int:
 	return _cell_pixels_size
 
-func get_edible_sprite(name: String) -> EdibleSprite:
+func get_edible_sprite(name: String) -> AnimatedSprite:
 	for s in _edible_sprites:
 		if s.get_name() == name:
 			return s.get_sprite()
 	return null
 
-func get_head_sprite(direction: int, is_tail: bool) -> SnakeHeadSprite:
+func get_head_sprite(direction: int, is_tail: bool) -> AnimatedSprite:
 	for h in _head_sprites:
 		if h.is_tail() == is_tail && h.get_direction() == direction:
-			return h
+			return h.get_sprite()
 	return null
 
-func get_body_sprite(traveling_direction: int, back_direction:int) -> SnakeBodySprite:
+func get_body_sprite(traveling_direction: int, back_direction:int) -> AnimatedSprite:
 	for b in _body_sprites:
 		if b.get_traveling_direction() == traveling_direction && b.get_back_direction() == back_direction:
-			return b
+			return b.get_sprite()
 	return null
 
-func get_tail_sprite(direction: int) -> SnakeTailSprite:
+func get_tail_sprite(direction: int) -> AnimatedSprite:
 	for t in _tail_sprites:
 		if t.get_direction() == direction:
-			return t
+			return t.get_sprite()
 	return null

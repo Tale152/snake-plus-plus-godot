@@ -10,7 +10,7 @@ var _sprite: AnimatedSprite
 func _init(path: String, traveling_direction: int, back_direction:int):
 	_traveling_direction = traveling_direction
 	_back_direction = back_direction
-	_sprite = AnimationUtils.create_animated_sprite_with_animation("default")
+	_sprite = AnimationUtils.create_animated_sprite_with_animation()
 	var name
 	if DirectionsEnum.are_opposite(traveling_direction, back_direction):
 		if _traveling_direction == DIRECTIONS.UP || _traveling_direction == DIRECTIONS.DOWN:
