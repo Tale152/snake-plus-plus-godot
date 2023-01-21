@@ -18,7 +18,7 @@ func initialize(direction, coordinates, field_size, engine, visual_parameters):
 	field_s = field_size
 	body_parts = []
 	var tmp = Placement.new(coordinates, direction, null)
-	$Head.initialize(tmp)
+	$Head.initialize(tmp, _visual_parameters)
 
 func on_collision(collidable):
 	collidable.on_snake_head_collision()
