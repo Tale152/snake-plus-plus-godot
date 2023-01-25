@@ -107,7 +107,10 @@ func _handle_snake_movement(delta: float):
 	if _movement_elapsed_seconds >= current_delta_seconds:
 		_player_can_set_direction = true
 		_movement_elapsed_seconds -= current_delta_seconds
-		_snake.move(_visual_parameters.get_cell_pixels_size())
+		_snake.move(
+			_visual_parameters.get_cell_pixels_size(),
+			current_delta_seconds
+		)
 
 func _handle_to_be_removed_queue_clear():
 	for r in _to_be_removed_queue:

@@ -25,23 +25,23 @@ func get_cell_pixels_size() -> int:
 func get_edible_sprite(name: String) -> AnimatedSprite:
 	for s in _edible_sprites:
 		if s.get_name() == name:
-			return s.get_sprite()
+			return s.get_sprite().duplicate()
 	return null
 
 func get_head_sprite(direction: int, is_tail: bool) -> AnimatedSprite:
 	for h in _head_sprites:
 		if h.is_tail() == is_tail && h.get_direction() == direction:
-			return h.get_sprite()
+			return h.get_sprite().duplicate()
 	return null
 
 func get_body_sprite(traveling_direction: int, back_direction:int) -> AnimatedSprite:
 	for b in _body_sprites:
 		if b.get_traveling_direction() == traveling_direction && b.get_back_direction() == back_direction:
-			return b.get_sprite()
+			return b.get_sprite().duplicate()
 	return null
 
 func get_tail_sprite(direction: int) -> AnimatedSprite:
 	for t in _tail_sprites:
 		if t.get_direction() == direction:
-			return t.get_sprite()
+			return t.get_sprite().duplicate()
 	return null

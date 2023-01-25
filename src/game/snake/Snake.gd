@@ -23,11 +23,11 @@ func initialize(direction, coordinates, field_size, engine, visual_parameters):
 func on_collision(collidable):
 	collidable.on_snake_head_collision()
 	
-func move(sprite_size):
+func move(sprite_size, movement_delta):
 	_shorten_body_if_necessary()
 	var previous_part_old_placement = _move_body(sprite_size)
 	_lenghten_body_if_necessary(previous_part_old_placement)
-	_render_snake()
+	_render_snake(movement_delta)
 
 func get_body_points() -> Array:
 	var res = []
@@ -114,7 +114,11 @@ func _lenghten_body_if_necessary(previous_part_old_placement):
 		add_child(new_body_part)
 		body_parts.push_back(new_body_part)
 		
-func _render_snake():
+func _render_snake(movement_delta):
 	$Head.move_to($Head.placement)
 	for b in body_parts:
 		b.move_to(b.placement)
+	var speed_scale = 1 / movement_delta
+	$Head.play_sprite_animation(speed_scale)
+	for b in body_parts:
+		b.play_sprite_animation(speed_scale)

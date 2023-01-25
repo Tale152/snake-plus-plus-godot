@@ -22,14 +22,11 @@ func move_to(new_placement):
 	var sprite_tmp
 	if(placement.previous_direction == null):
 		sprite_tmp = _visual_parameters \
-		.get_tail_sprite(placement.next_direction) \
-		.duplicate()
+		.get_tail_sprite(placement.next_direction)
 	else:
 		sprite_tmp = _visual_parameters \
-		.get_body_sprite(placement.next_direction, placement.previous_direction) \
-		.duplicate()
+		.get_body_sprite(placement.next_direction, placement.previous_direction)
 	sprite_tmp.set_offset(Vector2(px / 2, px / 2))
-	sprite_tmp.play()
 	if _sprite != null:
 		remove_child(_sprite)
 	_sprite = sprite_tmp
@@ -41,3 +38,7 @@ func _on_BodyPart_area_entered(area):
 
 func on_snake_head_collision():
 	e.set_game_over(true)
+
+func play_sprite_animation(speed_scale):
+	_sprite.speed_scale = speed_scale
+	_sprite.play()

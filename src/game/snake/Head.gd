@@ -21,8 +21,11 @@ func _set_sprite():
 		)
 	var px = _visual_parameters.get_cell_pixels_size()
 	sprite_tmp.set_offset(Vector2(px / 2, px / 2))
-	sprite_tmp.play()
 	if _sprite != null:
 		remove_child(_sprite)
 	_sprite = sprite_tmp
 	self.add_child(_sprite)
+
+func play_sprite_animation(speed_scale):
+	_sprite.speed_scale = speed_scale
+	_sprite.play()
