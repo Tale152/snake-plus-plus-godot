@@ -10,7 +10,7 @@ const FIELD_WIDTH = 10
 var FIELD_SIZE = FieldSize.new(FIELD_HEIGHT, FIELD_WIDTH)
 var SNAKE_SPAWN_POINT = ImmutablePoint.new(0,0)
 const SNAKE_INITIAL_DIRECTION = DIRECTIONS.RIGHT
-const SNAKE_BASE_DELTA_SECONDS = 0.3
+const SNAKE_BASE_DELTA_SECONDS = 0.5
 const SNAKE_SPEEDUP_FACTOR = 0.99
 var APPLE_RULES = EdibleRulesBuiler.new() \
 	.set_max_instances(5) \
@@ -44,7 +44,7 @@ func _init():
 	else:
 		var visual_parameters = VisualParametersBuilder.new() \
 			.set_cell_pixels_size(CELL_PIXEL_SIZE) \
-			.set_snake_skin_path("res://assets/skins/arrow/snake") \
+			.set_snake_skin_path("res://assets/skins/simple/snake") \
 			.add_edible_sprite(EdibleSprite.new("res://assets/skins/simple/edibles", "Apple")) \
 			.add_edible_sprite(EdibleSprite.new("res://assets/skins/simple/edibles", "BadApple")) \
 			.build()
