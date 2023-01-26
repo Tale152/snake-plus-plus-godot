@@ -28,6 +28,12 @@ func move(movement_delta: float):
 	_lenghten_body_if_necessary(previous_part_old_placement)
 	_render_snake(movement_delta)
 
+func get_head_coordinates() -> ImmutablePoint:
+	return ImmutablePoint.new(
+		$Head.get_placement().get_coordinates().get_x(),
+		$Head.get_placement().get_coordinates().get_y()
+	)
+
 func get_body_coordinates() -> Array:
 	var res = []
 	res.push_back(ImmutablePoint.new(
