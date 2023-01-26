@@ -143,6 +143,12 @@ func _count_instances_by_type(array: Array, type: String) -> int:
 
 func _get_free_cells() -> Array:
 	var res = _cells.duplicate(false)
+	var h = ImmutablePoint.get_point_index_in_array(
+		res,
+		_snake.get_head_coordinates()
+	)
+	if h != -1:
+			res.pop_at(h)
 	for s in _snake.get_body_coordinates():
 		var i = ImmutablePoint.get_point_index_in_array(res, s)
 		if i != -1:

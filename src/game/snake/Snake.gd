@@ -36,10 +36,6 @@ func get_head_coordinates() -> ImmutablePoint:
 
 func get_body_coordinates() -> Array:
 	var res = []
-	res.push_back(ImmutablePoint.new(
-		$Head.get_placement().get_coordinates().get_x(),
-		$Head.get_placement().get_coordinates().get_y()
-	))
 	for b in _body_parts:
 		res.push_back(ImmutablePoint.new(
 			b.get_placement().get_coordinates().get_x(),
