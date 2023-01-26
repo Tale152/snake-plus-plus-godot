@@ -8,7 +8,7 @@ var _sprite
 var _px: int
 var _offset: int
 
-func spawn(starting_placement: Placement, snake, game):
+func _init(starting_placement: Placement, snake, game):
 	_snake = snake
 	_game = game
 	_placement = starting_placement

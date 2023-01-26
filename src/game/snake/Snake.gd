@@ -122,13 +122,12 @@ func _lenghten_body_if_necessary(previous_part_old_placement: Placement) -> void
 		#correcting previous tail sprite
 		var target = _head if _properties.get_current_length() == 2 else _body_parts[-1]
 		target.get_placement().set_previous_direction(
-				Directions.get_opposite(
-					previous_part_old_placement.get_next_direction()
-				)
+			Directions.get_opposite(
+				previous_part_old_placement.get_next_direction()
 			)
+		)
 		# creating new body part
-		var new_body_part = BodyPart.new()
-		new_body_part.spawn(
+		var new_body_part = BodyPart.new(
 			previous_part_old_placement,
 			self,
 			_game
