@@ -6,7 +6,7 @@ var _game
 var _snake
 var _visual_parameters
 
-func spawn(
+func _init(
 	coordinates: ImmutablePoint,
 	rules,
 	snake,

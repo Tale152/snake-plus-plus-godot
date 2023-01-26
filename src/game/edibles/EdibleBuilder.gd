@@ -34,8 +34,7 @@ func build():
 	var placement = _get_valid_placement()
 	if placement == null:
 		return null
-	var instance = Edible.new()
-	instance.spawn(
+	var instance = Edible.new(
 		placement,
 		_rules,
 		_snake,

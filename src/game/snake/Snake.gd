@@ -1,4 +1,4 @@
-extends Node2D
+class_name Snake extends Node2D
 
 var _properties: Properties
 var _body_parts: Array
@@ -6,7 +6,7 @@ var _game
 var _px: int
 var _head: Head
 	
-func initialize(game):
+func _init(game):
 	_game = game
 	_px = _game.get_visual_parameters().get_cell_pixels_size()
 	_properties = Properties.new(

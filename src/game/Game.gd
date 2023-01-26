@@ -1,8 +1,5 @@
 extends Node
 
-# --- preloads ---
-const Snake = preload("res://src/game/snake/Snake.tscn")
-
 # --- constants ---
 const EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
 
@@ -67,8 +64,7 @@ func _init_cells():
 			_cells.push_back(ImmutablePoint.new(x, y))
 
 func _setup_snake():
-	_snake = Snake.instance()
-	_snake.initialize(self)
+	_snake = Snake.new(self)
 	add_child(_snake)
 
 # --- private process functions ---
