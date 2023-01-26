@@ -1,4 +1,4 @@
-extends Area2D
+class_name BodyPart extends Area2D
 
 var _placement: Placement
 var _snake

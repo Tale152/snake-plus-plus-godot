@@ -1,7 +1,5 @@
 extends Node2D
 
-const BodyPart = preload("./BodyPart.tscn")
-
 var _properties: Properties
 var _body_parts: Array
 var _game
@@ -127,7 +125,7 @@ func _lenghten_body_if_necessary(previous_part_old_placement: Placement) -> void
 				)
 			)
 		# creating new body part
-		var new_body_part = BodyPart.instance()
+		var new_body_part = BodyPart.new()
 		new_body_part.spawn(
 			previous_part_old_placement,
 			self,
