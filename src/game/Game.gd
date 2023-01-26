@@ -1,12 +1,12 @@
-extends Node
+class_name Game extends Node
 
 # --- constants ---
 const EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
 
 var rng = RandomNumberGenerator.new()
 var _game_over = false
-var _stage_description
-var _visual_parameters
+var _stage_description: StageDescription
+var _visual_parameters: VisualParameters
 var _setup_completed
 var _snake
 var _movement_elapsed_seconds = 0
@@ -18,13 +18,13 @@ var _to_be_removed_queue = []
 
 var _edible_builder: EdibleBuilder
 
-# --- core functions ---
-func setup(
+func _init(
 	stage_description: StageDescription,
 	visual_parameters: VisualParameters
 ):
 	_stage_description = stage_description
 	_visual_parameters = visual_parameters
+	_set_background()
 	_init_cells()
 	_setup_snake()
 	_edible_builder = EdibleBuilder.new(
@@ -33,6 +33,8 @@ func setup(
 		_visual_parameters
 	)
 	_setup_completed = true
+
+# --- core functions ---
 
 func _process(delta):
 	if _setup_completed && !_game_over:
@@ -56,6 +58,15 @@ func get_visual_parameters() -> VisualParameters:
 	return _visual_parameters
 
 # --- private setup functions ---
+
+func _set_background():
+	var background = ColorRect.new()
+	background.rect_size = Vector2(
+		_visual_parameters.get_cell_pixels_size() * _stage_description.get_field_size().get_width(),
+		_visual_parameters.get_cell_pixels_size() * _stage_description.get_field_size().get_height()
+	) 
+	background.color = Color(0.8, 1, 0.9)
+	self.add_child(background)
 
 func _init_cells():
 	_cells = []

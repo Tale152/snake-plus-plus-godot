@@ -6,7 +6,6 @@ var _game
 var _visual_parameters: VisualParameters
 var _sprite
 var _px: int
-var _offset: int
 
 func _init(starting_placement: Placement, snake, game):
 	_snake = snake
@@ -14,7 +13,6 @@ func _init(starting_placement: Placement, snake, game):
 	_placement = starting_placement
 	_visual_parameters = _game.get_visual_parameters()
 	_px = _visual_parameters.get_cell_pixels_size()
-	_offset = int(float(_px) / 2)
 	move_to_placement()
 
 func move_to_placement():
@@ -32,7 +30,6 @@ func move_to_placement():
 				_placement.get_next_direction(),
 				_placement.get_previous_direction()
 			)
-	sprite_tmp.set_offset(Vector2(_offset, _offset))
 	if _sprite != null:
 		remove_child(_sprite)
 	_sprite = sprite_tmp

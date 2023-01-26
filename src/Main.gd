@@ -1,16 +1,14 @@
 extends Node
 
-const Game = preload("res://src/game/Game.tscn")
-
-const CELL_PIXEL_SIZE = 16
+const CELL_PIXEL_SIZE = 20
 
 const FIELD_HEIGHT = 20
 const FIELD_WIDTH = 10
 var FIELD_SIZE = FieldSize.new(FIELD_HEIGHT, FIELD_WIDTH)
 var SNAKE_SPAWN_POINT = ImmutablePoint.new(0,0)
 var SNAKE_INITIAL_DIRECTION = Directions.get_right()
-const SNAKE_BASE_DELTA_SECONDS = 0.5
-const SNAKE_SPEEDUP_FACTOR = 0.99
+const SNAKE_BASE_DELTA_SECONDS = 0.3
+const SNAKE_SPEEDUP_FACTOR = 0.98
 var APPLE_RULES = EdibleRulesBuiler.new() \
 	.set_max_instances(5) \
 	.set_spawn_locations([]) \
@@ -43,14 +41,8 @@ func _init():
 	else:
 		var visual_parameters = VisualParametersBuilder.new() \
 			.set_cell_pixels_size(CELL_PIXEL_SIZE) \
-			.set_snake_skin_path("res://assets/skins/arrow/snake") \
+			.set_snake_skin_path("res://assets/skins/simple/snake") \
 			.add_edible_sprite(EdibleSprite.new("res://assets/skins/simple/edibles", "Apple")) \
 			.add_edible_sprite(EdibleSprite.new("res://assets/skins/simple/edibles", "BadApple")) \
 			.build()
-		
-		var game = Game.instance()
-		game.setup(
-			description, 
-			visual_parameters
-		)
-		add_child(game)
+		add_child(Game.new(description, visual_parameters))

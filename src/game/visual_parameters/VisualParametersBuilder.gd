@@ -27,6 +27,10 @@ func build() -> VisualParameters:
 		for j in Directions.get_directions():
 			if d != j:
 				body_sprites.push_back(SnakeBodySprite.new(_snake_skin_path, d, j))
+	_scale_array_of_sprites(head_sprites, _cell_pixels_size)
+	_scale_array_of_sprites(body_sprites, _cell_pixels_size)
+	_scale_array_of_sprites(tail_sprites, _cell_pixels_size)
+	_scale_array_of_sprites(_edible_sprites, _cell_pixels_size)
 	return VisualParameters.new(
 		_cell_pixels_size,
 		_edible_sprites,
@@ -34,3 +38,13 @@ func build() -> VisualParameters:
 		body_sprites,
 		tail_sprites
 	)
+
+func _scale_array_of_sprites(arr, cell_pixels_size) -> void:
+	var px: float = float(cell_pixels_size)
+	for elem in arr:
+		var sprite = elem.get_sprite()
+		var width = float(sprite.get_sprite_frames().get_frame("default",0).get_width())
+		var scale = px / width
+		sprite.set_scale(Vector2(scale, scale))
+		var offset = (px / 2) / scale
+		sprite.set_offset(Vector2(offset, offset))
