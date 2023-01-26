@@ -16,8 +16,14 @@ func _init(
 func get_coordinates() -> ImmutablePoint:
 	return _coordinates
 
+func set_coordinates(c: ImmutablePoint) -> void:
+	_coordinates = c
+
 func get_next_direction() -> int:
 	return _next_direction
+
+func set_next_direction(d: int) -> void:
+	_next_direction = d
 
 func get_previous_direction() -> int:
 	return _previous_direction
