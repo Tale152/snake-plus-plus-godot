@@ -10,7 +10,7 @@ var _sprite
 var _px: int
 var _offset: int
 
-func spawn(starting_placement: Placement, snake, game, visual_parameters):
+func spawn(starting_placement: Placement, snake, game):
 	self.connect("snake_head_collision", snake, "on_collision")
 	_snake = snake
 	_game = game

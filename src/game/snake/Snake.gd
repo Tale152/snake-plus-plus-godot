@@ -131,8 +131,7 @@ func _lenghten_body_if_necessary(previous_part_old_placement: Placement) -> void
 		new_body_part.spawn(
 			previous_part_old_placement,
 			self,
-			_game,
-			_game.get_visual_parameters()
+			_game
 		)
 		add_child(new_body_part)
 		_body_parts.push_back(new_body_part)
