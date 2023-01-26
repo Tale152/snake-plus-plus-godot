@@ -3,6 +3,7 @@ extends Area2D
 var _placement: Placement
 var _visual_parameters: VisualParameters
 var _px: int
+var _offset: int
 var _stage_description: StageDescription
 var _sprite: AnimatedSprite
 
@@ -10,6 +11,7 @@ func initialize(game):
 	_visual_parameters = game.get_visual_parameters()
 	_stage_description = game.get_stage_description()
 	_px = _visual_parameters.get_cell_pixels_size()
+	_offset = int(float(_px) / 2)
 	_placement = Placement.new(
 		_stage_description.get_snake_spawn_point(),
 		_stage_description.get_snake_initial_direction(),
@@ -40,7 +42,7 @@ func _set_sprite():
 			_placement.get_next_direction(),
 			_placement.get_previous_direction() == -1 # is tail?
 		)
-	sprite_tmp.set_offset(Vector2(_px / 2, _px / 2))
+	sprite_tmp.set_offset(Vector2(_offset, _offset))
 	if _sprite != null:
 		remove_child(_sprite)
 	_sprite = sprite_tmp
