@@ -21,3 +21,6 @@ func get_next_direction() -> int:
 
 func get_previous_direction() -> int:
 	return _previous_direction
+
+func set_previous_direction(d: int) -> void:
+	_previous_direction = d
