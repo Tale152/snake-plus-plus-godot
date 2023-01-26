@@ -30,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://src/game/edibles/types/BadApple.gd"
 }, {
 "base": "Reference",
+"class": "Directions",
+"language": "GDScript",
+"path": "res://src/game/utils/Directions.gd"
+}, {
+"base": "Reference",
 "class": "EdibleBuilder",
 "language": "GDScript",
 "path": "res://src/game/edibles/EdibleBuilder.gd"
@@ -119,6 +124,7 @@ _global_script_class_icons={
 "Apple": "",
 "AssetFiles": "",
 "BadApple": "",
+"Directions": "",
 "EdibleBuilder": "",
 "EdibleRules": "",
 "EdibleRulesBuiler": "",
