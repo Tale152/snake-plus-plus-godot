@@ -74,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/stage_description/FieldSize.gd"
 }, {
+"base": "Area2D",
+"class": "Head",
+"language": "GDScript",
+"path": "res://src/game/snake/Head.gd"
+}, {
 "base": "Reference",
 "class": "ImmutablePoint",
 "language": "GDScript",
@@ -143,6 +148,7 @@ _global_script_class_icons={
 "EdibleSprite": "",
 "EdibleTypes": "",
 "FieldSize": "",
+"Head": "",
 "ImmutablePoint": "",
 "MovementInput": "",
 "Placement": "",

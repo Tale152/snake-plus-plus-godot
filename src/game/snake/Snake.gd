@@ -4,6 +4,7 @@ var _properties: Properties
 var _body_parts: Array
 var _game
 var _px: int
+var _head: Head
 	
 func initialize(game):
 	_game = game
@@ -12,7 +13,8 @@ func initialize(game):
 		_game.get_stage_description().get_snake_initial_direction()
 	)
 	_body_parts = []
-	$Head.initialize(_game)
+	_head = Head.new(_game)
+	self.add_child(_head)
 
 func get_properties() -> Properties:
 	return _properties
@@ -25,8 +27,8 @@ func move(movement_delta: float):
 
 func get_head_coordinates() -> ImmutablePoint:
 	return ImmutablePoint.new(
-		$Head.get_placement().get_coordinates().get_x(),
-		$Head.get_placement().get_coordinates().get_y()
+		_head.get_placement().get_coordinates().get_x(),
+		_head.get_placement().get_coordinates().get_y()
 	)
 
 func get_body_coordinates() -> Array:
@@ -53,19 +55,19 @@ func _shorten_body_if_necessary() -> void:
 		if _properties.get_current_length() > 1:
 			_body_parts[-1].get_placement().set_previous_direction(-1)
 		else:
-			$Head.get_placement().set_previous_direction(-1)
+			_head.get_placement().set_previous_direction(-1)
 		
 func _move_body() -> Placement:
 	# storing previous head placement
 	var previous_part_old_placement = Placement.new(
-			$Head.get_placement().get_coordinates(),
-			$Head.get_placement().get_next_direction(),
-			$Head.get_placement().get_previous_direction()
+			_head.get_placement().get_coordinates(),
+			_head.get_placement().get_next_direction(),
+			_head.get_placement().get_previous_direction()
 		)
 	
 	# setting new placement values for head
-	var x: int = $Head.get_placement().get_coordinates().get_x()
-	var y: int = $Head.get_placement().get_coordinates().get_y()
+	var x: int = _head.get_placement().get_coordinates().get_x()
+	var y: int = _head.get_placement().get_coordinates().get_y()
 	var next_direction: int
 	if _properties.get_current_direction() == Directions.get_right():
 		x += 1
@@ -88,21 +90,21 @@ func _move_body() -> Placement:
 		y = field_size.get_height() - 1
 	elif y >= field_size.get_height():
 		y = 0
-	$Head.set_placement(Placement.new(
+	_head.set_placement(Placement.new(
 		ImmutablePoint.new(x, y),
 		next_direction,
-		$Head.get_placement().get_previous_direction()
+		_head.get_placement().get_previous_direction()
 	))
 	
 	# moving body
 	if _body_parts.size() > 0:
 		# adjusting head to have the correct previous_direction
-		$Head.get_placement().set_previous_direction(
+		_head.get_placement().set_previous_direction(
 			Directions.get_opposite(next_direction)
 		)
 		# adjusting previous_part_old_placement to have the correct next_direction
 		previous_part_old_placement.set_next_direction(
-			$Head.get_placement().get_next_direction()
+			_head.get_placement().get_next_direction()
 		)
 		# shifting the placement in the body
 		for b in _body_parts:
@@ -118,7 +120,7 @@ func _lenghten_body_if_necessary(previous_part_old_placement: Placement) -> void
 	if _properties.get_potential_length() > _properties.get_current_length():
 		_properties.set_current_length(_properties.get_current_length() + 1)
 		#correcting previous tail sprite
-		var target = $Head if _properties.get_current_length() == 2 else _body_parts[-1]
+		var target = _head if _properties.get_current_length() == 2 else _body_parts[-1]
 		target.get_placement().set_previous_direction(
 				Directions.get_opposite(
 					previous_part_old_placement.get_next_direction()
@@ -135,10 +137,10 @@ func _lenghten_body_if_necessary(previous_part_old_placement: Placement) -> void
 		_body_parts.push_back(new_body_part)
 		
 func _render_snake(movement_delta: float):
-	$Head.move_to_placement()
+	_head.move_to_placement()
 	for b in _body_parts:
 		b.move_to_placement()
 	var speed_scale = 1 / movement_delta
-	$Head.play_sprite_animation(speed_scale)
+	_head.play_sprite_animation(speed_scale)
 	for b in _body_parts:
 		b.play_sprite_animation(speed_scale)

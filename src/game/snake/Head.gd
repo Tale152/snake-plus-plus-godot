@@ -1,4 +1,4 @@
-extends Area2D
+class_name Head extends Area2D
 
 var _placement: Placement
 var _visual_parameters: VisualParameters
@@ -7,7 +7,7 @@ var _offset: int
 var _stage_description: StageDescription
 var _sprite: AnimatedSprite
 
-func initialize(game):
+func _init(game):
 	_visual_parameters = game.get_visual_parameters()
 	_stage_description = game.get_stage_description()
 	_px = _visual_parameters.get_cell_pixels_size()
