@@ -1,6 +1,5 @@
 extends Node2D
 
-const DirectionsEnum = preload("res://src/enums/DirectionsEnum.gd")
 const BodyPart = preload("./BodyPart.tscn")
 
 var _properties: Properties
@@ -68,19 +67,18 @@ func _move_body() -> Placement:
 	var x: int = $Head.get_placement().get_coordinates().get_x()
 	var y: int = $Head.get_placement().get_coordinates().get_y()
 	var next_direction: int
-	match _properties.get_current_direction():
-		DirectionsEnum.DIRECTIONS.RIGHT:
-			x += 1
-			next_direction = DirectionsEnum.DIRECTIONS.RIGHT
-		DirectionsEnum.DIRECTIONS.LEFT:
-			x -= 1
-			next_direction = DirectionsEnum.DIRECTIONS.LEFT
-		DirectionsEnum.DIRECTIONS.UP:
-			y -= 1
-			next_direction = DirectionsEnum.DIRECTIONS.UP
-		DirectionsEnum.DIRECTIONS.DOWN:
-			y += 1
-			next_direction = DirectionsEnum.DIRECTIONS.DOWN
+	if _properties.get_current_direction() == Directions.get_right():
+		x += 1
+		next_direction = Directions.get_right()
+	elif _properties.get_current_direction() == Directions.get_left():
+		x -= 1
+		next_direction = Directions.get_left()
+	elif _properties.get_current_direction() == Directions.get_up():
+		y -= 1
+		next_direction = Directions.get_up()
+	elif _properties.get_current_direction() == Directions.get_down():
+		y += 1
+		next_direction = Directions.get_down()
 	var field_size: FieldSize = _game.get_stage_description().get_field_size()
 	if x < 0:
 		x = field_size.get_width() -1
@@ -100,7 +98,7 @@ func _move_body() -> Placement:
 	if _body_parts.size() > 0:
 		# adjusting head to have the correct previous_direction
 		$Head.get_placement().set_previous_direction(
-			DirectionsEnum.get_opposite(next_direction)
+			Directions.get_opposite(next_direction)
 		)
 		# adjusting previous_part_old_placement to have the correct next_direction
 		previous_part_old_placement.set_next_direction(
@@ -122,7 +120,7 @@ func _lenghten_body_if_necessary(previous_part_old_placement: Placement) -> void
 		#correcting previous tail sprite
 		var target = $Head if _properties.get_current_length() == 2 else _body_parts[-1]
 		target.get_placement().set_previous_direction(
-				DirectionsEnum.get_opposite(
+				Directions.get_opposite(
 					previous_part_old_placement.get_next_direction()
 				)
 			)

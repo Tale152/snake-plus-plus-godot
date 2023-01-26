@@ -1,7 +1,6 @@
 extends Node
 
 const Game = preload("res://src/game/Game.tscn")
-const DIRECTIONS = preload("res://src/enums/DirectionsEnum.gd").DIRECTIONS
 
 const CELL_PIXEL_SIZE = 16
 
@@ -9,7 +8,7 @@ const FIELD_HEIGHT = 20
 const FIELD_WIDTH = 10
 var FIELD_SIZE = FieldSize.new(FIELD_HEIGHT, FIELD_WIDTH)
 var SNAKE_SPAWN_POINT = ImmutablePoint.new(0,0)
-const SNAKE_INITIAL_DIRECTION = DIRECTIONS.RIGHT
+var SNAKE_INITIAL_DIRECTION = Directions.get_right()
 const SNAKE_BASE_DELTA_SECONDS = 0.5
 const SNAKE_SPEEDUP_FACTOR = 0.99
 var APPLE_RULES = EdibleRulesBuiler.new() \

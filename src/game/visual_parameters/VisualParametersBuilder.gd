@@ -1,7 +1,5 @@
 class_name VisualParametersBuilder extends Reference
 
-const DirectionsEnum = preload("res://src/enums/DirectionsEnum.gd")
-
 var _cell_pixels_size: int
 var _edible_sprites: Array = []
 var _snake_skin_path: String
@@ -22,11 +20,11 @@ func build() -> VisualParameters:
 	var head_sprites = []
 	var tail_sprites = []
 	var body_sprites = []
-	for d in DirectionsEnum.get_directions():
+	for d in Directions.get_directions():
 		head_sprites.push_back(SnakeHeadSprite.new(_snake_skin_path, d, true))
 		head_sprites.push_back(SnakeHeadSprite.new(_snake_skin_path, d, false))
 		tail_sprites.push_back(SnakeTailSprite.new(_snake_skin_path, d))
-		for j in DirectionsEnum.get_directions():
+		for j in Directions.get_directions():
 			if d != j:
 				body_sprites.push_back(SnakeBodySprite.new(_snake_skin_path, d, j))
 	return VisualParameters.new(

@@ -1,7 +1,5 @@
 class_name StageDescriptionBuilder extends Reference
 
-const DIRECTIONS = preload("res://src/enums/DirectionsEnum.gd").DIRECTIONS
-
 var _size: FieldSize = null
 var _snake_spawn_point: ImmutablePoint = null
 var _snake_initial_direction: int = -1
@@ -62,12 +60,7 @@ func _is_snake_spawn_point_valid():
 	return _snake_spawn_point != null && is_point_in_field(_snake_spawn_point)
 
 func _is_snake_initial_direction_valid():
-	return (
-		_snake_initial_direction == DIRECTIONS.UP
-		|| _snake_initial_direction == DIRECTIONS.DOWN
-		|| _snake_initial_direction == DIRECTIONS.LEFT
-		|| _snake_initial_direction == DIRECTIONS.RIGHT
-	)
+	return Directions.get_directions().find(_snake_initial_direction) != -1
 
 func _is_snake_base_delta_seconds_valid():
 	return _snake_base_delta_seconds > 0

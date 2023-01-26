@@ -2,8 +2,6 @@ extends Node
 
 # --- preloads ---
 const Snake = preload("res://src/game/snake/Snake.tscn")
-const DirectionsEnum = preload("res://src/enums/DirectionsEnum.gd")
-const DIRECTIONS = preload("res://src/enums/DirectionsEnum.gd").DIRECTIONS
 
 # --- constants ---
 const EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
@@ -76,20 +74,20 @@ func _setup_snake():
 # --- private process functions ---
 func _handle_movement_input():
 	if _player_can_set_direction:
-		if _compatible_movement_input(MovementInput.get_action_move_right(), DIRECTIONS.RIGHT):
-			_set_new_snake_direction(DIRECTIONS.RIGHT)
-		elif _compatible_movement_input(MovementInput.get_action_move_left(), DIRECTIONS.LEFT):
-			_set_new_snake_direction(DIRECTIONS.LEFT)
-		elif _compatible_movement_input(MovementInput.get_action_move_up(), DIRECTIONS.UP):
-			_set_new_snake_direction(DIRECTIONS.UP)
-		elif _compatible_movement_input(MovementInput.get_action_move_down(), DIRECTIONS.DOWN):
-			_set_new_snake_direction(DIRECTIONS.DOWN)
+		if _compatible_movement_input(MovementInput.get_action_move_right(), Directions.get_right()):
+			_set_new_snake_direction(Directions.get_right())
+		elif _compatible_movement_input(MovementInput.get_action_move_left(), Directions.get_left()):
+			_set_new_snake_direction(Directions.get_left())
+		elif _compatible_movement_input(MovementInput.get_action_move_up(), Directions.get_up()):
+			_set_new_snake_direction(Directions.get_up())
+		elif _compatible_movement_input(MovementInput.get_action_move_down(), Directions.get_down()):
+			_set_new_snake_direction(Directions.get_down())
 
 func _compatible_movement_input(input: String, current_direction: int) -> bool:
 	return (
 		Input.is_action_pressed(input)
 		&& _snake.get_properties().get_current_direction() != current_direction
-		&& _snake.get_properties().get_current_direction() != DirectionsEnum.get_opposite(current_direction)
+		&& _snake.get_properties().get_current_direction() != Directions.get_opposite(current_direction)
 	)
 
 func _set_new_snake_direction(direction:int):
