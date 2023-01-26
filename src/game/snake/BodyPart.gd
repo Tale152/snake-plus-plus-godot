@@ -1,7 +1,5 @@
 extends Area2D
 
-signal snake_head_collision(collidable)
-
 var _placement: Placement
 var _snake
 var _game
@@ -11,7 +9,6 @@ var _px: int
 var _offset: int
 
 func spawn(starting_placement: Placement, snake, game):
-	self.connect("snake_head_collision", snake, "on_collision")
 	_snake = snake
 	_game = game
 	_placement = starting_placement
@@ -40,10 +37,6 @@ func move_to_placement():
 		remove_child(_sprite)
 	_sprite = sprite_tmp
 	self.add_child(_sprite)
-
-func _on_BodyPart_area_entered(area):
-	if area == _snake.get_node("Head"):
-		emit_signal("snake_head_collision", self)
 
 func on_snake_head_collision():
 	_game.set_game_over(true)

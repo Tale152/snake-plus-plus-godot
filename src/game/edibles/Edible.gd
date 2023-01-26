@@ -1,7 +1,5 @@
 extends Area2D
 
-signal snake_head_collision(collidable)
-
 var _coordinates: ImmutablePoint
 var _rules
 var _game
@@ -27,7 +25,6 @@ func spawn(
 	sprite.set_offset(Vector2(px / 2, px / 2))
 	sprite.play()
 	add_child(sprite)
-	self.connect("snake_head_collision", _snake, "on_collision")
 
 func get_type():
 	return _rules.get_type()
@@ -42,7 +39,3 @@ func on_snake_head_collision():
 	if should_be_removed:
 		self.hide()
 		_game.remove_edible(self)
-
-func _on_Node2D_area_entered(area):
-	if area == _snake.get_node("Head"):
-		emit_signal("snake_head_collision", self)

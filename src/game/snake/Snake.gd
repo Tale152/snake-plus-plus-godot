@@ -18,9 +18,6 @@ func initialize(game):
 
 func get_properties() -> Properties:
 	return _properties
-
-func on_collision(collidable):
-	collidable.on_snake_head_collision()
 	
 func move(movement_delta: float):
 	_shorten_body_if_necessary()
@@ -42,6 +39,9 @@ func get_body_coordinates() -> Array:
 			b.get_placement().get_coordinates().get_y()
 		))
 	return res
+
+func get_body_part(index: int):
+	return _body_parts[index]
 	
 func _shorten_body_if_necessary() -> void:
 	var to_remove = _properties.get_potential_length() - _properties.get_current_length()

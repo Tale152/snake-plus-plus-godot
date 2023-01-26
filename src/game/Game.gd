@@ -103,6 +103,20 @@ func _handle_snake_movement(delta: float):
 		_player_can_set_direction = true
 		_movement_elapsed_seconds -= current_delta_seconds
 		_snake.move(current_delta_seconds)
+		_handle_snake_collision()
+
+func _handle_snake_collision() -> void:
+	var head_coordinates: ImmutablePoint = _snake.get_head_coordinates()
+	var body_coordinates = _snake.get_body_coordinates()
+	var b_index: int = 0
+	for b in body_coordinates:
+		if head_coordinates.equals_to(b):
+			_snake.get_body_part(b_index).on_snake_head_collision()
+		b_index += 1
+	var edibles_copy = _edibles.duplicate(false)
+	for e in edibles_copy:
+		if head_coordinates.equals_to(e.get_coordinates()):
+			e.on_snake_head_collision()
 
 func _handle_to_be_removed_queue_clear():
 	for r in _to_be_removed_queue:
@@ -123,7 +137,7 @@ func _handle_edibles_spawn(delta: float):
 					.set_free_cells(free_cells) \
 					.build()
 				if instance != null:
-					free_cells.remove(free_cells.find(instance.get_placement()))
+					free_cells.remove(free_cells.find(instance.get_coordinates()))
 					_edibles.push_back(instance)
 					add_child(instance)
 	pass
@@ -154,7 +168,7 @@ func _get_free_cells() -> Array:
 		if i != -1:
 			res.pop_at(i)
 	for e in _edibles:
-		var i = ImmutablePoint.get_point_index_in_array(res, e.get_placement())
+		var i = ImmutablePoint.get_point_index_in_array(res, e.get_coordinates())
 		if i != -1:
 			res.pop_at(i)
 	return res
