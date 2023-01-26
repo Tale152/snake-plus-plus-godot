@@ -17,7 +17,7 @@ func spawn(starting_placement: Placement, snake, game):
 	_placement = starting_placement
 	_visual_parameters = _game.get_visual_parameters()
 	_px = _visual_parameters.get_cell_pixels_size()
-	_offset = _px / 2
+	_offset = int(float(_px) / 2)
 	move_to_placement()
 
 func move_to_placement():
