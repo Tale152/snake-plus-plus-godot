@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/utils/Directions.gd"
 }, {
+"base": "Area2D",
+"class": "Edible",
+"language": "GDScript",
+"path": "res://src/game/edibles/Edible.gd"
+}, {
 "base": "Reference",
 "class": "EdibleBuilder",
 "language": "GDScript",
@@ -125,6 +130,7 @@ _global_script_class_icons={
 "AssetFiles": "",
 "BadApple": "",
 "Directions": "",
+"Edible": "",
 "EdibleBuilder": "",
 "EdibleRules": "",
 "EdibleRulesBuiler": "",

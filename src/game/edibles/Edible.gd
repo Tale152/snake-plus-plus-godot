@@ -1,4 +1,4 @@
-extends Area2D
+class_name Edible extends Area2D
 
 var _coordinates: ImmutablePoint
 var _rules

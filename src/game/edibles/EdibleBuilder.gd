@@ -1,7 +1,5 @@
 class_name EdibleBuilder extends Reference
 
-const Edible = preload("res://src/game/edibles/Edible.tscn")
-
 # --- persisting values in a game ---
 var _snake
 var _game
@@ -36,7 +34,7 @@ func build():
 	var placement = _get_valid_placement()
 	if placement == null:
 		return null
-	var instance = Edible.instance()
+	var instance = Edible.new()
 	instance.spawn(
 		placement,
 		_rules,
