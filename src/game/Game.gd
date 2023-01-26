@@ -54,6 +54,12 @@ func remove_edible(edible):
 func set_game_over(status):
 	_game_over = status
 
+func get_stage_description() -> StageDescription:
+	return _stage_description
+
+func get_visual_parameters() -> VisualParameters:
+	return _visual_parameters
+
 # --- private setup functions ---
 
 func _init_cells():
@@ -64,16 +70,7 @@ func _init_cells():
 
 func _setup_snake():
 	_snake = Snake.instance()
-	_snake.initialize(
-		_stage_description.get_snake_initial_direction(),
-		Vector2(0, 0),
-		Vector2(
-			_stage_description.get_field_size().get_width() * _visual_parameters.get_cell_pixels_size(),
-			_stage_description.get_field_size().get_height() * _visual_parameters.get_cell_pixels_size()
-		),
-		self,
-		_visual_parameters
-	)
+	_snake.initialize(self)
 	add_child(_snake)
 
 # --- private process functions ---
@@ -91,26 +88,23 @@ func _handle_movement_input():
 func _compatible_movement_input(input: String, current_direction: int) -> bool:
 	return (
 		Input.is_action_pressed(input)
-		&& _snake.properties.current_direction != current_direction
-		&& _snake.properties.current_direction != DirectionsEnum.get_opposite(current_direction)
+		&& _snake.get_properties().get_current_direction() != current_direction
+		&& _snake.get_properties().get_current_direction() != DirectionsEnum.get_opposite(current_direction)
 	)
 
 func _set_new_snake_direction(direction:int):
 	_player_can_set_direction = false
-	_snake.properties.current_direction = direction
+	_snake.get_properties().set_current_direction(direction)
 
 func _handle_snake_movement(delta: float):
 	_movement_elapsed_seconds += delta
 	var current_delta_seconds = _stage_description.get_snake_base_delta_seconds()
-	for i in _snake.properties.current_length - 1:
+	for i in _snake.get_properties().get_current_length() - 1:
 		current_delta_seconds *= _stage_description.get_snake_speedup_factor()
 	if _movement_elapsed_seconds >= current_delta_seconds:
 		_player_can_set_direction = true
 		_movement_elapsed_seconds -= current_delta_seconds
-		_snake.move(
-			_visual_parameters.get_cell_pixels_size(),
-			current_delta_seconds
-		)
+		_snake.move(current_delta_seconds)
 
 func _handle_to_be_removed_queue_clear():
 	for r in _to_be_removed_queue:
@@ -151,13 +145,8 @@ func _count_instances_by_type(array: Array, type: String) -> int:
 
 func _get_free_cells() -> Array:
 	var res = _cells.duplicate(false)
-	for s in _snake.get_body_points():
-		# TODO snake's body parts and head should have their pre-calulated point
-		var p = ImmutablePoint.new(
-			s.get_x() / _visual_parameters.get_cell_pixels_size(),
-			s.get_y() / _visual_parameters.get_cell_pixels_size()
-		)
-		var i = ImmutablePoint.get_point_index_in_array(res, p)
+	for s in _snake.get_body_coordinates():
+		var i = ImmutablePoint.get_point_index_in_array(res, s)
 		if i != -1:
 			res.pop_at(i)
 	for e in _edibles:
