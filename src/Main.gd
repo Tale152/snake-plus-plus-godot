@@ -1,10 +1,11 @@
 extends Node
 
-const CELL_PIXEL_SIZE = 20
-
-const FIELD_HEIGHT = 20
-const FIELD_WIDTH = 10
-var FIELD_SIZE = FieldSize.new(FIELD_HEIGHT, FIELD_WIDTH)
+const FIELD_WIDTH = 20
+const FIELD_HEIGHT = 10
+var width_px = OS.window_size.x / FIELD_WIDTH
+var heigh_px = OS.window_size.y / FIELD_HEIGHT
+var CELL_PIXEL_SIZE = width_px if width_px < heigh_px else heigh_px
+var FIELD_SIZE = FieldSize.new(FIELD_WIDTH, FIELD_HEIGHT)
 var SNAKE_SPAWN_POINT = ImmutablePoint.new(0,0)
 var SNAKE_INITIAL_DIRECTION = Directions.get_right()
 const SNAKE_BASE_DELTA_SECONDS = 0.3
