@@ -21,10 +21,16 @@ func move_to_placement():
 		_placement.get_coordinates().get_y() * _px
 	)
 	var sprite_tmp
-	if(_placement.get_previous_direction() == -1):
+	if(_placement.get_previous_direction() == -1): # is tail
+		var tail_sprite_direction: int
+		if _snake.get_properties().get_current_length() > 2:
+			tail_sprite_direction = _placement.get_next_direction()
+		else:
+			# special case of snake with only head and tail
+			tail_sprite_direction = _snake.get_head().get_placement().get_next_direction()
 		sprite_tmp = _visual_parameters \
-			.get_tail_sprite(_placement.get_next_direction())
-	else:
+			.get_tail_sprite(tail_sprite_direction)
+	else: # is body
 		sprite_tmp = _visual_parameters \
 			.get_body_sprite(
 				_placement.get_next_direction(),

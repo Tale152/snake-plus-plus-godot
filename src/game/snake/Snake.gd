@@ -25,6 +25,9 @@ func move(movement_delta: float):
 	_lenghten_body_if_necessary(previous_part_old_placement)
 	_render_snake(movement_delta)
 
+func get_head() -> Head:
+	return _head
+
 func get_head_coordinates() -> ImmutablePoint:
 	return ImmutablePoint.new(
 		_head.get_placement().get_coordinates().get_x(),
