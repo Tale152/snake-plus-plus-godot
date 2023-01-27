@@ -1,49 +1,30 @@
 extends Node
 
-const FIELD_WIDTH = 20
-const FIELD_HEIGHT = 10
-var width_px = OS.window_size.x / FIELD_WIDTH
-var heigh_px = OS.window_size.y / FIELD_HEIGHT
-var CELL_PIXEL_SIZE = width_px if width_px < heigh_px else heigh_px
-var FIELD_SIZE = FieldSize.new(FIELD_WIDTH, FIELD_HEIGHT)
-var SNAKE_SPAWN_POINT = ImmutablePoint.new(0,0)
-var SNAKE_INITIAL_DIRECTION = Directions.get_right()
-const SNAKE_BASE_DELTA_SECONDS = 0.3
-const SNAKE_SPEEDUP_FACTOR = 0.98
-var APPLE_RULES = EdibleRulesBuiler.new() \
-	.set_max_instances(5) \
-	.set_spawn_locations([]) \
-	.set_life_spawn(-1) \
-	.set_spawn_probability(1) \
-	.set_type(EdibleTypes.APPLE()) \
-	.build()
+const Menu = preload("res://src/menu/Menu.tscn")
 
-var BAD_APPLE_RULES = EdibleRulesBuiler.new() \
-	.set_max_instances(3) \
-	.set_spawn_locations([]) \
-	.set_life_spawn(-1) \
-	.set_spawn_probability(1) \
-	.set_type(EdibleTypes.BAD_APPLE()) \
-	.build()
+var _menu
+var _game
+var _is_on_menu
 
 func _init():
-	var description = StageDescriptionBuilder.new() \
-		.set_field_size(FIELD_SIZE) \
-		.set_snake_spawn_point(SNAKE_SPAWN_POINT) \
-		.set_snake_initial_direction(SNAKE_INITIAL_DIRECTION) \
-		.set_snake_base_delta_seconds(SNAKE_BASE_DELTA_SECONDS) \
-		.set_snake_speedup_factor(SNAKE_SPEEDUP_FACTOR) \
-		.add_edible_rules(APPLE_RULES) \
-		.add_edible_rules(BAD_APPLE_RULES) \
-		.build()
+	show_menu()
 	
-	if description == null:
-		print("Description is null")
-	else:
-		var visual_parameters = VisualParametersBuilder.new() \
-			.set_cell_pixels_size(CELL_PIXEL_SIZE) \
-			.set_snake_skin_path("res://assets/skins/simple/snake") \
-			.add_edible_sprite(EdibleSprite.new("res://assets/skins/simple/edibles", "Apple")) \
-			.add_edible_sprite(EdibleSprite.new("res://assets/skins/simple/edibles", "BadApple")) \
-			.build()
-		add_child(Game.new(description, visual_parameters))
+func show_menu():
+	_is_on_menu = true
+	if _game != null:
+		remove_child(_game)
+		_game = null
+	_menu = Menu.instance()
+	_menu.set_main(self)
+	add_child(_menu)
+
+func play(stage_description: StageDescription, visual_parameters: VisualParameters):
+	_is_on_menu = false
+	remove_child(_menu)
+	_menu = null
+	_game = Game.new(stage_description, visual_parameters)
+	add_child(_game)
+
+func _process(_delta):
+	if Input.is_action_pressed("back_to_menu") && !_is_on_menu:
+		show_menu()
