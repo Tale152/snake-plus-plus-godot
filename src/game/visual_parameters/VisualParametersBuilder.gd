@@ -3,6 +3,7 @@ class_name VisualParametersBuilder extends Reference
 var _cell_pixels_size: int
 var _edible_sprites: Array = []
 var _snake_skin_path: String
+var _field_elements_skin_path: String
 
 func set_cell_pixels_size(size: int) -> VisualParametersBuilder:
 	_cell_pixels_size = size
@@ -12,14 +13,40 @@ func set_snake_skin_path(path: String) -> VisualParametersBuilder:
 	_snake_skin_path = path
 	return self
 
+func set_field_elements_skin_path(path: String) -> VisualParametersBuilder:
+	_field_elements_skin_path = path
+	return self
+
 func add_edible_sprite(sprite: EdibleSprite) -> VisualParametersBuilder:
 	_edible_sprites.push_back(sprite)
 	return self
 
 func build() -> VisualParameters:
 	var head_sprites = []
-	var tail_sprites = []
 	var body_sprites = []
+	var tail_sprites = []
+	var background_sprites = []
+	_populate_snake_sprites(
+		head_sprites,
+		body_sprites,
+		tail_sprites
+	)
+	_populate_background_sprites(background_sprites)
+	_scale_array_of_sprites(head_sprites, _cell_pixels_size)
+	_scale_array_of_sprites(body_sprites, _cell_pixels_size)
+	_scale_array_of_sprites(tail_sprites, _cell_pixels_size)
+	_scale_array_of_sprites(_edible_sprites, _cell_pixels_size)
+	_scale_array_of_sprites(background_sprites, _cell_pixels_size)
+	return VisualParameters.new(
+		_cell_pixels_size,
+		_edible_sprites,
+		head_sprites,
+		body_sprites,
+		tail_sprites,
+		background_sprites
+	)
+
+func _populate_snake_sprites(head_sprites, body_sprites, tail_sprites) -> void:
 	for d in Directions.get_directions():
 		head_sprites.push_back(SnakeHeadSprite.new(_snake_skin_path, d, true))
 		head_sprites.push_back(SnakeHeadSprite.new(_snake_skin_path, d, false))
@@ -27,17 +54,27 @@ func build() -> VisualParameters:
 		for j in Directions.get_directions():
 			if d != j:
 				body_sprites.push_back(SnakeBodySprite.new(_snake_skin_path, d, j))
-	_scale_array_of_sprites(head_sprites, _cell_pixels_size)
-	_scale_array_of_sprites(body_sprites, _cell_pixels_size)
-	_scale_array_of_sprites(tail_sprites, _cell_pixels_size)
-	_scale_array_of_sprites(_edible_sprites, _cell_pixels_size)
-	return VisualParameters.new(
-		_cell_pixels_size,
-		_edible_sprites,
-		head_sprites,
-		body_sprites,
-		tail_sprites
+
+func _populate_background_sprites(background_sprites) -> void:
+	var i = 0
+	var file = AssetFiles.build_asset_path(
+		_field_elements_skin_path,
+		"ground_" + str(i),
+		0
 	)
+	while AssetFiles.asset_exists(file):
+		background_sprites.push_back(
+			FieldSprite.new(
+				_field_elements_skin_path,
+				"ground_" + str(i)
+				)
+			)
+		i += 1
+		file = AssetFiles.build_asset_path(
+			_field_elements_skin_path,
+			"ground_" + str(i),
+			0
+		)
 
 func _scale_array_of_sprites(arr, cell_pixels_size) -> void:
 	var px: float = float(cell_pixels_size)

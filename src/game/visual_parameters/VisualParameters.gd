@@ -5,19 +5,22 @@ var _edible_sprites: Array
 var _body_sprites: Array
 var _head_sprites: Array
 var _tail_sprites: Array
+var _background_sprites: Array
 
 func _init(
 	cell_pixels_size: int,
 	edible_sprites: Array,
 	head_sprites: Array,
 	body_sprites: Array,
-	tail_sprites: Array
+	tail_sprites: Array,
+	background_sprites: Array
 ):
 	_cell_pixels_size = cell_pixels_size
 	_edible_sprites = edible_sprites
 	_head_sprites = head_sprites
 	_body_sprites = body_sprites
 	_tail_sprites = tail_sprites
+	_background_sprites = background_sprites
 
 func get_cell_pixels_size() -> int:
 	return _cell_pixels_size
@@ -45,3 +48,9 @@ func get_tail_sprite(direction: int) -> AnimatedSprite:
 		if t.get_direction() == direction:
 			return t.get_sprite().duplicate()
 	return null
+
+func get_background_sprites() -> Array:
+	var res = []
+	for b in _background_sprites:
+		res.push_back(b.get_sprite())
+	return res;

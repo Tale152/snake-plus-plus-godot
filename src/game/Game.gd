@@ -60,13 +60,21 @@ func get_visual_parameters() -> VisualParameters:
 # --- private setup functions ---
 
 func _set_background():
-	var background = ColorRect.new()
-	background.rect_size = Vector2(
-		_visual_parameters.get_cell_pixels_size() * _stage_description.get_field_size().get_width(),
-		_visual_parameters.get_cell_pixels_size() * _stage_description.get_field_size().get_height()
-	) 
-	background.color = Color(0.8, 1, 0.9)
-	self.add_child(background)
+	var field_size = _stage_description.get_field_size()
+	var sprites = _visual_parameters.get_background_sprites()
+	var sprites_number = sprites.size()
+	var px_size = _visual_parameters.get_cell_pixels_size()
+	var rendered_sprites = []
+	for x in range(0, field_size.get_width()):
+		for y in range(0, field_size.get_height()):
+			var b = Area2D.new()
+			b.position = Vector2(px_size * x, px_size * y)
+			var s = sprites[rng.randi() % sprites_number].duplicate()
+			b.add_child(s)
+			self.add_child(b)
+			rendered_sprites.push_back(s)
+	for rs in rendered_sprites:
+		rs.play()
 
 func _init_cells():
 	_cells = []

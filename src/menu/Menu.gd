@@ -52,7 +52,8 @@ func _on_PlayButton_pressed():
 		)
 		var visual_parameters_builder = VisualParametersBuilder.new() \
 			.set_cell_pixels_size(cell_px_size) \
-			.set_snake_skin_path(str(selected_skin, "/snake"))
+			.set_snake_skin_path(str(selected_skin, "/snake")) \
+			.set_field_elements_skin_path(str(selected_skin, "/field"))
 		if $AppleCheckBox.pressed:
 			visual_parameters_builder.add_edible_sprite(EdibleSprite.new(str(selected_skin, "/edibles"), "Apple"))
 		if $BadAppleCheckBox.pressed:
