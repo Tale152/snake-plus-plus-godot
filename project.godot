@@ -74,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/stage_description/FieldSize.gd"
 }, {
+"base": "Reference",
+"class": "FieldSprite",
+"language": "GDScript",
+"path": "res://src/game/visual_parameters/FieldSprite.gd"
+}, {
 "base": "Node",
 "class": "Game",
 "language": "GDScript",
@@ -158,6 +163,7 @@ _global_script_class_icons={
 "EdibleSprite": "",
 "EdibleTypes": "",
 "FieldSize": "",
+"FieldSprite": "",
 "Game": "",
 "Head": "",
 "ImmutablePoint": "",
