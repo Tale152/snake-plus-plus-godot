@@ -6,8 +6,9 @@ func execute(
 	_snake,
 	_game
 ) -> bool:
-	if _snake.get_properties().get_potential_length() > 1:
-		_snake.get_properties().set_potential_length(
-			_snake.get_properties().get_potential_length() - 1
-		)
+	var potential_length = _snake.get_properties().get_potential_length()
+	var new_lenght = round(_snake.get_properties().get_potential_length() / 2)
+	_snake.get_properties().set_potential_length(
+		new_lenght if potential_length > 1 else 1
+	)
 	return true
