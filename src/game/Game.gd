@@ -70,6 +70,7 @@ func _set_background():
 			var b = Area2D.new()
 			b.position = Vector2(px_size * x, px_size * y)
 			var s = sprites[rng.randi() % sprites_number].duplicate()
+			s.speed_scale = 0.3
 			b.add_child(s)
 			self.add_child(b)
 			rendered_sprites.push_back(s)
