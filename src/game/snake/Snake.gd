@@ -130,7 +130,7 @@ func _lenghten_body_if_necessary(previous_part_old_placement: Placement) -> void
 			)
 		)
 		# creating new body part
-		var new_body_part = BodyPart.new(
+		var new_body_part = SnakeBodyPart.new(
 			previous_part_old_placement,
 			self,
 			_game
@@ -141,7 +141,8 @@ func _lenghten_body_if_necessary(previous_part_old_placement: Placement) -> void
 func _render_snake(movement_delta: float):
 	_head.move_to_placement()
 	for b in _body_parts:
-		b.move_to_placement()
+		b.update_position_on_screen()
+		b.update_sprite()
 	var speed_scale = 1 / movement_delta
 	_head.play_sprite_animation(speed_scale)
 	for b in _body_parts:
