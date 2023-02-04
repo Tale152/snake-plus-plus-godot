@@ -2,9 +2,11 @@ class_name Game extends Node
 
 # --- constants ---
 const EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
+const SWIPE_CONTROLS_SENSITIVITY = 5
 
 var rng = RandomNumberGenerator.new()
 var _game_over = false
+var _next_direction
 var _stage_description: StageDescription
 var _visual_parameters: VisualParameters
 var _setup_completed
@@ -12,7 +14,6 @@ var _snake
 var _movement_elapsed_seconds = 0
 var _spawn_attempt_elapsed_seconds = 0
 var _edibles = []
-var _player_can_set_direction = true
 var _cells
 var _to_be_removed_queue = []
 
@@ -24,6 +25,7 @@ func _init(
 ):
 	_stage_description = stage_description
 	_visual_parameters = visual_parameters
+	_next_direction = null
 	_set_background()
 	_init_cells()
 	_setup_snake()
@@ -38,10 +40,23 @@ func _init(
 
 func _process(delta):
 	if _setup_completed && !_game_over:
-		_handle_movement_input()
 		_handle_snake_movement(delta)
 		_handle_to_be_removed_queue_clear()
 		_handle_edibles_spawn(delta)
+
+func _unhandled_input(event):
+	if _next_direction == null:
+		if event is InputEventScreenDrag:
+			var swipe = event.relative
+			if swipe.y < -SWIPE_CONTROLS_SENSITIVITY && _compatible_movement_input(Directions.get_up()): _next_direction = Directions.get_up()
+			elif swipe.y > SWIPE_CONTROLS_SENSITIVITY && _compatible_movement_input(Directions.get_down()): _next_direction = Directions.get_down()
+			elif swipe.x < -SWIPE_CONTROLS_SENSITIVITY && _compatible_movement_input(Directions.get_left()): _next_direction = Directions.get_left()
+			elif swipe.x > SWIPE_CONTROLS_SENSITIVITY && _compatible_movement_input(Directions.get_right()):  _next_direction = Directions.get_right()
+		elif event is InputEventKey:
+			if Input.is_action_pressed(MovementInput.get_action_move_up()) && _compatible_movement_input(Directions.get_up()): _next_direction = Directions.get_up()
+			elif Input.is_action_pressed(MovementInput.get_action_move_down()) && _compatible_movement_input(Directions.get_down()): _next_direction = Directions.get_down()
+			elif Input.is_action_pressed(MovementInput.get_action_move_left()) && _compatible_movement_input(Directions.get_left()): _next_direction = Directions.get_left()
+			elif Input.is_action_pressed(MovementInput.get_action_move_right()) && _compatible_movement_input(Directions.get_right()):  _next_direction = Directions.get_right()
 
 func remove_edible(edible):
 	_edibles.erase(edible)
@@ -89,27 +104,13 @@ func _setup_snake():
 	add_child(_snake)
 
 # --- private process functions ---
-func _handle_movement_input():
-	if _player_can_set_direction:
-		if _compatible_movement_input(MovementInput.get_action_move_right(), Directions.get_right()):
-			_set_new_snake_direction(Directions.get_right())
-		elif _compatible_movement_input(MovementInput.get_action_move_left(), Directions.get_left()):
-			_set_new_snake_direction(Directions.get_left())
-		elif _compatible_movement_input(MovementInput.get_action_move_up(), Directions.get_up()):
-			_set_new_snake_direction(Directions.get_up())
-		elif _compatible_movement_input(MovementInput.get_action_move_down(), Directions.get_down()):
-			_set_new_snake_direction(Directions.get_down())
 
-func _compatible_movement_input(input: String, current_direction: int) -> bool:
+func _compatible_movement_input(input_direction: int) -> bool:
+	var current_direction = _snake.get_properties().get_current_direction() 
 	return (
-		Input.is_action_pressed(input)
-		&& _snake.get_properties().get_current_direction() != current_direction
-		&& _snake.get_properties().get_current_direction() != Directions.get_opposite(current_direction)
+		current_direction != input_direction &&
+		current_direction != Directions.get_opposite(input_direction)
 	)
-
-func _set_new_snake_direction(direction:int):
-	_player_can_set_direction = false
-	_snake.get_properties().set_current_direction(direction)
 
 func _handle_snake_movement(delta: float):
 	_movement_elapsed_seconds += delta
@@ -117,7 +118,9 @@ func _handle_snake_movement(delta: float):
 	for i in _snake.get_properties().get_current_length() - 1:
 		current_delta_seconds *= _stage_description.get_snake_speedup_factor()
 	if _movement_elapsed_seconds >= current_delta_seconds:
-		_player_can_set_direction = true
+		if _next_direction != null:
+			_snake.get_properties().set_current_direction(_next_direction)
+			_next_direction = null
 		_movement_elapsed_seconds -= current_delta_seconds
 		_snake.move(current_delta_seconds)
 		_handle_snake_collision()
