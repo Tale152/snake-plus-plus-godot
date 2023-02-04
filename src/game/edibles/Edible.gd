@@ -18,7 +18,11 @@ func _init(
 	_snake = snake
 	_game = game
 	var px = visual_parameters.get_cell_pixels_size()
-	position = Vector2(_coordinates.get_x() * px, _coordinates.get_y() * px)
+	var offset = visual_parameters.get_game_pixels_offset()
+	position = Vector2(
+		_coordinates.get_x() * px + offset.x,
+		_coordinates.get_y() * px + offset.y
+	)
 	var sprite = visual_parameters \
 		.get_edible_sprite(_rules.get_type()) \
 		.duplicate()

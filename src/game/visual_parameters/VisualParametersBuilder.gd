@@ -1,12 +1,17 @@
 class_name VisualParametersBuilder extends Reference
 
 var _cell_pixels_size: int
+var _game_pixels_offset: Vector2
 var _edible_sprites: Array = []
 var _snake_skin_path: String
 var _field_elements_skin_path: String
 
 func set_cell_pixels_size(size: int) -> VisualParametersBuilder:
 	_cell_pixels_size = size
+	return self
+
+func set_game_pixels_offset(offset: Vector2) -> VisualParametersBuilder:
+	_game_pixels_offset = offset
 	return self
 
 func set_snake_skin_path(path: String) -> VisualParametersBuilder:
@@ -39,6 +44,7 @@ func build() -> VisualParameters:
 	_scale_array_of_sprites(background_sprites, _cell_pixels_size)
 	return VisualParameters.new(
 		_cell_pixels_size,
+		_game_pixels_offset,
 		_edible_sprites,
 		head_sprites,
 		body_sprites,

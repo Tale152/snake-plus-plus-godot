@@ -64,11 +64,12 @@ func _set_background():
 	var sprites = _visual_parameters.get_background_sprites()
 	var sprites_number = sprites.size()
 	var px_size = _visual_parameters.get_cell_pixels_size()
+	var offset = _visual_parameters.get_game_pixels_offset()
 	var rendered_sprites = []
 	for x in range(0, field_size.get_width()):
 		for y in range(0, field_size.get_height()):
 			var b = Area2D.new()
-			b.position = Vector2(px_size * x, px_size * y)
+			b.position = Vector2(px_size * x + offset.x, px_size * y + offset.y)
 			var s = sprites[rng.randi() % sprites_number].duplicate()
 			s.speed_scale = 0.3
 			b.add_child(s)

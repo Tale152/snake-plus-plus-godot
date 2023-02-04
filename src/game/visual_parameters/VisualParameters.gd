@@ -1,6 +1,7 @@
 class_name VisualParameters extends Reference
 
 var _cell_pixels_size: int
+var _game_pixels_offset: Vector2
 var _edible_sprites: Array
 var _body_sprites: Array
 var _head_sprites: Array
@@ -9,6 +10,7 @@ var _background_sprites: Array
 
 func _init(
 	cell_pixels_size: int,
+	game_pixels_offset: Vector2,
 	edible_sprites: Array,
 	head_sprites: Array,
 	body_sprites: Array,
@@ -16,6 +18,7 @@ func _init(
 	background_sprites: Array
 ):
 	_cell_pixels_size = cell_pixels_size
+	_game_pixels_offset = game_pixels_offset
 	_edible_sprites = edible_sprites
 	_head_sprites = head_sprites
 	_body_sprites = body_sprites
@@ -24,6 +27,9 @@ func _init(
 
 func get_cell_pixels_size() -> int:
 	return _cell_pixels_size
+
+func get_game_pixels_offset() -> Vector2:
+	return _game_pixels_offset
 
 func get_edible_sprite(name: String) -> AnimatedSprite:
 	for s in _edible_sprites:

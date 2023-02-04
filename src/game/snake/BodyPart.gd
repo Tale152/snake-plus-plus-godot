@@ -6,6 +6,7 @@ var _game
 var _visual_parameters: VisualParameters
 var _sprite
 var _px: int
+var _offset
 
 func _init(starting_placement: Placement, snake, game):
 	_snake = snake
@@ -13,12 +14,13 @@ func _init(starting_placement: Placement, snake, game):
 	_placement = starting_placement
 	_visual_parameters = _game.get_visual_parameters()
 	_px = _visual_parameters.get_cell_pixels_size()
+	_offset = _visual_parameters.get_game_pixels_offset()
 	move_to_placement()
 
 func move_to_placement():
 	position = Vector2(
-		_placement.get_coordinates().get_x() * _px,
-		_placement.get_coordinates().get_y() * _px
+		_placement.get_coordinates().get_x() * _px + _offset.x,
+		_placement.get_coordinates().get_y() * _px + _offset.y
 	)
 	var sprite_tmp
 	if(_placement.get_previous_direction() == -1): # is tail

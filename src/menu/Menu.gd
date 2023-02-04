@@ -52,6 +52,10 @@ func _on_PlayButton_pressed():
 		)
 		var visual_parameters_builder = VisualParametersBuilder.new() \
 			.set_cell_pixels_size(cell_px_size) \
+			.set_game_pixels_offset(Vector2(
+				(OS.window_size.x - int($WidthTextEdit.text) * cell_px_size) / 2,
+				(OS.window_size.y - int($HeightTextEdit.text) * cell_px_size) / 2
+			)) \
 			.set_snake_skin_path(str(selected_skin, "/snake")) \
 			.set_field_elements_skin_path(str(selected_skin, "/field"))
 		if $AppleCheckBox.pressed:
