@@ -126,17 +126,18 @@ func _handle_snake_movement(delta: float):
 		_handle_snake_collision()
 
 func _handle_snake_collision() -> void:
-	var head_coordinates: ImmutablePoint = _snake.get_head_coordinates()
-	var body_coordinates = _snake.get_body_coordinates()
+	var head_coordinates: ImmutablePoint = _snake.get_head().get_placement().get_coordinates()
+	var body_parts = _snake.get_body_parts()
 	var b_index: int = 0
-	for b in body_coordinates:
-		if head_coordinates.equals_to(b):
-			_snake.get_body_part(b_index).on_snake_head_collision()
+	for b in body_parts:
+		if head_coordinates.equals_to(b.get_placement().get_coordinates()):
+			b.on_snake_head_collision()
 		b_index += 1
-	var edibles_copy = _edibles.duplicate(false)
-	for e in edibles_copy:
-		if head_coordinates.equals_to(e.get_coordinates()):
-			e.on_snake_head_collision()
+	if !_game_over:
+		var edibles_copy = _edibles.duplicate(false)
+		for e in edibles_copy:
+			if head_coordinates.equals_to(e.get_coordinates()):
+				e.on_snake_head_collision()
 
 func _handle_to_be_removed_queue_clear():
 	for r in _to_be_removed_queue:
@@ -179,12 +180,12 @@ func _get_free_cells() -> Array:
 	var res = _cells.duplicate(false)
 	var h = ImmutablePoint.get_point_index_in_array(
 		res,
-		_snake.get_head_coordinates()
+		_snake.get_head().get_placement().get_coordinates()
 	)
 	if h != -1:
 			res.pop_at(h)
-	for s in _snake.get_body_coordinates():
-		var i = ImmutablePoint.get_point_index_in_array(res, s)
+	for b in _snake.get_body_parts():
+		var i = ImmutablePoint.get_point_index_in_array(res, b.get_placement().get_coordinates())
 		if i != -1:
 			res.pop_at(i)
 	for e in _edibles:
