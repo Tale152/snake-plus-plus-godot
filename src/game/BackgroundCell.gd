@@ -20,7 +20,9 @@ func _get_random_background_cell_sprite(
 	visual_parameters: VisualParameters
 ) -> AnimatedSprite:
 	var background_cells_sprites = visual_parameters.get_background_sprites()
-	var rnd_i = RandomNumberGenerator.new().randi() % background_cells_sprites.size()
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var rnd_i = rng.randi() % background_cells_sprites.size()
 	return background_cells_sprites[rnd_i].duplicate()
 
 func get_coordinates() -> ImmutablePoint:
