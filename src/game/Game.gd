@@ -11,9 +11,10 @@ var _visual_parameters: VisualParameters
 var _snake
 var _snake_properties: SnakeProperties
 var _snake_head: SnakeHead
-var _movement_elapsed_seconds = 0
-var _spawn_attempt_elapsed_seconds = 0
-var _edibles = []
+var _movement_elapsed_seconds: float = 0
+var _spawn_attempt_elapsed_seconds: float = 0
+var _current_snake_delta_seconds: float
+var _edibles: Dictionary
 var _cells
 var _to_be_removed_queue = []
 var _background_cells: Array
@@ -27,6 +28,8 @@ func _init(
 	_stage_description = stage_description
 	_visual_parameters = visual_parameters
 	_next_direction = -1
+	for r in _stage_description.get_instantaneous_edible_rules():
+		_edibles[r.get_type()] = []
 	_set_background()
 	_init_cells()
 	_setup_snake()
@@ -38,13 +41,12 @@ func tick(delta: float) -> void:
 	_handle_edibles_spawn(delta)
 
 func direction_input(input: int) -> void:
-	if _next_direction == -1 && _compatible_movement_input(input):
+	if _next_direction == -1 && _compatible_movement_input(_snake_properties.get_current_direction(), input):
 		_next_direction = input
 
-func remove_edible(edible) -> void:
-	_edibles.erase(edible)
-	if edible != null:
-		_to_be_removed_queue.push_back(edible)
+func remove_edible(edible: Edible) -> void:
+	_edibles[edible.get_type()].erase(edible)
+	_to_be_removed_queue.push_back(edible)
 
 func set_game_over(status) -> void:
 	_game_over = status
@@ -78,12 +80,15 @@ func _setup_snake() -> void:
 	_snake = Snake.new(self)
 	_snake_properties = _snake.get_properties()
 	_snake_head = _snake.get_head()
+	_current_snake_delta_seconds = _calculate_snake_current_delta_seconds()
 	add_child(_snake)
 
 # --- private process functions ---
 
-func _compatible_movement_input(input_direction: int) -> bool:
-	var current_direction = _snake_properties.get_current_direction() 
+func _compatible_movement_input(
+	current_direction: int,
+	input_direction: int
+) -> bool:
 	return (
 		current_direction != input_direction &&
 		current_direction != Directions.get_opposite(input_direction)
@@ -91,30 +96,36 @@ func _compatible_movement_input(input_direction: int) -> bool:
 
 func _handle_snake_movement(delta: float) -> void:
 	_movement_elapsed_seconds += delta
-	var current_delta_seconds = _stage_description.get_snake_base_delta_seconds()
-	for i in _snake_properties.get_current_length() - 1:
-		current_delta_seconds *= _stage_description.get_snake_speedup_factor()
-	if _movement_elapsed_seconds >= current_delta_seconds:
+	_current_snake_delta_seconds = _calculate_snake_current_delta_seconds()
+	if _movement_elapsed_seconds >= _current_snake_delta_seconds:
 		if _next_direction != -1:
 			_snake_properties.set_current_direction(_next_direction)
 			_next_direction = -1
-		_movement_elapsed_seconds -= current_delta_seconds
-		_snake.move(current_delta_seconds)
+		_movement_elapsed_seconds -= _current_snake_delta_seconds
+		_snake.move(_current_snake_delta_seconds)
 		_handle_snake_collision()
+
+func _calculate_snake_current_delta_seconds() -> float:
+	var current_delta_seconds = _stage_description.get_snake_base_delta_seconds()
+	var speedup_factor = _stage_description.get_snake_speedup_factor()
+	for i in _snake_properties.get_current_length() - 1:
+		current_delta_seconds *= speedup_factor
+	return current_delta_seconds
 
 func _handle_snake_collision() -> void:
 	var head_coordinates: ImmutablePoint = _snake_head.get_placement().get_coordinates()
 	var body_parts = _snake.get_body_parts()
-	var b_index: int = 0
 	for b in body_parts:
 		if head_coordinates.equals_to(b.get_placement().get_coordinates()):
 			b.on_snake_head_collision()
-		b_index += 1
 	if !_game_over:
-		var edibles_copy = _edibles.duplicate(false)
-		for e in edibles_copy:
-			if head_coordinates.equals_to(e.get_coordinates()):
-				e.on_snake_head_collision()
+		# copying the edibles dictionary since after head collision maybe
+		# an edible is removed from the array associated with the key
+		var edibles_copy = _edibles.duplicate(true)
+		for type in edibles_copy.keys():
+			for e in edibles_copy[type]:
+				if head_coordinates.equals_to(e.get_coordinates()):
+					e.on_snake_head_collision()
 
 func _handle_to_be_removed_queue_clear() -> void:
 	for r in _to_be_removed_queue: r.queue_free()
@@ -133,22 +144,16 @@ func _handle_edibles_spawn(delta: float) -> void:
 					.set_rules(ir) \
 					.set_free_cells(free_cells) \
 					.build()
-				if instance != null:
+				if instance != null: # is is possible that no compatible free cell is found
 					free_cells.remove(free_cells.find(instance.get_coordinates()))
-					_edibles.push_back(instance)
+					_edibles[ir.get_type()].push_back(instance)
 					add_child(instance)
 
-func _can_spawn(rules: EdibleRules, edibles_array: Array) -> bool:
+func _can_spawn(rules: EdibleRules, edibles_dictionary: Dictionary) -> bool:
 	return (
-		rng.randf() <= rules.get_spawn_probability() && 
-		_count_instances_by_type(edibles_array, rules.get_type()) < rules.get_max_instances()
+		edibles_dictionary[rules.get_type()].size() < rules.get_max_instances()
+		&& rng.randf() <= rules.get_spawn_probability()
 	)
-		
-func _count_instances_by_type(edibles_array: Array, type: String) -> int:
-	var res = 0
-	for e in edibles_array:
-		if e.get_type() == type: res += 1
-	return res
 
 func _get_free_cells() -> Array:
 	var res = _cells.duplicate(false)
@@ -159,8 +164,9 @@ func _get_free_cells() -> Array:
 		var i = ImmutablePoint.get_point_index_in_array(res, b.get_placement().get_coordinates())
 		if i != -1:
 			res.pop_at(i)
-	for e in _edibles:
-		var i = ImmutablePoint.get_point_index_in_array(res, e.get_coordinates())
-		if i != -1:
-			res.pop_at(i)
+	for type in _edibles.keys():
+		for e in _edibles[type]:
+			var i = ImmutablePoint.get_point_index_in_array(res, e.get_coordinates())
+			if i != -1:
+				res.pop_at(i)
 	return res
