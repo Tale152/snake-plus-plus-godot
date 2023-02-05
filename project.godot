@@ -145,6 +145,11 @@ _global_script_classes=[ {
 "path": "res://src/game/stage_description/StageDescriptionBuilder.gd"
 }, {
 "base": "Reference",
+"class": "SwipeMovementInput",
+"language": "GDScript",
+"path": "res://src/game/player_input/SwipeMovementInput.gd"
+}, {
+"base": "Reference",
 "class": "VisualParameters",
 "language": "GDScript",
 "path": "res://src/game/visual_parameters/VisualParameters.gd"
@@ -182,6 +187,7 @@ _global_script_class_icons={
 "SnakeUnitPlacement": "",
 "StageDescription": "",
 "StageDescriptionBuilder": "",
+"SwipeMovementInput": "",
 "VisualParameters": "",
 "VisualParametersBuilder": ""
 }

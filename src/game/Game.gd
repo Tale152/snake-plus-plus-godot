@@ -2,14 +2,13 @@ class_name Game extends Node
 
 # --- constants ---
 const EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
-const SWIPE_CONTROLS_SENSITIVITY = 5
 
 var rng = RandomNumberGenerator.new()
-var _game_over = false
-var _next_direction
+var _game_over: bool = false
+var _next_direction: int
 var _stage_description: StageDescription
 var _visual_parameters: VisualParameters
-var _setup_completed
+var _setup_completed: bool
 var _snake
 var _movement_elapsed_seconds = 0
 var _spawn_attempt_elapsed_seconds = 0
@@ -25,7 +24,7 @@ func _init(
 ):
 	_stage_description = stage_description
 	_visual_parameters = visual_parameters
-	_next_direction = null
+	_next_direction = -1
 	_set_background()
 	_init_cells()
 	_setup_snake()
@@ -45,24 +44,21 @@ func _process(delta):
 		_handle_edibles_spawn(delta)
 
 func _unhandled_input(event):
-	if _next_direction == null:
+	if _next_direction == -1:
+		var direction: int = -1
 		if event is InputEventScreenDrag:
-			var swipe = event.relative
-			if swipe.y < -SWIPE_CONTROLS_SENSITIVITY && _compatible_movement_input(Directions.get_up()): _next_direction = Directions.get_up()
-			elif swipe.y > SWIPE_CONTROLS_SENSITIVITY && _compatible_movement_input(Directions.get_down()): _next_direction = Directions.get_down()
-			elif swipe.x < -SWIPE_CONTROLS_SENSITIVITY && _compatible_movement_input(Directions.get_left()): _next_direction = Directions.get_left()
-			elif swipe.x > SWIPE_CONTROLS_SENSITIVITY && _compatible_movement_input(Directions.get_right()):  _next_direction = Directions.get_right()
+			direction = SwipeMovementInput.get_input_direction(event) 
 		elif event is InputEventKey:
-			var direction: int = KeyMovementInput.get_input_direction()
-			if direction != -1 && _compatible_movement_input(direction):
-				_next_direction = direction
+			direction = KeyMovementInput.get_input_direction()
+		if direction != -1 && _compatible_movement_input(direction):
+			_next_direction = direction
 
-func remove_edible(edible):
+func remove_edible(edible) -> void:
 	_edibles.erase(edible)
 	if edible != null:
 		_to_be_removed_queue.push_back(edible)
 
-func set_game_over(status):
+func set_game_over(status) -> void:
 	_game_over = status
 
 func get_stage_description() -> StageDescription:
@@ -73,32 +69,30 @@ func get_visual_parameters() -> VisualParameters:
 
 # --- private setup functions ---
 
-func _set_background():
+func _set_background() -> void:
 	var field_size = _stage_description.get_field_size()
 	var sprites = _visual_parameters.get_background_sprites()
-	var sprites_number = sprites.size()
-	var px_size = _visual_parameters.get_cell_pixels_size()
-	var offset = _visual_parameters.get_game_pixels_offset()
-	var rendered_sprites = []
 	for x in range(0, field_size.get_width()):
 		for y in range(0, field_size.get_height()):
-			var b = Area2D.new()
-			b.position = Vector2(px_size * x + offset.x, px_size * y + offset.y)
-			var s = sprites[rng.randi() % sprites_number].duplicate()
-			s.speed_scale = 0.3
-			b.add_child(s)
-			self.add_child(b)
-			rendered_sprites.push_back(s)
-	for rs in rendered_sprites:
-		rs.play()
+			var cell = Area2D.new()
+			cell.position = PositionCalculator.calculate_position(
+				ImmutablePoint.new(x, y),
+				_visual_parameters.get_cell_pixels_size(),
+				_visual_parameters.get_game_pixels_offset()
+			)
+			var cell_sprite = sprites[rng.randi() % sprites.size()].duplicate()
+			cell_sprite.speed_scale = 0.3
+			cell.add_child(cell_sprite)
+			add_child(cell)
+			cell_sprite.play()
 
-func _init_cells():
+func _init_cells() -> void:
 	_cells = []
 	for x in _stage_description.get_field_size().get_width():
 		for y in _stage_description.get_field_size().get_height():
 			_cells.push_back(ImmutablePoint.new(x, y))
 
-func _setup_snake():
+func _setup_snake() -> void:
 	_snake = Snake.new(self)
 	add_child(_snake)
 
@@ -111,15 +105,15 @@ func _compatible_movement_input(input_direction: int) -> bool:
 		current_direction != Directions.get_opposite(input_direction)
 	)
 
-func _handle_snake_movement(delta: float):
+func _handle_snake_movement(delta: float) -> void:
 	_movement_elapsed_seconds += delta
 	var current_delta_seconds = _stage_description.get_snake_base_delta_seconds()
 	for i in _snake.get_properties().get_current_length() - 1:
 		current_delta_seconds *= _stage_description.get_snake_speedup_factor()
 	if _movement_elapsed_seconds >= current_delta_seconds:
-		if _next_direction != null:
+		if _next_direction != -1:
 			_snake.get_properties().set_current_direction(_next_direction)
-			_next_direction = null
+			_next_direction = -1
 		_movement_elapsed_seconds -= current_delta_seconds
 		_snake.move(current_delta_seconds)
 		_handle_snake_collision()
@@ -138,12 +132,12 @@ func _handle_snake_collision() -> void:
 			if head_coordinates.equals_to(e.get_coordinates()):
 				e.on_snake_head_collision()
 
-func _handle_to_be_removed_queue_clear():
+func _handle_to_be_removed_queue_clear() -> void:
 	for r in _to_be_removed_queue:
 		r.queue_free()
 	_to_be_removed_queue.clear()
 
-func _handle_edibles_spawn(delta: float):
+func _handle_edibles_spawn(delta: float) -> void:
 	_spawn_attempt_elapsed_seconds += delta
 	if _spawn_attempt_elapsed_seconds >= EDIBLES_SPAWN_ATTEMPT_FREQUENCY:
 		_spawn_attempt_elapsed_seconds -= EDIBLES_SPAWN_ATTEMPT_FREQUENCY
@@ -160,7 +154,6 @@ func _handle_edibles_spawn(delta: float):
 					free_cells.remove(free_cells.find(instance.get_coordinates()))
 					_edibles.push_back(instance)
 					add_child(instance)
-	pass
 
 func _can_spawn(
 	rules,
