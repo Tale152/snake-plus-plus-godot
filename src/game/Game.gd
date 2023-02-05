@@ -9,11 +9,13 @@ var _next_direction: int
 var _stage_description: StageDescription
 var _visual_parameters: VisualParameters
 var _snake
+var _snake_properties: SnakeProperties
 var _movement_elapsed_seconds = 0
 var _spawn_attempt_elapsed_seconds = 0
 var _edibles = []
 var _cells
 var _to_be_removed_queue = []
+var _background_cells: Array
 
 var _edible_builder: EdibleBuilder
 
@@ -27,13 +29,7 @@ func _init(
 	_set_background()
 	_init_cells()
 	_setup_snake()
-	_edible_builder = EdibleBuilder.new(
-		_snake,
-		self,
-		_visual_parameters
-	)
-
-# --- core functions ---
+	_edible_builder = EdibleBuilder.new(_snake, self, _visual_parameters)
 
 func tick(delta: float) -> void:
 	_handle_snake_movement(delta)
@@ -64,21 +60,12 @@ func get_visual_parameters() -> VisualParameters:
 # --- private setup functions ---
 
 func _set_background() -> void:
-	var field_size = _stage_description.get_field_size()
-	var sprites = _visual_parameters.get_background_sprites()
-	for x in range(0, field_size.get_width()):
-		for y in range(0, field_size.get_height()):
-			var cell = Area2D.new()
-			cell.position = PositionCalculator.calculate_position(
-				ImmutablePoint.new(x, y),
-				_visual_parameters.get_cell_pixels_size(),
-				_visual_parameters.get_game_pixels_offset()
-			)
-			var cell_sprite = sprites[rng.randi() % sprites.size()].duplicate()
-			cell_sprite.speed_scale = 0.3
-			cell.add_child(cell_sprite)
-			add_child(cell)
-			cell_sprite.play()
+	_background_cells = BackgroundGenerator.create_background_cells(
+		_stage_description, _visual_parameters
+	)
+	for c in _background_cells:
+		add_child(c)
+		c.play_sprite_animation(0.3)
 
 func _init_cells() -> void:
 	_cells = []
@@ -88,12 +75,13 @@ func _init_cells() -> void:
 
 func _setup_snake() -> void:
 	_snake = Snake.new(self)
+	_snake_properties = _snake.get_properties()
 	add_child(_snake)
 
 # --- private process functions ---
 
 func _compatible_movement_input(input_direction: int) -> bool:
-	var current_direction = _snake.get_properties().get_current_direction() 
+	var current_direction = _snake_properties.get_current_direction() 
 	return (
 		current_direction != input_direction &&
 		current_direction != Directions.get_opposite(input_direction)
@@ -102,11 +90,11 @@ func _compatible_movement_input(input_direction: int) -> bool:
 func _handle_snake_movement(delta: float) -> void:
 	_movement_elapsed_seconds += delta
 	var current_delta_seconds = _stage_description.get_snake_base_delta_seconds()
-	for i in _snake.get_properties().get_current_length() - 1:
+	for i in _snake_properties.get_current_length() - 1:
 		current_delta_seconds *= _stage_description.get_snake_speedup_factor()
 	if _movement_elapsed_seconds >= current_delta_seconds:
 		if _next_direction != -1:
-			_snake.get_properties().set_current_direction(_next_direction)
+			_snake_properties.set_current_direction(_next_direction)
 			_next_direction = -1
 		_movement_elapsed_seconds -= current_delta_seconds
 		_snake.move(current_delta_seconds)
@@ -127,8 +115,7 @@ func _handle_snake_collision() -> void:
 				e.on_snake_head_collision()
 
 func _handle_to_be_removed_queue_clear() -> void:
-	for r in _to_be_removed_queue:
-		r.queue_free()
+	for r in _to_be_removed_queue: r.queue_free()
 	_to_be_removed_queue.clear()
 
 func _handle_edibles_spawn(delta: float) -> void:
@@ -149,17 +136,16 @@ func _handle_edibles_spawn(delta: float) -> void:
 					_edibles.push_back(instance)
 					add_child(instance)
 
-func _can_spawn(
-	rules,
-	array: Array
-) -> bool:
-	return rng.randf() <= rules.get_spawn_probability() && _count_instances_by_type(array, rules.get_type()) < rules.get_max_instances()
+func _can_spawn(rules: EdibleRules, edibles_array: Array) -> bool:
+	return (
+		rng.randf() <= rules.get_spawn_probability() && 
+		_count_instances_by_type(edibles_array, rules.get_type()) < rules.get_max_instances()
+	)
 		
-func _count_instances_by_type(array: Array, type: String) -> int:
+func _count_instances_by_type(edibles_array: Array, type: String) -> int:
 	var res = 0
-	for e in array:
-		if e.get_type() == type:
-			res += 1
+	for e in edibles_array:
+		if e.get_type() == type: res += 1
 	return res
 
 func _get_free_cells() -> Array:
@@ -169,7 +155,7 @@ func _get_free_cells() -> Array:
 		_snake.get_head().get_placement().get_coordinates()
 	)
 	if h != -1:
-			res.pop_at(h)
+		res.pop_at(h)
 	for b in _snake.get_body_parts():
 		var i = ImmutablePoint.get_point_index_in_array(res, b.get_placement().get_coordinates())
 		if i != -1:

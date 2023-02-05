@@ -24,6 +24,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/utils/AssetFiles.gd"
 }, {
+"base": "Area2D",
+"class": "BackgroundCell",
+"language": "GDScript",
+"path": "res://src/game/BackgroundCell.gd"
+}, {
+"base": "Reference",
+"class": "BackgroundGenerator",
+"language": "GDScript",
+"path": "res://src/game/utils/BackgroundGenerator.gd"
+}, {
 "base": "Reference",
 "class": "BadApple",
 "language": "GDScript",
@@ -163,6 +173,8 @@ _global_script_class_icons={
 "AnimationUtils": "",
 "Apple": "",
 "AssetFiles": "",
+"BackgroundCell": "",
+"BackgroundGenerator": "",
 "BadApple": "",
 "Directions": "",
 "Edible": "",
