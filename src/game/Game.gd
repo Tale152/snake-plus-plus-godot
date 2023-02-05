@@ -35,20 +35,14 @@ func _init(
 
 # --- core functions ---
 
-func tick(delta):
+func tick(delta: float) -> void:
 	_handle_snake_movement(delta)
 	_handle_to_be_removed_queue_clear()
 	_handle_edibles_spawn(delta)
 
-func _unhandled_input(event):
-	if _next_direction == -1:
-		var direction: int = -1
-		if event is InputEventScreenDrag:
-			direction = SwipeMovementInput.get_input_direction(event) 
-		elif event is InputEventKey:
-			direction = KeyMovementInput.get_input_direction()
-		if direction != -1 && _compatible_movement_input(direction):
-			_next_direction = direction
+func direction_input(input: int) -> void:
+	if _next_direction == -1 && _compatible_movement_input(input):
+		_next_direction = input
 
 func remove_edible(edible) -> void:
 	_edibles.erase(edible)
