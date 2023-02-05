@@ -5,6 +5,7 @@ var _rules: EdibleRules
 var _game
 var _snake
 var _visual_parameters
+var _sprite: AnimatedSprite
 
 func _init(
 	coordinates: ImmutablePoint,
@@ -22,9 +23,9 @@ func _init(
 		visual_parameters.get_cell_pixels_size(),
 		visual_parameters.get_game_pixels_offset()
 	)
-	var sprite = visual_parameters.get_edible_sprite(_rules.get_type())
-	sprite.play()
-	add_child(sprite)
+	_sprite = visual_parameters.get_edible_sprite(_rules.get_type())
+	_sprite.play()
+	add_child(_sprite)
 
 func get_type() -> String:
 	return _rules.get_type()
@@ -39,3 +40,9 @@ func on_snake_head_collision() -> void:
 	if has_to_be_removed:
 		self.hide()
 		_game.remove_edible(self)
+
+func start_sprite_animation() -> void:
+	_sprite.play()
+
+func stop_sprite_animation() -> void:
+	_sprite.stop()
