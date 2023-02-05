@@ -4,7 +4,7 @@ var _properties: Properties
 var _body_parts: Array
 var _game
 var _px: int
-var _head: Head
+var _head: SnakeHead
 	
 func _init(game):
 	_game = game
@@ -13,7 +13,7 @@ func _init(game):
 		_game.get_stage_description().get_snake_initial_direction()
 	)
 	_body_parts = []
-	_head = Head.new(_game)
+	_head = SnakeHead.new(_game)
 	self.add_child(_head)
 
 func get_properties() -> Properties:
@@ -25,7 +25,7 @@ func move(movement_delta: float):
 	_lenghten_body_if_necessary(previous_part_old_placement)
 	_render_snake(movement_delta)
 
-func get_head() -> Head:
+func get_head() -> SnakeHead:
 	return _head
 
 func get_head_coordinates() -> ImmutablePoint:
@@ -139,11 +139,11 @@ func _lenghten_body_if_necessary(previous_part_old_placement: Placement) -> void
 		_body_parts.push_back(new_body_part)
 		
 func _render_snake(movement_delta: float):
-	_head.move_to_placement()
+	var speed_scale: float = 1 / movement_delta
+	_head.update_position_on_screen()
+	_head.update_sprite()
+	_head.play_sprite_animation(speed_scale)
 	for b in _body_parts:
 		b.update_position_on_screen()
 		b.update_sprite()
-	var speed_scale = 1 / movement_delta
-	_head.play_sprite_animation(speed_scale)
-	for b in _body_parts:
 		b.play_sprite_animation(speed_scale)
