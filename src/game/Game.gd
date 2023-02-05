@@ -5,7 +5,8 @@ const EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
 
 var rng = RandomNumberGenerator.new()
 var _game_over: bool = false
-var _next_direction: int
+var _next_direction: int = -1
+var _next_next_direction: int = -1
 var _stage_description: StageDescription
 var _visual_parameters: VisualParameters
 var _snake
@@ -15,8 +16,8 @@ var _movement_elapsed_seconds: float = 0
 var _spawn_attempt_elapsed_seconds: float = 0
 var _current_snake_delta_seconds: float
 var _edibles: Dictionary
-var _cells
-var _to_be_removed_queue = []
+var _cells: Array
+var _to_be_removed_queue: Array = []
 var _background_cells: Array
 
 var _edible_builder: EdibleBuilder
@@ -27,7 +28,6 @@ func _init(
 ):
 	_stage_description = stage_description
 	_visual_parameters = visual_parameters
-	_next_direction = -1
 	for r in _stage_description.get_instantaneous_edible_rules():
 		_edibles[r.get_type()] = []
 	_set_background()
@@ -41,8 +41,12 @@ func tick(delta: float) -> void:
 	_handle_edibles_spawn(delta)
 
 func direction_input(input: int) -> void:
-	if _next_direction == -1 && _compatible_movement_input(_snake_properties.get_current_direction(), input):
-		_next_direction = input
+	if _next_direction == -1:
+		if _compatible_movement_input(_snake_properties.get_current_direction(), input):
+			_next_direction = input
+	elif _next_next_direction == -1 && _movement_elapsed_seconds > (_current_snake_delta_seconds * 0.66):
+		if _compatible_movement_input(_next_direction, input):
+			_next_next_direction = input
 
 func remove_edible(edible: Edible) -> void:
 	_edibles[edible.get_type()].erase(edible)
@@ -100,7 +104,8 @@ func _handle_snake_movement(delta: float) -> void:
 	if _movement_elapsed_seconds >= _current_snake_delta_seconds:
 		if _next_direction != -1:
 			_snake_properties.set_current_direction(_next_direction)
-			_next_direction = -1
+			_next_direction = _next_next_direction
+			_next_next_direction = -1
 		_movement_elapsed_seconds -= _current_snake_delta_seconds
 		_snake.move(_current_snake_delta_seconds)
 		_handle_snake_collision()
