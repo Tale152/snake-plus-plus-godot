@@ -7,7 +7,7 @@ var _main
 
 func _ready():
 	$SpeedContainer/SpeedItemList.select(2)
-	$SkinContainer/SkinItemList.select(1)
+	$SkinContainer/SkinItemList.select(0)
 
 func set_main(main) -> void:
 	_main = main

@@ -86,7 +86,7 @@ text = "Field:"
 anchor_top = 0.2
 anchor_right = 0.3
 anchor_bottom = 0.5
-text = "20"
+text = "16"
 
 [node name="WidthLabel" type="Label" parent="FieldContainer"]
 anchor_left = 0.32
@@ -101,7 +101,7 @@ valign = 1
 anchor_top = 0.55
 anchor_right = 0.3
 anchor_bottom = 0.85
-text = "10"
+text = "16"
 
 [node name="HeightLabel" type="Label" parent="FieldContainer"]
 anchor_left = 0.32
