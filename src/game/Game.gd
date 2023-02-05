@@ -10,6 +10,7 @@ var _stage_description: StageDescription
 var _visual_parameters: VisualParameters
 var _snake
 var _snake_properties: SnakeProperties
+var _snake_head: SnakeHead
 var _movement_elapsed_seconds = 0
 var _spawn_attempt_elapsed_seconds = 0
 var _edibles = []
@@ -76,6 +77,7 @@ func _init_cells() -> void:
 func _setup_snake() -> void:
 	_snake = Snake.new(self)
 	_snake_properties = _snake.get_properties()
+	_snake_head = _snake.get_head()
 	add_child(_snake)
 
 # --- private process functions ---
@@ -101,7 +103,7 @@ func _handle_snake_movement(delta: float) -> void:
 		_handle_snake_collision()
 
 func _handle_snake_collision() -> void:
-	var head_coordinates: ImmutablePoint = _snake.get_head().get_placement().get_coordinates()
+	var head_coordinates: ImmutablePoint = _snake_head.get_placement().get_coordinates()
 	var body_parts = _snake.get_body_parts()
 	var b_index: int = 0
 	for b in body_parts:
@@ -150,12 +152,9 @@ func _count_instances_by_type(edibles_array: Array, type: String) -> int:
 
 func _get_free_cells() -> Array:
 	var res = _cells.duplicate(false)
-	var h = ImmutablePoint.get_point_index_in_array(
-		res,
-		_snake.get_head().get_placement().get_coordinates()
-	)
-	if h != -1:
-		res.pop_at(h)
+	res.pop_at(ImmutablePoint.get_point_index_in_array(
+		res, _snake_head.get_placement().get_coordinates()
+	))
 	for b in _snake.get_body_parts():
 		var i = ImmutablePoint.get_point_index_in_array(res, b.get_placement().get_coordinates())
 		if i != -1:
