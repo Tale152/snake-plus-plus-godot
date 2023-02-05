@@ -26,8 +26,12 @@ func play(stage_description: StageDescription, visual_parameters: VisualParamete
 	add_child(_game)
 
 func _process(delta):
-	if !_is_on_menu && !_game.is_game_over():
-		_game.tick(delta)
+	if !_is_on_menu:
+		if !_game.is_game_over():
+			_game.tick(delta)
+		else:
+			yield(get_tree().create_timer(3.0), "timeout")
+			show_menu()
 
 func _unhandled_input(event):
 	if Input.is_action_pressed("back_to_menu") && !_is_on_menu:
