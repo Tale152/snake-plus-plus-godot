@@ -46,7 +46,7 @@ func _shorten_body_if_necessary() -> void:
 	var n_body_parts_to_remove = _properties.get_potential_length() - _properties.get_current_length()
 	if n_body_parts_to_remove < 0:
 		_properties.set_current_length(_properties.get_potential_length())
-		for i in range(0, n_body_parts_to_remove * -1):
+		for _i in range(0, n_body_parts_to_remove * -1):
 			_body_parts.pop_back().queue_free()
 		if _properties.get_current_length() > 1:
 			_body_parts[-1].get_placement().set_previous_direction(-1)
