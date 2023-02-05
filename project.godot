@@ -90,11 +90,6 @@ _global_script_classes=[ {
 "path": "res://src/game/player_input/MovementInput.gd"
 }, {
 "base": "Reference",
-"class": "Placement",
-"language": "GDScript",
-"path": "res://src/game/snake/Placement.gd"
-}, {
-"base": "Reference",
 "class": "PositionCalculator",
 "language": "GDScript",
 "path": "res://src/game/utils/PositionCalculator.gd"
@@ -135,6 +130,11 @@ _global_script_classes=[ {
 "path": "res://src/game/visual_parameters/snake/SnakeTailSprite.gd"
 }, {
 "base": "Reference",
+"class": "SnakeUnitPlacement",
+"language": "GDScript",
+"path": "res://src/game/snake/SnakeUnitPlacement.gd"
+}, {
+"base": "Reference",
 "class": "StageDescription",
 "language": "GDScript",
 "path": "res://src/game/stage_description/StageDescription.gd"
@@ -171,7 +171,6 @@ _global_script_class_icons={
 "Game": "",
 "ImmutablePoint": "",
 "MovementInput": "",
-"Placement": "",
 "PositionCalculator": "",
 "Properties": "",
 "Snake": "",
@@ -180,6 +179,7 @@ _global_script_class_icons={
 "SnakeHead": "",
 "SnakeHeadSprite": "",
 "SnakeTailSprite": "",
+"SnakeUnitPlacement": "",
 "StageDescription": "",
 "StageDescriptionBuilder": "",
 "VisualParameters": "",

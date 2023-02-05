@@ -21,7 +21,7 @@ func get_properties() -> Properties:
 	
 func move(movement_delta: float):
 	_shorten_body_if_necessary()
-	var previous_part_old_placement: Placement = _move_body()
+	var previous_part_old_placement: SnakeUnitPlacement = _move_body()
 	_lenghten_body_if_necessary(previous_part_old_placement)
 	_render_snake(movement_delta)
 
@@ -60,9 +60,9 @@ func _shorten_body_if_necessary() -> void:
 		else:
 			_head.get_placement().set_previous_direction(-1)
 		
-func _move_body() -> Placement:
+func _move_body() -> SnakeUnitPlacement:
 	# storing previous head placement
-	var previous_part_old_placement = Placement.new(
+	var previous_part_old_placement = SnakeUnitPlacement.new(
 			_head.get_placement().get_coordinates(),
 			_head.get_placement().get_next_direction(),
 			_head.get_placement().get_previous_direction()
@@ -93,7 +93,7 @@ func _move_body() -> Placement:
 		y = field_size.get_height() - 1
 	elif y >= field_size.get_height():
 		y = 0
-	_head.set_placement(Placement.new(
+	_head.set_placement(SnakeUnitPlacement.new(
 		ImmutablePoint.new(x, y),
 		next_direction,
 		_head.get_placement().get_previous_direction()
@@ -111,7 +111,7 @@ func _move_body() -> Placement:
 		)
 		# shifting the placement in the body
 		for b in _body_parts:
-			var tmp: Placement = b.get_placement()
+			var tmp: SnakeUnitPlacement = b.get_placement()
 			b.set_placement(previous_part_old_placement)
 			previous_part_old_placement = tmp
 		# adjusting tail to have the correct previous_direction
@@ -119,7 +119,7 @@ func _move_body() -> Placement:
 		tail.get_placement().set_previous_direction(-1)
 	return previous_part_old_placement
 
-func _lenghten_body_if_necessary(previous_part_old_placement: Placement) -> void:
+func _lenghten_body_if_necessary(previous_part_old_placement: SnakeUnitPlacement) -> void:
 	if _properties.get_potential_length() > _properties.get_current_length():
 		_properties.set_current_length(_properties.get_current_length() + 1)
 		#correcting previous tail sprite

@@ -1,6 +1,6 @@
 class_name SnakeBodyPart extends Area2D
 
-var _placement: Placement
+var _placement: SnakeUnitPlacement
 var _snake
 var _game
 var _visual_parameters: VisualParameters
@@ -8,7 +8,7 @@ var _sprite: AnimatedSprite
 var _px: int
 var _offset: Vector2
 
-func _init(starting_placement: Placement, snake, game):
+func _init(starting_placement: SnakeUnitPlacement, snake, game):
 	_snake = snake
 	_game = game
 	_placement = starting_placement
@@ -18,11 +18,11 @@ func _init(starting_placement: Placement, snake, game):
 	update_position_on_screen()
 	_calculate_and_render_new_sprite()
 
-func get_placement() -> Placement:
+func get_placement() -> SnakeUnitPlacement:
 	return _placement
 
-func set_placement(p: Placement) -> void:
-	_placement = p
+func set_placement(placement: SnakeUnitPlacement) -> void:
+	_placement = placement
 	
 func update_position_on_screen() -> void:
 	position = PositionCalculator.calculate_position(

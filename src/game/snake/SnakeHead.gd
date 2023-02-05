@@ -1,6 +1,6 @@
 class_name SnakeHead extends Area2D
 
-var _placement: Placement
+var _placement: SnakeUnitPlacement
 var _visual_parameters: VisualParameters
 var _px: int
 var _offset: Vector2
@@ -12,7 +12,7 @@ func _init(game):
 	_stage_description = game.get_stage_description()
 	_px = _visual_parameters.get_cell_pixels_size()
 	_offset = _visual_parameters.get_game_pixels_offset()
-	_placement = Placement.new(
+	_placement = SnakeUnitPlacement.new(
 		_stage_description.get_snake_spawn_point(),
 		_stage_description.get_snake_initial_direction(),
 		-1 # snake starts being composed only by a head
@@ -20,10 +20,10 @@ func _init(game):
 	update_position_on_screen()
 	_calculate_and_render_new_sprite()
 
-func get_placement() -> Placement:
+func get_placement() -> SnakeUnitPlacement:
 	return _placement
 
-func set_placement(placement: Placement) -> void:
+func set_placement(placement: SnakeUnitPlacement) -> void:
 	_placement = placement
 
 func update_position_on_screen() -> void:

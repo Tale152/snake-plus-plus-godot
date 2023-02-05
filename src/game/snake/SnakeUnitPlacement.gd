@@ -1,4 +1,4 @@
-class_name Placement extends Reference
+class_name SnakeUnitPlacement extends Reference
 
 var _coordinates: ImmutablePoint
 var _next_direction: int
