@@ -54,6 +54,15 @@ func remove_edible(edible: Edible) -> void:
 
 func set_game_over(status) -> void:
 	_game_over = status
+	if _game_over:
+		_snake_head.stop_sprite_animation()
+		for b in _snake.get_body_parts():
+			b.stop_sprite_animation()
+		for cell in _background_cells:
+			cell.stop_sprite_animation()
+		for type in _edibles.keys():
+			for e in _edibles[type]:
+				e.stop_sprite_animation()
 
 func is_game_over() -> bool:
 	return _game_over
