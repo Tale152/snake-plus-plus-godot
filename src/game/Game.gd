@@ -53,10 +53,9 @@ func _unhandled_input(event):
 			elif swipe.x < -SWIPE_CONTROLS_SENSITIVITY && _compatible_movement_input(Directions.get_left()): _next_direction = Directions.get_left()
 			elif swipe.x > SWIPE_CONTROLS_SENSITIVITY && _compatible_movement_input(Directions.get_right()):  _next_direction = Directions.get_right()
 		elif event is InputEventKey:
-			if Input.is_action_pressed(MovementInput.get_action_move_up()) && _compatible_movement_input(Directions.get_up()): _next_direction = Directions.get_up()
-			elif Input.is_action_pressed(MovementInput.get_action_move_down()) && _compatible_movement_input(Directions.get_down()): _next_direction = Directions.get_down()
-			elif Input.is_action_pressed(MovementInput.get_action_move_left()) && _compatible_movement_input(Directions.get_left()): _next_direction = Directions.get_left()
-			elif Input.is_action_pressed(MovementInput.get_action_move_right()) && _compatible_movement_input(Directions.get_right()):  _next_direction = Directions.get_right()
+			var direction: int = KeyMovementInput.get_input_direction()
+			if direction != -1 && _compatible_movement_input(direction):
+				_next_direction = direction
 
 func remove_edible(edible):
 	_edibles.erase(edible)
