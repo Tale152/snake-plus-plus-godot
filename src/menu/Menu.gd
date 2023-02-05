@@ -64,4 +64,4 @@ func _on_PlayButton_pressed():
 			visual_parameters_builder.add_edible_sprite(EdibleSprite.new(str(selected_skin, "/edibles"), "BadApple"))
 		_main.play(description, visual_parameters_builder.build())
 	else:
-		print("null description")
+		$WrongInputAcceptDialog.popup()
