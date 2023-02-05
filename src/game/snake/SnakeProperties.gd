@@ -1,9 +1,8 @@
-class_name Properties extends Reference
+class_name SnakeProperties extends Reference
 
 var _current_length: int = 1
 var _potential_length: int = 1
 var _current_direction: int
-var _can_input_direction: bool = true
 
 func _init(initial_direction: int):
 	_current_direction = initial_direction
@@ -25,9 +24,3 @@ func get_current_direction() -> int:
 
 func set_current_direction(d: int) -> void:
 	_current_direction = d
-
-func get_can_input_direction() -> bool:
-	return _can_input_direction
-
-func set_can_input_direction(can_input: bool) -> void:
-	_can_input_direction = can_input

@@ -1,6 +1,6 @@
 class_name Snake extends Node2D
 
-var _properties: Properties
+var _properties: SnakeProperties
 var _body_parts: Array
 var _game
 var _px: int
@@ -9,14 +9,14 @@ var _head: SnakeHead
 func _init(game):
 	_game = game
 	_px = _game.get_visual_parameters().get_cell_pixels_size()
-	_properties = Properties.new(
+	_properties = SnakeProperties.new(
 		_game.get_stage_description().get_snake_initial_direction()
 	)
 	_body_parts = []
 	_head = SnakeHead.new(_game)
 	self.add_child(_head)
 
-func get_properties() -> Properties:
+func get_properties() -> SnakeProperties:
 	return _properties
 	
 func move(movement_delta: float):
