@@ -25,6 +25,8 @@ func play(stage_description: StageDescription, visual_parameters: VisualParamete
 	_game = Game.new(stage_description, visual_parameters)
 	add_child(_game)
 
-func _process(_delta):
+func _process(delta):
 	if Input.is_action_pressed("back_to_menu") && !_is_on_menu:
 		show_menu()
+	if !_is_on_menu && !_game.is_game_over():
+		_game.tick(delta)

@@ -8,7 +8,6 @@ var _game_over: bool = false
 var _next_direction: int
 var _stage_description: StageDescription
 var _visual_parameters: VisualParameters
-var _setup_completed: bool
 var _snake
 var _movement_elapsed_seconds = 0
 var _spawn_attempt_elapsed_seconds = 0
@@ -33,15 +32,13 @@ func _init(
 		self,
 		_visual_parameters
 	)
-	_setup_completed = true
 
 # --- core functions ---
 
-func _process(delta):
-	if _setup_completed && !_game_over:
-		_handle_snake_movement(delta)
-		_handle_to_be_removed_queue_clear()
-		_handle_edibles_spawn(delta)
+func tick(delta):
+	_handle_snake_movement(delta)
+	_handle_to_be_removed_queue_clear()
+	_handle_edibles_spawn(delta)
 
 func _unhandled_input(event):
 	if _next_direction == -1:
@@ -60,6 +57,9 @@ func remove_edible(edible) -> void:
 
 func set_game_over(status) -> void:
 	_game_over = status
+
+func is_game_over() -> bool:
+	return _game_over
 
 func get_stage_description() -> StageDescription:
 	return _stage_description
