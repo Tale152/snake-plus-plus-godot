@@ -4,6 +4,7 @@ class_name Game extends Node
 const EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
 
 var rng = RandomNumberGenerator.new()
+var _invoker
 var _game_over: bool = false
 var _next_direction: int = -1
 var _next_next_direction: int = -1
@@ -24,9 +25,11 @@ var _elapsed_seconds: float
 var _edible_builder: EdibleBuilder
 
 func initialize(
+	invoker,
 	stage_description: StageDescription,
 	visual_parameters: VisualParameters
 ):
+	_invoker = invoker
 	_stage_description = stage_description
 	_visual_parameters = visual_parameters
 	for r in _stage_description.get_instantaneous_edible_rules():
@@ -197,3 +200,7 @@ func _update_time_hud() -> void:
 		var minutes = floor(seconds / 60)
 		seconds = seconds - minutes * 60
 		$TopHud/TimeLabel.text = str(minutes, ":", seconds if seconds > 9 else str(0, seconds))
+
+
+func _on_PauseButton_pressed():
+	_invoker.change_pause_status()

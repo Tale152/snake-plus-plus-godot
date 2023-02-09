@@ -6,6 +6,7 @@ const Game = preload("res://src/game/Game.tscn")
 var _menu
 var _game
 var _is_on_menu
+var _pause: bool = false
 
 func _init():
 	show_menu()
@@ -21,16 +22,18 @@ func show_menu():
 
 func play(stage_description: StageDescription, visual_parameters: VisualParameters):
 	_is_on_menu = false
+	_pause = false
 	remove_child(_menu)
 	_menu = null
 	_game = Game.instance()
-	_game.initialize(stage_description, visual_parameters)
+	_game.initialize(self, stage_description, visual_parameters)
 	add_child(_game)
 
 func _process(delta):
 	if !_is_on_menu:
 		if !_game.is_game_over():
-			_game.tick(delta)
+			if !_pause:
+				_game.tick(delta)
 		else:
 			yield(get_tree().create_timer(3.0), "timeout")
 			show_menu()
@@ -46,3 +49,6 @@ func _unhandled_input(event):
 			direction = KeyMovementInput.get_input_direction()
 		if direction != -1:
 			_game.direction_input(direction)
+
+func change_pause_status() -> void:
+	_pause = !_pause
