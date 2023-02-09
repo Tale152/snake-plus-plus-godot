@@ -39,12 +39,10 @@ func initialize(
 
 func tick(delta: float) -> void:
 	_elapsed_seconds += delta
+	_update_time_hud()
 	_handle_snake_movement(delta)
 	_handle_to_be_removed_queue_clear()
 	_handle_edibles_spawn(delta)
-
-func get_elapsed_seconds() -> float:
-	return _elapsed_seconds
 
 func direction_input(input: int) -> void:
 	if _next_direction == -1:
@@ -190,3 +188,12 @@ func _get_free_cells() -> Array:
 			if i != -1:
 				res.pop_at(i)
 	return res
+
+func _update_time_hud() -> void:
+	var seconds = floor(_elapsed_seconds)
+	if seconds < 60:
+		$TopHud/TimeLabel.text = str(seconds)
+	else:
+		var minutes = floor(seconds / 60)
+		seconds = seconds - minutes * 60
+		$TopHud/TimeLabel.text = str(minutes, ":", seconds if seconds > 9 else str(0, seconds))

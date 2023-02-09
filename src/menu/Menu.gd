@@ -2,6 +2,7 @@ extends Control
 
 var SNAKE_SPAWN_POINT = ImmutablePoint.new(0,0)
 var SNAKE_INITIAL_DIRECTION = Directions.get_right()
+var TOP_HUD_HEIGHT_PX: int = OS.window_size.y * 0.1
 
 var _main
 
@@ -44,8 +45,9 @@ func _on_PlayButton_pressed():
 		description_builder.add_edible_rules(bad_apple_rules)
 	var description: StageDescription = description_builder.build()
 	if description != null:
-		var width_px = OS.window_size.x / int($FieldContainer/WidthTextEdit.text)
-		var heigh_px = OS.window_size.y / int($FieldContainer/HeightTextEdit.text)
+		var width_px = int(OS.window_size.x / int($FieldContainer/WidthTextEdit.text))
+		var heigh_px = int((OS.window_size.y - TOP_HUD_HEIGHT_PX)/ int($FieldContainer/HeightTextEdit.text))
+		print(str(width_px, " ", heigh_px))
 		var cell_px_size = width_px if width_px < heigh_px else heigh_px
 		var selected_skin = str(
 			"res://assets/skins/", $SkinContainer/SkinItemList.get_item_text($SkinContainer/SkinItemList.get_selected_items()[0])
@@ -54,7 +56,7 @@ func _on_PlayButton_pressed():
 			.set_cell_pixels_size(cell_px_size) \
 			.set_game_pixels_offset(Vector2(
 				(OS.window_size.x - int($FieldContainer/WidthTextEdit.text) * cell_px_size) / 2,
-				(OS.window_size.y - int($FieldContainer/HeightTextEdit.text) * cell_px_size) / 2
+				TOP_HUD_HEIGHT_PX
 			)) \
 			.set_snake_skin_path(str(selected_skin, "/snake")) \
 			.set_field_elements_skin_path(str(selected_skin, "/field"))
