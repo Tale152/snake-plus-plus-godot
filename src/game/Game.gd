@@ -19,6 +19,7 @@ var _edibles: Dictionary
 var _cells: Array
 var _to_be_removed_queue: Array = []
 var _background_cells: Array
+var _elapsed_seconds: float
 
 var _edible_builder: EdibleBuilder
 
@@ -34,11 +35,16 @@ func _init(
 	_init_cells()
 	_setup_snake()
 	_edible_builder = EdibleBuilder.new(_snake, self, _visual_parameters)
+	_elapsed_seconds = 0
 
 func tick(delta: float) -> void:
+	_elapsed_seconds += delta
 	_handle_snake_movement(delta)
 	_handle_to_be_removed_queue_clear()
 	_handle_edibles_spawn(delta)
+
+func get_elapsed_seconds() -> float:
+	return _elapsed_seconds
 
 func direction_input(input: int) -> void:
 	if _next_direction == -1:
