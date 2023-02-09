@@ -23,7 +23,7 @@ var _elapsed_seconds: float
 
 var _edible_builder: EdibleBuilder
 
-func _init(
+func initialize(
 	stage_description: StageDescription,
 	visual_parameters: VisualParameters
 ):

@@ -1,6 +1,7 @@
 extends Node
 
 const Menu = preload("res://src/menu/Menu.tscn")
+const Game = preload("res://src/game/Game.tscn")
 
 var _menu
 var _game
@@ -22,7 +23,8 @@ func play(stage_description: StageDescription, visual_parameters: VisualParamete
 	_is_on_menu = false
 	remove_child(_menu)
 	_menu = null
-	_game = Game.new(stage_description, visual_parameters)
+	_game = Game.instance()
+	_game.initialize(stage_description, visual_parameters)
 	add_child(_game)
 
 func _process(delta):
