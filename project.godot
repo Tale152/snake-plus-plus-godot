@@ -97,7 +97,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "KeyMovementInput",
 "language": "GDScript",
-"path": "res://src/game/player_input/KeyMovementInput.gd"
+"path": "res://src/game/player/input/KeyMovementInput.gd"
 }, {
 "base": "Reference",
 "class": "PositionCalculator",
@@ -157,7 +157,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "SwipeMovementInput",
 "language": "GDScript",
-"path": "res://src/game/player_input/SwipeMovementInput.gd"
+"path": "res://src/game/player/input/SwipeMovementInput.gd"
 }, {
 "base": "Reference",
 "class": "VisualParameters",
