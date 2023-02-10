@@ -12,7 +12,5 @@ func execute(
 		new_lenght if potential_length > 1 else 1
 	)
 	var player: Player = _game.get_player()
-	player.set_points(
-		round(player.get_points() / 2)
-	)
+	player.set_points(int(float(player.get_points()) / 2))
 	return true
