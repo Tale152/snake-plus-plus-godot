@@ -128,32 +128,43 @@ custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 pressed = true
 text = "Apple"
 
+[node name="AppleExpiresAfterCheckBox" type="CheckBox" parent="AppleContainer"]
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 0.2
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Expires after 5s"
+
 [node name="AppleNumberTextEdit" type="TextEdit" parent="AppleContainer"]
-anchor_top = 0.25
+anchor_top = 0.45
 anchor_right = 0.3
-anchor_bottom = 0.5
+anchor_bottom = 0.7
 text = "7"
 
 [node name="AppleProbabilityTextEdit" type="TextEdit" parent="AppleContainer"]
-anchor_top = 0.55
+anchor_top = 0.75
 anchor_right = 0.3
-anchor_bottom = 0.8
+anchor_bottom = 1.0
 text = "1.0"
 
 [node name="AppleMaxNumberLabel" type="Label" parent="AppleContainer"]
 anchor_left = 0.33
-anchor_top = 0.25
+anchor_top = 0.45
 anchor_right = 1.0
-anchor_bottom = 0.5
+anchor_bottom = 0.7
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Max number"
 valign = 1
 
 [node name="AppleProbabilityLabel" type="Label" parent="AppleContainer"]
 anchor_left = 0.33
-anchor_top = 0.55
+anchor_top = 0.75
 anchor_right = 1.0
-anchor_bottom = 0.8
+anchor_bottom = 1.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Probability / s"
 valign = 1
@@ -174,32 +185,43 @@ custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 pressed = true
 text = "BadApple"
 
+[node name="BadAppleExpiresAfterCheckBox" type="CheckBox" parent="BadAppleContainer"]
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 0.2
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Expires after 5s"
+
 [node name="BadAppleNumberTextEdit" type="TextEdit" parent="BadAppleContainer"]
-anchor_top = 0.25
+anchor_top = 0.45
 anchor_right = 0.3
-anchor_bottom = 0.5
-text = "7"
+anchor_bottom = 0.7
+text = "3"
 
 [node name="BadAppleProbabilityTextEdit" type="TextEdit" parent="BadAppleContainer"]
-anchor_top = 0.55
+anchor_top = 0.75
 anchor_right = 0.3
-anchor_bottom = 0.8
+anchor_bottom = 1.0
 text = "1.0"
 
 [node name="BadAppleMaxNumberLabel" type="Label" parent="BadAppleContainer"]
 anchor_left = 0.33
-anchor_top = 0.25
+anchor_top = 0.45
 anchor_right = 1.0
-anchor_bottom = 0.5
+anchor_bottom = 0.7
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Max number"
 valign = 1
 
 [node name="BadAppleProbabilityLabel" type="Label" parent="BadAppleContainer"]
 anchor_left = 0.33
-anchor_top = 0.55
+anchor_top = 0.75
 anchor_right = 1.0
-anchor_bottom = 0.8
+anchor_bottom = 1.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Probability / s"
 valign = 1

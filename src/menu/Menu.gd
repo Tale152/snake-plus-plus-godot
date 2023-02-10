@@ -29,7 +29,7 @@ func _on_PlayButton_pressed():
 		var apple_rules = EdibleRulesBuiler.new() \
 			.set_max_instances(int($AppleContainer/AppleNumberTextEdit.text)) \
 			.set_spawn_locations([]) \
-			.set_life_spawn(-1) \
+			.set_life_spawn(-1 if !$AppleContainer/AppleExpiresAfterCheckBox.pressed else 5) \
 			.set_spawn_probability(float($AppleContainer/AppleProbabilityTextEdit.text)) \
 			.set_type(EdibleTypes.APPLE()) \
 			.build()
@@ -38,7 +38,7 @@ func _on_PlayButton_pressed():
 		var bad_apple_rules = EdibleRulesBuiler.new() \
 			.set_max_instances(int($BadAppleContainer/BadAppleNumberTextEdit.text)) \
 			.set_spawn_locations([]) \
-			.set_life_spawn(-1) \
+			.set_life_spawn(-1 if !$BadAppleContainer/BadAppleExpiresAfterCheckBox.pressed else 5) \
 			.set_spawn_probability(float($BadAppleContainer/BadAppleProbabilityTextEdit.text)) \
 			.set_type(EdibleTypes.BAD_APPLE()) \
 			.build()
