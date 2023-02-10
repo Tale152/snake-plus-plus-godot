@@ -43,7 +43,7 @@ func initialize(
 
 func tick(delta: float) -> void:
 	_elapsed_seconds += delta
-	_update_time_hud()
+	_update_hud()
 	_handle_snake_movement(delta)
 	_handle_to_be_removed_queue_clear()
 	_handle_edibles_spawn(delta)
@@ -195,6 +195,10 @@ func _get_free_cells() -> Array:
 			if i != -1:
 				res.pop_at(i)
 	return res
+
+func _update_hud() -> void:
+	$TopHud/PointsLabel.text = str(_player.get_points())
+	_update_time_hud()
 
 func _update_time_hud() -> void:
 	var seconds = floor(_elapsed_seconds)
