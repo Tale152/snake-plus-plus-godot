@@ -3,7 +3,8 @@ class_name EdibleTypes
 static func get_types() -> Array:
 	return [
 		APPLE(),
-		BAD_APPLE()
+		BAD_APPLE(),
+		GAIN_COIN()
 	]
 
 static func APPLE() -> String:
@@ -11,3 +12,6 @@ static func APPLE() -> String:
 
 static func BAD_APPLE() -> String:
 	return "BadApple"
+
+static func GAIN_COIN() -> String:
+	return "GainCoin"
