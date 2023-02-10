@@ -12,10 +12,10 @@ var _free_cells: Array = []
 
 # I expect this arguments to be constants inside the same game,
 # thus using only one instance of EdibleBuilder per game
-func _init(snake, game, visual_parameters: VisualParameters):
+func _init(snake, game):
 	_snake = snake
 	_game = game
-	_visual_parameters = visual_parameters
+	_visual_parameters = game.get_visual_parameters()
 
 func build_new() -> EdibleBuilder:
 	_rules = null

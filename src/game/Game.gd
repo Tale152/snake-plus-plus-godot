@@ -38,7 +38,7 @@ func initialize(
 	_set_background()
 	_init_cells()
 	_setup_snake()
-	_edible_builder = EdibleBuilder.new(_snake, self, _visual_parameters)
+	_edible_builder = EdibleBuilder.new(_snake, self)
 	_elapsed_seconds = 0
 
 func tick(delta: float) -> void:
