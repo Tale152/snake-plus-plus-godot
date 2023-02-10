@@ -6,6 +6,7 @@ const EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
 var rng = RandomNumberGenerator.new()
 var _invoker
 var _game_over: bool = false
+var _player: Player = Player.new()
 var _next_direction: int = -1
 var _next_next_direction: int = -1
 var _stage_description: StageDescription
@@ -79,6 +80,9 @@ func get_stage_description() -> StageDescription:
 
 func get_visual_parameters() -> VisualParameters:
 	return _visual_parameters
+
+func get_player() -> Player:
+	return _player
 
 # --- private setup functions ---
 
