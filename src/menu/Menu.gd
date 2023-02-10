@@ -47,7 +47,6 @@ func _on_PlayButton_pressed():
 	if description != null:
 		var width_px = int(OS.window_size.x / int($FieldContainer/WidthTextEdit.text))
 		var heigh_px = int((OS.window_size.y - TOP_HUD_HEIGHT_PX)/ int($FieldContainer/HeightTextEdit.text))
-		print(str(width_px, " ", heigh_px))
 		var cell_px_size = width_px if width_px < heigh_px else heigh_px
 		var selected_skin = str(
 			"res://assets/skins/", $SkinContainer/SkinItemList.get_item_text($SkinContainer/SkinItemList.get_selected_items()[0])
