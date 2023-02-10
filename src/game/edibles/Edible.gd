@@ -2,10 +2,13 @@ class_name Edible extends Area2D
 
 var _coordinates: ImmutablePoint
 var _rules: EdibleRules
+var _life_span: float
+var _can_expire: bool
 var _game
 var _snake
 var _visual_parameters
 var _sprite: AnimatedSprite
+var _elapsed_time: float = 0
 
 func _init(
 	coordinates: ImmutablePoint,
@@ -16,6 +19,8 @@ func _init(
 ):
 	_coordinates = coordinates
 	_rules = rules
+	_life_span = _rules.get_life_span()
+	_can_expire = _life_span != -1
 	_snake = snake
 	_game = game
 	position = PositionCalculator.calculate_position(
@@ -46,3 +51,9 @@ func start_sprite_animation() -> void:
 
 func stop_sprite_animation() -> void:
 	_sprite.stop()
+
+func tick(delta_second: float) -> void:
+	_elapsed_time += delta_second
+
+func is_expired() -> bool:
+	return _elapsed_time >= _life_span if _can_expire else false

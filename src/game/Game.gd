@@ -44,6 +44,7 @@ func initialize(
 func tick(delta: float) -> void:
 	_elapsed_seconds += delta
 	_update_hud()
+	_handle_edibles_expire(delta)
 	_handle_snake_movement(delta)
 	_handle_to_be_removed_queue_clear()
 	_handle_edibles_spawn(delta)
@@ -117,6 +118,14 @@ func _compatible_movement_input(
 		current_direction != input_direction &&
 		current_direction != Directions.get_opposite(input_direction)
 	)
+
+func _handle_edibles_expire(delta: float) -> void:
+	var edibles_copy = _edibles.duplicate(true)
+	for type in edibles_copy.keys():
+		for e in edibles_copy[type]:
+			e.tick(delta)
+			if e.is_expired():
+				remove_edible(e)
 
 func _handle_snake_movement(delta: float) -> void:
 	_movement_elapsed_seconds += delta
