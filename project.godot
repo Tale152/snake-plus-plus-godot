@@ -100,6 +100,11 @@ _global_script_classes=[ {
 "path": "res://src/game/player/input/KeyMovementInput.gd"
 }, {
 "base": "Reference",
+"class": "Player",
+"language": "GDScript",
+"path": "res://src/game/player/Player.gd"
+}, {
+"base": "Reference",
 "class": "PositionCalculator",
 "language": "GDScript",
 "path": "res://src/game/utils/PositionCalculator.gd"
@@ -188,6 +193,7 @@ _global_script_class_icons={
 "Game": "",
 "ImmutablePoint": "",
 "KeyMovementInput": "",
+"Player": "",
 "PositionCalculator": "",
 "Snake": "",
 "SnakeBodyPart": "",
