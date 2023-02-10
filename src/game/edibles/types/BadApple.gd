@@ -11,4 +11,8 @@ func execute(
 	_snake.get_properties().set_potential_length(
 		new_lenght if potential_length > 1 else 1
 	)
+	var player: Player = _game.get_player()
+	player.set_points(
+		round(player.get_points() / 2)
+	)
 	return true
