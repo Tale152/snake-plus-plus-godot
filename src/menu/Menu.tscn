@@ -32,10 +32,10 @@ margin_bottom = -10.0
 text = "Play"
 
 [node name="SpeedContainer" type="Control" parent="."]
-anchor_left = 0.1
-anchor_top = 0.3
-anchor_right = 0.3
-anchor_bottom = 0.5
+anchor_left = 0.4
+anchor_top = 0.1
+anchor_right = 0.6
+anchor_bottom = 0.3
 
 [node name="SpeedLabel" type="Label" parent="SpeedContainer"]
 anchor_right = 1.0
@@ -51,10 +51,10 @@ anchor_bottom = 1.0
 items = [ "Very Slow", null, false, "Slow", null, false, "Normal", null, false, "Fast", null, false, "Very Fast", null, false ]
 
 [node name="SkinContainer" type="Control" parent="."]
-anchor_left = 0.1
-anchor_top = 0.6
-anchor_right = 0.3
-anchor_bottom = 0.8
+anchor_left = 0.4
+anchor_top = 0.35
+anchor_right = 0.6
+anchor_bottom = 0.55
 
 [node name="SkinLabel" type="Label" parent="SkinContainer"]
 anchor_right = 1.0
@@ -70,171 +70,24 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 items = [ "simple", null, false, "debug", null, false ]
 
-[node name="FieldContainer" type="Control" parent="."]
-anchor_left = 0.338
-anchor_top = 0.3
-anchor_right = 0.554
-anchor_bottom = 0.45
+[node name="StageContainer" type="Control" parent="."]
+anchor_left = 0.4
+anchor_top = 0.6
+anchor_right = 0.6
+anchor_bottom = 0.8
 
-[node name="FieldLabel" type="Label" parent="FieldContainer"]
-anchor_right = 1.0
-anchor_bottom = 0.3
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Field:"
-
-[node name="WidthTextEdit" type="TextEdit" parent="FieldContainer"]
-anchor_top = 0.2
-anchor_right = 0.3
-anchor_bottom = 0.5
-text = "16"
-
-[node name="WidthLabel" type="Label" parent="FieldContainer"]
-anchor_left = 0.32
-anchor_top = 0.2
-anchor_right = 1.0
-anchor_bottom = 0.5
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Width"
-valign = 1
-
-[node name="HeightTextEdit" type="TextEdit" parent="FieldContainer"]
-anchor_top = 0.55
-anchor_right = 0.3
-anchor_bottom = 0.85
-text = "16"
-
-[node name="HeightLabel" type="Label" parent="FieldContainer"]
-anchor_left = 0.32
-anchor_top = 0.55
-anchor_right = 1.0
-anchor_bottom = 0.85
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Height"
-valign = 1
-
-[node name="AppleContainer" type="Control" parent="."]
-anchor_left = 0.7
-anchor_top = 0.3
-anchor_right = 0.9
-anchor_bottom = 0.5
-
-[node name="AppleCheckBox" type="CheckBox" parent="AppleContainer"]
-anchor_right = 1.0
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-pressed = true
-text = "Apple"
-
-[node name="AppleExpiresAfterCheckBox" type="CheckBox" parent="AppleContainer"]
-anchor_top = 0.2
+[node name="StageLabel" type="Label" parent="StageContainer"]
 anchor_right = 1.0
 anchor_bottom = 0.2
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "Expires after 5s"
-
-[node name="AppleNumberTextEdit" type="TextEdit" parent="AppleContainer"]
-anchor_top = 0.45
-anchor_right = 0.3
-anchor_bottom = 0.7
-text = "7"
-
-[node name="AppleProbabilityTextEdit" type="TextEdit" parent="AppleContainer"]
-anchor_top = 0.75
-anchor_right = 0.3
-anchor_bottom = 1.0
-text = "1.0"
-
-[node name="AppleMaxNumberLabel" type="Label" parent="AppleContainer"]
-anchor_left = 0.33
-anchor_top = 0.45
-anchor_right = 1.0
-anchor_bottom = 0.7
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Max number"
+text = "Stage:
+"
 valign = 1
 
-[node name="AppleProbabilityLabel" type="Label" parent="AppleContainer"]
-anchor_left = 0.33
-anchor_top = 0.75
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Probability / s"
-valign = 1
-
-[node name="BadAppleContainer" type="Control" parent="."]
-anchor_left = 0.7
-anchor_top = 0.55
-anchor_right = 0.9
-anchor_bottom = 0.75
-
-[node name="BadAppleCheckBox" type="CheckBox" parent="BadAppleContainer"]
-anchor_right = 1.0
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-pressed = true
-text = "BadApple"
-
-[node name="BadAppleExpiresAfterCheckBox" type="CheckBox" parent="BadAppleContainer"]
+[node name="StageItemList" type="ItemList" parent="StageContainer"]
 anchor_top = 0.2
 anchor_right = 1.0
-anchor_bottom = 0.2
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "Expires after 5s"
-
-[node name="BadAppleNumberTextEdit" type="TextEdit" parent="BadAppleContainer"]
-anchor_top = 0.45
-anchor_right = 0.3
-anchor_bottom = 0.7
-text = "3"
-
-[node name="BadAppleProbabilityTextEdit" type="TextEdit" parent="BadAppleContainer"]
-anchor_top = 0.75
-anchor_right = 0.3
 anchor_bottom = 1.0
-text = "1.0"
-
-[node name="BadAppleMaxNumberLabel" type="Label" parent="BadAppleContainer"]
-anchor_left = 0.33
-anchor_top = 0.45
-anchor_right = 1.0
-anchor_bottom = 0.7
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Max number"
-valign = 1
-
-[node name="BadAppleProbabilityLabel" type="Label" parent="BadAppleContainer"]
-anchor_left = 0.33
-anchor_top = 0.75
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Probability / s"
-valign = 1
-
-[node name="WrongInputAcceptDialog" type="AcceptDialog" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -159.5
-margin_top = -29.0
-margin_right = 159.5
-margin_bottom = 29.0
-dialog_text = "There is something wrong with the input values"
+items = [ "Stage 0", null, false, "Stage 1", null, false, "Stage 2", null, false ]
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
