@@ -206,17 +206,17 @@ func _get_free_cells() -> Array:
 	return res
 
 func _update_hud() -> void:
-	$TopHud/PointsLabel.text = str(_player.get_points())
+	$TopHud/PointsLabel.text = str("Score: ", _player.get_points())
 	_update_time_hud()
 
 func _update_time_hud() -> void:
 	var seconds = floor(_elapsed_seconds)
 	if seconds < 60:
-		$TopHud/TimeLabel.text = str(seconds)
+		$TopHud/TimeLabel.text = str("Time: ", seconds)
 	else:
 		var minutes = floor(seconds / 60)
 		seconds = seconds - minutes * 60
-		$TopHud/TimeLabel.text = str(minutes, ":", seconds if seconds > 9 else str(0, seconds))
+		$TopHud/TimeLabel.text = str("Time: ", minutes, ":", seconds if seconds > 9 else str(0, seconds))
 
 
 func _on_PauseButton_pressed():
