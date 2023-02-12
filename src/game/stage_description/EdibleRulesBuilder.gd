@@ -45,6 +45,8 @@ func _get_strategy(type: String):
 		return Apple.new()
 	elif type == EdibleTypes.BAD_APPLE():
 		return BadApple.new()
+	elif type == EdibleTypes.CHERRY():
+		return Cherry.new()
 	elif type == EdibleTypes.GAIN_COIN():
 		return GainCoin.new()
 	elif type == EdibleTypes.LOSS_COIN():
