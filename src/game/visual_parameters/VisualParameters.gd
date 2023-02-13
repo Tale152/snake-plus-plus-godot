@@ -26,6 +26,7 @@ func _init(
 	_body_sprites = body_sprites
 	_tail_sprites = tail_sprites
 	_background_sprites = background_sprites
+	_walls_sprites = walls_sprites
 
 func get_cell_pixels_size() -> int:
 	return _cell_pixels_size
@@ -64,7 +65,8 @@ func get_background_sprites() -> Array:
 	return res;
 
 func get_wall_sprite(cardinal_connections: CardinalConnections) -> AnimatedSprite:
+	print(_walls_sprites.size())
 	for ws in _walls_sprites:
 		if ws.get_cardinal_connections().equals_to(cardinal_connections):
-			return ws.get_sprite()
+			return ws.get_sprite().duplicate()
 	return null
