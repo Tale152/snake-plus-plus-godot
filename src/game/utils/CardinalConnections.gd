@@ -17,3 +17,9 @@ func is_connected_to(direction: int) -> bool:
 	elif direction == Directions.get_down(): return _is_down_connected
 	elif direction == Directions.get_left(): return _is_left_connected
 	else: return false
+
+func equals_to(cardinal_connections: CardinalConnections) -> bool:
+	for d in Directions.get_directions():
+		if is_connected_to(d) != cardinal_connections.is_connected_to(d):
+			return false
+	return true
