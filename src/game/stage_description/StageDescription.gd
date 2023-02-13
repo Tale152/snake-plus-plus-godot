@@ -6,6 +6,7 @@ var _snake_initial_direction: int
 var _snake_base_delta_seconds: float
 var _snake_speedup_factor: float
 var _instantaneous_edible_rules: Array
+var _walls_points: Array
 
 func _init(
 	size: FieldSize,
@@ -13,7 +14,8 @@ func _init(
 	snake_initial_direction: int,
 	snake_base_delta_seconds: float,
 	snake_speedup_factor: float,
-	instantaneous_edible_rules: Array
+	instantaneous_edible_rules: Array,
+	walls_points: Array
 ):
 	_size = size
 	_snake_spawn_point = snake_spawn_point
@@ -21,6 +23,7 @@ func _init(
 	_snake_base_delta_seconds = snake_base_delta_seconds
 	_snake_speedup_factor = snake_speedup_factor
 	_instantaneous_edible_rules = instantaneous_edible_rules
+	_walls_points = walls_points
 
 func get_field_size() -> FieldSize:
 	return _size
@@ -39,3 +42,6 @@ func get_snake_speedup_factor() -> float:
 
 func get_instantaneous_edible_rules() -> Array:
 	return _instantaneous_edible_rules
+
+func get_walls_points() -> Array:
+	return _walls_points

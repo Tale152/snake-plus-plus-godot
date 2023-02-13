@@ -6,9 +6,14 @@ var _snake_initial_direction: int = -1
 var _snake_base_delta_seconds: float = -1
 var _snake_speedup_factor: float = -1
 var _edible_rules: Array = []
+var _walls_points: Array = []
 
 func set_field_size(size: FieldSize) -> StageDescriptionBuilder:
 	_size = size
+	return self
+
+func set_walls_points(points: Array) -> StageDescriptionBuilder:
+	_walls_points = points
 	return self
 
 func set_snake_spawn_point(point: ImmutablePoint) -> StageDescriptionBuilder:
@@ -39,7 +44,8 @@ func build() -> StageDescription:
 			_snake_initial_direction,
 			_snake_base_delta_seconds,
 			_snake_speedup_factor,
-			_edible_rules
+			_edible_rules,
+			_walls_points
 		)
 	else:
 		return null
@@ -47,6 +53,7 @@ func build() -> StageDescription:
 func _all_check_pass() -> bool:
 	return (
 		_is_field_size_valid()
+		&& _are_walls_points_valid()
 		&& _is_snake_spawn_point_valid()
 		&& _is_snake_initial_direction_valid()
 		&& _is_snake_base_delta_seconds_valid()
@@ -56,8 +63,24 @@ func _all_check_pass() -> bool:
 func _is_field_size_valid():
 	return _size != null && _size.get_height() > 0 && _size.get_width() > 0
 
+func _are_walls_points_valid():
+	var tmp_walls_points = []
+	for wp in _walls_points:
+		if !is_point_in_field(wp): return false
+		tmp_walls_points.push_back(wp)
+	var p = tmp_walls_points.pop_back()
+	while(tmp_walls_points.size() > 0):
+		for wp in tmp_walls_points:
+			if wp.equals_to(p): return false
+		p = tmp_walls_points.pop_back()
+	return true
+
 func _is_snake_spawn_point_valid():
-	return _snake_spawn_point != null && is_point_in_field(_snake_spawn_point)
+	if _snake_spawn_point == null || !is_point_in_field(_snake_spawn_point):
+		return false
+	for wp in _walls_points:
+		if wp.equals_to(_snake_spawn_point): return false
+	return true
 
 func _is_snake_initial_direction_valid():
 	return Directions.get_directions().find(_snake_initial_direction) != -1
