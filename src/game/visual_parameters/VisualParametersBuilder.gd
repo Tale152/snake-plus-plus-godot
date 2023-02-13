@@ -31,17 +31,20 @@ func build() -> VisualParameters:
 	var body_sprites = []
 	var tail_sprites = []
 	var background_sprites = []
+	var walls_sprites = []
 	_populate_snake_sprites(
 		head_sprites,
 		body_sprites,
 		tail_sprites
 	)
 	_populate_background_sprites(background_sprites)
+	_populate_walls_sprites(walls_sprites)
 	_scale_array_of_sprites(head_sprites, _cell_pixels_size)
 	_scale_array_of_sprites(body_sprites, _cell_pixels_size)
 	_scale_array_of_sprites(tail_sprites, _cell_pixels_size)
 	_scale_array_of_sprites(_edible_sprites, _cell_pixels_size)
 	_scale_array_of_sprites(background_sprites, _cell_pixels_size)
+	_scale_array_of_sprites(walls_sprites, _cell_pixels_size)
 	return VisualParameters.new(
 		_cell_pixels_size,
 		_game_pixels_offset,
@@ -49,7 +52,8 @@ func build() -> VisualParameters:
 		head_sprites,
 		body_sprites,
 		tail_sprites,
-		background_sprites
+		background_sprites,
+		walls_sprites
 	)
 
 func _populate_snake_sprites(head_sprites, body_sprites, tail_sprites) -> void:
@@ -60,6 +64,18 @@ func _populate_snake_sprites(head_sprites, body_sprites, tail_sprites) -> void:
 		for j in Directions.get_directions():
 			if d != j:
 				body_sprites.push_back(SnakeBodySprite.new(_snake_skin_path, d, j))
+
+func _populate_walls_sprites(walls_sprites: Array) -> void:
+	for u in 2: for r in 2: for d in 2: for l in 2:
+		var connections = []
+		if u == 1: connections.push_back(Directions.get_up())
+		if r == 1: connections.push_back(Directions.get_right())
+		if d == 1: connections.push_back(Directions.get_down())
+		if l == 1: connections.push_back(Directions.get_left())
+		walls_sprites.push_back(WallSprite.new(
+			_field_elements_skin_path,
+			CardinalConnections.new(connections)
+		))
 
 func _populate_background_sprites(background_sprites) -> void:
 	var i = 0

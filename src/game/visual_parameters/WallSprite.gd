@@ -18,6 +18,8 @@ func _init(path: String, cardinal_connections: CardinalConnections):
 func get_sprite() -> AnimatedSprite:
 	return _sprite
 
+func get_cardinal_connections() -> CardinalConnections:
+	return _cardinal_connections
+	
 func _direction_to_binary(direction: int) -> String:
 	return "1" if _cardinal_connections.is_connected_to(direction) else "0"
-

@@ -7,6 +7,7 @@ var _body_sprites: Array
 var _head_sprites: Array
 var _tail_sprites: Array
 var _background_sprites: Array
+var _walls_sprites: Array
 
 func _init(
 	cell_pixels_size: int,
@@ -15,7 +16,8 @@ func _init(
 	head_sprites: Array,
 	body_sprites: Array,
 	tail_sprites: Array,
-	background_sprites: Array
+	background_sprites: Array,
+	walls_sprites: Array
 ):
 	_cell_pixels_size = cell_pixels_size
 	_game_pixels_offset = game_pixels_offset
@@ -60,3 +62,9 @@ func get_background_sprites() -> Array:
 	for b in _background_sprites:
 		res.push_back(b.get_sprite())
 	return res;
+
+func get_wall_sprite(cardinal_connections: CardinalConnections) -> AnimatedSprite:
+	for ws in _walls_sprites:
+		if ws.get_cardinal_connections().equals_to(cardinal_connections):
+			return ws.get_sprite()
+	return null
