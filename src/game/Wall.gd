@@ -71,7 +71,12 @@ func _is_inside_field(
 	point: ImmutablePoint,
 	stage_description: StageDescription
 ) -> bool:
-	return true
+	return (
+		point.get_x() >= 0 && 
+		point.get_x() < stage_description.get_field_size().get_width() &&
+		point.get_y() >= 0 &&
+		point.get_y() < stage_description.get_field_size().get_height()
+	)
 
 func _wall_point_exists(
 	point: ImmutablePoint,
