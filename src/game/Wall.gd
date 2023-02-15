@@ -3,20 +3,24 @@ class_name Wall extends Area2D
 var _wall_sprite: AnimatedSprite
 var _coordinates: ImmutablePoint
 var _connections: CardinalConnections
+var _game
 
 func _init(
 	coordinates: ImmutablePoint,
-	stage_description: StageDescription,
-	visual_parameters: VisualParameters
+	game
 ):
 	_coordinates = coordinates
+	_game = game
 	position = PositionCalculator.calculate_position(
 		coordinates,
-		visual_parameters.get_cell_pixels_size(),
-		visual_parameters.get_game_pixels_offset()
+		game.get_visual_parameters().get_cell_pixels_size(),
+		game.get_visual_parameters().get_game_pixels_offset()
 	)
-	_connections = _generate_connections(coordinates, stage_description)
-	_wall_sprite = visual_parameters.get_wall_sprite(_connections)
+	_connections = _generate_connections(
+		coordinates,
+		game.get_stage_description()
+	)
+	_wall_sprite = game.get_visual_parameters().get_wall_sprite(_connections)
 	add_child(_wall_sprite)
 
 func get_coordinates() -> ImmutablePoint:
@@ -24,6 +28,9 @@ func get_coordinates() -> ImmutablePoint:
 
 func get_connections() -> CardinalConnections:
 	return _connections
+
+func on_snake_head_collision() -> void:
+	_game.set_game_over(true)
 
 func play_sprite_animation(speed_scale: float) -> void:
 	_wall_sprite.speed_scale = speed_scale

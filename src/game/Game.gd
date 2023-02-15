@@ -18,6 +18,7 @@ var _movement_elapsed_seconds: float = 0
 var _spawn_attempt_elapsed_seconds: float = 0
 var _current_snake_delta_seconds: float
 var _edibles: Dictionary
+var _walls: Array
 var _cells: Array
 var _to_be_removed_queue: Array = []
 var _background_cells: Array
@@ -37,6 +38,7 @@ func initialize(
 		_edibles[r.get_type()] = []
 	_set_background()
 	_init_cells()
+	_set_walls()
 	_setup_snake()
 	_edible_builder = EdibleBuilder.new(_snake, self)
 	_elapsed_seconds = 0
@@ -69,6 +71,8 @@ func set_game_over(status) -> void:
 			b.stop_sprite_animation()
 		for cell in _background_cells:
 			cell.stop_sprite_animation()
+		for wall in _walls:
+			wall.stop_sprite_animation()
 		for type in _edibles.keys():
 			for e in _edibles[type]:
 				e.stop_sprite_animation()
@@ -101,6 +105,13 @@ func _init_cells() -> void:
 		for y in _stage_description.get_field_size().get_height():
 			_cells.push_back(ImmutablePoint.new(x, y))
 
+func _set_walls() -> void:
+	_walls = []
+	for wp in _stage_description.get_walls_points():
+		var wall = Wall.new(wp, self)
+		_walls.push_back(wall)
+		add_child(wall)
+		
 func _setup_snake() -> void:
 	_snake = Snake.new(self)
 	_snake_properties = _snake.get_properties()
@@ -149,9 +160,13 @@ func _calculate_snake_current_delta_seconds() -> float:
 func _handle_snake_collision() -> void:
 	var head_coordinates: ImmutablePoint = _snake_head.get_placement().get_coordinates()
 	var body_parts = _snake.get_body_parts()
-	for b in body_parts:
-		if head_coordinates.equals_to(b.get_placement().get_coordinates()):
-			b.on_snake_head_collision()
+	for w in _walls:
+		if head_coordinates.equals_to(w.get_coordinates()):
+			w.on_snake_head_collision()
+	if !_game_over:
+		for b in body_parts:
+			if head_coordinates.equals_to(b.get_placement().get_coordinates()):
+				b.on_snake_head_collision()
 	if !_game_over:
 		# copying the edibles dictionary since after head collision maybe
 		# an edible is removed from the array associated with the key
@@ -194,6 +209,10 @@ func _get_free_cells() -> Array:
 	res.pop_at(ImmutablePoint.get_point_index_in_array(
 		res, _snake_head.get_placement().get_coordinates()
 	))
+	for w in _walls:
+		var i = ImmutablePoint.get_point_index_in_array(res, w.get_coordinates())
+		if i != -1:
+			res.pop_at(i)
 	for b in _snake.get_body_parts():
 		var i = ImmutablePoint.get_point_index_in_array(res, b.get_placement().get_coordinates())
 		if i != -1:
