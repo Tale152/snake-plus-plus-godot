@@ -65,7 +65,6 @@ func get_background_sprites() -> Array:
 	return res;
 
 func get_wall_sprite(cardinal_connections: CardinalConnections) -> AnimatedSprite:
-	print(_walls_sprites.size())
 	for ws in _walls_sprites:
 		if ws.get_cardinal_connections().equals_to(cardinal_connections):
 			return ws.get_sprite().duplicate()
