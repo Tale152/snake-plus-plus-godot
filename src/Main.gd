@@ -7,6 +7,8 @@ var _menu
 var _game
 var _is_on_menu
 var _pause: bool = false
+var _visual_parameters: VisualParameters
+var _stage_description: StageDescription
 
 func _init():
 	show_menu()
@@ -19,10 +21,14 @@ func show_menu():
 	_menu = Menu.instance()
 	_menu.set_main(self)
 	add_child(_menu)
+	_stage_description = null
+	_visual_parameters = null
 
 func play(stage_description: StageDescription, visual_parameters: VisualParameters):
 	_is_on_menu = false
 	_pause = false
+	_stage_description = stage_description
+	_visual_parameters = visual_parameters
 	remove_child(_menu)
 	_menu = null
 	_game = Game.instance()
@@ -52,3 +58,11 @@ func _unhandled_input(event):
 
 func change_pause_status() -> void:
 	_pause = !_pause
+
+func restart() -> void:
+	_is_on_menu = false
+	_pause = false
+	remove_child(_game)
+	_game = Game.instance()
+	_game.initialize(self, _stage_description, _visual_parameters)
+	add_child(_game)

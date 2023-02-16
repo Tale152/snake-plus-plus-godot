@@ -240,3 +240,7 @@ func _update_time_hud() -> void:
 
 func _on_PauseButton_pressed():
 	_invoker.change_pause_status()
+
+
+func _on_RestartButton_pressed():
+	_invoker.restart()
