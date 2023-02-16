@@ -53,7 +53,7 @@ func _unhandled_input(event):
 			direction = SwipeMovementInput.get_input_direction(event) 
 		elif event is InputEventKey:
 			direction = KeyMovementInput.get_input_direction()
-		if direction != -1:
+		if direction != -1 && !_is_on_menu:
 			_game.direction_input(direction)
 
 func change_pause_status() -> void:
