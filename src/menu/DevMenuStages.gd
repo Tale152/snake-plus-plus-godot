@@ -23,8 +23,26 @@ static func _complete_0(
 	var heigh = 16
 	stage_description_builder \
 		.set_field_size(FieldSize.new(width, heigh)) \
-		.set_snake_spawn_point(ImmutablePoint.new(0,0)) \
+		.set_snake_spawn_point(ImmutablePoint.new(1,1)) \
 		.set_snake_initial_direction(Directions.get_right()) \
+		.set_walls_points([
+			ImmutablePoint.new(0, 0),
+			ImmutablePoint.new(1, 0),
+			ImmutablePoint.new(0, 1),
+			ImmutablePoint.new(0, 14),
+			ImmutablePoint.new(1, 15),
+			ImmutablePoint.new(0, 15),
+			ImmutablePoint.new(14, 0),
+			ImmutablePoint.new(15, 0),
+			ImmutablePoint.new(15, 1),
+			ImmutablePoint.new(15, 15),
+			ImmutablePoint.new(15, 14),
+			ImmutablePoint.new(14, 15),
+			ImmutablePoint.new(7, 7),
+			ImmutablePoint.new(7, 8),
+			ImmutablePoint.new(8, 7),
+			ImmutablePoint.new(8, 8),
+		]) \
 		.add_edible_rules(
 			EdibleRulesBuiler.new() \
 				.set_type(EdibleTypes.APPLE()) \
