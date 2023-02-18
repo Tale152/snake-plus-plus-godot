@@ -51,5 +51,7 @@ func _get_strategy(type: String):
 		return GainCoin.new()
 	elif type == EdibleTypes.LOSS_COIN():
 		return LossCoin.new()
+	elif type == EdibleTypes.DOUBLE_SCORE():
+		return DoubleScore.new()
 	else:
 		return null

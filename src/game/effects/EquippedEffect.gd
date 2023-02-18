@@ -1,4 +1,4 @@
-class_name Effect extends Reference
+class_name EquippedEffect extends Reference
 
 var _type: String
 var _elapsed_time: float = 0
@@ -30,5 +30,5 @@ func tick(delta: float) -> bool:
 	_elapsed_time += delta
 	return _elapsed_time >= _total_time
 
-func get_timer() -> EffectTimer:
-	return EffectTimer.new(_type, _elapsed_time, _total_time)
+func get_timer() -> EquippedEffectTimer:
+	return EquippedEffectTimer.new(_type, _elapsed_time, _total_time)
