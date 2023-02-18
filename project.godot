@@ -90,6 +90,11 @@ _global_script_classes=[ {
 "path": "res://src/game/edibles/EdibleTypes.gd"
 }, {
 "base": "Reference",
+"class": "Effect",
+"language": "GDScript",
+"path": "res://src/game/effects/Effect.gd"
+}, {
+"base": "Reference",
 "class": "EffectTimer",
 "language": "GDScript",
 "path": "res://src/game/effects/EffectTimer.gd"
@@ -236,6 +241,7 @@ _global_script_class_icons={
 "EdibleRulesBuiler": "",
 "EdibleSprite": "",
 "EdibleTypes": "",
+"Effect": "",
 "EffectTimer": "",
 "EffectTypes": "",
 "FieldSize": "",
