@@ -230,6 +230,13 @@ func _get_free_cells() -> Array:
 
 func _update_hud() -> void:
 	$TopHud/PointsLabel.text = str("Score: ", _player.get_points())
+	var effects: String = ""
+	for t in _snake.get_effects_timers():
+		effects += str(
+			t.get_effect_type(), " ",
+			t.get_total_time() - floor(t.get_elapsed_time()),  " "
+		)
+	$TopHud/EffectsLabel.text = effects
 	_update_time_hud()
 
 func _update_time_hud() -> void:

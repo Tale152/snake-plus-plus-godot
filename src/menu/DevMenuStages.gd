@@ -1,7 +1,7 @@
 class_name DevMenuStages extends Reference
 
 static func TOP_HUD_HEIGHT_PX() -> int:
-	return int(OS.window_size.y * 0.1)
+	return int(OS.window_size.y * 0.15)
 
 static func complete_builders(
 	stage_description_builder: StageDescriptionBuilder,
@@ -56,9 +56,9 @@ static func _complete_0(
 			EdibleRulesBuiler.new() \
 				.set_type(EdibleTypes.ORANGE()) \
 				.set_max_instances(1) \
-				.set_life_spawn(7) \
+				.set_life_spawn(10) \
 				.set_spawn_locations([]) \
-				.set_spawn_probability(0.5) \
+				.set_spawn_probability(1) \
 				.build()
 		) \
 		.add_edible_rules(
