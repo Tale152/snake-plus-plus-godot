@@ -57,5 +57,7 @@ func _get_strategy(type: String):
 		return Snail.new()
 	elif type == EdibleTypes.CHILI():
 		return Chili.new()
+	elif type == EdibleTypes.STAR():
+		return Star.new()
 	else:
 		return null

@@ -10,6 +10,7 @@ static func get_types() -> Array:
 		ORANGE(),
 		SNAIL(),
 		CHILI(),
+		STAR(),
 	]
 
 static func APPLE() -> String:
@@ -35,3 +36,6 @@ static func SNAIL() -> String:
 
 static func CHILI() -> String:
 	return "Chili"
+
+static func STAR() -> String:
+	return "Star"

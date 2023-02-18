@@ -46,7 +46,8 @@ func stop_sprite_animation() -> void:
 	_sprite.stop()
 	
 func on_snake_head_collision() -> void:
-	_game.set_game_over(true)
+	if !_snake.get_properties().is_invincible():
+		_game.set_game_over(true)
 
 func _get_body_or_tail_sprite() -> AnimatedSprite:
 	if(_placement.get_previous_direction() == -1):

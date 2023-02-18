@@ -30,7 +30,8 @@ func get_connections() -> CardinalConnections:
 	return _connections
 
 func on_snake_head_collision() -> void:
-	_game.set_game_over(true)
+	if !_game.get_snake().get_properties().is_invincible():
+		_game.set_game_over(true)
 
 func play_sprite_animation(speed_scale: float) -> void:
 	_wall_sprite.speed_scale = speed_scale
