@@ -4,6 +4,7 @@ var _current_length: int = 1
 var _potential_length: int = 1
 var _current_direction: int
 var _speed_multiplier: float = 1
+var _invincibility: bool = false
 
 func _init(initial_direction: int):
 	_current_direction = initial_direction
@@ -31,3 +32,9 @@ func get_speed_multiplier() -> float:
 
 func set_speed_multiplier(multiplier: float) -> void:
 	_speed_multiplier = multiplier
+
+func is_invincible() -> bool:
+	return _invincibility
+
+func set_invincibility(invincibility: bool) -> void:
+	_invincibility = invincibility
