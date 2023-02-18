@@ -54,7 +54,7 @@ static func _complete_0(
 		) \
 		.add_edible_rules(
 			EdibleRulesBuiler.new() \
-				.set_type(EdibleTypes.DOUBLE_SCORE()) \
+				.set_type(EdibleTypes.ORANGE()) \
 				.set_max_instances(1) \
 				.set_life_spawn(7) \
 				.set_spawn_locations([]) \
@@ -81,7 +81,7 @@ static func _complete_0(
 		)
 	visual_parameters_builder \
 		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.APPLE())) \
-		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.DOUBLE_SCORE())) \
+		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.ORANGE())) \
 		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.CHERRY())) \
 		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.GAIN_COIN()))
 	_set_px(visual_parameters_builder, width, heigh)
