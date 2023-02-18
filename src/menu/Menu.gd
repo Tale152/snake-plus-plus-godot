@@ -13,11 +13,11 @@ func set_main(main) -> void:
 func _on_PlayButton_pressed():
 	var description_builder = StageDescriptionBuilder.new()
 	match $SpeedContainer/SpeedItemList.get_selected_items()[0]:
-		0: description_builder.set_snake_speedup_factor(0.995).set_snake_base_delta_seconds(0.5)
-		1: description_builder.set_snake_speedup_factor(0.99).set_snake_base_delta_seconds(0.45)
-		2: description_builder.set_snake_speedup_factor(0.985).set_snake_base_delta_seconds(0.4)
-		3: description_builder.set_snake_speedup_factor(0.98).set_snake_base_delta_seconds(0.3)
-		4: description_builder.set_snake_speedup_factor(0.975).set_snake_base_delta_seconds(0.2)
+		0: description_builder.set_snake_speedup_factor(0.995).set_snake_base_delta_seconds(0.6)
+		1: description_builder.set_snake_speedup_factor(0.994).set_snake_base_delta_seconds(0.55)
+		2: description_builder.set_snake_speedup_factor(0.993).set_snake_base_delta_seconds(0.5)
+		3: description_builder.set_snake_speedup_factor(0.992).set_snake_base_delta_seconds(0.45)
+		4: description_builder.set_snake_speedup_factor(0.991).set_snake_base_delta_seconds(0.4)
 	var selected_skin = str(
 		"res://assets/skins/", $SkinContainer/SkinItemList.get_item_text($SkinContainer/SkinItemList.get_selected_items()[0])
 	)
