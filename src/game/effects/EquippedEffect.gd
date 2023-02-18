@@ -20,11 +20,11 @@ func _init(
 func get_type() -> String:
 	return _type
 
-func apply_effect(game) -> void:
-	_apply_strategy.call_func(game)
+func apply_effect() -> void:
+	_apply_strategy.call_func()
 
-func revoke_effect(game) -> void:
-	_revoke_strategy.call_func(game)
+func revoke_effect() -> void:
+	_revoke_strategy.call_func()
 
 func tick(delta: float) -> bool:
 	_elapsed_time += delta

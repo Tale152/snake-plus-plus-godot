@@ -42,6 +42,10 @@ func move(movement_delta: float) -> void:
 	_lenghten_body_if_necessary(previous_part_old_placement)
 	_render_snake(movement_delta)
 
+func add_effect(effect: EquippedEffect) -> void:
+	#TODO proper implementation
+	effect.apply_effect()
+
 func _shorten_body_if_necessary() -> void:
 	var n_body_parts_to_remove = _properties.get_potential_length() - _properties.get_current_length()
 	if n_body_parts_to_remove < 0:
