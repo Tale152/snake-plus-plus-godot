@@ -1,13 +1,13 @@
 class_name Effect extends Reference
 
-var _type: int
+var _type: String
 var _elapsed_time: float = 0
 var _total_time: float
 var _apply_strategy: FuncRef
 var _revoke_strategy: FuncRef
 
 func _init(
-	type: int,
+	type: String,
 	total_time: float,
 	apply_strategy: FuncRef,
 	revoke_strategy: FuncRef
@@ -17,7 +17,7 @@ func _init(
 	_apply_strategy = apply_strategy
 	_revoke_strategy = revoke_strategy
 
-func get_type() -> int:
+func get_type() -> String:
 	return _type
 
 func apply_effect(game) -> void:
