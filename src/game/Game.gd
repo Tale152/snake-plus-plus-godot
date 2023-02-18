@@ -234,8 +234,10 @@ func _update_hud() -> void:
 	for t in _snake.get_effects_timers():
 		effects += str(
 			t.get_effect_type(), " ",
-			t.get_total_time() - floor(t.get_elapsed_time()),  " "
+			t.get_total_time() - floor(t.get_elapsed_time()),  " | "
 		)
+	if effects.length() > 0:
+		effects.erase(effects.length() - 3, 3)
 	$TopHud/EffectsLabel.text = effects
 	_update_time_hud()
 
