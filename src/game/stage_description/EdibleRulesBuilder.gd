@@ -53,5 +53,7 @@ func _get_strategy(type: String):
 		return LossCoin.new()
 	elif type == EdibleTypes.ORANGE():
 		return Orange.new()
+	elif type == EdibleTypes.SNAIL():
+		return Snail.new()
 	else:
 		return null

@@ -7,7 +7,8 @@ static func get_types() -> Array:
 		CHERRY(),
 		GAIN_COIN(),
 		LOSS_COIN(),
-		ORANGE()
+		ORANGE(),
+		SNAIL()
 	]
 
 static func APPLE() -> String:
@@ -27,3 +28,6 @@ static func LOSS_COIN() -> String:
 
 static func ORANGE() -> String:
 	return "Orange"
+
+static func SNAIL() -> String:
+	return "Snail"

@@ -11,7 +11,7 @@ var _next_direction: int = -1
 var _next_next_direction: int = -1
 var _stage_description: StageDescription
 var _visual_parameters: VisualParameters
-var _snake
+var _snake: Snake
 var _snake_properties: SnakeProperties
 var _snake_head: SnakeHead
 var _movement_elapsed_seconds: float = 0
@@ -159,7 +159,7 @@ func _calculate_snake_current_delta_seconds() -> float:
 	var speedup_factor = _stage_description.get_snake_speedup_factor()
 	for i in _snake_properties.get_current_length() - 1:
 		current_delta_seconds *= speedup_factor
-	return current_delta_seconds
+	return current_delta_seconds * _snake.get_properties().get_speed_multiplier()
 
 func _handle_snake_collision() -> void:
 	var head_coordinates: ImmutablePoint = _snake_head.get_placement().get_coordinates()

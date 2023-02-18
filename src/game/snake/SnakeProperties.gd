@@ -3,6 +3,7 @@ class_name SnakeProperties extends Reference
 var _current_length: int = 1
 var _potential_length: int = 1
 var _current_direction: int
+var _speed_multiplier: float = 1
 
 func _init(initial_direction: int):
 	_current_direction = initial_direction
@@ -24,3 +25,9 @@ func get_current_direction() -> int:
 
 func set_current_direction(d: int) -> void:
 	_current_direction = d
+
+func get_speed_multiplier() -> float:
+	return _speed_multiplier
+
+func set_speed_multiplier(multiplier: float) -> void:
+	_speed_multiplier = multiplier
