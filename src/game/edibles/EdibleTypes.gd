@@ -23,3 +23,6 @@ static func GAIN_COIN() -> String:
 
 static func LOSS_COIN() -> String:
 	return "LossCoin"
+
+static func DOUBLE_SCORE() -> String:
+	return "DoubleScore"
