@@ -59,5 +59,7 @@ func _get_strategy(type: String):
 		return Chili.new()
 	elif type == EdibleTypes.STAR():
 		return Star.new()
+	elif type == EdibleTypes.DIAMOND():
+		return Diamond.new()
 	else:
 		return null

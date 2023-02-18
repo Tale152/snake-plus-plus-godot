@@ -276,9 +276,18 @@ static func _complete_3(
 			EdibleRulesBuiler.new() \
 				.set_type(EdibleTypes.APPLE()) \
 				.set_max_instances(7) \
-				.set_life_spawn(-1) \
+				.set_life_spawn(30) \
 				.set_spawn_locations([]) \
 				.set_spawn_probability(1) \
+				.build()
+		) \
+		.add_edible_rules(
+			EdibleRulesBuiler.new() \
+				.set_type(EdibleTypes.CHERRY()) \
+				.set_max_instances(1) \
+				.set_life_spawn(30) \
+				.set_spawn_locations([]) \
+				.set_spawn_probability(0.5) \
 				.build()
 		) \
 		.add_edible_rules(
@@ -309,35 +318,33 @@ static func _complete_3(
 		) \
 		.add_edible_rules(
 			EdibleRulesBuiler.new() \
-				.set_type(EdibleTypes.ORANGE()) \
-				.set_max_instances(1) \
-				.set_life_spawn(-1) \
-				.set_spawn_locations([
-					ImmutablePoint.new(9, 6),
-				]) \
-				.set_spawn_probability(0.2) \
-				.build()
-		)\
-		.add_edible_rules(
-			EdibleRulesBuiler.new() \
 				.set_type(EdibleTypes.GAIN_COIN()) \
 				.set_max_instances(1) \
 				.set_life_spawn(-1) \
 				.set_spawn_locations([
 					ImmutablePoint.new(9, 6),
 				]) \
-				.set_spawn_probability(0.2) \
+				.set_spawn_probability(0.5) \
 				.build()
 		)\
 		.add_edible_rules(
 			EdibleRulesBuiler.new() \
 				.set_type(EdibleTypes.BAD_APPLE()) \
 				.set_max_instances(1) \
-				.set_life_spawn(-1) \
+				.set_life_spawn(8) \
+				.set_spawn_locations([]) \
+				.set_spawn_probability(0.1) \
+				.build()
+		)\
+		.add_edible_rules(
+			EdibleRulesBuiler.new() \
+				.set_type(EdibleTypes.DIAMOND()) \
+				.set_max_instances(1) \
+				.set_life_spawn(15) \
 				.set_spawn_locations([
 					ImmutablePoint.new(9, 6),
 				]) \
-				.set_spawn_probability(0.2) \
+				.set_spawn_probability(0.1) \
 				.build()
 		)
 	visual_parameters_builder \
@@ -345,7 +352,8 @@ static func _complete_3(
 		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.STAR()))\
 		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.CHILI()))\
 		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.GAIN_COIN()))\
-		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.ORANGE()))\
+		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.DIAMOND()))\
+		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.CHERRY()))\
 		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.BAD_APPLE()))
 	_set_px(visual_parameters_builder, width, heigh)
 
