@@ -45,6 +45,7 @@ func initialize(
 
 func tick(delta: float) -> void:
 	_elapsed_seconds += delta
+	_snake.tick_effects(delta)
 	_update_hud()
 	_handle_edibles_expire(delta)
 	_handle_snake_movement(delta)
@@ -85,6 +86,9 @@ func get_stage_description() -> StageDescription:
 
 func get_visual_parameters() -> VisualParameters:
 	return _visual_parameters
+
+func get_snake():
+	return _snake
 
 func get_player() -> Player:
 	return _player

@@ -9,13 +9,11 @@ func execute(
 	_snake,
 	_game
 ) -> bool:
-	var apply_strategy = DoubleScoreApplyStrategy.new(_game.get_player())
-	var revoke_strategy = DoubleScoreRevokeStrategy.new(_game.get_player())
 	var effect = EquippedEffect.new(
 		EffectTypes.DOUBLE_SCORE(),
 		DOUBLE_SCORE_TOTAL_TIME_SECONDS,
-		funcref(apply_strategy, "apply"),
-		funcref(revoke_strategy, "revoke")
+		DoubleScoreApplyStrategy.new(_game.get_player()),
+		DoubleScoreRevokeStrategy.new(_game.get_player())
 	)
 	_snake.add_effect(effect)
 	return true
@@ -38,7 +36,7 @@ class DoubleScoreRevokeStrategy:
 	func _init(player: Player):
 		_player = player
 
-	func revoke(game) -> void:
+	func revoke() -> void:
 		_player.set_multiplier(
 			# warning-ignore:integer_division
 			_player.get_multiplier() / DOUBLE_SCORE_MULTIPLIER

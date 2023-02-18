@@ -5,6 +5,7 @@ var _body_parts: Array
 var _game
 var _px: int
 var _head: SnakeHead
+var _effects: Array
 	
 func _init(game):
 	_game = game
@@ -13,6 +14,7 @@ func _init(game):
 		_game.get_stage_description().get_snake_initial_direction()
 	)
 	_body_parts = []
+	_effects = []
 	_head = SnakeHead.new(_game)
 	self.add_child(_head)
 
@@ -43,8 +45,37 @@ func move(movement_delta: float) -> void:
 	_render_snake(movement_delta)
 
 func add_effect(effect: EquippedEffect) -> void:
-	#TODO proper implementation
-	effect.apply_effect()
+	var i = _get_effect_index(effect.get_type())
+	if i != -1: _effects[i] = effect
+	else:
+		_effects.push_back(effect)
+		effect.apply_effect()
+
+func has_effect(type: String) -> bool:
+	return _get_effect_index(type) != -1
+
+func get_effects_timers() -> Array:
+	var res = []
+	for e in _effects:
+		res.push_back(e.get_timer())
+	return res
+
+func tick_effects(delta: float) -> void:
+	var i = 0
+	while(i < _effects.size()):
+		var e = _effects[i]
+		if e.tick(delta):
+			e.revoke_effect()
+			_effects.erase(e)
+		else:
+			i += 1
+
+func _get_effect_index(type: String) -> int:
+	var i = 0
+	for e in _effects:
+		if e.get_type() == type: return i
+		i += 1
+	return -1
 
 func _shorten_body_if_necessary() -> void:
 	var n_body_parts_to_remove = _properties.get_potential_length() - _properties.get_current_length()

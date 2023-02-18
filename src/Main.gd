@@ -40,6 +40,8 @@ func _process(delta):
 		if !_game.is_game_over():
 			if !_pause:
 				_game.tick(delta)
+				for t in _game.get_snake().get_effects_timers():
+					print(str(t.get_effect_type(), " ", t.get_elapsed_time(), "/", t.get_total_time()))
 		else:
 			yield(get_tree().create_timer(3.0), "timeout")
 			show_menu()
