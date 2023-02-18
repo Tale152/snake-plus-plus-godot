@@ -55,5 +55,7 @@ func _get_strategy(type: String):
 		return Orange.new()
 	elif type == EdibleTypes.SNAIL():
 		return Snail.new()
+	elif type == EdibleTypes.CHILI():
+		return Chili.new()
 	else:
 		return null

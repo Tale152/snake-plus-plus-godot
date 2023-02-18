@@ -1,7 +1,7 @@
-class_name Snail extends Reference
+class_name Chili extends Reference
 
-const SNAIL_TOTAL_TIME_SECONDS = 5
-const SNAIL_MULTIPLIER = 2
+const CHILI_TOTAL_TIME_SECONDS = 5
+const CHILI_MULTIPLIER = 0.5
 
 func execute(
 	_placement,
@@ -10,15 +10,15 @@ func execute(
 	_game
 ) -> bool:
 	var effect = EquippedEffect.new(
-		EffectTypes.SNAIL(),
-		SNAIL_TOTAL_TIME_SECONDS,
-		SnailApplyStrategy.new(_snake),
-		SnailRevokeStrategy.new(_snake)
+		EffectTypes.CHILI(),
+		CHILI_TOTAL_TIME_SECONDS,
+		ChiliApplyStrategy.new(_snake),
+		ChiliRevokeStrategy.new(_snake)
 	)
 	_snake.add_effect(effect)
 	return true
 
-class SnailApplyStrategy:
+class ChiliApplyStrategy:
 	var _properties: SnakeProperties
 
 	func _init(snake: Snake):
@@ -26,10 +26,10 @@ class SnailApplyStrategy:
 
 	func apply() -> void:
 		_properties.set_speed_multiplier(
-			_properties.get_speed_multiplier() * SNAIL_MULTIPLIER
+			_properties.get_speed_multiplier() * CHILI_MULTIPLIER
 		)
 
-class SnailRevokeStrategy:
+class ChiliRevokeStrategy:
 	var _properties: SnakeProperties
 
 	func _init(snake: Snake):
@@ -37,5 +37,5 @@ class SnailRevokeStrategy:
 
 	func revoke() -> void:
 		_properties.set_speed_multiplier(
-			_properties.get_speed_multiplier() / SNAIL_MULTIPLIER
+			_properties.get_speed_multiplier() / CHILI_MULTIPLIER
 		)
