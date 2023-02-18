@@ -1,6 +1,6 @@
 class_name Cherry extends Reference
 
-const CHERRY_POINTS = 50
+const CHERRY_POINTS = 1000
 
 func execute(
 	_placement,

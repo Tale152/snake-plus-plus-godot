@@ -1,6 +1,6 @@
 class_name GainCoin extends Reference
 
-const GAIN_COIN_POINTS = 30
+const GAIN_COIN_POINTS = 2000
 
 func execute(
 	_placement,

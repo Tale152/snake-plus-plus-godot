@@ -1,6 +1,6 @@
 class_name Apple extends Reference
 
-const APPLE_POINTS = 10
+const APPLE_POINTS = 200
 
 func execute(
 	_placement,

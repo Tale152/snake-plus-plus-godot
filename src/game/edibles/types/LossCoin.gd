@@ -1,6 +1,6 @@
 class_name LossCoin extends Reference
 
-const LOSS_COIN_POINTS = 30
+const LOSS_COIN_POINTS = 2000
 
 func execute(
 	_placement,
