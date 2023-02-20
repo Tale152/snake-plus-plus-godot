@@ -180,6 +180,11 @@ _global_script_classes=[ {
 "path": "res://src/game/utils/PositionCalculator.gd"
 }, {
 "base": "Reference",
+"class": "SlotMachine",
+"language": "GDScript",
+"path": "res://src/game/edibles/types/SlotMachine.gd"
+}, {
+"base": "Reference",
 "class": "Snail",
 "language": "GDScript",
 "path": "res://src/game/edibles/types/Snail.gd"
@@ -299,6 +304,7 @@ _global_script_class_icons={
 "Orange": "",
 "Player": "",
 "PositionCalculator": "",
+"SlotMachine": "",
 "Snail": "",
 "Snake": "",
 "SnakeBodyPart": "",

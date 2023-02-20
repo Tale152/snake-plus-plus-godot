@@ -109,6 +109,15 @@ static func _complete_0(
 		) \
 		.add_edible_rules(
 			EdibleRulesBuiler.new() \
+				.set_type(EdibleTypes.SLOT_MACHINE()) \
+				.set_max_instances(5) \
+				.set_life_spawn(-1) \
+				.set_spawn_locations([]) \
+				.set_spawn_probability(1) \
+				.build()
+		) \
+		.add_edible_rules(
+			EdibleRulesBuiler.new() \
 				.set_type(EdibleTypes.GAIN_COIN()) \
 				.set_max_instances(3) \
 				.set_life_spawn(5) \
@@ -124,6 +133,7 @@ static func _complete_0(
 		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.BANANA())) \
 		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.AVOCADO())) \
 		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.CANDY())) \
+		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.SLOT_MACHINE())) \
 		.add_edible_sprite(EdibleSprite.new(edibles_skin_path, EdibleTypes.GAIN_COIN()))
 	_set_px(visual_parameters_builder, width, heigh)
 

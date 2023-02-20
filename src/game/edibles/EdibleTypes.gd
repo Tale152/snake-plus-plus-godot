@@ -15,6 +15,7 @@ static func get_types() -> Array:
 		BANANA(),
 		AVOCADO(),
 		CANDY(),
+		SLOT_MACHINE(),
 	]
 
 static func APPLE() -> String:
@@ -55,3 +56,6 @@ static func AVOCADO() -> String:
 
 static func CANDY() -> String:
 	return "Candy"
+
+static func SLOT_MACHINE() -> String:
+	return "SlotMachine"

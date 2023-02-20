@@ -31,6 +31,7 @@ func initialize(
 	stage_description: StageDescription,
 	visual_parameters: VisualParameters
 ):
+	rng.randomize()
 	_invoker = invoker
 	_stage_description = stage_description
 	_visual_parameters = visual_parameters

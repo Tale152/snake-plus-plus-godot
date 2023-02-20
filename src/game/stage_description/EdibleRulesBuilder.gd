@@ -67,5 +67,7 @@ func _get_strategy(type: String):
 		return Avocado.new()
 	elif type == EdibleTypes.CANDY():
 		return Candy.new()
+	elif type == EdibleTypes.SLOT_MACHINE():
+		return SlotMachine.new()
 	else:
 		return null
