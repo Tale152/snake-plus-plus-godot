@@ -6,6 +6,8 @@ static func get_types() -> Array:
 		SNAIL(),
 		CHILI(),
 		STAR(),
+		BANANA(),
+		AVOCADO(),
 	]
 
 static func ORANGE() -> String:
@@ -19,3 +21,9 @@ static func CHILI() -> String:
 
 static func STAR() -> String:
 	return EdibleTypes.STAR()
+
+static func BANANA() -> String:
+	return EdibleTypes.BANANA()
+
+static func AVOCADO() -> String:
+	return EdibleTypes.AVOCADO()

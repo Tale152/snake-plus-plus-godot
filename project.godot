@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/utils/AssetFiles.gd"
 }, {
+"base": "Reference",
+"class": "Avocado",
+"language": "GDScript",
+"path": "res://src/game/edibles/types/Avocado.gd"
+}, {
 "base": "Area2D",
 "class": "BackgroundCell",
 "language": "GDScript",
@@ -38,6 +43,11 @@ _global_script_classes=[ {
 "class": "BadApple",
 "language": "GDScript",
 "path": "res://src/game/edibles/types/BadApple.gd"
+}, {
+"base": "Reference",
+"class": "Banana",
+"language": "GDScript",
+"path": "res://src/game/edibles/types/Banana.gd"
 }, {
 "base": "Reference",
 "class": "CardinalConnections",
@@ -253,9 +263,11 @@ _global_script_class_icons={
 "AnimationUtils": "",
 "Apple": "",
 "AssetFiles": "",
+"Avocado": "",
 "BackgroundCell": "",
 "BackgroundGenerator": "",
 "BadApple": "",
+"Banana": "",
 "CardinalConnections": "",
 "Cherry": "",
 "Chili": "",
