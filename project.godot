@@ -50,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://src/game/edibles/types/Banana.gd"
 }, {
 "base": "Reference",
+"class": "Candy",
+"language": "GDScript",
+"path": "res://src/game/edibles/types/Candy.gd"
+}, {
+"base": "Reference",
 "class": "CardinalConnections",
 "language": "GDScript",
 "path": "res://src/game/utils/CardinalConnections.gd"
@@ -268,6 +273,7 @@ _global_script_class_icons={
 "BackgroundGenerator": "",
 "BadApple": "",
 "Banana": "",
+"Candy": "",
 "CardinalConnections": "",
 "Cherry": "",
 "Chili": "",

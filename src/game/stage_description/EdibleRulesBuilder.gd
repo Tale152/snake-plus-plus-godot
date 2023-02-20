@@ -65,5 +65,7 @@ func _get_strategy(type: String):
 		return Banana.new()
 	elif type == EdibleTypes.AVOCADO():
 		return Avocado.new()
+	elif type == EdibleTypes.CANDY():
+		return Candy.new()
 	else:
 		return null
