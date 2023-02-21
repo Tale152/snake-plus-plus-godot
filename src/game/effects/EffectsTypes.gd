@@ -8,6 +8,7 @@ static func get_types() -> Array:
 		STAR(),
 		BANANA(),
 		AVOCADO(),
+		SLOT_MACHINE(),
 	]
 
 static func ORANGE() -> String:
@@ -27,3 +28,6 @@ static func BANANA() -> String:
 
 static func AVOCADO() -> String:
 	return EdibleTypes.AVOCADO()
+
+static func SLOT_MACHINE() -> String:
+	return EdibleTypes.SLOT_MACHINE()
