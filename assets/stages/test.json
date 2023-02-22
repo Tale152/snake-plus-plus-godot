@@ -10,16 +10,15 @@
         },
         "snake": {
             "spawn": [0,0],
-            "direction": "RIGHT"
+            "direction": 0
         },
         "edibles": [
             {
-                "type": "APPLE",
-                "max_instances": 5,
-                "spawn_probability": 1.0
+                "type": "Apple",
+                "max_instances": 5
             },
             {
-                "type": "BAD_APPLE",
+                "type": "BadApple",
                 "max_instances": 2,
                 "spawn_probability": 0.5,
                 "life_span": 5,
