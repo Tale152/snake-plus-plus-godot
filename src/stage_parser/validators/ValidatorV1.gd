@@ -36,9 +36,9 @@ static func _is_edibles_valid(stage: Dictionary) -> bool:
 		if !DictionaryUtil.contains(edible, "max_instances", TYPE_REAL): return false
 		if !_is_not_contained_or_typed(edible, "spawn_probability", TYPE_REAL): return false
 		if !_is_not_contained_or_typed(edible, "life_span", TYPE_REAL): return false
-		if !_is_not_contained_or_typed(edible, "spawn_location", TYPE_ARRAY): return false
-		if !DictionaryUtil.does_not_contain(edible, "spawn_location"):
-			for location in edible.spawn_location:
+		if !_is_not_contained_or_typed(edible, "spawn_locations", TYPE_ARRAY): return false
+		if !DictionaryUtil.does_not_contain(edible, "spawn_locations"):
+			for location in edible.spawn_locations:
 				if !_is_array_of_size(location, 2): return false
 				for coord in location:
 					if typeof(coord) != TYPE_REAL: return false
