@@ -8,7 +8,9 @@ static func parse(path: String) -> ParsedStage:
 	
 	var version: float = json_data.version
 	var stage: Dictionary = json_data.stage
-	if !JsonStageValidator.is_valid(version, stage): return null
+	if !JsonStageValidator.is_valid(version, stage):
+		print("ERROR: the parsed stage at path " + path + " is not valid")
+		return null
 	stage = JsonStageUpdater.update_to_latest_version(version, stage)
 	return ParsedStage.new(stage)
 	
