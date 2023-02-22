@@ -1,0 +1,121 @@
+{
+    "version": 1,
+    "stage": {
+        "field": {
+            "size": [19,13],
+            "walls": [
+                [0, 0],
+                [0, 1],
+                [0, 2],
+                [0, 3],
+                [0, 4],
+                [1, 5],
+                [1, 7],
+                [0, 8],
+                [0, 9],
+                [0, 10],
+                [0, 11],
+                [0, 12],
+                [18, 0],
+                [18, 1],
+                [18, 2],
+                [18, 3],
+                [18, 4],
+                [17, 5],
+                [17, 7],
+                [18, 8],
+                [18, 9],
+                [18, 10],
+                [18, 11],
+                [18, 12],
+                [7, 4],
+                [8, 4],
+                [10, 4],
+                [11, 4],
+                [7, 5],
+                [8, 5],
+                [10, 5],
+                [11, 5],
+                [7, 7],
+                [8, 7],
+                [10, 7],
+                [11, 7],
+                [7, 8],
+                [8, 8],
+                [10, 8],
+                [11, 8],
+                [9, 5],
+                [8, 6],
+                [10, 6],
+                [9, 7]
+            ]
+        },
+        "snake": {
+            "spawn": [1,6],
+            "direction": 0
+        },
+        "edibles": [
+            {
+                "type": "Apple",
+                "max_instances": 7,
+                "life_span": 30
+            },
+            {
+                "type": "Cherry",
+                "max_instances": 1,
+                "spawn_probability": 0.5,
+                "life_span": 30
+            },
+            {
+                "type": "Chili",
+                "max_instances": 2,
+                "spawn_probability": 0.1,
+                "spawn_locations": [
+                    [1,6],
+                    [17,6]
+                ]
+            },
+            {
+                "type": "Star",
+                "max_instances": 1,
+                "spawn_probability": 0.05,
+                "life_span": 7,
+                "spawn_locations": [
+                    [9,4],
+                    [7,6],
+                    [11,6],
+                    [9,8]
+                ]
+            },
+            {
+                "type": "GainCoin",
+                "max_instances": 1,
+                "spawn_probability": 0.5,
+                "spawn_locations": [
+                    [9,6]
+                ]
+            },
+            {
+                "type": "Diamond",
+                "max_instances": 1,
+                "spawn_probability": 0.1,
+                "life_span": 15,
+                "spawn_locations": [
+                    [9,6]
+                ]
+            },
+            {
+                "type": "BadApple",
+                "max_instances": 1,
+                "spawn_probability": 0.1,
+                "life_span": 8
+            },
+            {
+                "type": "Banana",
+                "max_instances": 1,
+                "spawn_probability": 0.01,
+                "life_span": 5
+            }
+        ]
+    }
+}

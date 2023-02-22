@@ -70,11 +70,6 @@ _global_script_classes=[ {
 "path": "res://src/game/edibles/types/Chili.gd"
 }, {
 "base": "Reference",
-"class": "DevMenuStages",
-"language": "GDScript",
-"path": "res://src/menu/DevMenuStages.gd"
-}, {
-"base": "Reference",
 "class": "Diamond",
 "language": "GDScript",
 "path": "res://src/game/edibles/types/Diamond.gd"
@@ -312,7 +307,6 @@ _global_script_class_icons={
 "CardinalConnections": "",
 "Cherry": "",
 "Chili": "",
-"DevMenuStages": "",
 "Diamond": "",
 "DictionaryUtil": "",
 "Directions": "",

@@ -51,8 +51,19 @@ static func _is_not_contained_or_typed(d: Dictionary, value: String, type: int) 
 	return DictionaryUtil.contains(d, value, type) || DictionaryUtil.does_not_contain(d, value)
 
 static func _get_v1_edible_types() -> Array:
-	#TODO add types
 	return [
 		EdibleTypes.APPLE(),
 		EdibleTypes.BAD_APPLE(),
+		EdibleTypes.CHERRY(),
+		EdibleTypes.CHILI(),
+		EdibleTypes.DIAMOND(),
+		EdibleTypes.AVOCADO(),
+		EdibleTypes.BANANA(),
+		EdibleTypes.CANDY(),
+		EdibleTypes.GAIN_COIN(),
+		EdibleTypes.LOSS_COIN(),
+		EdibleTypes.ORANGE(),
+		EdibleTypes.SLOT_MACHINE(),
+		EdibleTypes.SNAIL(),
+		EdibleTypes.STAR()
 	]
