@@ -1,0 +1,33 @@
+{
+    "version": 1,
+    "stage": {
+        "field": {
+            "size": [16,16],
+            "walls": [
+                [14,15],
+                [15,15]
+            ]
+        },
+        "snake": {
+            "spawn": [0,0],
+            "direction": "RIGHT"
+        },
+        "edibles": [
+            {
+                "type": "APPLE",
+                "max_instances": 5,
+                "spawn_probability": 1.0
+            },
+            {
+                "type": "BAD_APPLE",
+                "max_instances": 2,
+                "spawn_probability": 0.5,
+                "life_span": 5,
+                "spawn_location": [
+                    [15,0],
+                    [15,1]
+                ]
+            }
+        ]
+    }
+}
