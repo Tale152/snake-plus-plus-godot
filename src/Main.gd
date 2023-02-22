@@ -12,6 +12,7 @@ var _stage_description: StageDescription
 
 func _init():
 	show_menu()
+	manipulate_json()
 	
 func show_menu():
 	_is_on_menu = true
@@ -66,3 +67,12 @@ func restart() -> void:
 	_game = Game.instance()
 	_game.initialize(self, _stage_description, _visual_parameters)
 	add_child(_game)
+
+func manipulate_json() -> void:
+	#var file = File.new()
+	#file.open("res://assets/stages/test.json", File.READ)
+	#var data = parse_json(file.get_as_text())
+	#file.close()
+	#for v in data.keys():
+		#print(v)
+	JsonStageParser.parse("res://assets/stages/test.json")
