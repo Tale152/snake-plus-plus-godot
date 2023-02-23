@@ -25,7 +25,6 @@ func get_edible_rules() -> Array:
 	for edible in _stage.edibles:
 		var spawn_locations: Array = []
 		if edible.has("spawn_locations"):
-			print("loc")
 			for location in edible.spawn_locations:
 				spawn_locations.push_back(ImmutablePoint.new(
 					int(location[0]), int(location[1])

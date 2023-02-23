@@ -49,23 +49,7 @@ func _on_PlayButton_pressed():
 					e.get_type()
 			)
 		)
-	_set_px(visual_parameters_builder, parsed_stage.get_field_size().get_width(), parsed_stage.get_field_size().get_height())
-	_main.play(description_builder.build(), visual_parameters_builder.build())
-
-static func _set_px(
-	visual_parameters_builder: VisualParametersBuilder,
-	width: int,
-	height: int
-) -> void:
-	var width_px = int(OS.window_size.x / width)
-	var heigh_px = int((OS.window_size.y - TOP_HUD_HEIGHT_PX())/ height)
-	var cell_px_size = width_px if width_px < heigh_px else heigh_px
-	visual_parameters_builder \
-		.set_cell_pixels_size(cell_px_size) \
-		.set_game_pixels_offset(Vector2(
-			(OS.window_size.x - width * cell_px_size) / 2,
-			TOP_HUD_HEIGHT_PX()
-		))
+	_main.play(description_builder.build(), visual_parameters_builder)
 
 func _list_available_stages(path: String) -> Array:
 	var files = _list_files_in_directory(path)

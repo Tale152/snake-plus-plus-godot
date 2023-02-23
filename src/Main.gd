@@ -1,7 +1,7 @@
 extends Node
 
 const Menu = preload("res://src/menu/Menu.tscn")
-const Game = preload("res://src/game/Game.tscn")
+const VerticalGame = preload("res://src/game/VerticalGame.tscn")
 
 var _menu
 var _game
@@ -24,16 +24,21 @@ func show_menu():
 	_stage_description = null
 	_visual_parameters = null
 
-func play(stage_description: StageDescription, visual_parameters: VisualParameters):
+func play(stage_description: StageDescription, visual_parameters_builder: VisualParametersBuilder):
 	_is_on_menu = false
 	_pause = false
 	_stage_description = stage_description
-	_visual_parameters = visual_parameters
 	remove_child(_menu)
 	_menu = null
-	_game = Game.instance()
-	_game.initialize(self, stage_description, visual_parameters)
+	_game = VerticalGame.instance()
+	var px: int = floor(_game.get_field_px_size() / stage_description.get_field_size().get_width())
+	var offset = floor((_game.get_field_px_size() - px * stage_description.get_field_size().get_width()) / 2)
 	add_child(_game)
+	visual_parameters_builder \
+		.set_cell_pixels_size(px) \
+		.set_game_pixels_offset(Vector2(offset, offset))
+	_visual_parameters = visual_parameters_builder.build()
+	_game.initialize(self, stage_description, _visual_parameters)
 
 func _process(delta):
 	if !_is_on_menu:
@@ -63,6 +68,6 @@ func restart() -> void:
 	_is_on_menu = false
 	_pause = false
 	remove_child(_game)
-	_game = Game.instance()
+	_game = VerticalGame.instance()
 	_game.initialize(self, _stage_description, _visual_parameters)
 	add_child(_game)
