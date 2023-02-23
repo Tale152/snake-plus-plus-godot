@@ -1,0 +1,64 @@
+[gd_scene format=2]
+
+[node name="VerticalGame" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 400, 650 )
+
+[node name="BackgroundColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.025
+anchor_top = 0.05
+anchor_right = 0.975
+anchor_bottom = 0.975
+custom_constants/separation = 5
+
+[node name="TopAreaControl" type="Control" parent="VBoxContainer"]
+margin_right = 380.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 380, 70 )
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/TopAreaControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.505882, 0.505882, 0.505882, 0.270588 )
+
+[node name="MiddleAreaControl" type="Control" parent="VBoxContainer"]
+margin_top = 75.0
+margin_right = 380.0
+margin_bottom = 455.0
+rect_min_size = Vector2( 380, 380 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/MiddleAreaControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0, 0, 0.290196 )
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="VBoxContainer/MiddleAreaControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/MiddleAreaControl/AspectRatioContainer"]
+margin_right = 380.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 380, 380 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="BottomAreaControl" type="Control" parent="VBoxContainer"]
+margin_top = 460.0
+margin_right = 380.0
+margin_bottom = 610.0
+rect_min_size = Vector2( 380, 150 )
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/BottomAreaControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0823529, 0.72549, 0.682353, 0.290196 )
