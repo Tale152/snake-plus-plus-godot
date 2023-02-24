@@ -1,7 +1,7 @@
 extends Node
 
 const Menu = preload("res://src/menu/Menu.tscn")
-const VerticalGame = preload("res://src/game/VerticalGame.tscn")
+const Game = preload("res://src/game/Game.tscn")
 
 var _menu
 var _game
@@ -30,10 +30,11 @@ func play(stage_description: StageDescription, visual_parameters_builder: Visual
 	_stage_description = stage_description
 	remove_child(_menu)
 	_menu = null
-	_game = VerticalGame.instance()
-	var px: int = floor(_game.get_field_px_size() / stage_description.get_field_size().get_width())
-	var offset = floor((_game.get_field_px_size() - px * stage_description.get_field_size().get_width()) / 2)
+	_game = Game.instance()
 	add_child(_game)
+	var field_px_size = _game.get_field_px_size()
+	var px: int = floor(field_px_size / stage_description.get_field_size().get_width())
+	var offset = floor((field_px_size - px * stage_description.get_field_size().get_width()) / 2)
 	visual_parameters_builder \
 		.set_cell_pixels_size(px) \
 		.set_game_pixels_offset(Vector2(offset, offset))
@@ -49,17 +50,18 @@ func _process(delta):
 			yield(get_tree().create_timer(3.0), "timeout")
 			show_menu()
 
+func direction_input(direction: int) -> void:
+	_game.direction_input(direction)
+
 func _unhandled_input(event):
 	if Input.is_action_pressed("back_to_menu") && !_is_on_menu:
 		show_menu()
 	else:
 		var direction: int = -1
-		if event is InputEventScreenDrag:
-			direction = SwipeMovementInput.get_input_direction(event) 
-		elif event is InputEventKey:
+		if event is InputEventKey:
 			direction = KeyMovementInput.get_input_direction()
 		if direction != -1 && !_is_on_menu:
-			_game.direction_input(direction)
+			self.direction_input(direction)
 
 func change_pause_status() -> void:
 	_pause = !_pause
@@ -68,6 +70,6 @@ func restart() -> void:
 	_is_on_menu = false
 	_pause = false
 	remove_child(_game)
-	_game = VerticalGame.instance()
+	_game = Game.instance()
 	_game.initialize(self, _stage_description, _visual_parameters)
 	add_child(_game)

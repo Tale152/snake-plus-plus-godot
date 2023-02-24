@@ -44,6 +44,19 @@ func initialize(
 	_edible_builder = EdibleBuilder.new(_snake, self)
 	_elapsed_seconds = 0
 
+func get_field_px_size() -> int:
+	var project_height = ProjectSettings.get("display/window/size/height")
+	var project_width = ProjectSettings.get("display/window/size/width")
+	var original_ratio = project_height / project_width
+	var screen_size = get_tree().get_root().size
+	var runtime_ratio = screen_size.y / screen_size.x
+	var scaling
+	if runtime_ratio >= original_ratio:
+		scaling = screen_size.x / project_width
+	else:
+		scaling = screen_size.y / project_height
+	return int(floor($GuiAreaControl/RectangleRatioContainer/Control.rect_size.x * scaling))
+
 func tick(delta: float) -> void:
 	_elapsed_seconds += delta
 	_snake.tick_effects(delta)
@@ -101,7 +114,7 @@ func _set_background() -> void:
 		_stage_description, _visual_parameters
 	)
 	for c in _background_cells:
-		add_child(c)
+		$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(c)
 		c.play_sprite_animation(0.3)
 
 func _init_cells() -> void:
@@ -115,14 +128,14 @@ func _set_walls() -> void:
 	for wp in _stage_description.get_walls_points():
 		var wall = Wall.new(wp, self)
 		_walls.push_back(wall)
-		add_child(wall)
+		$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(wall)
 		
 func _setup_snake() -> void:
 	_snake = Snake.new(self)
 	_snake_properties = _snake.get_properties()
 	_snake_head = _snake.get_head()
 	_current_snake_delta_seconds = _calculate_snake_current_delta_seconds()
-	add_child(_snake)
+	$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(_snake)
 
 # --- private process functions ---
 
@@ -201,7 +214,7 @@ func _handle_edibles_spawn(delta: float) -> void:
 				if instance != null: # is is possible that no compatible free cell is found
 					free_cells.remove(free_cells.find(instance.get_coordinates()))
 					_edibles[ir.get_type()].push_back(instance)
-					add_child(instance)
+					$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(instance)
 
 func _can_spawn(rules: EdibleRules, edibles_dictionary: Dictionary) -> bool:
 	return (
@@ -230,7 +243,17 @@ func _get_free_cells() -> Array:
 	return res
 
 func _update_hud() -> void:
-	$TopHud/PointsLabel.text = str("Score: ", _player.get_points())
+	var score_text = str("Score ", _player.get_points())
+	$GuiAreaControl/RectangleRatioContainer/Control/BottomControl/InfoControl/ScoreLabel.text = score_text
+	var seconds = floor(_elapsed_seconds)
+	var time_text = ""
+	if seconds < 60:
+		time_text = str("Time 0:", seconds if seconds > 9 else str(0, seconds))
+	else:
+		var minutes = floor(seconds / 60)
+		seconds = seconds - minutes * 60
+		time_text = str("Time ", minutes, ":", seconds if seconds > 9 else str(0, seconds))
+	$GuiAreaControl/RectangleRatioContainer/Control/BottomControl/InfoControl/TimeLabel.text = time_text
 	var effects: String = ""
 	for t in _snake.get_effects_timers():
 		effects += str(
@@ -239,22 +262,22 @@ func _update_hud() -> void:
 		)
 	if effects.length() > 0:
 		effects.erase(effects.length() - 3, 3)
-	$TopHud/EffectsLabel.text = effects
-	_update_time_hud()
-
-func _update_time_hud() -> void:
-	var seconds = floor(_elapsed_seconds)
-	if seconds < 60:
-		$TopHud/TimeLabel.text = str("Time: ", seconds)
-	else:
-		var minutes = floor(seconds / 60)
-		seconds = seconds - minutes * 60
-		$TopHud/TimeLabel.text = str("Time: ", minutes, ":", seconds if seconds > 9 else str(0, seconds))
-
+	$GuiAreaControl/RectangleRatioContainer/Control/BottomControl/InfoControl/EffectsLabel.text = effects
 
 func _on_PauseButton_pressed():
 	_invoker.change_pause_status()
 
-
 func _on_RestartButton_pressed():
 	_invoker.restart()
+
+func _on_UpButton_pressed():
+	self.direction_input(Directions.get_up())
+
+func _on_DownButton_pressed():
+	self.direction_input(Directions.get_down())
+
+func _on_LeftButton_pressed():
+	self.direction_input(Directions.get_left())
+
+func _on_RightButton_pressed():
+	self.direction_input(Directions.get_right())

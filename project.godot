@@ -274,11 +274,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/stage_parser/validators/ValidatorV1.gd"
 }, {
-"base": "Node",
-"class": "VerticalGame",
-"language": "GDScript",
-"path": "res://src/game/VerticalGame.gd"
-}, {
 "base": "Reference",
 "class": "VisualParameters",
 "language": "GDScript",
@@ -353,7 +348,6 @@ _global_script_class_icons={
 "Star": "",
 "SwipeMovementInput": "",
 "ValidatorV1": "",
-"VerticalGame": "",
 "VisualParameters": "",
 "VisualParametersBuilder": "",
 "Wall": "",
@@ -368,8 +362,7 @@ config/icon="res://icon.png"
 
 [display]
 
-window/size/width=400
-window/size/height=650
+window/size/width=300
 window/handheld/orientation="portrait"
 
 [gui]
