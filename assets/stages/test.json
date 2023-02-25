@@ -3,10 +3,7 @@
     "stage": {
         "field": {
             "size": [16,16],
-            "walls": [
-                [14,15],
-                [15,15]
-            ]
+            "walls": []
         },
         "snake": {
             "spawn": [0,0],

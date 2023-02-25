@@ -10,7 +10,7 @@ func _ready():
 	$SkinContainer/SkinItemList.select(0)
 	for stage in _list_available_stages("res://assets/stages"):
 		$StageContainer/StageItemList.add_item(stage)
-	$StageContainer/StageItemList.select(0)
+	$StageContainer/StageItemList.select(1)
 
 func set_main(main) -> void:
 	_main = main
