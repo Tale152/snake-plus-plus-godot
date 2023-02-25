@@ -244,7 +244,7 @@ func _get_free_cells() -> Array:
 
 func _update_hud() -> void:
 	var score_text = str("Score ", _player.get_points())
-	$GuiAreaControl/RectangleRatioContainer/Control/BottomControl/InfoControl/ScoreLabel.text = score_text
+	$GuiAreaControl/RectangleRatioContainer/Control/HudControl/ScoreLabel.text = score_text
 	var seconds = floor(_elapsed_seconds)
 	var time_text = ""
 	if seconds < 60:
@@ -253,7 +253,7 @@ func _update_hud() -> void:
 		var minutes = floor(seconds / 60)
 		seconds = seconds - minutes * 60
 		time_text = str("Time ", minutes, ":", seconds if seconds > 9 else str(0, seconds))
-	$GuiAreaControl/RectangleRatioContainer/Control/BottomControl/InfoControl/TimeLabel.text = time_text
+	$GuiAreaControl/RectangleRatioContainer/Control/HudControl/TimeLabel.text = time_text
 	var effects: String = ""
 	for t in _snake.get_effects_timers():
 		effects += str(
@@ -262,7 +262,7 @@ func _update_hud() -> void:
 		)
 	if effects.length() > 0:
 		effects.erase(effects.length() - 3, 3)
-	$GuiAreaControl/RectangleRatioContainer/Control/BottomControl/InfoControl/EffectsLabel.text = effects
+	$GuiAreaControl/RectangleRatioContainer/Control/HudControl/EffectsLabel.text = effects
 
 func _on_PauseButton_pressed():
 	_invoker.change_pause_status()
