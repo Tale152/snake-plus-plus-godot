@@ -1,5 +1,10 @@
 class_name Game extends Node
 
+onready var TimeLabelFont = preload("res://assets/fonts/TimeLabel.tres")
+onready var EffectsLabelFont = preload("res://assets/fonts/EffectsLabel.tres")
+onready var ScoreLabelFont = preload("res://assets/fonts/ScoreLabel.tres")
+const FONT_DEFAULT_SIZE: int = 23
+
 # --- constants ---
 const EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
 
@@ -43,8 +48,12 @@ func initialize(
 	_setup_snake()
 	_edible_builder = EdibleBuilder.new(_snake, self)
 	_elapsed_seconds = 0
+	var font_size = int(floor(FONT_DEFAULT_SIZE * _get_scale()))
+	TimeLabelFont.size = font_size
+	EffectsLabelFont.size = font_size
+	ScoreLabelFont.size = font_size
 
-func get_field_px_size() -> int:
+func _get_scale() -> float:
 	var project_height = ProjectSettings.get("display/window/size/height")
 	var project_width = ProjectSettings.get("display/window/size/width")
 	var original_ratio = project_height / project_width
@@ -52,10 +61,14 @@ func get_field_px_size() -> int:
 	var runtime_ratio = screen_size.y / screen_size.x
 	var scaling
 	if runtime_ratio >= original_ratio:
-		scaling = screen_size.x / project_width
+		return screen_size.x / project_width
 	else:
-		scaling = screen_size.y / project_height
-	return int(floor($GuiAreaControl/RectangleRatioContainer/Control.rect_size.x * scaling))
+		return screen_size.y / project_height
+
+func get_field_px_size() -> int:
+	return int(floor(
+		$GuiAreaControl/RectangleRatioContainer/Control.rect_size.x * _get_scale()
+	))
 
 func tick(delta: float) -> void:
 	_elapsed_seconds += delta
@@ -243,16 +256,16 @@ func _get_free_cells() -> Array:
 	return res
 
 func _update_hud() -> void:
-	var score_text = str("Score ", _player.get_points())
+	var score_text = str(_player.get_points())
 	$GuiAreaControl/RectangleRatioContainer/Control/HudControl/ScoreLabel.text = score_text
 	var seconds = floor(_elapsed_seconds)
 	var time_text = ""
 	if seconds < 60:
-		time_text = str("Time 0:", seconds if seconds > 9 else str(0, seconds))
+		time_text = str("0:", seconds if seconds > 9 else str(0, seconds))
 	else:
 		var minutes = floor(seconds / 60)
 		seconds = seconds - minutes * 60
-		time_text = str("Time ", minutes, ":", seconds if seconds > 9 else str(0, seconds))
+		time_text = str(minutes, ":", seconds if seconds > 9 else str(0, seconds))
 	$GuiAreaControl/RectangleRatioContainer/Control/HudControl/TimeLabel.text = time_text
 	var effects: String = ""
 	for t in _snake.get_effects_timers():
