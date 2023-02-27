@@ -1,0 +1,59 @@
+{
+    "version": 1,
+    "stage": {
+        "field": {
+            "size": [16,16],
+            "walls": []
+        },
+        "snake": {
+            "spawn": [0,0],
+            "direction": 1
+        },
+        "edibles": [
+            {
+                "type": "Apple",
+                "max_instances": 7
+            },
+            {
+                "type": "Cherry",
+                "max_instances": 3
+            },
+            {
+                "type": "Snail",
+                "max_instances": 2,
+                "spawn_probability": 0.5,
+                "life_span": 10
+            },
+            {
+                "type": "GainCoin",
+                "max_instances": 2,
+                "spawn_probability": 0.5,
+                "life_span": 5
+            },
+            {
+                "type": "Diamond",
+                "max_instances": 1,
+                "spawn_probability": 0.01,
+                "life_span": 3
+            },
+            {
+                "type": "Orange",
+                "max_instances": 2,
+                "spawn_probability": 0.2,
+                "life_span": 5
+            },
+            {
+                "type": "Banana",
+                "max_instances": 2,
+                "spawn_probability": 0.15,
+                "life_span": 5
+            },
+            {
+                "type": "Avocado",
+                "max_instances": 1,
+                "spawn_probability": 0.1,
+                "life_span": 5
+            }
+        ]
+    }
+}
