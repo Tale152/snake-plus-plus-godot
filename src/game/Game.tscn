@@ -1,9 +1,45 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/game/Game.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/ScoreLabel.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/fonts/EffectsLabel.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/skins/simple/snake/head_tail_UP_0.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/TimeLabel.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/skins/simple/edibles/GainCoin_0.png" type="Texture" id=5]
+[ext_resource path="res://assets/skins/simple/edibles/GainCoin_2.png" type="Texture" id=6]
+[ext_resource path="res://assets/skins/simple/edibles/GainCoin_3.png" type="Texture" id=7]
+[ext_resource path="res://assets/skins/simple/edibles/GainCoin_1.png" type="Texture" id=8]
+[ext_resource path="res://assets/skins/simple/snake/head_tail_UP_1.png" type="Texture" id=9]
+[ext_resource path="res://assets/fonts/LengthLabel.tres" type="DynamicFont" id=10]
+[ext_resource path="res://assets/fonts/MyFont.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://assets/skins/simple/hud/Time_0.png" type="Texture" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=4]
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 11 )
 
 [node name="VerticalGame" type="Node"]
 script = ExtResource( 1 )
@@ -30,7 +66,7 @@ margin_bottom = 564.0
 
 [node name="HudControl" type="Control" parent="GuiAreaControl/RectangleRatioContainer/Control"]
 anchor_right = 1.0
-anchor_bottom = 0.13
+anchor_bottom = 0.055
 
 [node name="InfoBackgroundColorRect" type="ColorRect" parent="GuiAreaControl/RectangleRatioContainer/Control/HudControl"]
 anchor_right = 1.0
@@ -38,36 +74,73 @@ anchor_bottom = 1.0
 color = Color( 0.14902, 0.14902, 0.156863, 0.686275 )
 
 [node name="ScoreLabel" type="Label" parent="GuiAreaControl/RectangleRatioContainer/Control/HudControl"]
-anchor_left = 0.05
-anchor_right = 0.45
-anchor_bottom = 0.55
+anchor_left = 0.12
+anchor_top = 0.14
+anchor_right = 0.5
+anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 2 )
-text = "Score"
+text = "42069"
 valign = 1
 
 [node name="TimeLabel" type="Label" parent="GuiAreaControl/RectangleRatioContainer/Control/HudControl"]
-anchor_left = 0.55
-anchor_right = 0.95
-anchor_bottom = 0.55
+anchor_left = 0.83
+anchor_top = 0.14
+anchor_right = 1.0
+anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 4 )
-text = "Time"
-align = 2
+text = "10:23"
 valign = 1
 
-[node name="EffectsLabel" type="Label" parent="GuiAreaControl/RectangleRatioContainer/Control/HudControl"]
-anchor_left = 0.05
-anchor_top = 0.55
-anchor_right = 0.95
+[node name="LengthLabel" type="Label" parent="GuiAreaControl/RectangleRatioContainer/Control/HudControl"]
+anchor_left = 0.63
+anchor_top = 0.14
+anchor_right = 0.76
 anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 10 )
+text = "420"
+valign = 1
+
+[node name="ScoreAnimatedSprite" type="AnimatedSprite" parent="GuiAreaControl/RectangleRatioContainer/Control/HudControl"]
+position = Vector2( 15, 15 )
+scale = Vector2( 0.38, 0.38 )
+frames = SubResource( 1 )
+frame = 2
+playing = true
+
+[node name="TimeAnimatedSprite" type="AnimatedSprite" parent="GuiAreaControl/RectangleRatioContainer/Control/HudControl"]
+position = Vector2( 224, 15 )
+scale = Vector2( 0.048, 0.048 )
+frames = SubResource( 2 )
+
+[node name="LengthAnimatedSprite" type="AnimatedSprite" parent="GuiAreaControl/RectangleRatioContainer/Control/HudControl"]
+position = Vector2( 162, 15 )
+scale = Vector2( 0.38, 0.38 )
+frames = SubResource( 3 )
+playing = true
+flip_v = true
+
+[node name="EffectsControl" type="Control" parent="GuiAreaControl/RectangleRatioContainer/Control"]
+anchor_top = 0.055
+anchor_right = 1.0
+anchor_bottom = 0.11
+
+[node name="ColorRect" type="ColorRect" parent="GuiAreaControl/RectangleRatioContainer/Control/EffectsControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0 )
+
+[node name="EffectsLabel" type="Label" parent="GuiAreaControl/RectangleRatioContainer/Control/EffectsControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
 text = "Effects"
 align = 1
 valign = 1
 
 [node name="FieldControl" type="Control" parent="GuiAreaControl/RectangleRatioContainer/Control"]
-anchor_top = 0.15
+anchor_top = 0.11
 anchor_right = 1.0
-anchor_bottom = 0.65
+anchor_bottom = 0.61
 
 [node name="ColorRect" type="ColorRect" parent="GuiAreaControl/RectangleRatioContainer/Control/FieldControl"]
 anchor_right = 1.0
