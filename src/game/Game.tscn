@@ -132,6 +132,7 @@ color = Color( 0, 0, 0, 0 )
 [node name="EffectsLabel" type="Label" parent="GuiAreaControl/RectangleRatioContainer/Control/EffectsControl"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 4 )
 text = "Effects"
 align = 1

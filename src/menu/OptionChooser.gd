@@ -47,7 +47,7 @@ func _on_NextOptionButton_pressed():
 	_update_selected_option()
 
 func _get_int_font_size(default_value: int, scale: float) -> int:
-	return int(floor(_TITLE_LABEL_DEFAULT_FONT_SIZE * scale))
+	return int(floor(default_value * scale))
 
 func _update_selected_option() -> void:
 	$SelectedOptionLabel.text = _options[_selected_index]
