@@ -4,6 +4,7 @@ onready var TimeLabelFont = preload("res://assets/fonts/TimeLabel.tres")
 onready var ScoreLabelFont = preload("res://assets/fonts/ScoreLabel.tres")
 onready var LengthLabelFont = preload("res://assets/fonts/LengthLabel.tres")
 onready var GameOverMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/GameOverMenu
+onready var PauseMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/PauseMenu
 const FONT_DEFAULT_SIZE: int = 17
 const SCORE_SPRITE_DEFAULT_POSITION: Vector2 = Vector2(15, 15)
 const LENGTH_SPRITE_DEFAULT_POSITION: Vector2 = Vector2(162, 15)
@@ -309,6 +310,7 @@ func _update_hud() -> void:
 
 func _on_PauseButton_pressed():
 	_invoker.change_pause_status()
+	PauseMenu.visible = true
 
 func _on_UpButton_pressed():
 	self.direction_input(Directions.get_up())

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/game/Game.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/ScoreLabel.tres" type="DynamicFont" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://assets/fonts/MyFont.ttf" type="DynamicFontData" id=11]
 [ext_resource path="res://assets/skins/simple/hud/Time_0.png" type="Texture" id=12]
 [ext_resource path="res://src/game/popup_menus/game_over_menu/GameOverMenu.tscn" type="PackedScene" id=13]
+[ext_resource path="res://src/game/popup_menus/pause_menu/PauseMenu.tscn" type="PackedScene" id=14]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -105,6 +106,7 @@ valign = 1
 position = Vector2( 15, 15 )
 scale = Vector2( 0.38, 0.38 )
 frames = SubResource( 1 )
+frame = 1
 playing = true
 
 [node name="TimeAnimatedSprite" type="AnimatedSprite" parent="GuiAreaControl/RectangleRatioContainer/Control/HudControl"]
@@ -116,6 +118,7 @@ frames = SubResource( 2 )
 position = Vector2( 162, 15 )
 scale = Vector2( 0.38, 0.38 )
 frames = SubResource( 3 )
+frame = 1
 playing = true
 flip_v = true
 
@@ -202,6 +205,10 @@ anchor_bottom = 0.64
 visible = false
 anchor_bottom = 1.0
 margin_bottom = 0.0
+
+[node name="PauseMenu" parent="GuiAreaControl/RectangleRatioContainer/Control/BottomControl" instance=ExtResource( 14 )]
+visible = false
+anchor_bottom = 1.0
 
 [connection signal="pressed" from="GuiAreaControl/RectangleRatioContainer/Control/BottomControl/StatusButtonsControl/PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="GuiAreaControl/RectangleRatioContainer/Control/BottomControl/DirectionInputContainerControl/UpButton" to="." method="_on_UpButton_pressed"]
