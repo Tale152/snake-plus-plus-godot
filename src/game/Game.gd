@@ -256,9 +256,18 @@ func _handle_edibles_spawn(delta: float) -> void:
 					.set_free_cells(free_cells) \
 					.build()
 				if instance != null: # is is possible that no compatible free cell is found
-					free_cells.remove(free_cells.find(instance.get_coordinates()))
+					_remove_from_immutable_points_array(free_cells, instance.get_coordinates())
 					_edibles[ir.get_type()].push_back(instance)
 					$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(instance)
+
+func _remove_from_immutable_points_array(arr: Array, p: ImmutablePoint) -> bool:
+	var i = 0
+	for e in arr:
+		if p.equals_to(e):
+			arr.remove(i)
+			return true;
+		i += 1;
+	return false
 
 func _can_spawn(rules: EdibleRules, edibles_dictionary: Dictionary) -> bool:
 	return (
