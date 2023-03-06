@@ -1,10 +1,12 @@
 class_name Game extends Node
 
+onready var PauseButtonFont = preload("res://src/game/PauseButton.tres")
 onready var TimeLabelFont = preload("res://assets/fonts/TimeLabel.tres")
 onready var ScoreLabelFont = preload("res://assets/fonts/ScoreLabel.tres")
 onready var LengthLabelFont = preload("res://assets/fonts/LengthLabel.tres")
 onready var GameOverMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/GameOverMenu
 onready var PauseMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/PauseMenu
+const PAUSE_BUTTON_DEFAULT_FONT_SIZE: int = 15
 const FONT_DEFAULT_SIZE: int = 17
 const SCORE_SPRITE_DEFAULT_POSITION: Vector2 = Vector2(15, 15)
 const LENGTH_SPRITE_DEFAULT_POSITION: Vector2 = Vector2(162, 15)
@@ -55,6 +57,7 @@ func initialize(
 	_scale_hud(scale)
 	_edible_builder = EdibleBuilder.new(_snake, self)
 	_elapsed_seconds = 0
+	PauseButtonFont.size = int(floor(PAUSE_BUTTON_DEFAULT_FONT_SIZE * scale))
 	GameOverMenu.set_invoker(invoker)
 	GameOverMenu.scale_font(scale)
 	PauseMenu.set_invoker(invoker)
