@@ -53,6 +53,7 @@ func initialize(
 	_scale_hud(_get_scale())
 	_edible_builder = EdibleBuilder.new(_snake, self)
 	_elapsed_seconds = 0
+	GameOverMenu.set_invoker(invoker)
 
 func _scale_hud(scale: float) -> void:
 	var font_size = int(floor(FONT_DEFAULT_SIZE * scale))

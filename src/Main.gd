@@ -62,9 +62,12 @@ func change_pause_status() -> void:
 	_pause = !_pause
 
 func restart() -> void:
+	if _game != null:
+		remove_child(_game)
+		_game = null
 	_is_on_menu = false
 	_pause = false
 	remove_child(_game)
 	_game = Game.instance()
-	_game.initialize(self, _stage_description, _visual_parameters)
 	add_child(_game)
+	_game.initialize(self, _stage_description, _visual_parameters)
