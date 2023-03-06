@@ -3,6 +3,7 @@ class_name Game extends Node
 onready var TimeLabelFont = preload("res://assets/fonts/TimeLabel.tres")
 onready var ScoreLabelFont = preload("res://assets/fonts/ScoreLabel.tres")
 onready var LengthLabelFont = preload("res://assets/fonts/LengthLabel.tres")
+onready var GameOverMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/GameOverMenu
 const FONT_DEFAULT_SIZE: int = 17
 const SCORE_SPRITE_DEFAULT_POSITION: Vector2 = Vector2(15, 15)
 const LENGTH_SPRITE_DEFAULT_POSITION: Vector2 = Vector2(162, 15)
@@ -126,6 +127,8 @@ func set_game_over(status) -> void:
 		for type in _edibles.keys():
 			for e in _edibles[type]:
 				e.stop_sprite_animation()
+		# TODO stop hud sprites
+		GameOverMenu.visible = true
 
 func is_game_over() -> bool:
 	return _game_over

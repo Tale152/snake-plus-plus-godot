@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/game/popup_menus/game_over_menu/BackToMenuButton.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/game/popup_menus/game_over_menu/GameOverLabel.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/game/popup_menus/game_over_menu/PlayAgainButton.tres" type="DynamicFont" id=3]
+
+[node name="GameOverMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 0.335
+margin_bottom = 19.0
+
+[node name="BackgroundColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.14902, 0.14902, 0.14902, 1 )
+
+[node name="GameOverLabel" type="Label" parent="."]
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.4
+margin_bottom = 0.0399971
+custom_fonts/font = ExtResource( 2 )
+text = "Game Over"
+align = 1
+valign = 1
+
+[node name="PlayAgainButton" type="Button" parent="."]
+anchor_left = 0.05
+anchor_top = 0.45
+anchor_right = 0.95
+anchor_bottom = 0.65
+margin_bottom = 0.0999985
+custom_fonts/font = ExtResource( 3 )
+text = "Play Again"
+
+[node name="BackToMenuButton" type="Button" parent="."]
+anchor_left = 0.05
+anchor_top = 0.7
+anchor_right = 0.95
+anchor_bottom = 0.9
+margin_bottom = 0.0999985
+custom_fonts/font = ExtResource( 1 )
+text = "Back To Menu"

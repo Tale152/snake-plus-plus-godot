@@ -42,13 +42,8 @@ func play(stage_description: StageDescription, visual_parameters_builder: Visual
 	_game.initialize(self, stage_description, _visual_parameters)
 
 func _process(delta):
-	if !_is_on_menu:
-		if !_game.is_game_over():
-			if !_pause:
-				_game.tick(delta)
-		else:
-			yield(get_tree().create_timer(3.0), "timeout")
-			show_menu()
+	if !_is_on_menu && !_game.is_game_over() && !_pause:
+		_game.tick(delta)
 
 func direction_input(direction: int) -> void:
 	_game.direction_input(direction)
