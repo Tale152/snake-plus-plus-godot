@@ -50,10 +50,12 @@ func initialize(
 	_init_cells()
 	_set_walls()
 	_setup_snake()
-	_scale_hud(_get_scale())
+	var scale = _get_scale()
+	_scale_hud(scale)
 	_edible_builder = EdibleBuilder.new(_snake, self)
 	_elapsed_seconds = 0
 	GameOverMenu.set_invoker(invoker)
+	GameOverMenu.scale_font(scale)
 
 func _scale_hud(scale: float) -> void:
 	var font_size = int(floor(FONT_DEFAULT_SIZE * scale))
