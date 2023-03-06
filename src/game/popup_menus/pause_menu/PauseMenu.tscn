@@ -18,7 +18,7 @@ color = Color( 0.14902, 0.14902, 0.14902, 1 )
 
 [node name="PauseLabel" type="Label" parent="."]
 anchor_right = 1.0
-anchor_bottom = 0.28
+anchor_bottom = 0.25
 margin_bottom = 0.0399971
 custom_fonts/font = ExtResource( 3 )
 text = "Pause"
@@ -27,25 +27,25 @@ valign = 1
 
 [node name="ContinueButton" type="Button" parent="."]
 anchor_left = 0.05
-anchor_top = 0.28
+anchor_top = 0.25
 anchor_right = 0.95
-anchor_bottom = 0.48
+anchor_bottom = 0.45
 custom_fonts/font = ExtResource( 2 )
 text = "Continue"
 
 [node name="RestartButton" type="Button" parent="."]
 anchor_left = 0.05
-anchor_top = 0.53
+anchor_top = 0.5
 anchor_right = 0.95
-anchor_bottom = 0.73
+anchor_bottom = 0.7
 custom_fonts/font = ExtResource( 4 )
 text = "Restart"
 
 [node name="BackToMenuButton" type="Button" parent="."]
 anchor_left = 0.05
-anchor_top = 0.78
+anchor_top = 0.75
 anchor_right = 0.95
-anchor_bottom = 0.98
+anchor_bottom = 0.95
 custom_fonts/font = ExtResource( 1 )
 text = "Back To Menu"
 
