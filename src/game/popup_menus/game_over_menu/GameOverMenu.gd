@@ -8,6 +8,5 @@ func set_invoker(invoker) -> void:
 func _on_PlayAgainButton_pressed():
 	_invoker.restart()
 
-
 func _on_BackToMenuButton_pressed():
 	_invoker.show_menu()

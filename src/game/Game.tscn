@@ -105,7 +105,7 @@ valign = 1
 position = Vector2( 15, 15 )
 scale = Vector2( 0.38, 0.38 )
 frames = SubResource( 1 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="TimeAnimatedSprite" type="AnimatedSprite" parent="GuiAreaControl/RectangleRatioContainer/Control/HudControl"]
@@ -117,7 +117,6 @@ frames = SubResource( 2 )
 position = Vector2( 162, 15 )
 scale = Vector2( 0.38, 0.38 )
 frames = SubResource( 3 )
-frame = 1
 playing = true
 flip_v = true
 
@@ -170,11 +169,6 @@ anchor_bottom = 0.323
 anchor_right = 1.0
 anchor_bottom = 0.4
 
-[node name="RestartButton" type="Button" parent="GuiAreaControl/RectangleRatioContainer/Control/BottomControl/StatusButtonsControl"]
-anchor_top = 0.6
-anchor_right = 1.0
-anchor_bottom = 1.0
-
 [node name="DirectionInputContainerControl" type="Control" parent="GuiAreaControl/RectangleRatioContainer/Control/BottomControl"]
 anchor_left = 0.37
 anchor_top = 0.16
@@ -211,7 +205,6 @@ anchor_bottom = 1.0
 margin_bottom = 0.0
 
 [connection signal="pressed" from="GuiAreaControl/RectangleRatioContainer/Control/BottomControl/StatusButtonsControl/PauseButton" to="." method="_on_PauseButton_pressed"]
-[connection signal="pressed" from="GuiAreaControl/RectangleRatioContainer/Control/BottomControl/StatusButtonsControl/RestartButton" to="." method="_on_RestartButton_pressed"]
 [connection signal="pressed" from="GuiAreaControl/RectangleRatioContainer/Control/BottomControl/DirectionInputContainerControl/UpButton" to="." method="_on_UpButton_pressed"]
 [connection signal="pressed" from="GuiAreaControl/RectangleRatioContainer/Control/BottomControl/DirectionInputContainerControl/DownButton" to="." method="_on_DownButton_pressed"]
 [connection signal="pressed" from="GuiAreaControl/RectangleRatioContainer/Control/BottomControl/DirectionInputContainerControl/LeftButton" to="." method="_on_LeftButton_pressed"]
