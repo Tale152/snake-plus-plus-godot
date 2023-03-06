@@ -326,14 +326,14 @@ func _on_PauseButton_pressed():
 	_invoker.change_pause_status()
 	PauseMenu.visible = true
 
-func _on_UpButton_pressed():
+func _on_UpButton_button_down():
 	self.direction_input(Directions.get_up())
 
-func _on_DownButton_pressed():
+func _on_RightButton_button_down():
+	self.direction_input(Directions.get_right())
+
+func _on_DownButton_button_down():
 	self.direction_input(Directions.get_down())
 
-func _on_LeftButton_pressed():
+func _on_LeftButton_button_down():
 	self.direction_input(Directions.get_left())
-
-func _on_RightButton_pressed():
-	self.direction_input(Directions.get_right())
