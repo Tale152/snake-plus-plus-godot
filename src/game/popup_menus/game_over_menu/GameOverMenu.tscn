@@ -45,3 +45,4 @@ custom_fonts/font = ExtResource( 1 )
 text = "Back To Menu"
 
 [connection signal="pressed" from="PlayAgainButton" to="." method="_on_PlayAgainButton_pressed"]
+[connection signal="pressed" from="BackToMenuButton" to="." method="_on_BackToMenuButton_pressed"]
