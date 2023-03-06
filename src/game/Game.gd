@@ -57,6 +57,7 @@ func initialize(
 	_elapsed_seconds = 0
 	GameOverMenu.set_invoker(invoker)
 	GameOverMenu.scale_font(scale)
+	PauseMenu.set_invoker(invoker)
 
 func _scale_hud(scale: float) -> void:
 	var font_size = int(floor(FONT_DEFAULT_SIZE * scale))
