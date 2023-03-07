@@ -33,6 +33,7 @@ anchor_right = 0.95
 anchor_bottom = 0.65
 margin_bottom = 0.0999985
 custom_fonts/font = ExtResource( 3 )
+disabled = true
 text = "Play Again"
 
 [node name="BackToMenuButton" type="Button" parent="."]
@@ -42,6 +43,7 @@ anchor_right = 0.95
 anchor_bottom = 0.9
 margin_bottom = 0.0999985
 custom_fonts/font = ExtResource( 1 )
+disabled = true
 text = "Back To Menu"
 
 [connection signal="pressed" from="PlayAgainButton" to="." method="_on_PlayAgainButton_pressed"]

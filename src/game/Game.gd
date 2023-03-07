@@ -138,6 +138,11 @@ func set_game_over(status) -> void:
 				e.stop_sprite_animation()
 		# TODO stop hud sprites
 		GameOverMenu.visible = true
+		WaitTimer.new() \
+			.set_seconds(GameOverMenu.get_enable_buttons_delay_seconds()) \
+			.set_parent_node(self) \
+			.set_callback(funcref(GameOverMenu, "enable_buttons")) \
+			.wait()
 
 func is_game_over() -> bool:
 	return _game_over
