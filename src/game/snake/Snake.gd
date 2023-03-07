@@ -185,6 +185,7 @@ func _lenghten_body_if_necessary(
 			_game
 		)
 		add_child(new_body_part)
+		move_child(new_body_part, 0)
 		_body_parts.push_back(new_body_part)
 		
 func _render_snake(movement_delta: float) -> void:
