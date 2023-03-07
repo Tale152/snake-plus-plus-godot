@@ -19,10 +19,15 @@ func scale_font(scale: float) -> void:
 	_PlayAgainButtonFont.size = buttons_font_size
 	_BackToMenuButtonFont.size = buttons_font_size
 
-func get_enable_buttons_delay_seconds() -> float:
-	return _ENABLE_BUTTONS_DELAY_SECONDS
+func show() -> void:
+	self.visible = true
+	WaitTimer.new() \
+		.set_seconds(_ENABLE_BUTTONS_DELAY_SECONDS) \
+		.set_parent_node(self) \
+		.set_callback(funcref(self, "_enable_buttons")) \
+		.wait()
 
-func enable_buttons() -> void:
+func _enable_buttons() -> void:
 	$PlayAgainButton.disabled = false
 	$BackToMenuButton.disabled = false
 

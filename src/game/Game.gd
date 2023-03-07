@@ -130,7 +130,7 @@ func set_game_over(status) -> void:
 	_game_over = status
 	if _game_over:
 		_stop_all_sprite_animations()
-		_show_game_over_menu()
+		GameOverMenu.show()
 
 func _stop_all_sprite_animations() -> void:
 	_snake_head.stop_sprite_animation()
@@ -140,14 +140,6 @@ func _stop_all_sprite_animations() -> void:
 	for type in _edibles.keys():
 		_stop_sprite_animations_in_array(_edibles[type])
 	# TODO stop hud sprites
-
-func _show_game_over_menu() -> void:
-	GameOverMenu.visible = true
-	WaitTimer.new() \
-		.set_seconds(GameOverMenu.get_enable_buttons_delay_seconds()) \
-		.set_parent_node(self) \
-		.set_callback(funcref(GameOverMenu, "enable_buttons")) \
-		.wait()
 
 func _stop_sprite_animations_in_array(arr: Array) -> void:
 	for elem in arr: elem.stop_sprite_animation()
