@@ -115,9 +115,12 @@ func direction_input(input: int) -> void:
 	if _next_direction == -1:
 		if _compatible_movement_input(_snake_properties.get_current_direction(), input):
 			_next_direction = input
-	elif _next_next_direction == -1 && _movement_elapsed_seconds > (_current_snake_delta_seconds * 0.66):
+	elif _next_next_direction == -1 && _can_register_future_movement(0.66):
 		if _compatible_movement_input(_next_direction, input):
 			_next_next_direction = input
+
+func _can_register_future_movement(treshold_delta_multiplier: float) -> bool:
+	return _movement_elapsed_seconds > (_current_snake_delta_seconds * treshold_delta_multiplier)
 
 func remove_edible(edible: Edible) -> void:
 	_edibles[edible.get_type()].erase(edible)
@@ -126,23 +129,28 @@ func remove_edible(edible: Edible) -> void:
 func set_game_over(status) -> void:
 	_game_over = status
 	if _game_over:
-		_snake_head.stop_sprite_animation()
-		for b in _snake.get_body_parts():
-			b.stop_sprite_animation()
-		for cell in _background_cells:
-			cell.stop_sprite_animation()
-		for wall in _walls:
-			wall.stop_sprite_animation()
-		for type in _edibles.keys():
-			for e in _edibles[type]:
-				e.stop_sprite_animation()
-		# TODO stop hud sprites
-		GameOverMenu.visible = true
-		WaitTimer.new() \
-			.set_seconds(GameOverMenu.get_enable_buttons_delay_seconds()) \
-			.set_parent_node(self) \
-			.set_callback(funcref(GameOverMenu, "enable_buttons")) \
-			.wait()
+		_stop_all_sprite_animations()
+		_show_game_over_menu()
+
+func _stop_all_sprite_animations() -> void:
+	_snake_head.stop_sprite_animation()
+	_stop_sprite_animations_in_array(_snake.get_body_parts())
+	_stop_sprite_animations_in_array(_background_cells)
+	_stop_sprite_animations_in_array(_walls)
+	for type in _edibles.keys():
+		_stop_sprite_animations_in_array(_edibles[type])
+	# TODO stop hud sprites
+
+func _show_game_over_menu() -> void:
+	GameOverMenu.visible = true
+	WaitTimer.new() \
+		.set_seconds(GameOverMenu.get_enable_buttons_delay_seconds()) \
+		.set_parent_node(self) \
+		.set_callback(funcref(GameOverMenu, "enable_buttons")) \
+		.wait()
+
+func _stop_sprite_animations_in_array(arr: Array) -> void:
+	for elem in arr: elem.stop_sprite_animation()
 
 func is_game_over() -> bool:
 	return _game_over
