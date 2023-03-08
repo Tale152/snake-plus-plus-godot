@@ -14,7 +14,6 @@
 [ext_resource path="res://assets/skins/simple/hud/Time_0.png" type="Texture" id=12]
 [ext_resource path="res://src/game/popup_menus/game_over_menu/GameOverMenu.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/game/popup_menus/pause_menu/PauseMenu.tscn" type="PackedScene" id=14]
-[ext_resource path="res://src/game/PauseButton.tres" type="DynamicFont" id=15]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -42,6 +41,12 @@ animations = [ {
 
 [sub_resource type="DynamicFont" id=4]
 outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 15
+outline_size = 1
+extra_spacing_char = 3
 font_data = ExtResource( 11 )
 
 [node name="VerticalGame" type="Node"]
@@ -172,7 +177,7 @@ anchor_bottom = 0.16
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = ExtResource( 15 )
+custom_fonts/font = SubResource( 5 )
 text = "||"
 
 [node name="DirectionInputContainerControl" type="Control" parent="GuiAreaControl/RectangleRatioContainer/Control/BottomControl"]
