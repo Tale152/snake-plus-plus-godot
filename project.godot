@@ -149,6 +149,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/Game.gd"
 }, {
+"base": "Reference",
+"class": "GameDirectionInputHandler",
+"language": "GDScript",
+"path": "res://src/game/GameDirectionInputHandler.gd"
+}, {
 "base": "Control",
 "class": "GameOverMenu",
 "language": "GDScript",
@@ -338,6 +343,7 @@ _global_script_class_icons={
 "FieldSprite": "",
 "GainCoin": "",
 "Game": "",
+"GameDirectionInputHandler": "",
 "GameOverMenu": "",
 "ImmutablePoint": "",
 "JsonStageParser": "",

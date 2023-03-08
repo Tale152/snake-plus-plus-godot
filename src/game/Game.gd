@@ -19,8 +19,6 @@ var rng = RandomNumberGenerator.new()
 var _invoker
 var _game_over: bool = false
 var _player: Player = Player.new()
-var _next_direction: int = -1
-var _next_next_direction: int = -1
 var _stage_description: StageDescription
 var _visual_parameters: VisualParameters
 var _snake: Snake
@@ -35,6 +33,7 @@ var _cells: Array
 var _to_be_removed_queue: Array = []
 var _background_cells: Array
 var _elapsed_seconds: float
+var _input_handler: GameDirectionInputHandler = GameDirectionInputHandler.new()
 
 var _edible_builder: EdibleBuilder
 
@@ -112,15 +111,13 @@ func tick(delta: float) -> void:
 	_handle_edibles_spawn(delta)
 
 func direction_input(input: int) -> void:
-	if _next_direction == -1:
-		if _compatible_movement_input(_snake_properties.get_current_direction(), input):
-			_next_direction = input
-	elif _next_next_direction == -1 && _can_register_future_movement(0.66):
-		if _compatible_movement_input(_next_direction, input):
-			_next_next_direction = input
-
-func _can_register_future_movement(treshold_delta_multiplier: float) -> bool:
-	return _movement_elapsed_seconds > (_current_snake_delta_seconds * treshold_delta_multiplier)
+	# warning-ignore:return_value_discarded
+	_input_handler.submit_input(
+		_snake_properties.get_current_direction(),
+		input,
+		_movement_elapsed_seconds,
+		_current_snake_delta_seconds
+	)
 
 func remove_edible(edible: Edible) -> void:
 	_edibles[edible.get_type()].erase(edible)
@@ -191,15 +188,6 @@ func _setup_snake() -> void:
 
 # --- private process functions ---
 
-func _compatible_movement_input(
-	current_direction: int,
-	input_direction: int
-) -> bool:
-	return (
-		current_direction != input_direction &&
-		current_direction != Directions.get_opposite(input_direction)
-	)
-
 func _handle_edibles_expire(delta: float) -> void:
 	var edibles_copy = _edibles.duplicate(true)
 	for type in edibles_copy.keys():
@@ -212,10 +200,9 @@ func _handle_snake_movement(delta: float) -> void:
 	_movement_elapsed_seconds += delta
 	_current_snake_delta_seconds = _calculate_snake_current_delta_seconds()
 	if _movement_elapsed_seconds >= _current_snake_delta_seconds:
-		if _next_direction != -1:
-			_snake_properties.set_current_direction(_next_direction)
-			_next_direction = _next_next_direction
-			_next_next_direction = -1
+		var next_direction = _input_handler.get_next_direction()
+		if next_direction != -1:
+			_snake_properties.set_current_direction(next_direction)
 		_movement_elapsed_seconds -= _current_snake_delta_seconds
 		_snake.move(_current_snake_delta_seconds)
 		_handle_snake_collision()
