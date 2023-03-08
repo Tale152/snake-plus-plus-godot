@@ -38,7 +38,8 @@ var _edible_builder: EdibleBuilder
 func initialize(
 	invoker,
 	stage_description: StageDescription,
-	visual_parameters: VisualParameters
+	visual_parameters: VisualParameters,
+	controls: Control
 ):
 	rng.randomize()
 	_invoker = invoker
@@ -61,6 +62,8 @@ func initialize(
 	GameOverMenu.scale_font(scale)
 	PauseMenu.set_invoker(invoker)
 	PauseMenu.scale_font(scale)
+	$GuiAreaControl/RectangleRatioContainer/Control/BottomControl.add_child(controls)
+	$GuiAreaControl/RectangleRatioContainer/Control/BottomControl.move_child(controls, 0)
 
 func _scale_hud(scale: float) -> void:
 	var font_size = int(floor(FONT_DEFAULT_SIZE * scale))
@@ -89,6 +92,9 @@ func get_field_px_size(scale: float) -> int:
 	return int(floor(
 		$GuiAreaControl/RectangleRatioContainer/Control.rect_size.x * scale
 	))
+
+func show_pause_menu() -> void:
+	PauseMenu.visible = true
 
 func tick(delta: float) -> void:
 	_elapsed_seconds += delta
@@ -275,19 +281,3 @@ func _update_hud() -> void:
 	if effects.length() > 0:
 		effects.erase(effects.length() - 3, 3)
 	$GuiAreaControl/RectangleRatioContainer/Control/EffectsControl/EffectsLabel.text = effects
-
-func _on_PauseButton_pressed():
-	_invoker.change_pause_status()
-	PauseMenu.visible = true
-
-func _on_UpButton_button_down():
-	self.direction_input(Directions.get_up())
-
-func _on_RightButton_button_down():
-	self.direction_input(Directions.get_right())
-
-func _on_DownButton_button_down():
-	self.direction_input(Directions.get_down())
-
-func _on_LeftButton_button_down():
-	self.direction_input(Directions.get_left())

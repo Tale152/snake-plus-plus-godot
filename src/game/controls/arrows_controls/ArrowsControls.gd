@@ -6,6 +6,12 @@ var _down_arrow_strategy: FuncRef
 var _left_arrow_strategy: FuncRef
 var _pause_button_strategy: FuncRef
 
+func _ready():
+	self.anchor_top = 0
+	self.anchor_right = 1
+	self.anchor_bottom = 1
+	self.anchor_left = 0
+
 func set_up_arrow_strategy(strategy: FuncRef) -> void:
 	_up_arrow_strategy = strategy
 

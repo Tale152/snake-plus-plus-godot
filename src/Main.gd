@@ -2,6 +2,7 @@ extends Node
 
 const Menu = preload("res://src/menu/Menu.tscn")
 const Game = preload("res://src/game/Game.tscn")
+const ArrowsControls = preload("res://src/game/controls/arrows_controls/ArrowsControls.tscn")
 
 var _menu
 var _game
@@ -12,6 +13,15 @@ var _stage_description: StageDescription
 
 func _init():
 	show_menu()
+
+func _build_arrows_controls_instance() -> Control:
+	var arrows_controls = ArrowsControls.instance()
+	arrows_controls.set_up_arrow_strategy(funcref(self, "_up_direction_input"))
+	arrows_controls.set_right_arrow_strategy(funcref(self, "_right_direction_input"))
+	arrows_controls.set_down_arrow_strategy(funcref(self, "_down_direction_input"))
+	arrows_controls.set_left_arrow_strategy(funcref(self, "_left_direction_input"))
+	arrows_controls.set_pause_button_strategy(funcref(self, "_pause_input"))
+	return arrows_controls
 
 func get_scale() -> float:
 	var project_height = ProjectSettings.get("display/window/size/height")
@@ -50,7 +60,7 @@ func play(stage_description: StageDescription, visual_parameters_builder: Visual
 		.set_cell_pixels_size(px) \
 		.set_game_pixels_offset(Vector2(offset, offset))
 	_visual_parameters = visual_parameters_builder.build()
-	_game.initialize(self, stage_description, _visual_parameters)
+	_game.initialize(self, stage_description, _visual_parameters, _build_arrows_controls_instance())
 
 func _process(delta):
 	if !_is_on_menu && !_game.is_game_over() && !_pause:
@@ -58,6 +68,22 @@ func _process(delta):
 
 func direction_input(direction: int) -> void:
 	_game.direction_input(direction)
+
+func _up_direction_input() -> void:
+	_game.direction_input(Directions.get_up())
+
+func _right_direction_input() -> void:
+	_game.direction_input(Directions.get_right())
+
+func _down_direction_input() -> void:
+	_game.direction_input(Directions.get_down())
+
+func _left_direction_input() -> void:
+	_game.direction_input(Directions.get_left())
+
+func _pause_input() -> void:
+	change_pause_status()
+	_game.show_pause_menu()
 
 func _unhandled_input(event):
 	if Input.is_action_pressed("back_to_menu") && !_is_on_menu:
@@ -81,4 +107,4 @@ func restart() -> void:
 	remove_child(_game)
 	_game = Game.instance()
 	add_child(_game)
-	_game.initialize(self, _stage_description, _visual_parameters)
+	_game.initialize(self, _stage_description, _visual_parameters, _build_arrows_controls_instance())
