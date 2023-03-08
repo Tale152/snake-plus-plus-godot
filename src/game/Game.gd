@@ -251,18 +251,9 @@ func _handle_edibles_spawn(delta: float) -> void:
 					.set_free_cells(free_cells) \
 					.build()
 				if instance != null: # is is possible that no compatible free cell is found
-					_remove_from_immutable_points_array(free_cells, instance.get_coordinates())
+					instance.get_coordinates().remove_from_array(free_cells)
 					_edibles[ir.get_type()].push_back(instance)
 					$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(instance)
-
-func _remove_from_immutable_points_array(arr: Array, p: ImmutablePoint) -> bool:
-	var i = 0
-	for e in arr:
-		if p.equals_to(e):
-			arr.remove(i)
-			return true;
-		i += 1;
-	return false
 
 func _can_spawn(rules: EdibleRules, edibles_dictionary: Dictionary) -> bool:
 	return (
@@ -272,22 +263,14 @@ func _can_spawn(rules: EdibleRules, edibles_dictionary: Dictionary) -> bool:
 
 func _get_free_cells() -> Array:
 	var res = _cells.duplicate(false)
-	res.pop_at(ImmutablePoint.get_point_index_in_array(
-		res, _snake_head.get_placement().get_coordinates()
-	))
 	for w in _walls:
-		var i = ImmutablePoint.get_point_index_in_array(res, w.get_coordinates())
-		if i != -1:
-			res.pop_at(i)
+		w.get_coordinates().remove_from_array(res)
+	_snake_head.get_placement().get_coordinates().remove_from_array(res)
 	for b in _snake.get_body_parts():
-		var i = ImmutablePoint.get_point_index_in_array(res, b.get_placement().get_coordinates())
-		if i != -1:
-			res.pop_at(i)
+		b.get_placement().get_coordinates().remove_from_array(res)
 	for type in _edibles.keys():
 		for e in _edibles[type]:
-			var i = ImmutablePoint.get_point_index_in_array(res, e.get_coordinates())
-			if i != -1:
-				res.pop_at(i)
+			e.get_coordinates().remove_from_array(res)
 	return res
 
 func _update_hud() -> void:
