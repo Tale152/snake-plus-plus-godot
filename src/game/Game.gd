@@ -63,7 +63,7 @@ func get_field_px_size(scale: float) -> int:
 	return int(floor(_FieldControl.rect_size.x * scale))
 
 func show_pause_menu() -> void:
-	PauseMenu.visible = true
+	_PauseMenu.visible = true
 
 func tick(delta: float) -> void:
 	_elapsed_seconds += delta
