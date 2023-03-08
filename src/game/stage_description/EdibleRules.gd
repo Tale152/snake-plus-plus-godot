@@ -39,3 +39,12 @@ func get_max_instances() -> int:
 
 func get_on_head_collision_strategy():
 	return _on_head_collision_strategy
+
+func can_spawn(
+	current_instances_number: int,
+	random_spawn_value: float
+) -> bool:
+	return (
+		current_instances_number < _max_instances &&
+		random_spawn_value <= _spawn_probability
+	)

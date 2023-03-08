@@ -201,7 +201,7 @@ func _calculate_snake_current_delta_seconds() -> float:
 	var speedup_factor = _stage_description.get_snake_speedup_factor()
 	for i in _snake_properties.get_current_length() - 1:
 		current_delta_seconds *= speedup_factor
-	return current_delta_seconds * _snake.get_properties().get_speed_multiplier()
+	return current_delta_seconds * _snake_properties.get_speed_multiplier()
 
 func _handle_snake_collision() -> void:
 	var head_coordinates: ImmutablePoint = _snake_head.get_placement().get_coordinates()
@@ -233,7 +233,8 @@ func _handle_edibles_spawn(delta: float) -> void:
 		var free_cells = _get_free_cells()
 		# instantaneous edibles spawn attempts
 		for ir in _stage_description.get_instantaneous_edible_rules():
-			if _can_spawn(ir, _edibles):
+			var current_instances_number: int = _edibles[ir.get_type()].size()
+			if ir.can_spawn(current_instances_number, rng.randf()):
 				var instance = _edible_builder \
 					.build_new() \
 					.set_rules(ir) \
@@ -243,12 +244,6 @@ func _handle_edibles_spawn(delta: float) -> void:
 					instance.get_coordinates().remove_from_array(free_cells)
 					_edibles[ir.get_type()].push_back(instance)
 					$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(instance)
-
-func _can_spawn(rules: EdibleRules, edibles_dictionary: Dictionary) -> bool:
-	return (
-		edibles_dictionary[rules.get_type()].size() < rules.get_max_instances()
-		&& rng.randf() <= rules.get_spawn_probability()
-	)
 
 func _get_free_cells() -> Array:
 	var res = _cells.duplicate(false)
