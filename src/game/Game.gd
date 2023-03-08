@@ -1,15 +1,14 @@
 class_name Game extends Node
 
-onready var GameOverMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/GameOverMenu
-onready var PauseMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/PauseMenu
-onready var Hud: Control = $GuiAreaControl/RectangleRatioContainer/Control/HudControl/Hud
+const _EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
+
+onready var _GameOverMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/GameOverMenu
+onready var _PauseMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/PauseMenu
+onready var _Hud: Control = $GuiAreaControl/RectangleRatioContainer/Control/HudControl/Hud
 onready var _FieldControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/FieldControl
 onready var _BottomControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl
 
-# --- constants ---
-const EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
-
-var rng = RandomNumberGenerator.new()
+var _rng = RandomNumberGenerator.new()
 var _invoker
 var _game_over: bool = false
 var _player: Player = Player.new()
@@ -37,18 +36,18 @@ func initialize(
 	visual_parameters: VisualParameters,
 	controls: Control
 ):
-	rng.randomize()
+	_rng.randomize()
 	_invoker = invoker
 	_stage_description = stage_description
 	_visual_parameters = visual_parameters
 	var scale = invoker.get_scale()
-	GameInitializationUtils.init_hud(Hud, scale)
+	GameInitializationUtils.init_hud(_Hud, scale)
 	GameInitializationUtils.add_controls(controls, _BottomControl)
 	GameInitializationUtils.init_background_cells(_background_cells, stage_description, visual_parameters, _FieldControl)
 	GameInitializationUtils.init_walls(_walls, self, _stage_description.get_walls_points(), _FieldControl)
 	GameInitializationUtils.init_edibles(_edibles, _stage_description.get_instantaneous_edible_rules())
-	GameInitializationUtils.init_menu(GameOverMenu, invoker, scale)
-	GameInitializationUtils.init_menu(PauseMenu, invoker, scale)
+	GameInitializationUtils.init_menu(_GameOverMenu, invoker, scale)
+	GameInitializationUtils.init_menu(_PauseMenu, invoker, scale)
 	_snake = Snake.new(self)
 	_snake_properties = _snake.get_properties()
 	_snake_head = _snake.get_head()
@@ -92,7 +91,7 @@ func set_game_over(status) -> void:
 	_game_over = status
 	if _game_over:
 		_stop_all_sprite_animations()
-		GameOverMenu.show()
+		_GameOverMenu.show()
 
 func is_game_over() -> bool:
 	return _game_over
@@ -155,13 +154,13 @@ func _handle_to_be_removed_queue_clear() -> void:
 
 func _handle_edibles_spawn(delta: float) -> void:
 	_spawn_attempt_elapsed_seconds += delta
-	if _spawn_attempt_elapsed_seconds >= EDIBLES_SPAWN_ATTEMPT_FREQUENCY:
-		_spawn_attempt_elapsed_seconds -= EDIBLES_SPAWN_ATTEMPT_FREQUENCY
+	if _spawn_attempt_elapsed_seconds >= _EDIBLES_SPAWN_ATTEMPT_FREQUENCY:
+		_spawn_attempt_elapsed_seconds -= _EDIBLES_SPAWN_ATTEMPT_FREQUENCY
 		var free_cells = _free_cells_handler.get_free_cells(_walls, _edibles)
 		# instantaneous edibles spawn attempts
 		for ir in _stage_description.get_instantaneous_edible_rules():
 			var current_instances_number: int = _edibles[ir.get_type()].size()
-			if ir.can_spawn(current_instances_number, rng.randf()):
+			if ir.can_spawn(current_instances_number, _rng.randf()):
 				var instance = _edible_builder \
 					.build_new() \
 					.set_rules(ir) \
@@ -173,7 +172,7 @@ func _handle_edibles_spawn(delta: float) -> void:
 					$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(instance)
 
 func _update_hud() -> void:
-	Hud.update_values(
+	_Hud.update_values(
 		_player.get_points(),
 		_snake.get_properties().get_current_length(),
 		_elapsed_seconds
