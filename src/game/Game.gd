@@ -26,12 +26,12 @@ var _movement_elapsed_seconds: float = 0
 var _spawn_attempt_elapsed_seconds: float = 0
 var _edibles: Dictionary
 var _walls: Array
-var _cells: Array
 var _to_be_removed_queue: Array = []
 var _background_cells: Array
 var _elapsed_seconds: float = 0.0
 var _input_handler: GameDirectionInputHandler = GameDirectionInputHandler.new()
 var _snake_delta_seconds_calculator: SnakeDeltaSecondsCalculator
+var _free_cells_handler: FreeCellsHandler
 
 var _edible_builder: EdibleBuilder
 
@@ -48,9 +48,11 @@ func initialize(
 	for r in _stage_description.get_instantaneous_edible_rules():
 		_edibles[r.get_type()] = []
 	_set_background()
-	_init_cells()
 	_set_walls()
 	_setup_snake()
+	_free_cells_handler = FreeCellsHandler.new(
+		stage_description.get_field_size(), _snake
+	)
 	var scale = invoker.get_scale()
 	_scale_hud(scale)
 	_edible_builder = EdibleBuilder.new(_snake, self)
@@ -161,12 +163,6 @@ func _set_background() -> void:
 		$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(c)
 		c.play_sprite_animation(0.3)
 
-func _init_cells() -> void:
-	_cells = []
-	for x in _stage_description.get_field_size().get_width():
-		for y in _stage_description.get_field_size().get_height():
-			_cells.push_back(ImmutablePoint.new(x, y))
-
 func _set_walls() -> void:
 	_walls = []
 	for wp in _stage_description.get_walls_points():
@@ -206,12 +202,11 @@ func _handle_snake_movement(delta: float) -> void:
 
 func _handle_snake_collision() -> void:
 	var head_coordinates: ImmutablePoint = _snake_head.get_placement().get_coordinates()
-	var body_parts = _snake.get_body_parts()
 	for w in _walls:
 		if head_coordinates.equals_to(w.get_coordinates()):
 			w.on_snake_head_collision()
 	if !_game_over:
-		for b in body_parts:
+		for b in _snake.get_body_parts():
 			if head_coordinates.equals_to(b.get_placement().get_coordinates()):
 				b.on_snake_head_collision()
 	if !_game_over:
@@ -231,7 +226,7 @@ func _handle_edibles_spawn(delta: float) -> void:
 	_spawn_attempt_elapsed_seconds += delta
 	if _spawn_attempt_elapsed_seconds >= EDIBLES_SPAWN_ATTEMPT_FREQUENCY:
 		_spawn_attempt_elapsed_seconds -= EDIBLES_SPAWN_ATTEMPT_FREQUENCY
-		var free_cells = _get_free_cells()
+		var free_cells = _free_cells_handler.get_free_cells(_walls, _edibles)
 		# instantaneous edibles spawn attempts
 		for ir in _stage_description.get_instantaneous_edible_rules():
 			var current_instances_number: int = _edibles[ir.get_type()].size()
@@ -245,18 +240,6 @@ func _handle_edibles_spawn(delta: float) -> void:
 					instance.get_coordinates().remove_from_array(free_cells)
 					_edibles[ir.get_type()].push_back(instance)
 					$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(instance)
-
-func _get_free_cells() -> Array:
-	var res = _cells.duplicate(false)
-	for w in _walls:
-		w.get_coordinates().remove_from_array(res)
-	_snake_head.get_placement().get_coordinates().remove_from_array(res)
-	for b in _snake.get_body_parts():
-		b.get_placement().get_coordinates().remove_from_array(res)
-	for type in _edibles.keys():
-		for e in _edibles[type]:
-			e.get_coordinates().remove_from_array(res)
-	return res
 
 func _update_hud() -> void:
 	var length_text = str(_snake.get_properties().get_current_length())
