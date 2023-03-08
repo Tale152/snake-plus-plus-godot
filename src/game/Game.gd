@@ -3,6 +3,8 @@ class_name Game extends Node
 onready var GameOverMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/GameOverMenu
 onready var PauseMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/PauseMenu
 onready var Hud: Control = $GuiAreaControl/RectangleRatioContainer/Control/HudControl/Hud
+onready var _FieldControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/FieldControl
+onready var _BottomControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl
 
 # --- constants ---
 const EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
@@ -18,10 +20,10 @@ var _snake_properties: SnakeProperties
 var _snake_head: SnakeHead
 var _movement_elapsed_seconds: float = 0
 var _spawn_attempt_elapsed_seconds: float = 0
-var _edibles: Dictionary
-var _walls: Array
+var _edibles: Dictionary = {}
+var _walls: Array = []
 var _to_be_removed_queue: Array = []
-var _background_cells: Array
+var _background_cells: Array = []
 var _elapsed_seconds: float = 0.0
 var _input_handler: GameDirectionInputHandler = GameDirectionInputHandler.new()
 var _snake_delta_seconds_calculator: SnakeDeltaSecondsCalculator
@@ -39,32 +41,27 @@ func initialize(
 	_invoker = invoker
 	_stage_description = stage_description
 	_visual_parameters = visual_parameters
-	for r in _stage_description.get_instantaneous_edible_rules():
-		_edibles[r.get_type()] = []
-	_set_background()
-	_set_walls()
-	_setup_snake()
-	_free_cells_handler = FreeCellsHandler.new(
-		stage_description.get_field_size(), _snake
-	)
 	var scale = invoker.get_scale()
+	GameInitializationUtils.init_hud(Hud, scale)
+	GameInitializationUtils.add_controls(controls, _BottomControl)
+	GameInitializationUtils.init_background_cells(_background_cells, stage_description, visual_parameters, _FieldControl)
+	GameInitializationUtils.init_walls(_walls, self, _stage_description.get_walls_points(), _FieldControl)
+	GameInitializationUtils.init_edibles(_edibles, _stage_description.get_instantaneous_edible_rules())
+	GameInitializationUtils.init_menu(GameOverMenu, invoker, scale)
+	GameInitializationUtils.init_menu(PauseMenu, invoker, scale)
+	_snake = Snake.new(self)
+	_snake_properties = _snake.get_properties()
+	_snake_head = _snake.get_head()
+	_FieldControl.add_child(_snake)
+	_free_cells_handler = FreeCellsHandler.new(stage_description.get_field_size(), _snake)
 	_edible_builder = EdibleBuilder.new(_snake, self)
 	_snake_delta_seconds_calculator = SnakeDeltaSecondsCalculator.new(
 		stage_description.get_snake_base_delta_seconds(),
 		stage_description.get_snake_speedup_factor()
 	)
-	GameOverMenu.set_invoker(invoker)
-	GameOverMenu.scale_font(scale)
-	PauseMenu.set_invoker(invoker)
-	PauseMenu.scale_font(scale)
-	Hud.scale(scale)
-	$GuiAreaControl/RectangleRatioContainer/Control/BottomControl.add_child(controls)
-	$GuiAreaControl/RectangleRatioContainer/Control/BottomControl.move_child(controls, 0)
 
 func get_field_px_size(scale: float) -> int:
-	return int(floor(
-		$GuiAreaControl/RectangleRatioContainer/Control.rect_size.x * scale
-	))
+	return int(floor(_FieldControl.rect_size.x * scale))
 
 func show_pause_menu() -> void:
 	PauseMenu.visible = true
@@ -72,9 +69,9 @@ func show_pause_menu() -> void:
 func tick(delta: float) -> void:
 	_elapsed_seconds += delta
 	_snake.tick_effects(delta)
-	_update_hud()
 	_handle_edibles_expire(delta)
 	_handle_snake_movement(delta)
+	_update_hud()
 	_handle_to_be_removed_queue_clear()
 	_handle_edibles_spawn(delta)
 
@@ -97,18 +94,6 @@ func set_game_over(status) -> void:
 		_stop_all_sprite_animations()
 		GameOverMenu.show()
 
-func _stop_all_sprite_animations() -> void:
-	_snake_head.stop_sprite_animation()
-	_stop_sprite_animations_in_array(_snake.get_body_parts())
-	_stop_sprite_animations_in_array(_background_cells)
-	_stop_sprite_animations_in_array(_walls)
-	for type in _edibles.keys():
-		_stop_sprite_animations_in_array(_edibles[type])
-	# TODO stop hud sprites
-
-func _stop_sprite_animations_in_array(arr: Array) -> void:
-	for elem in arr: elem.stop_sprite_animation()
-
 func is_game_over() -> bool:
 	return _game_over
 
@@ -123,31 +108,6 @@ func get_snake():
 
 func get_player() -> Player:
 	return _player
-
-# --- private setup functions ---
-
-func _set_background() -> void:
-	_background_cells = BackgroundGenerator.create_background_cells(
-		_stage_description, _visual_parameters
-	)
-	for c in _background_cells:
-		$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(c)
-		c.play_sprite_animation(0.3)
-
-func _set_walls() -> void:
-	_walls = []
-	for wp in _stage_description.get_walls_points():
-		var wall = Wall.new(wp, self)
-		_walls.push_back(wall)
-		$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(wall)
-		
-func _setup_snake() -> void:
-	_snake = Snake.new(self)
-	_snake_properties = _snake.get_properties()
-	_snake_head = _snake.get_head()
-	$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(_snake)
-
-# --- private process functions ---
 
 func _handle_edibles_expire(delta: float) -> void:
 	var edibles_copy = _edibles.duplicate(true)
@@ -227,3 +187,15 @@ func _update_hud() -> void:
 	if effects.length() > 0:
 		effects.erase(effects.length() - 3, 3)
 	$GuiAreaControl/RectangleRatioContainer/Control/EffectsControl/EffectsLabel.text = effects
+
+func _stop_all_sprite_animations() -> void:
+	_snake_head.stop_sprite_animation()
+	_stop_sprite_animations_in_array(_snake.get_body_parts())
+	_stop_sprite_animations_in_array(_background_cells)
+	_stop_sprite_animations_in_array(_walls)
+	for type in _edibles.keys():
+		_stop_sprite_animations_in_array(_edibles[type])
+	# TODO stop hud sprites
+
+func _stop_sprite_animations_in_array(arr: Array) -> void:
+	for elem in arr: elem.stop_sprite_animation()
