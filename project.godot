@@ -239,6 +239,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/visual_parameters/snake/SnakeBodySprite.gd"
 }, {
+"base": "Reference",
+"class": "SnakeDeltaSecondsCalculator",
+"language": "GDScript",
+"path": "res://src/game/SnakeDeltaSecondsCalculator.gd"
+}, {
 "base": "Area2D",
 "class": "SnakeHead",
 "language": "GDScript",
@@ -361,6 +366,7 @@ _global_script_class_icons={
 "Snake": "",
 "SnakeBodyPart": "",
 "SnakeBodySprite": "",
+"SnakeDeltaSecondsCalculator": "",
 "SnakeHead": "",
 "SnakeHeadSprite": "",
 "SnakeProperties": "",

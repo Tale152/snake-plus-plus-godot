@@ -26,14 +26,14 @@ var _snake_properties: SnakeProperties
 var _snake_head: SnakeHead
 var _movement_elapsed_seconds: float = 0
 var _spawn_attempt_elapsed_seconds: float = 0
-var _current_snake_delta_seconds: float
 var _edibles: Dictionary
 var _walls: Array
 var _cells: Array
 var _to_be_removed_queue: Array = []
 var _background_cells: Array
-var _elapsed_seconds: float
+var _elapsed_seconds: float = 0.0
 var _input_handler: GameDirectionInputHandler = GameDirectionInputHandler.new()
+var _snake_delta_seconds_calculator: SnakeDeltaSecondsCalculator
 
 var _edible_builder: EdibleBuilder
 
@@ -55,7 +55,10 @@ func initialize(
 	var scale = invoker.get_scale()
 	_scale_hud(scale)
 	_edible_builder = EdibleBuilder.new(_snake, self)
-	_elapsed_seconds = 0
+	_snake_delta_seconds_calculator = SnakeDeltaSecondsCalculator.new(
+		stage_description.get_snake_base_delta_seconds(),
+		stage_description.get_snake_speedup_factor()
+	)
 	PauseButtonFont.size = int(floor(PAUSE_BUTTON_DEFAULT_FONT_SIZE * scale))
 	GameOverMenu.set_invoker(invoker)
 	GameOverMenu.scale_font(scale)
@@ -105,7 +108,7 @@ func direction_input(input: int) -> void:
 		_snake_properties.get_current_direction(),
 		input,
 		_movement_elapsed_seconds,
-		_current_snake_delta_seconds
+		_snake_delta_seconds_calculator.get_last_calculated_delta()
 	)
 
 func remove_edible(edible: Edible) -> void:
@@ -172,7 +175,6 @@ func _setup_snake() -> void:
 	_snake = Snake.new(self)
 	_snake_properties = _snake.get_properties()
 	_snake_head = _snake.get_head()
-	_current_snake_delta_seconds = _calculate_snake_current_delta_seconds()
 	$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(_snake)
 
 # --- private process functions ---
@@ -187,21 +189,17 @@ func _handle_edibles_expire(delta: float) -> void:
 
 func _handle_snake_movement(delta: float) -> void:
 	_movement_elapsed_seconds += delta
-	_current_snake_delta_seconds = _calculate_snake_current_delta_seconds()
-	if _movement_elapsed_seconds >= _current_snake_delta_seconds:
+	var current_snake_delta_seconds = _snake_delta_seconds_calculator.calculate_current_delta_seconds(
+		_snake_properties.get_current_length() - 1,
+		_snake_properties.get_speed_multiplier()
+	)
+	if _movement_elapsed_seconds >= current_snake_delta_seconds:
 		var next_direction = _input_handler.get_next_direction()
 		if next_direction != -1:
 			_snake_properties.set_current_direction(next_direction)
-		_movement_elapsed_seconds -= _current_snake_delta_seconds
-		_snake.move(_current_snake_delta_seconds)
+		_movement_elapsed_seconds -= current_snake_delta_seconds
+		_snake.move(current_snake_delta_seconds)
 		_handle_snake_collision()
-
-func _calculate_snake_current_delta_seconds() -> float:
-	var current_delta_seconds = _stage_description.get_snake_base_delta_seconds()
-	var speedup_factor = _stage_description.get_snake_speedup_factor()
-	for i in _snake_properties.get_current_length() - 1:
-		current_delta_seconds *= speedup_factor
-	return current_delta_seconds * _snake_properties.get_speed_multiplier()
 
 func _handle_snake_collision() -> void:
 	var head_coordinates: ImmutablePoint = _snake_head.get_placement().get_coordinates()
