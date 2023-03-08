@@ -1,14 +1,8 @@
 class_name Game extends Node
 
-onready var TimeLabelFont = preload("res://assets/fonts/TimeLabel.tres")
-onready var ScoreLabelFont = preload("res://assets/fonts/ScoreLabel.tres")
-onready var LengthLabelFont = preload("res://assets/fonts/LengthLabel.tres")
 onready var GameOverMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/GameOverMenu
 onready var PauseMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/PauseMenu
-const FONT_DEFAULT_SIZE: int = 17
-const SCORE_SPRITE_DEFAULT_POSITION: Vector2 = Vector2(15, 15)
-const LENGTH_SPRITE_DEFAULT_POSITION: Vector2 = Vector2(162, 15)
-const TIME_SPRITE_DEFAULT_POSITION: Vector2 = Vector2(224, 15)
+onready var Hud: Control = $GuiAreaControl/RectangleRatioContainer/Control/HudControl/Hud
 
 # --- constants ---
 const EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
@@ -54,7 +48,6 @@ func initialize(
 		stage_description.get_field_size(), _snake
 	)
 	var scale = invoker.get_scale()
-	_scale_hud(scale)
 	_edible_builder = EdibleBuilder.new(_snake, self)
 	_snake_delta_seconds_calculator = SnakeDeltaSecondsCalculator.new(
 		stage_description.get_snake_base_delta_seconds(),
@@ -64,31 +57,9 @@ func initialize(
 	GameOverMenu.scale_font(scale)
 	PauseMenu.set_invoker(invoker)
 	PauseMenu.scale_font(scale)
+	Hud.scale(scale)
 	$GuiAreaControl/RectangleRatioContainer/Control/BottomControl.add_child(controls)
 	$GuiAreaControl/RectangleRatioContainer/Control/BottomControl.move_child(controls, 0)
-
-func _scale_hud(scale: float) -> void:
-	var font_size = int(floor(FONT_DEFAULT_SIZE * scale))
-	TimeLabelFont.size = font_size
-	ScoreLabelFont.size = font_size
-	LengthLabelFont.size = font_size
-	var score_sprite = $GuiAreaControl/RectangleRatioContainer/Control/HudControl/ScoreAnimatedSprite
-	_scale_and_reposition_hud_sprite(score_sprite, scale, SCORE_SPRITE_DEFAULT_POSITION)
-	var length_sprite = $GuiAreaControl/RectangleRatioContainer/Control/HudControl/LengthAnimatedSprite
-	_scale_and_reposition_hud_sprite(length_sprite, scale, LENGTH_SPRITE_DEFAULT_POSITION)
-	var time_sprite = $GuiAreaControl/RectangleRatioContainer/Control/HudControl/TimeAnimatedSprite
-	_scale_and_reposition_hud_sprite(time_sprite, scale, TIME_SPRITE_DEFAULT_POSITION)
-
-func _scale_and_reposition_hud_sprite(
-	sprite: AnimatedSprite,
-	scale: float,
-	default_position: Vector2
-) -> void:
-	var sprite_source_size = sprite.get_sprite_frames().get_frame("default",0).get_width()
-	var basic_scaling = 1 / (sprite_source_size / 25.0)
-	var window_scaling = scale * basic_scaling
-	sprite.set_scale(Vector2(window_scaling, window_scaling))
-	sprite.position = Vector2(default_position.x * scale, default_position.y * scale)
 
 func get_field_px_size(scale: float) -> int:
 	return int(floor(
@@ -242,19 +213,11 @@ func _handle_edibles_spawn(delta: float) -> void:
 					$GuiAreaControl/RectangleRatioContainer/Control/FieldControl.add_child(instance)
 
 func _update_hud() -> void:
-	var length_text = str(_snake.get_properties().get_current_length())
-	$GuiAreaControl/RectangleRatioContainer/Control/HudControl/LengthLabel.text = length_text
-	var score_text = str(_player.get_points())
-	$GuiAreaControl/RectangleRatioContainer/Control/HudControl/ScoreLabel.text = score_text
-	var seconds = floor(_elapsed_seconds)
-	var time_text = ""
-	if seconds < 60:
-		time_text = str("0:", seconds if seconds > 9 else str(0, seconds))
-	else:
-		var minutes = floor(seconds / 60)
-		seconds = seconds - minutes * 60
-		time_text = str(minutes, ":", seconds if seconds > 9 else str(0, seconds))
-	$GuiAreaControl/RectangleRatioContainer/Control/HudControl/TimeLabel.text = time_text
+	Hud.update_values(
+		_player.get_points(),
+		_snake.get_properties().get_current_length(),
+		_elapsed_seconds
+	)
 	var effects: String = ""
 	for t in _snake.get_effects_timers():
 		effects += str(

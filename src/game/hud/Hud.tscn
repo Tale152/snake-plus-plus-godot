@@ -1,0 +1,96 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://assets/skins/simple/hud/Time_0.png" type="Texture" id=1]
+[ext_resource path="res://assets/skins/simple/edibles/GainCoin_0.png" type="Texture" id=2]
+[ext_resource path="res://assets/skins/simple/edibles/GainCoin_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/skins/simple/snake/head_tail_UP_1.png" type="Texture" id=4]
+[ext_resource path="res://assets/skins/simple/edibles/GainCoin_3.png" type="Texture" id=5]
+[ext_resource path="res://assets/skins/simple/edibles/GainCoin_2.png" type="Texture" id=6]
+[ext_resource path="res://assets/skins/simple/snake/head_tail_UP_0.png" type="Texture" id=7]
+[ext_resource path="res://src/game/hud/TimeLabel.tres" type="DynamicFont" id=8]
+[ext_resource path="res://src/game/hud/LengthLabel.tres" type="DynamicFont" id=9]
+[ext_resource path="res://src/game/hud/ScoreLabel.tres" type="DynamicFont" id=10]
+[ext_resource path="res://src/game/hud/Hud.gd" type="Script" id=11]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="HudControl" type="Control"]
+anchor_left = 0.03
+anchor_top = 0.05
+anchor_right = 0.97
+anchor_bottom = 0.102
+script = ExtResource( 11 )
+
+[node name="BackgroundColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.14902, 0.14902, 0.156863, 0.686275 )
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchor_left = 0.12
+anchor_top = 0.14
+anchor_right = 0.5
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 10 )
+text = "42069"
+valign = 1
+
+[node name="TimeLabel" type="Label" parent="."]
+anchor_left = 0.83
+anchor_top = 0.14
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 8 )
+text = "10:23"
+valign = 1
+
+[node name="LengthLabel" type="Label" parent="."]
+anchor_left = 0.63
+anchor_top = 0.14
+anchor_right = 0.76
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 9 )
+text = "420"
+valign = 1
+
+[node name="ScoreAnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 15, 15 )
+scale = Vector2( 0.38, 0.38 )
+frames = SubResource( 1 )
+frame = 1
+playing = true
+
+[node name="TimeAnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 224, 15 )
+scale = Vector2( 0.048, 0.048 )
+frames = SubResource( 2 )
+
+[node name="LengthAnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 162, 15 )
+scale = Vector2( 0.38, 0.38 )
+frames = SubResource( 3 )
+frame = 1
+playing = true
+flip_v = true
