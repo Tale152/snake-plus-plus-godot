@@ -52,7 +52,7 @@ func initialize(
 	_init_cells()
 	_set_walls()
 	_setup_snake()
-	var scale = _get_scale()
+	var scale = invoker.get_scale()
 	_scale_hud(scale)
 	_edible_builder = EdibleBuilder.new(_snake, self)
 	_elapsed_seconds = 0
@@ -85,20 +85,9 @@ func _scale_and_reposition_hud_sprite(
 	sprite.set_scale(Vector2(window_scaling, window_scaling))
 	sprite.position = Vector2(default_position.x * scale, default_position.y * scale)
 
-func _get_scale() -> float:
-	var project_height = ProjectSettings.get("display/window/size/height")
-	var project_width = ProjectSettings.get("display/window/size/width")
-	var original_ratio = project_height / project_width
-	var screen_size = get_tree().get_root().size
-	var runtime_ratio = screen_size.y / screen_size.x
-	if runtime_ratio >= original_ratio:
-		return screen_size.x / project_width
-	else:
-		return screen_size.y / project_height
-
-func get_field_px_size() -> int:
+func get_field_px_size(scale: float) -> int:
 	return int(floor(
-		$GuiAreaControl/RectangleRatioContainer/Control.rect_size.x * _get_scale()
+		$GuiAreaControl/RectangleRatioContainer/Control.rect_size.x * scale
 	))
 
 func tick(delta: float) -> void:

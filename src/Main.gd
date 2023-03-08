@@ -12,7 +12,18 @@ var _stage_description: StageDescription
 
 func _init():
 	show_menu()
-	
+
+func get_scale() -> float:
+	var project_height = ProjectSettings.get("display/window/size/height")
+	var project_width = ProjectSettings.get("display/window/size/width")
+	var original_ratio = project_height / project_width
+	var screen_size = get_tree().get_root().size
+	var runtime_ratio = screen_size.y / screen_size.x
+	if runtime_ratio >= original_ratio:
+		return screen_size.x / project_width
+	else:
+		return screen_size.y / project_height
+
 func show_menu():
 	_is_on_menu = true
 	if _game != null:
@@ -32,7 +43,7 @@ func play(stage_description: StageDescription, visual_parameters_builder: Visual
 	_menu = null
 	_game = Game.instance()
 	add_child(_game)
-	var field_px_size = _game.get_field_px_size()
+	var field_px_size = _game.get_field_px_size(get_scale())
 	var px: int = floor(field_px_size / stage_description.get_field_size().get_width())
 	var offset = floor((field_px_size - px * stage_description.get_field_size().get_width()) / 2)
 	visual_parameters_builder \
