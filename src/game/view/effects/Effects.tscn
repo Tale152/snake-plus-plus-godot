@@ -1,0 +1,7 @@
+[gd_scene format=2]
+
+[node name="EffectsControl" type="Control"]
+anchor_left = 0.03
+anchor_top = 0.102
+anchor_right = 0.97
+anchor_bottom = 0.154
