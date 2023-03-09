@@ -2,10 +2,10 @@ class_name PauseMenu extends Control
 
 const PAUSE_LABEL_DEFAULT_FONT_SIZE = 30
 const BUTTONS_DEFAULT_FONT_SIZE = 20
-onready var PauseLabelFont = preload("res://src/game/popup_menus/pause_menu/PauseLabel.tres")
-onready var ContinueButtonFont = preload("res://src/game/popup_menus/pause_menu/ContinueButton.tres")
-onready var RestartButtonFont = preload("res://src/game/popup_menus/pause_menu/RestartButton.tres")
-onready var BackToMenuButtonFont = preload("res://src/game/popup_menus/pause_menu/BackToMenu.tres")
+onready var PauseLabelFont = preload("res://src/game/view/popup_menus/pause_menu/PauseLabel.tres")
+onready var ContinueButtonFont = preload("res://src/game/view/popup_menus/pause_menu/ContinueButton.tres")
+onready var RestartButtonFont = preload("res://src/game/view/popup_menus/pause_menu/RestartButton.tres")
+onready var BackToMenuButtonFont = preload("res://src/game/view/popup_menus/pause_menu/BackToMenu.tres")
 
 var _invoker
 

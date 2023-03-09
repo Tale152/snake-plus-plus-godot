@@ -2,7 +2,7 @@ extends Node
 
 const Menu = preload("res://src/menu/Menu.tscn")
 const Game = preload("res://src/game/Game.tscn")
-const ArrowsControls = preload("res://src/game/controls/arrows_controls/ArrowsControls.tscn")
+const ArrowsControls = preload("res://src/game/view/controls/arrows_controls/ArrowsControls.tscn")
 
 var _menu
 var _game

@@ -4,9 +4,9 @@ const _FONT_DEFAULT_SIZE: int = 17
 const _SCORE_SPRITE_DEFAULT_POSITION: Vector2 = Vector2(15, 15)
 const _LENGTH_SPRITE_DEFAULT_POSITION: Vector2 = Vector2(162, 15)
 const _TIME_SPRITE_DEFAULT_POSITION: Vector2 = Vector2(224, 15)
-onready var _time_label_font = preload("res://src/game/hud/TimeLabel.tres")
-onready var _score_label_font = preload("res://src/game/hud/ScoreLabel.tres")
-onready var _length_label_font = preload("res://src/game/hud/LengthLabel.tres")
+onready var _time_label_font = preload("res://src/game/view/hud/TimeLabel.tres")
+onready var _score_label_font = preload("res://src/game/view/hud/ScoreLabel.tres")
+onready var _length_label_font = preload("res://src/game/view/hud/LengthLabel.tres")
 
 func scale(scale: float) -> void:
 	var font_size = int(floor(_FONT_DEFAULT_SIZE * scale))

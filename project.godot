@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "ArrowsControls",
 "language": "GDScript",
-"path": "res://src/game/controls/arrows_controls/ArrowsControls.gd"
+"path": "res://src/game/view/controls/arrows_controls/ArrowsControls.gd"
 }, {
 "base": "Reference",
 "class": "AssetFiles",
@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "BackgroundCell",
 "language": "GDScript",
-"path": "res://src/game/BackgroundCell.gd"
+"path": "res://src/game/view/BackgroundCell.gd"
 }, {
 "base": "Reference",
 "class": "BackgroundGenerator",
@@ -172,12 +172,12 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "GameOverMenu",
 "language": "GDScript",
-"path": "res://src/game/popup_menus/game_over_menu/GameOverMenu.gd"
+"path": "res://src/game/view/popup_menus/game_over_menu/GameOverMenu.gd"
 }, {
 "base": "Control",
 "class": "Hud",
 "language": "GDScript",
-"path": "res://src/game/hud/Hud.gd"
+"path": "res://src/game/view/hud/Hud.gd"
 }, {
 "base": "Reference",
 "class": "ImmutablePoint",
@@ -222,7 +222,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "PauseMenu",
 "language": "GDScript",
-"path": "res://src/game/popup_menus/pause_menu/PauseMenu.gd"
+"path": "res://src/game/view/popup_menus/pause_menu/PauseMenu.gd"
 }, {
 "base": "Reference",
 "class": "Player",
@@ -332,7 +332,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Wall",
 "language": "GDScript",
-"path": "res://src/game/Wall.gd"
+"path": "res://src/game/view/Wall.gd"
 }, {
 "base": "Reference",
 "class": "WallSprite",

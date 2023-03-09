@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/game/popup_menus/game_over_menu/BackToMenuButton.tres" type="DynamicFont" id=1]
-[ext_resource path="res://src/game/popup_menus/game_over_menu/GameOverLabel.tres" type="DynamicFont" id=2]
-[ext_resource path="res://src/game/popup_menus/game_over_menu/PlayAgainButton.tres" type="DynamicFont" id=3]
-[ext_resource path="res://src/game/popup_menus/game_over_menu/GameOverMenu.gd" type="Script" id=4]
+[ext_resource path="res://src/game/view/popup_menus/game_over_menu/BackToMenuButton.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/game/view/popup_menus/game_over_menu/GameOverLabel.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/game/view/popup_menus/game_over_menu/PlayAgainButton.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/game/view/popup_menus/game_over_menu/GameOverMenu.gd" type="Script" id=4]
 
 [node name="GameOverMenu" type="Control"]
 anchor_right = 1.0

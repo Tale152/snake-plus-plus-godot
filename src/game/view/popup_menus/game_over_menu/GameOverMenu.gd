@@ -3,9 +3,9 @@ class_name GameOverMenu extends Control
 const _ENABLE_BUTTONS_DELAY_SECONDS: float = 1.2
 const _GAME_OVER_LABEL_DEFAULT_FONT_SIZE = 30
 const _BUTTONS_DEFAULT_FONT_SIZE = 20
-onready var _GameOverLabelFont = preload("res://src/game/popup_menus/game_over_menu/GameOverLabel.tres")
-onready var _PlayAgainButtonFont = preload("res://src/game/popup_menus/game_over_menu/PlayAgainButton.tres")
-onready var _BackToMenuButtonFont = preload("res://src/game/popup_menus/game_over_menu/BackToMenuButton.tres")
+onready var _GameOverLabelFont = preload("res://src/game/view/popup_menus/game_over_menu/GameOverLabel.tres")
+onready var _PlayAgainButtonFont = preload("res://src/game/view/popup_menus/game_over_menu/PlayAgainButton.tres")
+onready var _BackToMenuButtonFont = preload("res://src/game/view/popup_menus/game_over_menu/BackToMenuButton.tres")
 
 var _invoker
 
