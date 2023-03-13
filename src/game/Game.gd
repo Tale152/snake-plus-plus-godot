@@ -5,6 +5,7 @@ const _EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
 onready var _GameOverMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/GameOverMenu
 onready var _PauseMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/PauseMenu
 onready var _Hud: Control = $GuiAreaControl/RectangleRatioContainer/Control/HudControl/Hud
+onready var _Effects: Control = $GuiAreaControl/RectangleRatioContainer/Control/EffectsControl/Effects
 onready var _FieldControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/FieldControl
 onready var _BottomControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl
 
@@ -41,6 +42,11 @@ func initialize(
 	_stage_description = stage_description
 	_visual_parameters = visual_parameters
 	var scale = invoker.get_scale()
+	_Effects.initialize(
+		["Chili", "Star", "Banana", "Avocado"], #TODO build list
+		_visual_parameters,
+		scale
+	)
 	GameInitializationUtils.init_hud(_Hud, scale)
 	GameInitializationUtils.add_controls(controls, _BottomControl)
 	GameInitializationUtils.init_background_cells(_background_cells, stage_description, visual_parameters, _FieldControl)
@@ -177,15 +183,16 @@ func _update_hud() -> void:
 		_snake.get_properties().get_current_length(),
 		_elapsed_seconds
 	)
-	var effects: String = ""
-	for t in _snake.get_effects_timers():
-		effects += str(
-			t.get_effect_type(), " ",
-			t.get_total_time() - floor(t.get_elapsed_time()),  " | "
-		)
-	if effects.length() > 0:
-		effects.erase(effects.length() - 3, 3)
-	$GuiAreaControl/RectangleRatioContainer/Control/EffectsControl/EffectsLabel.text = effects
+	_Effects.render(_snake.get_effects_timers())
+	#var effects: String = ""
+	#for t in _snake.get_effects_timers():
+		#effects += str(
+			#t.get_effect_type(), " ",
+			#t.get_total_time() - floor(t.get_elapsed_time()),  " | "
+		#)
+	#if effects.length() > 0:
+		#effects.erase(effects.length() - 3, 3)
+	#$GuiAreaControl/RectangleRatioContainer/Control/EffectsControl/EffectsLabel.text = effects
 
 func _stop_all_sprite_animations() -> void:
 	_snake_head.stop_sprite_animation()

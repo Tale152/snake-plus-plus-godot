@@ -1,14 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/game/Game.gd" type="Script" id=1]
 [ext_resource path="res://src/game/view/hud/Hud.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/fonts/MyFont.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://src/game/view/effects/Effects.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/game/view/popup_menus/game_over_menu/GameOverMenu.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/game/view/popup_menus/pause_menu/PauseMenu.tscn" type="PackedScene" id=14]
-
-[sub_resource type="DynamicFont" id=4]
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 11 )
 
 [node name="VerticalGame" type="Node"]
 script = ExtResource( 1 )
@@ -48,19 +44,11 @@ anchor_top = 0.055
 anchor_right = 1.0
 anchor_bottom = 0.11
 
-[node name="ColorRect" type="ColorRect" parent="GuiAreaControl/RectangleRatioContainer/Control/EffectsControl"]
+[node name="Effects" parent="GuiAreaControl/RectangleRatioContainer/Control/EffectsControl" instance=ExtResource( 3 )]
+anchor_left = 0.0
+anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0 )
-
-[node name="EffectsLabel" type="Label" parent="GuiAreaControl/RectangleRatioContainer/Control/EffectsControl"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 4 )
-text = "Effects"
-align = 1
-valign = 1
 
 [node name="FieldControl" type="Control" parent="GuiAreaControl/RectangleRatioContainer/Control"]
 anchor_top = 0.11
