@@ -42,11 +42,7 @@ func initialize(
 	_stage_description = stage_description
 	_visual_parameters = visual_parameters
 	var scale = invoker.get_scale()
-	_Effects.initialize(
-		["Chili", "Star", "Banana", "Avocado"], #TODO build list
-		_visual_parameters,
-		scale
-	)
+	GameInitializationUtils.init_effects_view(_Effects, stage_description, visual_parameters, scale)
 	GameInitializationUtils.init_hud(_Hud, scale)
 	GameInitializationUtils.add_controls(controls, _BottomControl)
 	GameInitializationUtils.init_background_cells(_background_cells, stage_description, visual_parameters, _FieldControl)

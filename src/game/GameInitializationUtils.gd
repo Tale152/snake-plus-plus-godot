@@ -39,3 +39,20 @@ static func add_controls(controls: Control, gui_container: Control) -> void:
 
 static func init_hud(hud: Control, scale: float) -> void:
 	hud.scale(scale)
+
+static func init_effects_view(
+	effects: Effects,
+	stage_description: StageDescription,
+	visual_parameters: VisualParameters,
+	scale: float
+) -> void:
+	var game_effects: Array = []
+	var existing_effects: Array = EffectTypes.get_types()
+	for rule in stage_description.get_instantaneous_edible_rules():
+		if rule.get_type() in existing_effects:
+			game_effects.push_back(rule.get_type())
+	effects.initialize(
+		game_effects,
+		visual_parameters,
+		scale
+	)
