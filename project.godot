@@ -244,6 +244,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/utils/PositionCalculator.gd"
 }, {
+"base": "Control",
+"class": "RestartMenu",
+"language": "GDScript",
+"path": "res://src/game/view/popup_menus/restart_menu/RestartMenu.gd"
+}, {
 "base": "Reference",
 "class": "SlotMachine",
 "language": "GDScript",
@@ -397,6 +402,7 @@ _global_script_class_icons={
 "PauseMenu": "",
 "Player": "",
 "PositionCalculator": "",
+"RestartMenu": "",
 "SlotMachine": "",
 "Snail": "",
 "Snake": "",
