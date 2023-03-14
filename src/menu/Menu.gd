@@ -7,7 +7,7 @@ var _main
 
 const SPEED_ARRAY: Array = ["very slow", "slow", "normal", "fast", "very fast"]
 const SPEED_DEFAULT_INDEX: int = 2
-const SKINS_ARRAY: Array = ["simple", "debug"]
+const SKINS_ARRAY: Array = ["simple", "debug", "kawaii"]
 const SKINS_DEFAULT_INDEX: int = 0
 const GAME_TITLE_DEFAULT_FONT_SIZE: int = 40
 const PLAY_BUTTON_DEFAULT_FONT_SIZE: int = 28
