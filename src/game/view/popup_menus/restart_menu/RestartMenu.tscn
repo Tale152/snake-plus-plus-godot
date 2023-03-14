@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/game/view/popup_menus/game_over_menu/BackToMenuButton.tres" type="DynamicFont" id=1]
-[ext_resource path="res://src/game/view/popup_menus/game_over_menu/PlayAgainButton.tres" type="DynamicFont" id=2]
-[ext_resource path="res://src/game/view/popup_menus/game_over_menu/GameOverLabel.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/game/view/popup_menus/restart_menu/YesButton.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/game/view/popup_menus/restart_menu/NoButton.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/game/view/popup_menus/restart_menu/RestartLabel.tres" type="DynamicFont" id=3]
 [ext_resource path="res://src/game/view/popup_menus/restart_menu/RestartMenu.gd" type="Script" id=4]
 
 [node name="RestartMenu" type="Control"]
@@ -31,7 +31,7 @@ anchor_top = 0.45
 anchor_right = 0.95
 anchor_bottom = 0.65
 margin_bottom = 0.0999985
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "Yes"
 
 [node name="NoButton" type="Button" parent="."]
@@ -40,7 +40,7 @@ anchor_top = 0.7
 anchor_right = 0.95
 anchor_bottom = 0.9
 margin_bottom = 0.0999985
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "No"
 
 [connection signal="pressed" from="YesButton" to="." method="_on_YesButton_pressed"]

@@ -4,6 +4,7 @@ const _EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
 
 onready var _GameOverMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/GameOverMenu
 onready var _PauseMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/PauseMenu
+onready var _RestartMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/RestartMenu
 onready var _Hud: Control = $GuiAreaControl/RectangleRatioContainer/Control/HudControl/Hud
 onready var _Effects: Control = $GuiAreaControl/RectangleRatioContainer/Control/EffectsControl/Effects
 onready var _FieldControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/FieldControl
@@ -50,6 +51,7 @@ func initialize(
 	GameInitializationUtils.init_edibles(_edibles, _stage_description.get_instantaneous_edible_rules())
 	GameInitializationUtils.init_menu(_GameOverMenu, invoker, scale)
 	GameInitializationUtils.init_menu(_PauseMenu, invoker, scale)
+	GameInitializationUtils.init_menu(_RestartMenu, invoker, scale)
 	_snake = Snake.new(self)
 	_snake_properties = _snake.get_properties()
 	_snake_head = _snake.get_head()
@@ -66,6 +68,9 @@ func get_field_px_size(scale: float) -> int:
 
 func show_pause_menu() -> void:
 	_PauseMenu.visible = true
+
+func show_restart_menu() -> void:
+	_RestartMenu.visible = true
 
 func tick(delta: float) -> void:
 	_elapsed_seconds += delta
@@ -180,15 +185,6 @@ func _update_hud() -> void:
 		_elapsed_seconds
 	)
 	_Effects.render(_snake.get_effects_timers())
-	#var effects: String = ""
-	#for t in _snake.get_effects_timers():
-		#effects += str(
-			#t.get_effect_type(), " ",
-			#t.get_total_time() - floor(t.get_elapsed_time()),  " | "
-		#)
-	#if effects.length() > 0:
-		#effects.erase(effects.length() - 3, 3)
-	#$GuiAreaControl/RectangleRatioContainer/Control/EffectsControl/EffectsLabel.text = effects
 
 func _stop_all_sprite_animations() -> void:
 	_snake_head.stop_sprite_animation()

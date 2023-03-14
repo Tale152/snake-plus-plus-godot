@@ -21,6 +21,7 @@ func _build_arrows_controls_instance() -> Control:
 	arrows_controls.set_down_arrow_strategy(funcref(self, "_down_direction_input"))
 	arrows_controls.set_left_arrow_strategy(funcref(self, "_left_direction_input"))
 	arrows_controls.set_pause_button_strategy(funcref(self, "_pause_input"))
+	arrows_controls.restart_button_strategy(funcref(self, "_restart_input"))
 	return arrows_controls
 
 func get_scale() -> float:
@@ -84,6 +85,10 @@ func _left_direction_input() -> void:
 func _pause_input() -> void:
 	change_pause_status()
 	_game.show_pause_menu()
+
+func _restart_input() -> void:
+	change_pause_status()
+	_game.show_restart_menu()
 
 func _unhandled_input(event):
 	if Input.is_action_pressed("back_to_menu") && !_is_on_menu:

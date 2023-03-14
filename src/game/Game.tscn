@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/game/Game.gd" type="Script" id=1]
 [ext_resource path="res://src/game/view/hud/Hud.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/game/view/effects/Effects.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/game/view/popup_menus/restart_menu/RestartMenu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/game/view/popup_menus/game_over_menu/GameOverMenu.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/game/view/popup_menus/pause_menu/PauseMenu.tscn" type="PackedScene" id=14]
 
@@ -71,5 +72,9 @@ anchor_bottom = 1.0
 margin_bottom = 0.0
 
 [node name="PauseMenu" parent="GuiAreaControl/RectangleRatioContainer/Control/BottomControl" instance=ExtResource( 14 )]
+visible = false
+anchor_bottom = 1.0
+
+[node name="RestartMenu" parent="GuiAreaControl/RectangleRatioContainer/Control/BottomControl" instance=ExtResource( 4 )]
 visible = false
 anchor_bottom = 1.0
