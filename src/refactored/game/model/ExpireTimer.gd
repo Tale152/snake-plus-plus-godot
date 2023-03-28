@@ -1,4 +1,4 @@
-class_name ExpirableEntity extends Reference
+class_name ExpireTimer extends Reference
 
 var _elapsed_seconds: float
 var _lifespan_seconds: float
