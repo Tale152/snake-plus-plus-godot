@@ -75,6 +75,11 @@ _global_script_classes=[ {
 "path": "res://src/game/edibles/types/Chili.gd"
 }, {
 "base": "Reference",
+"class": "CollidableEntity",
+"language": "GDScript",
+"path": "res://src/refactored/game/model/CollidableEntity.gd"
+}, {
+"base": "Reference",
 "class": "CollisionResult",
 "language": "GDScript",
 "path": "res://src/refactored/game/model/CollisionResult.gd"
@@ -158,6 +163,11 @@ _global_script_classes=[ {
 "class": "EquippedEffectTimer",
 "language": "GDScript",
 "path": "res://src/game/effects/EquippedEffectTimer.gd"
+}, {
+"base": "Reference",
+"class": "ExpirableEntity",
+"language": "GDScript",
+"path": "res://src/refactored/game/model/ExpirableEntity.gd"
 }, {
 "base": "Reference",
 "class": "FieldSize",
@@ -388,6 +398,7 @@ _global_script_class_icons={
 "CardinalConnections": "",
 "Cherry": "",
 "Chili": "",
+"CollidableEntity": "",
 "CollisionResult": "",
 "CollisionStrategy": "",
 "Coordinates": "",
@@ -405,6 +416,7 @@ _global_script_class_icons={
 "Effects": "",
 "EquippedEffect": "",
 "EquippedEffectTimer": "",
+"ExpirableEntity": "",
 "FieldSize": "",
 "FieldSprite": "",
 "FreeCellsHandler": "",
