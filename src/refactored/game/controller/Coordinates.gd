@@ -1,16 +1,17 @@
-extends Node
+class_name Coordinates extends Reference
 
+var _x: int
+var _y: int
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+func _init(x: int, y: int):
+	_x = x
+	_y = y
 
+func get_x() -> int:
+	return _x
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func get_y() -> int:
+	return _y
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func equals_to(compared: Coordinates) -> bool:
+	return _x == compared.get_x() && _y == compared.get_y()

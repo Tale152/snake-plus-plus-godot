@@ -75,6 +75,16 @@ _global_script_classes=[ {
 "path": "res://src/game/edibles/types/Chili.gd"
 }, {
 "base": "Reference",
+"class": "CollisionResult",
+"language": "GDScript",
+"path": "res://src/refactored/game/model/CollisionResult.gd"
+}, {
+"base": "Reference",
+"class": "Coordinates",
+"language": "GDScript",
+"path": "res://src/refactored/game/controller/Coordinates.gd"
+}, {
+"base": "Reference",
 "class": "Diamond",
 "language": "GDScript",
 "path": "res://src/game/edibles/types/Diamond.gd"
@@ -368,6 +378,8 @@ _global_script_class_icons={
 "CardinalConnections": "",
 "Cherry": "",
 "Chili": "",
+"CollisionResult": "",
+"Coordinates": "",
 "Diamond": "",
 "DictionaryUtil": "",
 "Directions": "",
