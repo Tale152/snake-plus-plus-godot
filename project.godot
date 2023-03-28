@@ -145,6 +145,11 @@ _global_script_classes=[ {
 "path": "res://src/game/view/effects/EffectStatus.gd"
 }, {
 "base": "Reference",
+"class": "EffectType",
+"language": "GDScript",
+"path": "res://src/refactored/game/controller/EffectType.gd"
+}, {
+"base": "Reference",
 "class": "EffectTypes",
 "language": "GDScript",
 "path": "res://src/game/effects/EffectsTypes.gd"
@@ -258,6 +263,11 @@ _global_script_classes=[ {
 "class": "PauseMenu",
 "language": "GDScript",
 "path": "res://src/game/view/popup_menus/pause_menu/PauseMenu.gd"
+}, {
+"base": "Reference",
+"class": "PerkType",
+"language": "GDScript",
+"path": "res://src/refactored/game/controller/PerkType.gd"
 }, {
 "base": "Reference",
 "class": "Player",
@@ -412,6 +422,7 @@ _global_script_class_icons={
 "EdibleSprite": "",
 "EdibleTypes": "",
 "EffectStatus": "",
+"EffectType": "",
 "EffectTypes": "",
 "Effects": "",
 "EquippedEffect": "",
@@ -435,6 +446,7 @@ _global_script_class_icons={
 "Orange": "",
 "ParsedStage": "",
 "PauseMenu": "",
+"PerkType": "",
 "Player": "",
 "PositionCalculator": "",
 "RestartMenu": "",
