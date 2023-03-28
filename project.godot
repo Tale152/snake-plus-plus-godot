@@ -180,6 +180,11 @@ _global_script_classes=[ {
 "path": "res://src/game/effects/EquippedEffectTimer.gd"
 }, {
 "base": "Reference",
+"class": "EquippedEffectsContainer",
+"language": "GDScript",
+"path": "res://src/refactored/game/model/EquippedEffectsContainer.gd"
+}, {
+"base": "Reference",
 "class": "ExpireTimer",
 "language": "GDScript",
 "path": "res://src/refactored/game/model/ExpireTimer.gd"
@@ -444,6 +449,7 @@ _global_script_class_icons={
 "EquippedEffect": "",
 "EquippedEffectTODO": "",
 "EquippedEffectTimer": "",
+"EquippedEffectsContainer": "",
 "ExpireTimer": "",
 "FieldSize": "",
 "FieldSprite": "",
