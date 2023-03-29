@@ -295,6 +295,11 @@ _global_script_classes=[ {
 "path": "res://src/refactored/game/model/collidables/Perk.gd"
 }, {
 "base": "Reference",
+"class": "PerkBuilder",
+"language": "GDScript",
+"path": "res://src/refactored/game/model/collidables/PerkBuilder.gd"
+}, {
+"base": "Reference",
 "class": "PerkType",
 "language": "GDScript",
 "path": "res://src/refactored/game/controller/PerkType.gd"
@@ -492,6 +497,7 @@ _global_script_class_icons={
 "ParsedStage": "",
 "PauseMenu": "",
 "Perk": "",
+"PerkBuilder": "",
 "PerkType": "",
 "Player": "",
 "PositionCalculator": "",
