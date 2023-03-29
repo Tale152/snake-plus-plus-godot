@@ -14,6 +14,18 @@ func _init(
 	_preceding_part_direction = preceding_part_direction
 	_following_part_direction = following_part_direction
 
+func get_preceding_part_direction() -> int:
+	return _preceding_part_direction
+
+func set_preceding_part_direction(preceding_part_direction: int) -> void:
+	_preceding_part_direction = preceding_part_direction
+
+func get_following_part_direction() -> int:
+	return _following_part_direction
+
+func set_following_part_direction(following_part_direction: int) -> void:
+	_following_part_direction = following_part_direction
+
 class SnakeBodyPartCollisionStrategy extends CollisionStrategy:
 	
 	var _collision_result: CollisionResult = CollisionResult.new(false)
