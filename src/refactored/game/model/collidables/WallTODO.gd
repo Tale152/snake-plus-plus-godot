@@ -1,16 +1,18 @@
-extends Node
+class_name WallTODO extends CollidableEntity
 
+func _init(
+		coordinates: Coordinates
+	).(
+		coordinates,
+		WallCollisionStrategy.new()
+	):
+	pass
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+class WallCollisionStrategy extends CollisionStrategy:
+	
+	var _collision_result: CollisionResult = CollisionResult.new(false)
+	
+	func execute(snake_properties: SnakePropertiesTODO) -> CollisionResult:
+		if !snake_properties.is_invincible():
+			snake_properties.set_is_alive(false) 
+		return _collision_result
