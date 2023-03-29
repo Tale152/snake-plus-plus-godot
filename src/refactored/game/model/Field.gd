@@ -42,6 +42,9 @@ func get_at(coord: Coordinates) -> Array:
 	# having a copy is also useful for the collision algorythm
 	return _copy_array(_cells[coord.get_x()][coord.get_y()][1])
 
+func is_coordinate_empty(coord: Coordinates) -> bool:
+	return _cells[coord.get_x()][coord.get_y()][1].size() == 0
+
 func get_empty_coordinates() -> Array:
 	var res: Array = []
 	for x in _width_range:
