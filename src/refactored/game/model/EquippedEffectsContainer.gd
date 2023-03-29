@@ -27,3 +27,8 @@ func get_equipped_effects() -> Array:
 	var res = []
 	for e in _equipped_effects: res.push_back(e)
 	return res
+
+func contains_equipped_effect(equipped_effect: EquippedEffectTODO) -> bool:
+	for eff in _equipped_effects:
+		if eff == equipped_effect: return true
+	return false

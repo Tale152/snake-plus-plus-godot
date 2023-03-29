@@ -20,6 +20,10 @@ func has_expired() -> bool:
 		return false
 	return _elapsed_seconds >= _lifespan_seconds
 
+func reset() -> void:
+	if _lifespan_seconds != -1.0:
+		_elapsed_seconds = 0.0
+
 func get_lifespan_percentage() -> float:
 	if _lifespan_seconds == -1.0:
 		# keep performances in mind, do not use can_expire

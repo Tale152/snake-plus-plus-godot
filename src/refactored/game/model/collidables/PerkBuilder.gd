@@ -3,6 +3,7 @@ class_name PerkBuilder extends Reference
 var _type: int
 var _coordinates: Coordinates
 var _lifespan_seconds: float = -1.0
+var _collision_strategy: CollisionStrategy
 
 func set_type(perk_type: int) -> PerkBuilder:
 	_type = perk_type
@@ -16,15 +17,16 @@ func set_lifespan_seconds(lifespan_seconds: float) -> PerkBuilder:
 	_lifespan_seconds = lifespan_seconds
 	return self
 
+func set_collision_strategy(
+	collision_strategy: CollisionStrategy
+) -> PerkBuilder:
+	_collision_strategy = collision_strategy
+	return self
+
 func build() -> Perk:
 	return Perk.new(
 		_type,
 		_coordinates,
-		_get_collision_strategy(_type),
+		_collision_strategy,
 		_lifespan_seconds
 	)
-
-func _get_collision_strategy(type: int) -> CollisionStrategy:
-	if type == PerkType.APPLE(): return AppleStrategy.new()
-	return null
-	# extend as new Perks get created
