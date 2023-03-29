@@ -244,6 +244,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/refactored/game/model/GameModel.gd"
 }, {
+"base": "Reference",
+"class": "GameModelBuilder",
+"language": "GDScript",
+"path": "res://src/refactored/game/model/GameModelBuilder.gd"
+}, {
 "base": "Control",
 "class": "GameOverMenu",
 "language": "GDScript",
@@ -497,6 +502,7 @@ _global_script_class_icons={
 "GameDirectionInputHandler": "",
 "GameInitializationUtils": "",
 "GameModel": "",
+"GameModelBuilder": "",
 "GameOverMenu": "",
 "Hud": "",
 "ImmutablePoint": "",
