@@ -284,10 +284,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/view/popup_menus/pause_menu/PauseMenu.gd"
 }, {
-"base": "CollidableEntity",
+"base": "Reference",
 "class": "Perk",
 "language": "GDScript",
-"path": "res://src/refactored/game/model/Perk.gd"
+"path": "res://src/refactored/game/model/collidables/Perk.gd"
 }, {
 "base": "Reference",
 "class": "PerkType",
@@ -329,7 +329,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/snake/SnakeBodyPart.gd"
 }, {
-"base": "Reference",
+"base": "CollidableEntity",
 "class": "SnakeBodyPartTODO",
 "language": "GDScript",
 "path": "res://src/refactored/game/model/collidables/SnakeBodyPartTODO.gd"
