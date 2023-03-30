@@ -349,10 +349,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/snake/SnakeBodyPart.gd"
 }, {
+"base": "CollisionStrategy",
+"class": "SnakeBodyPartCollisionStrategy",
+"language": "GDScript",
+"path": "res://src/refactored/game/model/collidables/snake_body_part/SnakeBodyPartCollisionStrategy.gd"
+}, {
+"base": "Reference",
+"class": "SnakeBodyPartFactory",
+"language": "GDScript",
+"path": "res://src/refactored/game/model/collidables/snake_body_part/SnakeBodyPartFactory.gd"
+}, {
 "base": "CollidableEntity",
 "class": "SnakeBodyPartTODO",
 "language": "GDScript",
-"path": "res://src/refactored/game/model/collidables/SnakeBodyPartTODO.gd"
+"path": "res://src/refactored/game/model/collidables/snake_body_part/SnakeBodyPartTODO.gd"
 }, {
 "base": "Reference",
 "class": "SnakeBodySprite",
@@ -439,6 +449,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/view/Wall.gd"
 }, {
+"base": "CollisionStrategy",
+"class": "WallCollisionStrategy",
+"language": "GDScript",
+"path": "res://src/refactored/game/model/collidables/wall/WallCollisionStrategy.gd"
+}, {
+"base": "Reference",
+"class": "WallFactory",
+"language": "GDScript",
+"path": "res://src/refactored/game/model/collidables/wall/WallFactory.gd"
+}, {
 "base": "Reference",
 "class": "WallSprite",
 "language": "GDScript",
@@ -447,7 +467,7 @@ _global_script_classes=[ {
 "base": "CollidableEntity",
 "class": "WallTODO",
 "language": "GDScript",
-"path": "res://src/refactored/game/model/collidables/WallTODO.gd"
+"path": "res://src/refactored/game/model/collidables/wall/WallTODO.gd"
 } ]
 _global_script_class_icons={
 "AnimationUtils": "",
@@ -518,6 +538,8 @@ _global_script_class_icons={
 "Snail": "",
 "Snake": "",
 "SnakeBodyPart": "",
+"SnakeBodyPartCollisionStrategy": "",
+"SnakeBodyPartFactory": "",
 "SnakeBodyPartTODO": "",
 "SnakeBodySprite": "",
 "SnakeDeltaSecondsCalculator": "",
@@ -536,6 +558,8 @@ _global_script_class_icons={
 "VisualParametersBuilder": "",
 "WaitTimer": "",
 "Wall": "",
+"WallCollisionStrategy": "",
+"WallFactory": "",
 "WallSprite": "",
 "WallTODO": ""
 }
