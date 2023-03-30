@@ -1,16 +1,17 @@
 class_name EquippedEffectTODO extends Reference
-# meant to be used as abstract class 
-var _type: int
+# meant to be used as abstract class
+
+var _effect_type: int
 var _expire_timer: ExpireTimer
 
 func _init(
 	effect_type: int,
 	lifespan_seconds: float
 ):
-	_type = effect_type
+	_effect_type = effect_type
 	_expire_timer = ExpireTimer.new(lifespan_seconds)
 
-func get_type() -> int: return _type
+func get_effect_type() -> int: return _effect_type
 
 func get_expire_timer() -> ExpireTimer: return _expire_timer
 

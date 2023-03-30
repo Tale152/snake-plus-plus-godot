@@ -12,6 +12,6 @@ func _init(
 	_perk_type = perk_type
 	_expire_timer = ExpireTimer.new(lifespan_seconds)
 
-func get_type() -> int: return _perk_type
+func get_perk_type() -> int: return _perk_type
 
 func get_expire_timer() -> ExpireTimer: return _expire_timer
