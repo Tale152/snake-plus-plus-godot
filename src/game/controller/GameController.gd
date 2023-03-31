@@ -12,13 +12,13 @@ func _init(parsed_stage: ParsedStage):
 	for x in range(0, parsed_stage.get_field_size().get_height()):
 		for y in range(0, parsed_stage.get_field_size().get_width()):
 			_coordinates_instances.push_back(Coordinates.new(x, y))
-	_snake_starting_coordinates = _coordinates_instances[parsed_stage.get_snake_spawn_point().get_x() + parsed_stage.get_snake_spawn_point().get_y()]
+	_snake_starting_coordinates = _coordinates_instances[parsed_stage.get_snake_spawn_point().x + parsed_stage.get_snake_spawn_point().y]
 	_snake_initial_direction = parsed_stage.get_snake_initial_direction()
 	for wp in parsed_stage.get_walls_points():
-		_walls_coordinates.push_back(_coordinates_instances[wp.get_x() + wp.get_y()])
+		_walls_coordinates.push_back(_coordinates_instances[wp.x + wp.y])
 		
 func restart() -> void:
-	var head: SnakeBodyPartTODO = _snake_body_part_factory.create_new(
+	var head: SnakeBodyPart = _snake_body_part_factory.create_new(
 		_snake_starting_coordinates, -1, -1
 	)
 	var walls: Array = []

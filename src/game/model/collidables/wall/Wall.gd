@@ -1,4 +1,4 @@
-class_name WallTODO extends CollidableEntity
+class_name Wall extends CollidableEntity
 
 func _init(
 		coordinates: Coordinates,

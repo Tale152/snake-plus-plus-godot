@@ -13,5 +13,5 @@ func _init(
 func get_coordinates() -> Coordinates:
 	return _coordinates
 
-func collide(snake_properties: SnakePropertiesTODO) -> CollisionResult:
+func collide(snake_properties: SnakeProperties) -> CollisionResult:
 	return _collision_strategy.execute(snake_properties)

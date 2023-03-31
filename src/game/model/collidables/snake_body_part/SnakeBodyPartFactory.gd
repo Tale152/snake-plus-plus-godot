@@ -8,8 +8,8 @@ func create_new(
 	coordinates: Coordinates,
 	preceding_part_direction: int,
 	following_part_direction: int
-) -> SnakeBodyPartTODO:
-	return SnakeBodyPartTODO.new(
+) -> SnakeBodyPart:
+	return SnakeBodyPart.new(
 		coordinates,
 		preceding_part_direction,
 		following_part_direction,

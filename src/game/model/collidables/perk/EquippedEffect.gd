@@ -1,4 +1,4 @@
-class_name EquippedEffectTODO extends Reference
+class_name EquippedEffect extends Reference
 # meant to be used as abstract class
 
 var _effect_type: int
@@ -15,10 +15,10 @@ func get_effect_type() -> int: return _effect_type
 
 func get_expire_timer() -> ExpireTimer: return _expire_timer
 
-func apply_effect(snake_properties: SnakePropertiesTODO) -> void:
+func apply_effect(snake_properties: SnakeProperties) -> void:
 	# override on extending class
 	pass
 
-func revoke_effect(snake_properties: SnakePropertiesTODO) -> void:
+func revoke_effect(snake_properties: SnakeProperties) -> void:
 	# override on extending class
 	pass

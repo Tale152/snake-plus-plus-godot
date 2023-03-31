@@ -1,4 +1,4 @@
-class_name SnakePropertiesTODO extends Reference
+class_name SnakeProperties extends Reference
 
 var _current_direction: int
 var _alive: bool = true

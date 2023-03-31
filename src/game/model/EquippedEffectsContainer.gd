@@ -3,8 +3,8 @@ class_name EquippedEffectsContainer extends Reference
 var _equipped_effects: Array = []
 
 func equip_effect(
-	effect: EquippedEffectTODO, 
-	snake_properties: SnakePropertiesTODO
+	effect: EquippedEffect, 
+	snake_properties: SnakeProperties
 ) -> void:
 	effect.get_expire_timer().reset()
 	if effect in _equipped_effects: return
@@ -12,8 +12,8 @@ func equip_effect(
 	effect.apply_effect(snake_properties)
 
 func revoke_effect(
-	effect: EquippedEffectTODO,
-	snake_properties: SnakePropertiesTODO
+	effect: EquippedEffect,
+	snake_properties: SnakeProperties
 ) -> void:
 	effect.revoke_effect(snake_properties)
 	_equipped_effects.erase(effect)

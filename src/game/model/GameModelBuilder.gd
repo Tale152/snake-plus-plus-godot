@@ -2,7 +2,7 @@ class_name GameModelBuilder extends Reference
 
 var _width: int
 var _height: int
-var _snake_head: SnakeBodyPartTODO
+var _snake_head: SnakeBodyPart
 var _perk_types: Array
 var _walls: Array
 var _initial_direction: int
@@ -15,7 +15,7 @@ func set_height(height: int) -> GameModelBuilder:
 	_height = height
 	return self
 
-func set_snake_head(snake_head: SnakeBodyPartTODO) -> GameModelBuilder:
+func set_snake_head(snake_head: SnakeBodyPart) -> GameModelBuilder:
 	_snake_head = snake_head
 	return self
 

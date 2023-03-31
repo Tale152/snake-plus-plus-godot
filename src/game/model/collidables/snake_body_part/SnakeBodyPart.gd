@@ -1,4 +1,4 @@
-class_name SnakeBodyPartTODO extends CollidableEntity
+class_name SnakeBodyPart extends CollidableEntity
 
 var _preceding_part_direction: int
 var _following_part_direction: int

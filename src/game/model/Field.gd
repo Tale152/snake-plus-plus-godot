@@ -12,7 +12,7 @@ var _snake_body_parts: Array = []
 func _init(
 	width: int,
 	height: int,
-	snake_head: SnakeBodyPartTODO,
+	snake_head: SnakeBodyPart,
 	perk_types: Array,
 	walls: Array
 ):

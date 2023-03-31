@@ -50,9 +50,9 @@ _global_script_classes=[ {
 "path": "res://src/game/controller/EffectType.gd"
 }, {
 "base": "Reference",
-"class": "EquippedEffectTODO",
+"class": "EquippedEffect",
 "language": "GDScript",
-"path": "res://src/game/model/collidables/perk/EquippedEffectTODO.gd"
+"path": "res://src/game/model/collidables/perk/EquippedEffect.gd"
 }, {
 "base": "Reference",
 "class": "EquippedEffectsContainer",
@@ -124,6 +124,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/controller/PerkType.gd"
 }, {
+"base": "CollidableEntity",
+"class": "SnakeBodyPart",
+"language": "GDScript",
+"path": "res://src/game/model/collidables/snake_body_part/SnakeBodyPart.gd"
+}, {
 "base": "CollisionStrategy",
 "class": "SnakeBodyPartCollisionStrategy",
 "language": "GDScript",
@@ -134,15 +139,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/model/collidables/snake_body_part/SnakeBodyPartFactory.gd"
 }, {
-"base": "CollidableEntity",
-"class": "SnakeBodyPartTODO",
-"language": "GDScript",
-"path": "res://src/game/model/collidables/snake_body_part/SnakeBodyPartTODO.gd"
-}, {
 "base": "Reference",
-"class": "SnakePropertiesTODO",
+"class": "SnakeProperties",
 "language": "GDScript",
-"path": "res://src/game/model/SnakePropertiesTODO.gd"
+"path": "res://src/game/model/SnakeProperties.gd"
 }, {
 "base": "Reference",
 "class": "ValidatorV1",
@@ -154,6 +154,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/utils/WaitTimer.gd"
 }, {
+"base": "CollidableEntity",
+"class": "Wall",
+"language": "GDScript",
+"path": "res://src/game/model/collidables/wall/Wall.gd"
+}, {
 "base": "CollisionStrategy",
 "class": "WallCollisionStrategy",
 "language": "GDScript",
@@ -163,11 +168,6 @@ _global_script_classes=[ {
 "class": "WallFactory",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/wall/WallFactory.gd"
-}, {
-"base": "CollidableEntity",
-"class": "WallTODO",
-"language": "GDScript",
-"path": "res://src/game/model/collidables/wall/WallTODO.gd"
 } ]
 _global_script_class_icons={
 "AppleStrategy": "",
@@ -178,7 +178,7 @@ _global_script_class_icons={
 "DictionaryUtil": "",
 "Direction": "",
 "EffectType": "",
-"EquippedEffectTODO": "",
+"EquippedEffect": "",
 "EquippedEffectsContainer": "",
 "ExpireTimer": "",
 "Field": "",
@@ -193,15 +193,15 @@ _global_script_class_icons={
 "Perk": "",
 "PerkBuilder": "",
 "PerkType": "",
+"SnakeBodyPart": "",
 "SnakeBodyPartCollisionStrategy": "",
 "SnakeBodyPartFactory": "",
-"SnakeBodyPartTODO": "",
-"SnakePropertiesTODO": "",
+"SnakeProperties": "",
 "ValidatorV1": "",
 "WaitTimer": "",
+"Wall": "",
 "WallCollisionStrategy": "",
-"WallFactory": "",
-"WallTODO": ""
+"WallFactory": ""
 }
 
 [application]
