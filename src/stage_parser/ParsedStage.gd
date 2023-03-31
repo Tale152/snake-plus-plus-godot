@@ -23,20 +23,18 @@ func get_snake_spawn_point() -> Vector2:
 func get_snake_initial_direction() -> int:
 	return int(_stage.snake.direction)
 
-func get_edible_rules() -> Array:
+func get_perks_rules() -> Array:
 	var res: Array = []
-	for edible in _stage.edibles:
+	for perk in _stage.perks:
 		var spawn_locations: Array = []
-		if edible.has("spawn_locations"):
-			for location in edible.spawn_locations:
+		if perk.has("spawn_locations"):
+			for location in perk.spawn_locations:
 				spawn_locations.push_back(Vector2(int(location[0]), int(location[1])))
-		#res.push_back(
-			#EdibleRulesBuiler.new() \
-			#	.set_type(edible.type) \
-			#	.set_max_instances(edible.max_instances) \
-			#	.set_life_spawn(-1 if !edible.has("life_span") else edible.life_span) \
-			#	.set_spawn_probability(1 if !edible.has("spawn_probability") else edible.spawn_probability) \
-			#	.set_spawn_locations(spawn_locations) \
-			#	.build()
-		#)
+		res.push_back(ParsedPerkRules.new(
+			perk.type,
+			spawn_locations,
+			1 if !perk.has("spawn_probability") else perk.spawn_probability,
+			-1 if !perk.has("lifespan") else perk.life_span,
+			perk.max_instances
+		))
 	return res

@@ -50,11 +50,11 @@
             "spawn": [1,6],
             "direction": 0
         },
-        "edibles": [
+        "perks": [
             {
                 "type": "Apple",
                 "max_instances": 7,
-                "life_span": 30,
+                "lifespan": 30,
                 "spawn_locations": [
                     [1,0],
                     [2,0],
@@ -180,7 +180,7 @@
                 "type": "Cherry",
                 "max_instances": 1,
                 "spawn_probability": 0.5,
-                "life_span": 30,
+                "lifespan": 30,
                 "spawn_locations": [
                     [1,0],
                     [2,0],
@@ -315,7 +315,7 @@
                 "type": "Star",
                 "max_instances": 1,
                 "spawn_probability": 0.05,
-                "life_span": 7,
+                "lifespan": 7,
                 "spawn_locations": [
                     [4,6],
                     [8,6],
@@ -335,7 +335,7 @@
                 "type": "Diamond",
                 "max_instances": 1,
                 "spawn_probability": 0.1,
-                "life_span": 15,
+                "lifespan": 15,
                 "spawn_locations": [
                     [6,6]
                 ]
@@ -344,7 +344,7 @@
                 "type": "BadApple",
                 "max_instances": 1,
                 "spawn_probability": 0.1,
-                "life_span": 8,
+                "lifespan": 8,
                 "spawn_locations": [
                     [4, 4],
                     [4, 8],
@@ -356,7 +356,7 @@
                 "type": "Banana",
                 "max_instances": 1,
                 "spawn_probability": 0.01,
-                "life_span": 5,
+                "lifespan": 5,
                 "spawn_locations": [
                     [4, 4],
                     [4, 8],
@@ -368,7 +368,7 @@
                 "type": "Avocado",
                 "max_instances": 1,
                 "spawn_probability": 0.005,
-                "life_span": 5,
+                "lifespan": 5,
                 "spawn_locations": [
                     [4, 4],
                     [4, 8],
