@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "CollisionStrategy",
+"base": "Reference",
 "class": "AppleStrategy",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/strategies/AppleStrategy.gd"
@@ -100,6 +100,11 @@ _global_script_classes=[ {
 "path": "res://src/stage_parser/JsonStageValidator.gd"
 }, {
 "base": "Reference",
+"class": "ModelRawMaterial",
+"language": "GDScript",
+"path": "res://src/game/controller/ModelRawMaterial.gd"
+}, {
+"base": "Reference",
 "class": "ParsedPerkRules",
 "language": "GDScript",
 "path": "res://src/stage_parser/ParsedPerkRules.gd"
@@ -109,7 +114,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/stage_parser/ParsedStage.gd"
 }, {
-"base": "CollidableEntity",
+"base": "Reference",
 "class": "Perk",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/Perk.gd"
@@ -124,12 +129,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/controller/PerkType.gd"
 }, {
-"base": "CollidableEntity",
+"base": "Reference",
 "class": "SnakeBodyPart",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/snake_body_part/SnakeBodyPart.gd"
 }, {
-"base": "CollisionStrategy",
+"base": "Reference",
 "class": "SnakeBodyPartCollisionStrategy",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/snake_body_part/SnakeBodyPartCollisionStrategy.gd"
@@ -154,12 +159,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/utils/WaitTimer.gd"
 }, {
-"base": "CollidableEntity",
+"base": "Reference",
 "class": "Wall",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/wall/Wall.gd"
 }, {
-"base": "CollisionStrategy",
+"base": "Reference",
 "class": "WallCollisionStrategy",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/wall/WallCollisionStrategy.gd"
@@ -188,6 +193,7 @@ _global_script_class_icons={
 "JsonStageParser": "",
 "JsonStageUpdater": "",
 "JsonStageValidator": "",
+"ModelRawMaterial": "",
 "ParsedPerkRules": "",
 "ParsedStage": "",
 "Perk": "",
