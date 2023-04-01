@@ -99,6 +99,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/stage_parser/JsonStageValidator.gd"
 }, {
+"base": "CollisionStrategy",
+"class": "LemonStrategy",
+"language": "GDScript",
+"path": "res://src/game/model/collidables/perk/strategies/LemonStrategy.gd"
+}, {
 "base": "Reference",
 "class": "ModelRawMaterial",
 "language": "GDScript",
@@ -208,6 +213,7 @@ _global_script_class_icons={
 "JsonStageParser": "",
 "JsonStageUpdater": "",
 "JsonStageValidator": "",
+"LemonStrategy": "",
 "ModelRawMaterial": "",
 "ParsedPerkRules": "",
 "ParsedStage": "",
