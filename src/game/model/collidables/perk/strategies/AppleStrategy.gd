@@ -1,6 +1,6 @@
 class_name AppleStrategy extends CollisionStrategy
 
-const _APPLE_POINTS = 200
+const _APPLE_SCORE = 200
 
 func _init(
 	true_collision_result: CollisionResult,
@@ -21,6 +21,6 @@ func execute(
 			snake_properties.get_potential_length() + 1
 		)
 		snake_properties.set_score(
-			snake_properties.get_score() + (snake_properties.get_score_multiplier() * _APPLE_POINTS)
+			snake_properties.get_score() + (snake_properties.get_score_multiplier() * _APPLE_SCORE)
 		)
 		return self._true_collision_result

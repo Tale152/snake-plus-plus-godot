@@ -1,6 +1,6 @@
 class_name CherryStrategy extends CollisionStrategy
 
-const _CHERRY_POINTS = 1000
+const _CHERRY_SCORE = 1000
 
 func _init(
 	true_collision_result: CollisionResult,
@@ -21,6 +21,6 @@ func execute(
 			snake_properties.get_potential_length() + 5
 		)
 		snake_properties.set_score(
-			snake_properties.get_score() + (snake_properties.get_score_multiplier() * _CHERRY_POINTS)
+			snake_properties.get_score() + (snake_properties.get_score_multiplier() * _CHERRY_SCORE)
 		)
 		return self._true_collision_result
