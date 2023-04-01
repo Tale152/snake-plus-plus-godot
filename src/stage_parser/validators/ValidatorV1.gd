@@ -28,17 +28,17 @@ static func _is_snake_valid(stage: Dictionary) -> bool:
 	return true
 
 static func _is_edibles_valid(stage: Dictionary) -> bool:
-	if !DictionaryUtil.contains(stage, "edibles", TYPE_ARRAY): return false
-	for edible in stage.edibles:
-		if typeof(edible) != TYPE_DICTIONARY: return false
-		if !DictionaryUtil.contains(edible, "type", TYPE_STRING): return false
-		if !_get_v1_edible_types().has(edible.type): return false
-		if !DictionaryUtil.contains(edible, "max_instances", TYPE_REAL): return false
-		if !_is_not_contained_or_typed(edible, "spawn_probability", TYPE_REAL): return false
-		if !_is_not_contained_or_typed(edible, "life_span", TYPE_REAL): return false
-		if !_is_not_contained_or_typed(edible, "spawn_locations", TYPE_ARRAY): return false
-		if !DictionaryUtil.does_not_contain(edible, "spawn_locations"):
-			for location in edible.spawn_locations:
+	if !DictionaryUtil.contains(stage, "perks", TYPE_ARRAY): return false
+	for perk in stage.perks:
+		if typeof(perk) != TYPE_DICTIONARY: return false
+		if !DictionaryUtil.contains(perk, "type", TYPE_STRING): return false
+		if !_get_v1_edible_types().has(perk.type): return false
+		if !DictionaryUtil.contains(perk, "max_instances", TYPE_REAL): return false
+		if !_is_not_contained_or_typed(perk, "spawn_probability", TYPE_REAL): return false
+		if !_is_not_contained_or_typed(perk, "lifespan", TYPE_REAL): return false
+		if !_is_not_contained_or_typed(perk, "spawn_locations", TYPE_ARRAY): return false
+		if !DictionaryUtil.does_not_contain(perk, "spawn_locations"):
+			for location in perk.spawn_locations:
 				if !_is_array_of_size(location, 2): return false
 				for coord in location:
 					if typeof(coord) != TYPE_REAL: return false
@@ -52,5 +52,14 @@ static func _is_not_contained_or_typed(d: Dictionary, value: String, type: int) 
 
 static func _get_v1_edible_types() -> Array:
 	return [
-		PerkType.APPLE()
+		PerkType.get_perk_type_string(PerkType.APPLE()),
+		PerkType.get_perk_type_string(PerkType.LEMON()),
+		PerkType.get_perk_type_string(PerkType.CHERRY()),
+		PerkType.get_perk_type_string(PerkType.ORANGE()),
+		PerkType.get_perk_type_string(PerkType.CHILI()),
+		PerkType.get_perk_type_string(PerkType.STAR()),
+		PerkType.get_perk_type_string(PerkType.GAIN_COIN()),
+		PerkType.get_perk_type_string(PerkType.DIAMOND()),
+		PerkType.get_perk_type_string(PerkType.BANANA()),
+		PerkType.get_perk_type_string(PerkType.AVOCADO())
 	]
