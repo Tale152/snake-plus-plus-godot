@@ -6,4 +6,3 @@ static func CHILI() -> int: return PerkType.CHILI()
 static func STAR() -> int: return PerkType.STAR()
 static func BANANA() -> int: return PerkType.BANANA()
 static func AVOCADO() -> int: return PerkType.AVOCADO()
-

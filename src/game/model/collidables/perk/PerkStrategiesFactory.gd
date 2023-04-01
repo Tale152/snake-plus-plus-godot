@@ -20,6 +20,8 @@ func create_collision_strategy(type: int) -> CollisionStrategy:
 		return LemonStrategy.new(_true_coll_res, _false_coll_res)
 	elif(type == PerkType.CHERRY()):
 		return CherryStrategy.new(_true_coll_res, _false_coll_res)
+	elif(type == PerkType.GAIN_COIN()):
+		return GainCoinStrategy.new(_true_coll_res, _false_coll_res)
 	elif(type == PerkType.STAR()):
 		return StarStrategy.new(
 			_true_coll_res, _false_coll_res, _effect_lifespan_seconds
