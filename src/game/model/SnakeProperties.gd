@@ -5,6 +5,7 @@ var _alive: bool = true
 var _current_length: int = 1
 var _potential_length: int = 1
 var _speed_multiplier: float = 1.0
+var _score: int = 0
 var _score_multiplier: float = 1.0
 var _invincible: bool = false
 var _intangible: bool = false
@@ -33,6 +34,10 @@ func get_speed_multiplier() -> float: return _speed_multiplier
 
 func set_speed_multiplier(multiplier: float) -> void:
 	_speed_multiplier = multiplier
+
+func get_score() -> int: return _score
+
+func set_score(score: int) -> void: _score = score
 
 func get_score_multiplier() -> float: return _score_multiplier
 
