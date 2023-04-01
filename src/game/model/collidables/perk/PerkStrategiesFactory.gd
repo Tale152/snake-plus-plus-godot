@@ -48,4 +48,8 @@ func create_collision_strategy(type: int) -> CollisionStrategy:
 		return AvocadoStrategy.new(
 			_true_coll_res, _false_coll_res, _effect_lifespan_seconds
 		)
+	elif(type == PerkType.SNAIL()):
+		return SnailStrategy.new(
+			_true_coll_res, _false_coll_res, _effect_lifespan_seconds
+		)
 	return null
