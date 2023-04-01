@@ -1,5 +1,15 @@
 class_name ModelRawMaterial extends Reference
 
+var _true_collision_result: CollisionResult = CollisionResult.new(true)
+var _false_collision_result: CollisionResult = CollisionResult.new(false)
+var _wall_factory: WallFactory = WallFactory.new(
+	_true_collision_result,
+	_false_collision_result
+)
+var _body_part_factory: SnakeBodyPartFactory = SnakeBodyPartFactory.new(
+	_true_collision_result,
+	_false_collision_result
+)
 var _field_width: int
 var _field_height: int
 var _coordinates_instances: Array = []
@@ -7,8 +17,9 @@ var _snake_starting_coordinates: Coordinates
 var _snake_initial_direction: int
 var _walls_coordinates: Array = []
 var _perks_rules: Array = []
+var _perks_list: Array = []
 
-func _init(parsed_stage: ParsedStage):
+func _init(parsed_stage: ParsedStage, effects_lifespan_seconds: float):
 	_field_width = parsed_stage.get_field_width()
 	_field_height = parsed_stage.get_field_width()
 
@@ -26,6 +37,11 @@ func _init(parsed_stage: ParsedStage):
 			_coordinates_instances[wall_location.x + wall_location.y]
 		)
 
+	var perk_strategies_factory: PerkStrategiesFactory = PerkStrategiesFactory.new(
+		_true_collision_result,
+		_false_collision_result,
+		effects_lifespan_seconds
+	)
 	for r in parsed_stage.get_perks_rules():
 		var parsed_rule: ParsedPerkRules = r
 		var spawn_locations = []
@@ -35,14 +51,21 @@ func _init(parsed_stage: ParsedStage):
 				_coordinates_instances[spawn_location.x + spawn_location.y]
 			)
 		var type: int = PerkType.get_perk_type_int(parsed_rule.get_type())
+		_perks_list.push_back(type)
 		_perks_rules.push_back(PerkRules.new(
 			type,
 			spawn_locations,
 			parsed_rule.get_spawn_probability(),
 			parsed_rule.get_lifespan(),
 			parsed_rule.get_max_instances(),
-			PerkStrategiesFactory.create_collision_strategy(type)
+			perk_strategies_factory.create_collision_strategy(type)
 		))
+
+func get_body_part_factory() -> SnakeBodyPartFactory:
+	return _body_part_factory
+
+func get_wall_factory() -> WallFactory:
+	return _wall_factory
 
 func get_field_width() -> int:
 	return _field_width
@@ -64,3 +87,6 @@ func get_walls_coordinates() -> Array:
 
 func get_perks_rules() -> Array:
 	return _perks_rules
+
+func get_perks_list() -> Array:
+	return _perks_list

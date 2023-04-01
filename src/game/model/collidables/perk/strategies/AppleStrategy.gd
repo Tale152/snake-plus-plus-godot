@@ -1,11 +1,21 @@
 class_name AppleStrategy extends CollisionStrategy
-	
-func execute(model: GameModel) -> CollisionResult:
-	var snake_properties: SnakeProperties = model.get_snake_properties()
+
+func _init(
+	true_collision_result: CollisionResult,
+	false_collision_result: CollisionResult
+).(
+	true_collision_result,
+	false_collision_result
+): pass
+
+func execute(
+	snake_properties: SnakeProperties,
+	_effect_container: EquippedEffectsContainer
+) -> CollisionResult:
 	if snake_properties.is_intangible():
-		return CollisionResult.new(false)
+		return self._false_collision_result
 	else:
 		snake_properties.set_potential_length(
 			snake_properties.get_potential_length() + 1
 		)
-		return CollisionResult.new(true)
+		return self._true_collision_result

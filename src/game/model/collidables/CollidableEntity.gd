@@ -13,5 +13,8 @@ func _init(
 func get_coordinates() -> Coordinates:
 	return _coordinates
 
-func collide(model: GameModel) -> CollisionResult:
-	return _collision_strategy.execute(model)
+func execute(
+	snake_properties: SnakeProperties,
+	effect_container: EquippedEffectsContainer
+) -> CollisionResult:
+	return _collision_strategy.execute(snake_properties, effect_container)

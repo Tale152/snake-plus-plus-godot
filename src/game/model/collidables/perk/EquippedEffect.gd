@@ -15,10 +15,10 @@ func get_effect_type() -> int: return _effect_type
 
 func get_expire_timer() -> ExpireTimer: return _expire_timer
 
-func apply_effect(snake_properties: SnakeProperties) -> void:
+func apply_effect(_snake_properties: SnakeProperties) -> void:
 	# override on extending class
 	pass
 
-func revoke_effect(snake_properties: SnakeProperties) -> void:
+func revoke_effect(_snake_properties: SnakeProperties) -> void:
 	# override on extending class
 	pass

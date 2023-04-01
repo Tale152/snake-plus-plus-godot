@@ -1,8 +1,17 @@
 class_name SnakeBodyPartFactory extends Reference
-
 # I need just one instance of SnakeBodyPartCollisionStrategy to be used
 # in every SnakeBodyPart
-var _collision_strategy: CollisionStrategy = SnakeBodyPartCollisionStrategy.new()
+
+var _collision_strategy: CollisionStrategy
+
+func _init(
+	true_collision_result: CollisionResult,
+	false_collision_result: CollisionResult
+):
+	_collision_strategy = SnakeBodyPartCollisionStrategy.new(
+		true_collision_result,
+		false_collision_result
+	)
 
 func create_new(
 	coordinates: Coordinates,

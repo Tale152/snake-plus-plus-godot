@@ -1,8 +1,17 @@
 class_name SnakeBodyPartCollisionStrategy extends CollisionStrategy
-	
-var _collision_result: CollisionResult = CollisionResult.new(false)
 
-func execute(model: GameModel) -> CollisionResult:
-	if !model.get_snake_properties().is_invincible():
-		model.get_snake_properties().set_is_alive(false) 
-	return _collision_result
+func _init(
+	true_collision_result: CollisionResult,
+	false_collision_result: CollisionResult
+).(
+	true_collision_result,
+	false_collision_result
+): pass
+
+func execute(
+	snake_properties: SnakeProperties,
+	_effect_container: EquippedEffectsContainer
+) -> CollisionResult:
+	if !snake_properties.is_invincible():
+		snake_properties.set_is_alive(false) 
+	return self._false_collision_result

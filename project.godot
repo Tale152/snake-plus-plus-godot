@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "CollisionStrategy",
 "class": "AppleStrategy",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/strategies/AppleStrategy.gd"
@@ -144,7 +144,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/model/collidables/snake_body_part/SnakeBodyPart.gd"
 }, {
-"base": "Reference",
+"base": "CollisionStrategy",
 "class": "SnakeBodyPartCollisionStrategy",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/snake_body_part/SnakeBodyPartCollisionStrategy.gd"
@@ -158,6 +158,11 @@ _global_script_classes=[ {
 "class": "SnakeProperties",
 "language": "GDScript",
 "path": "res://src/game/model/SnakeProperties.gd"
+}, {
+"base": "CollisionStrategy",
+"class": "StarStrategy",
+"language": "GDScript",
+"path": "res://src/game/model/collidables/perk/strategies/StarStrategy.gd"
 }, {
 "base": "Reference",
 "class": "ValidatorV1",
@@ -174,7 +179,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/model/collidables/wall/Wall.gd"
 }, {
-"base": "Reference",
+"base": "CollisionStrategy",
 "class": "WallCollisionStrategy",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/wall/WallCollisionStrategy.gd"
@@ -215,6 +220,7 @@ _global_script_class_icons={
 "SnakeBodyPartCollisionStrategy": "",
 "SnakeBodyPartFactory": "",
 "SnakeProperties": "",
+"StarStrategy": "",
 "ValidatorV1": "",
 "WaitTimer": "",
 "Wall": "",
