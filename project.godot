@@ -125,6 +125,16 @@ _global_script_classes=[ {
 "path": "res://src/game/model/collidables/perk/PerkBuilder.gd"
 }, {
 "base": "Reference",
+"class": "PerkRules",
+"language": "GDScript",
+"path": "res://src/game/controller/PerkRules.gd"
+}, {
+"base": "Reference",
+"class": "PerkStrategiesFactory",
+"language": "GDScript",
+"path": "res://src/game/model/collidables/perk/PerkStrategiesFactory.gd"
+}, {
+"base": "Reference",
 "class": "PerkType",
 "language": "GDScript",
 "path": "res://src/game/controller/PerkType.gd"
@@ -198,6 +208,8 @@ _global_script_class_icons={
 "ParsedStage": "",
 "Perk": "",
 "PerkBuilder": "",
+"PerkRules": "",
+"PerkStrategiesFactory": "",
 "PerkType": "",
 "SnakeBodyPart": "",
 "SnakeBodyPartCollisionStrategy": "",

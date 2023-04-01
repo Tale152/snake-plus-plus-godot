@@ -19,12 +19,14 @@ func start_new_game() -> void:
 		walls.push_back(_wall_factory.create_new(
 			_raw_material.get_coordinates_instances()[w.get_x() + w.get_y()]
 		))
+	var perks: Array = []
+	for pr in _raw_material.get_perks_rules():
+		perks.push_back(pr.get_type())
 	_model = GameModel.new(
 		_raw_material.get_field_width(),
 		_raw_material.get_field_height(),
 		head,
-		[], # TODO init
+		perks,
 		walls,
 		_raw_material.get_snake_initial_direction()
 	)
-	

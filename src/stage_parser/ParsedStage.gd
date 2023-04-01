@@ -34,7 +34,7 @@ func get_perks_rules() -> Array:
 			perk.type,
 			spawn_locations,
 			1 if !perk.has("spawn_probability") else perk.spawn_probability,
-			-1 if !perk.has("lifespan") else perk.life_span,
+			-1 if !perk.has("lifespan") else perk.lifespan,
 			perk.max_instances
 		))
 	return res

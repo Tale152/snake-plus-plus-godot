@@ -38,3 +38,16 @@ static func get_perk_type_string(type: int) -> String:
 		PerkTypeEnum.BANANA: return "Banana"
 		PerkTypeEnum.AVOCADO: return "Avocado"
 	return "ERROR"
+
+static func get_perk_type_int(type: String) -> int:
+	if(type == "Apple"): return PerkTypeEnum.APPLE
+	elif(type == "Lemon"): return PerkTypeEnum.LEMON
+	elif(type == "Cherry"): return PerkTypeEnum.CHERRY
+	elif(type == "Orange"): return PerkTypeEnum.ORANGE
+	elif(type == "Chili"): return PerkTypeEnum.CHILI
+	elif(type == "Star"): return PerkTypeEnum.STAR
+	elif(type == "GainCoin"): return PerkTypeEnum.GAIN_COIN
+	elif(type == "Diamond"): return PerkTypeEnum.DIAMOND
+	elif(type == "Banana"): return PerkTypeEnum.BANANA
+	elif(type == "Avocado"): return PerkTypeEnum.AVOCADO
+	return -1
