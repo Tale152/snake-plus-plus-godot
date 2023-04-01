@@ -28,5 +28,8 @@ func create_collision_strategy(type: int) -> CollisionStrategy:
 		return OrangeStrategy.new(
 			_true_coll_res, _false_coll_res, _effect_lifespan_seconds
 		)
-	# TODO add other strategies
+	elif(type == PerkType.CHILI()):
+		return ChiliStrategy.new(
+			_true_coll_res, _false_coll_res, _effect_lifespan_seconds
+		)
 	return null
