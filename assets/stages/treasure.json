@@ -341,7 +341,7 @@
                 ]
             },
             {
-                "type": "BadApple",
+                "type": "Lemon",
                 "max_instances": 1,
                 "spawn_probability": 0.1,
                 "lifespan": 8,
