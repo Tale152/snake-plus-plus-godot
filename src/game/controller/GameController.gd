@@ -9,8 +9,8 @@ var _wall_factory: WallFactory = WallFactory.new()
 var _snake_body_part_factory: SnakeBodyPartFactory = SnakeBodyPartFactory.new()
 
 func _init(parsed_stage: ParsedStage):
-	for x in range(0, parsed_stage.get_field_size().get_height()):
-		for y in range(0, parsed_stage.get_field_size().get_width()):
+	for x in range(0, parsed_stage.get_field_height()):
+		for y in range(0, parsed_stage.get_field_width()):
 			_coordinates_instances.push_back(Coordinates.new(x, y))
 	_snake_starting_coordinates = _coordinates_instances[parsed_stage.get_snake_spawn_point().x + parsed_stage.get_snake_spawn_point().y]
 	_snake_initial_direction = parsed_stage.get_snake_initial_direction()
