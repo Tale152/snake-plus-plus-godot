@@ -7,6 +7,7 @@ var _potential_length: int = 1
 var _speed_multiplier: float = 1.0
 var _score_multiplier: float = 1.0
 var _invincible: bool = false
+var _intangible: bool = false
 
 func _init(initial_direction: int):
 	_current_direction = initial_direction
@@ -40,3 +41,7 @@ func set_score_multiplier(multiplier: float) -> void: _score_multiplier = multip
 func is_invincible() -> bool: return _invincible
 
 func set_invincible(flag: bool) -> void: _invincible = flag
+
+func is_intangible() -> bool: return _intangible
+
+func set_intangible(flag: bool) -> void: _intangible = flag
