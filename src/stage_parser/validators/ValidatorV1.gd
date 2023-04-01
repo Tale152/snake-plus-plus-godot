@@ -62,5 +62,6 @@ static func _get_v1_edible_types() -> Array:
 		PerkType.get_perk_type_string(PerkType.DIAMOND()),
 		PerkType.get_perk_type_string(PerkType.BANANA()),
 		PerkType.get_perk_type_string(PerkType.AVOCADO()),
-		PerkType.get_perk_type_string(PerkType.CANDY())
+		PerkType.get_perk_type_string(PerkType.CANDY()),
+		PerkType.get_perk_type_string(PerkType.LOSS_COIN())
 	]

@@ -6,6 +6,7 @@ enum PerkTypeEnum {
 	CHILI,
 	STAR,
 	GAIN_COIN,
+	LOSS_COIN,
 	DIAMOND,
 	BANANA,
 	AVOCADO,
@@ -22,6 +23,7 @@ static func ORANGE() -> int: return PerkTypeEnum.ORANGE
 static func CHILI() -> int: return PerkTypeEnum.CHILI
 static func STAR() -> int: return PerkTypeEnum.STAR
 static func GAIN_COIN() -> int: return PerkTypeEnum.GAIN_COIN
+static func LOSS_COIN() -> int: return PerkTypeEnum.LOSS_COIN
 static func DIAMOND() -> int: return PerkTypeEnum.DIAMOND
 static func BANANA() -> int: return PerkTypeEnum.BANANA
 static func AVOCADO() -> int: return PerkTypeEnum.AVOCADO
@@ -36,6 +38,7 @@ static func get_perk_type_string(type: int) -> String:
 		PerkTypeEnum.CHILI: return "Chili"
 		PerkTypeEnum.STAR: return "Star"
 		PerkTypeEnum.GAIN_COIN: return "GainCoin"
+		PerkTypeEnum.LOSS_COIN: return "LossCoin"
 		PerkTypeEnum.DIAMOND: return "Diamond"
 		PerkTypeEnum.BANANA: return "Banana"
 		PerkTypeEnum.AVOCADO: return "Avocado"
@@ -50,6 +53,7 @@ static func get_perk_type_int(type: String) -> int:
 	elif(type == "Chili"): return PerkTypeEnum.CHILI
 	elif(type == "Star"): return PerkTypeEnum.STAR
 	elif(type == "GainCoin"): return PerkTypeEnum.GAIN_COIN
+	elif(type == "LossCoin"): return PerkTypeEnum.LOSS_COIN
 	elif(type == "Diamond"): return PerkTypeEnum.DIAMOND
 	elif(type == "Banana"): return PerkTypeEnum.BANANA
 	elif(type == "Avocado"): return PerkTypeEnum.AVOCADO

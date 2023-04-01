@@ -22,6 +22,8 @@ func create_collision_strategy(type: int) -> CollisionStrategy:
 		return CherryStrategy.new(_true_coll_res, _false_coll_res)
 	elif(type == PerkType.GAIN_COIN()):
 		return GainCoinStrategy.new(_true_coll_res, _false_coll_res)
+	elif(type == PerkType.LOSS_COIN()):
+		return LossCoinStrategy.new(_true_coll_res, _false_coll_res)
 	elif(type == PerkType.DIAMOND()):
 		return DiamondStrategy.new(_true_coll_res, _false_coll_res)
 	elif(type == PerkType.CANDY()):
