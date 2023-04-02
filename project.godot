@@ -164,7 +164,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/stage_parser/ParsedStage.gd"
 }, {
-"base": "Reference",
+"base": "CollidableEntity",
 "class": "Perk",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/Perk.gd"
@@ -194,7 +194,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/strategies/SnailStrategy.gd"
 }, {
-"base": "Reference",
+"base": "CollidableEntity",
 "class": "SnakeBodyPart",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/snake_body_part/SnakeBodyPart.gd"
@@ -229,7 +229,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/utils/WaitTimer.gd"
 }, {
-"base": "Reference",
+"base": "CollidableEntity",
 "class": "Wall",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/wall/Wall.gd"
