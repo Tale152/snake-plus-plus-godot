@@ -6,9 +6,17 @@ var _model: GameModel
 var _body_part_factory: SnakeBodyPartFactory
 var _perks_rules: Array
 var _elapsed_seconds: float
+var _difficulty_settings: DifficultySettings
 
-func _init(parsed_stage: ParsedStage, effects_lifespan_seconds: float):
-	_raw_material = ModelRawMaterial.new(parsed_stage, effects_lifespan_seconds)
+func _init(
+	parsed_stage: ParsedStage,
+	difficulty_settings: DifficultySettings
+):
+	_difficulty_settings = difficulty_settings
+	_raw_material = ModelRawMaterial.new(
+		parsed_stage,
+		_difficulty_settings.get_effects_lifespan_seconds()
+	)
 	_body_part_factory = _raw_material.get_body_part_factory()
 	_perks_rules = _raw_material.get_perks_rules()
 
