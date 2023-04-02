@@ -47,39 +47,21 @@ func _get_scale() -> float:
 		return screen_size.y / project_height
 
 func _on_PlayButton_pressed():
-	var description_builder = StageDescriptionBuilder.new()
+	var difficulty_settings: DifficultySettings
 	match $GuiAreaControl/RectangleAspectRatioContainer/RectangleControl/SpeedOptionChooser.get_selected_index():
-		0: description_builder.set_snake_speedup_factor(0.992).set_snake_base_delta_seconds(0.6)
-		1: description_builder.set_snake_speedup_factor(0.991).set_snake_base_delta_seconds(0.55)
-		2: description_builder.set_snake_speedup_factor(0.99).set_snake_base_delta_seconds(0.5)
-		3: description_builder.set_snake_speedup_factor(0.989).set_snake_base_delta_seconds(0.45)
-		4: description_builder.set_snake_speedup_factor(0.988).set_snake_base_delta_seconds(0.4)
+		0: difficulty_settings = DifficultySettings.new(12, 0.6, 0.992)
+		1: difficulty_settings = DifficultySettings.new(10, 0.55, 0.991)
+		2: difficulty_settings = DifficultySettings.new(7, 0.5, 0.99)
+		3: difficulty_settings = DifficultySettings.new(5, 0.45, 0.989)
+		4: difficulty_settings = DifficultySettings.new(3, 0.4, 0.988)
 	var selected_skin = str(
 		"res://assets/skins/", $GuiAreaControl/RectangleAspectRatioContainer/RectangleControl/SkinOptionChooser.get_selected_option()
 	)
-	var visual_parameters_builder = VisualParametersBuilder.new()
-	visual_parameters_builder \
-		.set_snake_skin_path(str(selected_skin, "/snake")) \
-		.set_field_elements_skin_path(str(selected_skin, "/field"))
 	var stage_name = $GuiAreaControl/RectangleAspectRatioContainer/RectangleControl/StageOptionChooser.get_selected_option()
 	var parsed_stage: ParsedStage = JsonStageParser.parse(str(
 		"res://assets/stages/", stage_name, ".json"
 	))
-	description_builder \
-		.set_field_size(parsed_stage.get_field_size()) \
-		.set_snake_spawn_point(parsed_stage.get_snake_spawn_point()) \
-		.set_snake_initial_direction(parsed_stage.get_snake_initial_direction()) \
-		.set_walls_points(parsed_stage.get_walls_points())
-	for e in parsed_stage.get_edible_rules():
-		description_builder.add_edible_rules(e)
-		visual_parameters_builder \
-			.add_edible_sprite(
-				EdibleSprite.new(
-					str(selected_skin, "/edibles"),
-					e.get_type()
-			)
-		)
-	_main.play(description_builder.build(), visual_parameters_builder)
+	_main.play(parsed_stage, difficulty_settings)
 
 func _list_available_stages(path: String) -> Array:
 	var files = _list_files_in_directory(path)
