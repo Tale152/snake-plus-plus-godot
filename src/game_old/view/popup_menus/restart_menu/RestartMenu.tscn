@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/game/view/popup_menus/restart_menu/YesButton.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/game/view/popup_menus/restart_menu/NoButton.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/game/view/popup_menus/restart_menu/RestartLabel.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/game/view/popup_menus/restart_menu/RestartMenu.gd" type="Script" id=4]
+
+[node name="RestartMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 0.335
+script = ExtResource( 4 )
+
+[node name="BackgroundColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.14902, 0.14902, 0.14902, 1 )
+
+[node name="RestartLabel" type="Label" parent="."]
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.4
+margin_bottom = 0.0399971
+custom_fonts/font = ExtResource( 3 )
+text = "Restart Game?"
+align = 1
+valign = 1
+
+[node name="YesButton" type="Button" parent="."]
+anchor_left = 0.05
+anchor_top = 0.45
+anchor_right = 0.95
+anchor_bottom = 0.65
+margin_bottom = 0.0999985
+custom_fonts/font = ExtResource( 1 )
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="."]
+anchor_left = 0.05
+anchor_top = 0.7
+anchor_right = 0.95
+anchor_bottom = 0.9
+margin_bottom = 0.0999985
+custom_fonts/font = ExtResource( 2 )
+text = "No"
+
+[connection signal="pressed" from="YesButton" to="." method="_on_YesButton_pressed"]
+[connection signal="pressed" from="NoButton" to="." method="_on_NoButton_pressed"]
