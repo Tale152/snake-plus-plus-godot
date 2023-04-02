@@ -124,6 +124,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/model/GameModelBuilder.gd"
 }, {
+"base": "Control",
+"class": "GameOverMenu",
+"language": "GDScript",
+"path": "res://src/game/view/popup_menus/game_over_menu/GameOverMenu.gd"
+}, {
 "base": "Reference",
 "class": "JsonStageParser",
 "language": "GDScript",
@@ -169,6 +174,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/stage_parser/ParsedStage.gd"
 }, {
+"base": "Control",
+"class": "PauseMenu",
+"language": "GDScript",
+"path": "res://src/game/view/popup_menus/pause_menu/PauseMenu.gd"
+}, {
 "base": "CollidableEntity",
 "class": "Perk",
 "language": "GDScript",
@@ -193,6 +203,11 @@ _global_script_classes=[ {
 "class": "PerkType",
 "language": "GDScript",
 "path": "res://src/game/controller/PerkType.gd"
+}, {
+"base": "Control",
+"class": "RestartMenu",
+"language": "GDScript",
+"path": "res://src/game/view/popup_menus/restart_menu/RestartMenu.gd"
 }, {
 "base": "CollisionStrategy",
 "class": "SnailStrategy",
@@ -273,6 +288,7 @@ _global_script_class_icons={
 "GameController": "",
 "GameModel": "",
 "GameModelBuilder": "",
+"GameOverMenu": "",
 "JsonStageParser": "",
 "JsonStageUpdater": "",
 "JsonStageValidator": "",
@@ -282,11 +298,13 @@ _global_script_class_icons={
 "OrangeStrategy": "",
 "ParsedPerkRules": "",
 "ParsedStage": "",
+"PauseMenu": "",
 "Perk": "",
 "PerkBuilder": "",
 "PerkRules": "",
 "PerkStrategiesFactory": "",
 "PerkType": "",
+"RestartMenu": "",
 "SnailStrategy": "",
 "SnakeBodyPart": "",
 "SnakeBodyPartCollisionStrategy": "",
