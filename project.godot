@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/strategies/AppleStrategy.gd"
 }, {
+"base": "Control",
+"class": "ArrowsControls",
+"language": "GDScript",
+"path": "res://src/game/view/controls/arrows_controls/ArrowsControls.gd"
+}, {
 "base": "CollisionStrategy",
 "class": "AvocadoStrategy",
 "language": "GDScript",
@@ -266,6 +271,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AppleStrategy": "",
+"ArrowsControls": "",
 "AvocadoStrategy": "",
 "BananaStrategy": "",
 "CandyStrategy": "",
