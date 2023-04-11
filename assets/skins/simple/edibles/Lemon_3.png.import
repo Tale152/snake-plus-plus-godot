@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BadApple_4.png-f77dfeec51592e88293b78db2d8ce405.stex"
+path="res://.import/Lemon_3.png-76c37b937cafe34136bf91ca03058c95.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/skins/simple/edibles/BadApple_4.png"
-dest_files=[ "res://.import/BadApple_4.png-f77dfeec51592e88293b78db2d8ce405.stex" ]
+source_file="res://assets/skins/simple/edibles/Lemon_3.png"
+dest_files=[ "res://.import/Lemon_3.png-76c37b937cafe34136bf91ca03058c95.stex" ]
 
 [params]
 
