@@ -1,9 +1,13 @@
 extends Node
 
 const Menu = preload("res://src/menu/Menu.tscn")
+const GameView = preload("res://src/game/view/GameView.tscn")
+const ArrowsControls = preload("res://src/game/view/controls/arrows_controls/ArrowsControls.tscn")
 
 var _menu
 var _game_controller: GameController
+var _game_view
+var _arrows_controls: ArrowsControls
 var _is_on_menu
 
 func _init():
@@ -29,6 +33,15 @@ func show_menu():
 func play(parsed_stage: ParsedStage, difficulty_settings: DifficultySettings):
 	_is_on_menu = false
 	_game_controller = GameController.new(parsed_stage, difficulty_settings)
+	_arrows_controls = ArrowsControls.instance()
+	_game_view = GameView.instance()
+	if _menu != null:
+		remove_child(_menu)
+		_menu = null
+	add_child(_game_view)
+	_game_view.set_controls(_arrows_controls)
+	_game_view.set_controller(_game_controller)
+	_game_controller.set_view(_game_view)
 
 func _process(delta):
 	pass

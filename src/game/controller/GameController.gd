@@ -3,6 +3,7 @@ class_name GameController extends Reference
 var _raw_material: ModelRawMaterial
 
 var _model: GameModel
+var _view
 var _body_part_factory: SnakeBodyPartFactory
 var _perks_rules: Array
 var _elapsed_seconds: float
@@ -19,6 +20,9 @@ func _init(
 	)
 	_body_part_factory = _raw_material.get_body_part_factory()
 	_perks_rules = _raw_material.get_perks_rules()
+
+func set_view(view) -> void:
+	_view = view
 
 func tick(delta_seconds: float) -> void:
 	_elapsed_seconds += delta_seconds
