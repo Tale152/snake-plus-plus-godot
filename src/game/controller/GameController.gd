@@ -26,6 +26,10 @@ func _init(
 
 func set_view(view) -> void:
 	_view = view
+	for coord in _raw_material.get_coordinates_instances():
+		_view.add_background_cell(BackgroundCell.new(
+			coord, _visual_parameters
+		))
 
 func tick(delta_seconds: float) -> void:
 	_elapsed_seconds += delta_seconds

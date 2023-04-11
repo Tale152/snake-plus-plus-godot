@@ -9,6 +9,7 @@ onready var _FieldControl: Control = $GuiAreaControl/RectangleRatioContainer/Con
 onready var _BottomControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl
 
 var _controller: GameController
+var _background_cells: Array = []
 
 func set_controls(controls: Control): _BottomControl.add_child(controls)
 
@@ -17,6 +18,11 @@ func set_controller(controller: GameController):
 
 func get_field_px_size(scale: float) -> int:
 	return int(floor(_FieldControl.rect_size.x * scale))
+
+func add_background_cell(cell: BackgroundCell) -> void:
+	_background_cells.push_back(cell)
+	_FieldControl.add_child(cell)
+	cell.play_sprite_animation(0.3)
 
 func show_pause_menu() -> void:
 	_PauseMenu.visible = true
