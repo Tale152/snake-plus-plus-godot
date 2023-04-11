@@ -61,7 +61,7 @@ func _on_PlayButton_pressed():
 	var parsed_stage: ParsedStage = JsonStageParser.parse(str(
 		"res://assets/stages/", stage_name, ".json"
 	))
-	_main.play(parsed_stage, difficulty_settings)
+	_main.play(parsed_stage, difficulty_settings, selected_skin)
 
 func _list_available_stages(path: String) -> Array:
 	var files = _list_files_in_directory(path)

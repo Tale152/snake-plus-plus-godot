@@ -8,12 +8,15 @@ var _body_part_factory: SnakeBodyPartFactory
 var _perks_rules: Array
 var _elapsed_seconds: float
 var _difficulty_settings: DifficultySettings
+var _visual_parameters: VisualParameters
 
 func _init(
 	parsed_stage: ParsedStage,
-	difficulty_settings: DifficultySettings
+	difficulty_settings: DifficultySettings,
+	visual_parameters: VisualParameters
 ):
 	_difficulty_settings = difficulty_settings
+	_visual_parameters = visual_parameters
 	_raw_material = ModelRawMaterial.new(
 		parsed_stage,
 		_difficulty_settings.get_effects_lifespan_seconds()
