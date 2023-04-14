@@ -5,17 +5,17 @@ var _coordinates: Coordinates
 
 func _init(
 	coordinates: Coordinates,
-	sprite: AnimatedSprite,
-	cell_pixels_size: float,
-	field_pixels_offset: Vector2
+	connections: CardinalConnections,
+	visual_parameters: VisualParameters
 ):
 	_coordinates = coordinates
 	position = PositionCalculator.calculate_position(
 		coordinates,
-		cell_pixels_size,
-		field_pixels_offset
+		visual_parameters.get_cell_pixels_size(),
+		visual_parameters.get_game_pixels_offset()
 	)
-	_wall_sprite = sprite
+	_coordinates = coordinates
+	_wall_sprite = visual_parameters.get_wall_sprite(connections)
 	add_child(_wall_sprite)
 
 func get_coordinates() -> Coordinates:

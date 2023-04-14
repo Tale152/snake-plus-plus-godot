@@ -53,6 +53,7 @@ func play(
 	_game_view.set_controls(_arrows_controls)
 	_game_view.set_controller(_game_controller)
 	_game_controller.set_view(_game_view)
+	_game_controller.start_new_game()
 
 func get_visual_parameters(
 	selected_skin: String,

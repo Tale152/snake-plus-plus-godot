@@ -10,6 +10,7 @@ onready var _BottomControl: Control = $GuiAreaControl/RectangleRatioContainer/Co
 
 var _controller: GameController
 var _background_cells: Array = []
+var _walls: Array = []
 
 func set_controls(controls: Control): _BottomControl.add_child(controls)
 
@@ -23,6 +24,11 @@ func add_background_cell(cell: BackgroundCell) -> void:
 	_background_cells.push_back(cell)
 	_FieldControl.add_child(cell)
 	cell.play_sprite_animation(0.3)
+
+func add_wall(wall: WallView) -> void:
+	_walls.push_back(wall)
+	_FieldControl.add_child(wall)
+	wall.play_sprite_animation()
 
 func show_pause_menu() -> void:
 	_PauseMenu.visible = true

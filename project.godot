@@ -80,6 +80,11 @@ _global_script_classes=[ {
 "path": "res://src/game/model/collidables/CollisionStrategy.gd"
 }, {
 "base": "Reference",
+"class": "ConnectionsCalculator",
+"language": "GDScript",
+"path": "res://src/game/view/utils/ConnectionsCalculator.gd"
+}, {
+"base": "Reference",
 "class": "Coordinates",
 "language": "GDScript",
 "path": "res://src/game/controller/Coordinates.gd"
@@ -379,6 +384,7 @@ _global_script_class_icons={
 "CollidableEntity": "",
 "CollisionResult": "",
 "CollisionStrategy": "",
+"ConnectionsCalculator": "",
 "Coordinates": "",
 "DiamondStrategy": "",
 "DictionaryUtil": "",

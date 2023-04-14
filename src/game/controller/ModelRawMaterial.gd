@@ -34,7 +34,7 @@ func _init(parsed_stage: ParsedStage, effects_lifespan_seconds: float):
 	for wl in parsed_stage.get_walls_points():
 		var wall_location: Vector2 = wl
 		_walls_coordinates.push_back(
-			_coordinates_instances[wall_location.x + wall_location.y]
+			_coordinates_instances[wall_location.x * _field_height + wall_location.y]
 		)
 
 	var perk_strategies_factory: PerkStrategiesFactory = PerkStrategiesFactory.new(
@@ -48,7 +48,7 @@ func _init(parsed_stage: ParsedStage, effects_lifespan_seconds: float):
 		for l in parsed_rule.get_spawn_locations():
 			var spawn_location: Vector2 = l
 			spawn_locations.push_back(
-				_coordinates_instances[spawn_location.x + spawn_location.y]
+				_coordinates_instances[spawn_location.x * _field_height + spawn_location.y]
 			)
 		var type: int = PerkType.get_perk_type_int(parsed_rule.get_type())
 		_perks_list.push_back(type)
