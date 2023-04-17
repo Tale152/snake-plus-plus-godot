@@ -77,9 +77,8 @@ func get_visual_parameters(
 	return vpb.build()
 
 func _process(delta):
-	pass
-	#if !_is_on_menu && !_game.is_game_over() && !_pause:
-		#_game.tick(delta)
+	if !_is_on_menu:
+		_game_controller.tick(delta)
 
 func _unhandled_input(event):
 	if Input.is_action_pressed("back_to_menu") && !_is_on_menu:

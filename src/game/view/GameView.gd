@@ -11,6 +11,7 @@ onready var _BottomControl: Control = $GuiAreaControl/RectangleRatioContainer/Co
 var _controller: GameController
 var _background_cells: Array = []
 var _walls: Array = []
+var _snake_units: Array = []
 
 func set_controls(controls: Control): _BottomControl.add_child(controls)
 
@@ -30,8 +31,14 @@ func add_wall(wall: WallView) -> void:
 	_FieldControl.add_child(wall)
 	wall.play_sprite_animation()
 
-func print_snake(snake_units: Array) -> void:
-	pass #TODO
+func print_snake(snake_units: Array, speed_scale: float) -> void:
+	for s in _snake_units:
+		_FieldControl.remove_child(s)
+	_snake_units = snake_units
+	for i in range(snake_units.size() - 1, -1, -1):
+		var unit: SnakeUnitView = snake_units[i]
+		_FieldControl.add_child(unit)
+		unit.play_sprite_animation(speed_scale)
 
 func show_pause_menu() -> void:
 	_PauseMenu.visible = true
