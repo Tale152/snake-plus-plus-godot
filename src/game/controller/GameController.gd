@@ -43,8 +43,9 @@ func _init(
 func is_not_game_over() -> bool:
 	return _snake_properties.is_alive()
 
-func set_view(view) -> void:
+func set_view(view, scale: float) -> void:
 	_view = view
+	_view.scale(scale)
 	InputBinder.bind(self, view, _exit_game_strategy)
 	_print_background()
 	_print_walls()

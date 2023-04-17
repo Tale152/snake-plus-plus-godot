@@ -4,6 +4,7 @@ const Menu = preload("res://src/menu/Menu.tscn")
 const GameView = preload("res://src/game/view/GameView.tscn")
 const ArrowsControls = preload("res://src/game/view/controls/arrows_controls/ArrowsControls.tscn")
 
+const _ACTION_BACK_TO_MENU: String = "back_to_menu"
 const _ACTION_MOVE_RIGHT: String = "move_right"
 const _ACTION_MOVE_LEFT: String = "move_left"
 const _ACTION_MOVE_UP: String = "move_up"
@@ -61,7 +62,7 @@ func play(
 	)
 	_game_view.set_controls(_arrows_controls)
 	_game_view.set_controller(_game_controller)
-	_game_controller.set_view(_game_view)
+	_game_controller.set_view(_game_view, get_scale())
 	_game_controller.start_new_game()
 
 func get_visual_parameters(
@@ -90,10 +91,9 @@ func _process(delta):
 		_game_controller.tick(delta)
 
 func _unhandled_input(event):
-	if Input.is_action_pressed("back_to_menu") && _is_outside_menu:
-		show_menu()
-	else:
-		if Input.is_action_pressed(_ACTION_MOVE_UP): _game_controller.direction_input(Direction.UP())
+	if _is_outside_menu:
+		if Input.is_action_pressed(_ACTION_BACK_TO_MENU): show_menu()
+		elif Input.is_action_pressed(_ACTION_MOVE_UP): _game_controller.direction_input(Direction.UP())
 		elif Input.is_action_pressed(_ACTION_MOVE_DOWN): _game_controller.direction_input(Direction.DOWN())
 		elif Input.is_action_pressed(_ACTION_MOVE_LEFT): _game_controller.direction_input(Direction.LEFT())
 		elif Input.is_action_pressed(_ACTION_MOVE_RIGHT): _game_controller.direction_input(Direction.RIGHT())

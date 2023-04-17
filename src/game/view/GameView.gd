@@ -18,6 +18,11 @@ func set_controls(controls: Control):
 	_controls = controls
 	_BottomControl.add_child(_controls)
 
+func scale(scale: float) -> void:
+	_Hud.scale(scale)
+	_PauseMenu.scale_font(scale)
+	_RestartMenu.scale_font(scale)
+
 func get_controls() -> Control:
 	return _controls
 
