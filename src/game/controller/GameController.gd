@@ -3,6 +3,7 @@ class_name GameController extends Reference
 var _raw_material: ModelRawMaterial
 
 var _model: GameModel
+var _field: Field
 var _view
 var _body_part_factory: SnakeBodyPartFactory
 var _wall_factory: WallFactory
@@ -51,15 +52,48 @@ func _print_walls() -> void:
 			 _visual_parameters
 		))
 
+func _print_snake() -> void:
+	var head: SnakeBodyPart = _field.get_snake_body_parts()[0]
+	var snake_units: Array = [
+		SnakeUnitView.new(
+			_visual_parameters,
+			SnakeUnitPlacement.new(
+				head.get_coordinates(),
+				_model.get_snake_properties().get_current_direction(),
+				head.get_following_part_direction(),
+				true
+			)
+		)
+	]
+	var i: int = 1
+	while(i < _model.get_snake_properties().get_current_length()):
+		var part: SnakeBodyPart = _field.get_snake_body_parts()[i]
+		snake_units.push_back(
+			SnakeUnitView.new(
+				_visual_parameters,
+				SnakeUnitPlacement.new(
+					part.get_coordinates(),
+					part.get_preceding_part_direction(),
+					part.get_following_part_direction(),
+					false
+				)
+			)
+		)
+		i += 1
+	_view.print_snake(snake_units)
+
 func tick(delta_seconds: float) -> void:
 	_elapsed_seconds += delta_seconds
 	_handle_equipped_effects_tick(delta_seconds)
+	# if movement _print_snake()
 	_update_hud()
 
 func start_new_game() -> void:
 	_elapsed_seconds = 0.0
 	_model = _create_new_game_model()
+	_field = _model.get_field()
 	_update_hud()
+	_print_snake()
 
 func _handle_equipped_effects_tick(delta_seconds) -> void:
 	var container: EquippedEffectsContainer = _model.get_equipped_effects_container()

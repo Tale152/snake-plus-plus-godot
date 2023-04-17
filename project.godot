@@ -319,6 +319,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/view/visual_parameters/snake/SnakeTailSprite.gd"
 }, {
+"base": "Reference",
+"class": "SnakeUnitPlacement",
+"language": "GDScript",
+"path": "res://src/game/view/snake/SnakeUnitPlacement.gd"
+}, {
+"base": "Area2D",
+"class": "SnakeUnitView",
+"language": "GDScript",
+"path": "res://src/game/view/snake/SnakeUnitView.gd"
+}, {
 "base": "CollisionStrategy",
 "class": "StarStrategy",
 "language": "GDScript",
@@ -432,6 +442,8 @@ _global_script_class_icons={
 "SnakeHeadSprite": "",
 "SnakeProperties": "",
 "SnakeTailSprite": "",
+"SnakeUnitPlacement": "",
+"SnakeUnitView": "",
 "StarStrategy": "",
 "ValidatorV1": "",
 "VisualParameters": "",

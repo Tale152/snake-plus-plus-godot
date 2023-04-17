@@ -30,6 +30,9 @@ func add_wall(wall: WallView) -> void:
 	_FieldControl.add_child(wall)
 	wall.play_sprite_animation()
 
+func print_snake(snake_units: Array) -> void:
+	pass #TODO
+
 func show_pause_menu() -> void:
 	_PauseMenu.visible = true
 
