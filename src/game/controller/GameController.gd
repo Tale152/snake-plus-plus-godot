@@ -1,6 +1,7 @@
 class_name GameController extends Reference
 
 var _raw_material: ModelRawMaterial
+var _exit_game_strategy: FuncRef
 
 var _model: GameModel
 var _snake_properties: SnakeProperties
@@ -9,17 +10,21 @@ var _view
 var _body_part_factory: SnakeBodyPartFactory
 var _wall_factory: WallFactory
 var _perks_rules: Array
+var _is_not_pause: bool
 var _elapsed_seconds: float
 var _movement_elapsed_seconds: float
 var _snake_delta_seconds_calculator: SnakeDeltaSecondsCalculator
+var _game_direction_input_handler: GameDirectionInputHandler
 var _difficulty_settings: DifficultySettings
 var _visual_parameters: VisualParameters
 
 func _init(
 	parsed_stage: ParsedStage,
 	difficulty_settings: DifficultySettings,
-	visual_parameters: VisualParameters
+	visual_parameters: VisualParameters,
+	exit_game_strategy: FuncRef
 ):
+	_exit_game_strategy = exit_game_strategy
 	_difficulty_settings = difficulty_settings
 	_visual_parameters = visual_parameters
 	_raw_material = ModelRawMaterial.new(
@@ -33,11 +38,21 @@ func _init(
 		_difficulty_settings.get_base_delta_seconds(),
 		_difficulty_settings.get_speedup_factor()
 	)
+	_game_direction_input_handler = GameDirectionInputHandler.new()
 
 func set_view(view) -> void:
 	_view = view
+	InputBinder.bind(self, view, _exit_game_strategy)
 	_print_background()
 	_print_walls()
+
+func direction_input(input: int) -> void:
+	_game_direction_input_handler.submit_input(
+		_snake_properties.get_current_direction(),
+		input,
+		_movement_elapsed_seconds,
+		_snake_delta_seconds_calculator.get_last_calculated_delta()
+	)
 
 func _print_background() -> void:
 	for coord in _raw_material.get_coordinates_instances():
@@ -87,19 +102,27 @@ func _create_snake_unit_view(
 		)
 
 func tick(delta_seconds: float) -> void:
-	_elapsed_seconds += delta_seconds
-	_handle_equipped_effects_tick(delta_seconds)
-	_handle_snake_movement(delta_seconds)
-	_update_hud()
+	if _is_not_pause:
+		_elapsed_seconds += delta_seconds
+		_handle_equipped_effects_tick(delta_seconds)
+		_handle_snake_movement(delta_seconds)
+		_update_hud()
 
 func start_new_game() -> void:
+	_is_not_pause = true
 	_elapsed_seconds = 0.0
 	_movement_elapsed_seconds = 0.0
+	_game_direction_input_handler.reset()
 	_model = _create_new_game_model()
 	_field = _model.get_field()
 	_snake_properties = _model.get_snake_properties()
+	_snake_delta_seconds_calculator.calculate_current_delta_seconds(
+		_snake_properties.get_current_length() - 1,
+		_snake_properties.get_speed_multiplier()
+	)
 	_update_hud()
 	_print_snake()
+	_view.show_controls()
 
 func _handle_equipped_effects_tick(delta_seconds) -> void:
 	var container: EquippedEffectsContainer = _model.get_equipped_effects_container()
@@ -115,11 +138,10 @@ func _handle_snake_movement(delta: float) -> void:
 		_snake_properties.get_speed_multiplier()
 	)
 	if _movement_elapsed_seconds >= current_snake_delta_seconds:
-		#var next_direction = _input_handler.get_next_direction()
-		#if next_direction != -1:
-			#_snake_properties.set_current_direction(next_direction)
 		_movement_elapsed_seconds -= current_snake_delta_seconds
-		
+		var next= _game_direction_input_handler.get_next_direction()
+		if next != -1:
+			_snake_properties.set_current_direction(next)
 		#_snake.move(current_snake_delta_seconds)
 		#_handle_snake_collision()
 		_print_snake()
@@ -148,3 +170,23 @@ func _update_hud() -> void:
 		_snake_properties.get_current_length(),
 		_elapsed_seconds
 	)
+
+func _up_direction_input() -> void: direction_input(Direction.UP())
+
+func _right_direction_input() -> void: direction_input(Direction.RIGHT())
+
+func _down_direction_input() -> void: direction_input(Direction.DOWN())
+
+func _left_direction_input() -> void: direction_input(Direction.LEFT())
+
+func _enter_pause() -> void:
+	_is_not_pause = false
+	_view.show_pause_menu()
+
+func _resume_game() -> void:
+	_is_not_pause = true
+	_view.show_controls()
+
+func _enter_restart() -> void:
+	_is_not_pause = false
+	_view.show_restart_menu()

@@ -26,6 +26,10 @@ func get_scale() -> float:
 
 func show_menu():
 	_is_on_menu = true
+	if _game_view != null:
+		remove_child(_game_view)
+		_game_view = null
+		_game_controller = null
 	_menu = Menu.instance()
 	_menu.set_main(self)
 	add_child(_menu)
@@ -48,7 +52,7 @@ func play(
 		parsed_stage
 	)
 	_game_controller = GameController.new(
-		parsed_stage, difficulty_settings, visual_parameters
+		parsed_stage, difficulty_settings, visual_parameters, funcref(self, "show_menu")
 	)
 	_game_view.set_controls(_arrows_controls)
 	_game_view.set_controller(_game_controller)

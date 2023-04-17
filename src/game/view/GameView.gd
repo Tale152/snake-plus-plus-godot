@@ -9,11 +9,23 @@ onready var _FieldControl: Control = $GuiAreaControl/RectangleRatioContainer/Con
 onready var _BottomControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl
 
 var _controller: GameController
+var _controls: Control
 var _background_cells: Array = []
 var _walls: Array = []
 var _snake_units: Array = []
 
-func set_controls(controls: Control): _BottomControl.add_child(controls)
+func set_controls(controls: Control):
+	_controls = controls
+	_BottomControl.add_child(_controls)
+
+func get_controls() -> Control:
+	return _controls
+
+func get_pause_menu() -> Control:
+	return _PauseMenu
+
+func get_restart_menu() -> Control:
+	return _RestartMenu
 
 func set_controller(controller: GameController):
 	_controller = controller
@@ -40,11 +52,16 @@ func print_snake(snake_units: Array, speed_scale: float) -> void:
 		_FieldControl.add_child(unit)
 		unit.play_sprite_animation(speed_scale)
 
-func show_pause_menu() -> void:
-	_PauseMenu.visible = true
+func show_controls() -> void: _alter_input_visibility(true, false, false)
 
-func show_restart_menu() -> void:
-	_RestartMenu.visible = true
+func show_pause_menu() -> void: _alter_input_visibility(false, true, false)
+
+func show_restart_menu() -> void: _alter_input_visibility(false, false, true)
+	
+func _alter_input_visibility(controls: bool, pause: bool, restart: bool) -> void:
+	_controls.visible = controls
+	_PauseMenu.visible = pause
+	_RestartMenu.visible = restart
 
 func update_hud(
 	score: int,
