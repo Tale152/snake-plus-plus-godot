@@ -40,6 +40,9 @@ func _init(
 	)
 	_game_direction_input_handler = GameDirectionInputHandler.new()
 
+func is_not_game_over() -> bool:
+	return _snake_properties.is_alive()
+
 func set_view(view) -> void:
 	_view = view
 	InputBinder.bind(self, view, _exit_game_strategy)

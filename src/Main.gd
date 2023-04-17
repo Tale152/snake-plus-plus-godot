@@ -8,7 +8,7 @@ var _menu
 var _game_controller: GameController
 var _game_view
 var _arrows_controls: ArrowsControls
-var _is_on_menu
+var _is_outside_menu
 
 func _init():
 	show_menu()
@@ -25,7 +25,7 @@ func get_scale() -> float:
 		return screen_size.y / project_height
 
 func show_menu():
-	_is_on_menu = true
+	_is_outside_menu = false
 	if _game_view != null:
 		remove_child(_game_view)
 		_game_view = null
@@ -39,7 +39,7 @@ func play(
 	difficulty_settings: DifficultySettings,
 	selected_skin: String
 ):
-	_is_on_menu = false
+	_is_outside_menu = true
 	_arrows_controls = ArrowsControls.instance()
 	_game_view = GameView.instance()
 	if _menu != null:
@@ -81,9 +81,9 @@ func get_visual_parameters(
 	return vpb.build()
 
 func _process(delta):
-	if !_is_on_menu:
+	if _is_outside_menu && _game_controller.is_not_game_over():
 		_game_controller.tick(delta)
 
 func _unhandled_input(event):
-	if Input.is_action_pressed("back_to_menu") && !_is_on_menu:
+	if Input.is_action_pressed("back_to_menu") && _is_outside_menu:
 		show_menu()
