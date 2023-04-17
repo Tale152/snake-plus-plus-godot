@@ -15,6 +15,7 @@ var _elapsed_seconds: float
 var _movement_elapsed_seconds: float
 var _snake_delta_seconds_calculator: SnakeDeltaSecondsCalculator
 var _game_direction_input_handler: GameDirectionInputHandler
+var _equipped_effects_container: EquippedEffectsContainer
 var _difficulty_settings: DifficultySettings
 var _visual_parameters: VisualParameters
 
@@ -124,16 +125,16 @@ func start_new_game() -> void:
 		_snake_properties.get_current_length() - 1,
 		_snake_properties.get_speed_multiplier()
 	)
+	_equipped_effects_container = _model.get_equipped_effects_container()
 	_update_hud()
 	_print_snake()
 	_view.show_controls()
 
 func _handle_equipped_effects_tick(delta_seconds) -> void:
-	var container: EquippedEffectsContainer = _model.get_equipped_effects_container()
-	for effect in container.get_equipped_effects():
+	for effect in _equipped_effects_container.get_equipped_effects():
 		effect.get_expire_timer().tick(delta_seconds)
 		if effect.get_expire_timer().has_expired():
-			container.revoke_effect(effect, _snake_properties)
+			_equipped_effects_container.revoke_effect(effect, _snake_properties)
 
 func _handle_snake_movement(delta: float) -> void:
 	_movement_elapsed_seconds += delta
