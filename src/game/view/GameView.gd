@@ -54,6 +54,12 @@ func add_perk(perk: PerkView) -> void:
 	_FieldControl.add_child(perk)
 	perk.play_sprite_animation()
 
+func remove_perk(coordinates: Coordinates) -> void:
+	for perk in _perks:
+		if perk.get_coordinates().equals_to(coordinates):
+			_perks.erase(perk)
+			_FieldControl.remove_child(perk)
+
 func print_snake(snake_units: Array, speed_scale: float) -> void:
 	for s in _snake_units:
 		_FieldControl.remove_child(s)

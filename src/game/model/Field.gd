@@ -59,7 +59,7 @@ func add_perk(perk: Perk) -> void:
 	_push_back_collidable_in_cells(perk)
 
 func remove_perk(perk: Perk) -> void:
-	_perks[perk.get_type()].erase(perk)
+	_perks[perk.get_perk_type()].erase(perk)
 	var coord = perk.get_coordinates()
 	_cells[coord.get_x()][coord.get_y()][1].erase(perk)
 

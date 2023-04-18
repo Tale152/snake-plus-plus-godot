@@ -113,6 +113,7 @@ func _create_snake_unit_view(
 func tick(delta_seconds: float) -> void:
 	if _is_not_pause:
 		_elapsed_seconds += delta_seconds
+		_handle_perks_expire_tick(delta_seconds)
 		_handle_equipped_effects_tick(delta_seconds)
 		_handle_snake_movement(delta_seconds)
 		_update_hud()
@@ -142,6 +143,15 @@ func _handle_equipped_effects_tick(delta_seconds: float) -> void:
 		if effect.get_expire_timer().has_expired():
 			_equipped_effects_container.revoke_effect(effect, _snake_properties)
 
+func _handle_perks_expire_tick(delta_seconds: float) -> void:
+	var perks: Dictionary = _field.get_perks()
+	for type in perks.keys():
+		for perk in perks[type]:
+			perk.get_expire_timer().tick(delta_seconds)
+			if perk.get_expire_timer().has_expired():
+				_field.remove_perk(perk)
+				_view.remove_perk(perk.get_coordinates())
+	
 func _handle_perks_spawn_tick(delta_seconds: float) -> void:
 	_spawn_attempt_elapsed_seconds += delta_seconds
 	if _spawn_attempt_elapsed_seconds >= _EDIBLES_SPAWN_ATTEMPT_FREQUENCY:
