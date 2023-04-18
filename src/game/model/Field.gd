@@ -55,7 +55,7 @@ func get_empty_coordinates() -> Array:
 	return res
 
 func add_perk(perk: Perk) -> void:
-	_perks[perk.get_type()].push_back(perk)
+	_perks[perk.get_perk_type()].push_back(perk)
 	_push_back_collidable_in_cells(perk)
 
 func remove_perk(perk: Perk) -> void:

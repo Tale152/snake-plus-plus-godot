@@ -1,7 +1,10 @@
 class_name GameController extends Reference
 
+const _EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
+
 var _raw_material: ModelRawMaterial
 var _exit_game_strategy: FuncRef
+var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var _model: GameModel
 var _snake_properties: SnakeProperties
@@ -13,6 +16,7 @@ var _perks_rules: Array
 var _is_not_pause: bool
 var _elapsed_seconds: float
 var _movement_elapsed_seconds: float
+var _spawn_attempt_elapsed_seconds: float
 var _snake_delta_seconds_calculator: SnakeDeltaSecondsCalculator
 var _game_direction_input_handler: GameDirectionInputHandler
 var _equipped_effects_container: EquippedEffectsContainer
@@ -112,8 +116,10 @@ func tick(delta_seconds: float) -> void:
 		_handle_equipped_effects_tick(delta_seconds)
 		_handle_snake_movement(delta_seconds)
 		_update_hud()
+		_handle_perks_spawn_tick(delta_seconds)
 
 func start_new_game() -> void:
+	_rng.randomize()
 	_is_not_pause = true
 	_elapsed_seconds = 0.0
 	_movement_elapsed_seconds = 0.0
@@ -130,11 +136,44 @@ func start_new_game() -> void:
 	_print_snake()
 	_view.show_controls()
 
-func _handle_equipped_effects_tick(delta_seconds) -> void:
+func _handle_equipped_effects_tick(delta_seconds: float) -> void:
 	for effect in _equipped_effects_container.get_equipped_effects():
 		effect.get_expire_timer().tick(delta_seconds)
 		if effect.get_expire_timer().has_expired():
 			_equipped_effects_container.revoke_effect(effect, _snake_properties)
+
+func _handle_perks_spawn_tick(delta_seconds: float) -> void:
+	_spawn_attempt_elapsed_seconds += delta_seconds
+	if _spawn_attempt_elapsed_seconds >= _EDIBLES_SPAWN_ATTEMPT_FREQUENCY:
+		_spawn_attempt_elapsed_seconds -= _EDIBLES_SPAWN_ATTEMPT_FREQUENCY
+		var empty_coordinates: Array = _field.get_empty_coordinates()
+		for r in _perks_rules:
+			if r.can_spawn(_field.count_perks_by_type(r.get_type()), _rng):
+				var coord: Coordinates = _get_spawn_coordinates(
+					empty_coordinates, r.get_spawn_locations()
+				)
+				if coord != null:
+					empty_coordinates.erase(coord)
+					_field.add_perk(Perk.new(
+						r.get_type(),
+						coord,
+						r.get_collision_strategy(),
+						r.get_lifespan()
+					))
+
+func _get_spawn_coordinates(
+	empty_coordinates: Array, rule_spawn_coordinates: Array
+) -> Coordinates:
+	var choosable: Array
+	if rule_spawn_coordinates.size() == 0:
+		choosable = empty_coordinates
+	else:
+		choosable = []
+		for r in rule_spawn_coordinates:
+			if empty_coordinates.has(r): choosable.push_back(r)
+	if choosable.size() > 0:
+		return choosable[_rng.randi_range(0, choosable.size() - 1)]
+	return null
 
 func _handle_snake_movement(delta: float) -> void:
 	_movement_elapsed_seconds += delta
