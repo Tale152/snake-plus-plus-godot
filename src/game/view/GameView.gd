@@ -13,6 +13,7 @@ var _controls: Control
 var _background_cells: Array = []
 var _walls: Array = []
 var _snake_units: Array = []
+var _perks: Array = []
 
 func set_controls(controls: Control):
 	_controls = controls
@@ -47,6 +48,11 @@ func add_wall(wall: WallView) -> void:
 	_walls.push_back(wall)
 	_FieldControl.add_child(wall)
 	wall.play_sprite_animation()
+
+func add_perk(perk: PerkView) -> void:
+	_perks.push_back(perk)
+	_FieldControl.add_child(perk)
+	perk.play_sprite_animation()
 
 func print_snake(snake_units: Array, speed_scale: float) -> void:
 	for s in _snake_units:

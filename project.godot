@@ -279,6 +279,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/controller/PerkType.gd"
 }, {
+"base": "Area2D",
+"class": "PerkView",
+"language": "GDScript",
+"path": "res://src/game/view/PerkView.gd"
+}, {
 "base": "Reference",
 "class": "PositionCalculator",
 "language": "GDScript",
@@ -449,6 +454,7 @@ _global_script_class_icons={
 "PerkSprite": "",
 "PerkStrategiesFactory": "",
 "PerkType": "",
+"PerkView": "",
 "PositionCalculator": "",
 "RestartMenu": "",
 "SnailStrategy": "",

@@ -160,6 +160,11 @@ func _handle_perks_spawn_tick(delta_seconds: float) -> void:
 						r.get_collision_strategy(),
 						r.get_lifespan()
 					))
+					_view.add_perk(PerkView.new(
+						r.get_type_string(),
+						coord,
+						_visual_parameters
+					))
 
 func _get_spawn_coordinates(
 	empty_coordinates: Array, rule_spawn_coordinates: Array
@@ -170,7 +175,13 @@ func _get_spawn_coordinates(
 	else:
 		choosable = []
 		for r in rule_spawn_coordinates:
-			if empty_coordinates.has(r): choosable.push_back(r)
+			var search = true
+			var i = 0
+			while(search && i < empty_coordinates.size()):
+				if empty_coordinates[i].equals_to(r):
+					choosable.push_back(r)
+					search = false
+				i += 1
 	if choosable.size() > 0:
 		return choosable[_rng.randi_range(0, choosable.size() - 1)]
 	return null

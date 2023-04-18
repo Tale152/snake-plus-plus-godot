@@ -1,6 +1,7 @@
 class_name PerkRules extends Reference
 
 var _type: int
+var _type_string: String
 var _spawn_locations: Array
 var _spawn_probability: float
 var _lifespan: float
@@ -17,6 +18,7 @@ func _init(
 	collision_strategy: CollisionStrategy
 ):
 	_type = type
+	_type_string = PerkType.get_perk_type_string(type)
 	_spawn_locations = spawn_locations
 	_spawn_probability = spawn_probability
 	_lifespan = lifespan
@@ -29,6 +31,9 @@ func _init(
 
 func get_type() -> int:
 	return _type
+
+func get_type_string() -> String:
+	return _type_string
 
 func get_spawn_locations() -> Array:
 	return _spawn_locations
