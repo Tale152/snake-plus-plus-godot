@@ -80,6 +80,9 @@ func get_snake_body_parts() -> Array:
 	# since reference is returned, having a set_snake_body_parts is useless because every change is reflected also in _snake_body_parts
 	return _snake_body_parts
 
+func set_snake_body_parts(body_parts: Array) -> void:
+	_snake_body_parts = body_parts
+
 func _push_back_collidable_in_cells(collidable: CollidableEntity) -> void:
 	var coord = collidable.get_coordinates()
 	_cells[coord.get_x()][coord.get_y()][1].push_back(collidable)
