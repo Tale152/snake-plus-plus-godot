@@ -45,14 +45,52 @@ func get_at(coord: Coordinates) -> Array:
 func is_coordinate_empty(coord: Coordinates) -> bool:
 	return _cells[coord.get_x()][coord.get_y()][1].size() == 0
 
-func get_empty_coordinates() -> Array:
+func get_empty_coordinates(current_direction: int) -> Array:
+	var sides: Array = Direction.get_sides(current_direction);
+	var head: Coordinates = _snake_body_parts[0].get_coordinates()
+	var current_direction_coord: Coordinates = _get_coord_from_head(
+		head, current_direction
+	)
+	var side1: Coordinates = _get_coord_from_head(head, sides[0])
+	var side2: Coordinates = _get_coord_from_head(head, sides[1])
 	var res: Array = []
 	for x in _width_range:
 		var height_array: Array = _cells[x]
-		for y in _height_range:
-			var cell: Array = height_array[y]
-			if cell[1].size() == 0: res.push_back(cell[0])
+		if x == current_direction_coord.get_x() || x == side1.get_x() || x == side2.get_x():
+			for y in _height_range:
+				var cell: Array = height_array[y]
+				var coord: Coordinates = cell[0]
+				if (
+					cell[1].size() == 0 && 
+					!(
+						current_direction_coord.equals_to(coord) ||
+						side1.equals_to(coord) ||
+						side2.equals_to(coord)
+					)
+				): res.push_back(coord)
+		else:
+			for y in _height_range:
+				var cell: Array = height_array[y]
+				if cell[1].size() == 0: res.push_back(cell[0])
 	return res
+
+func _get_coord_from_head(head: Coordinates, direction: int) -> Coordinates:
+	if direction == Direction.UP():
+		var y = head.get_y() - 1
+		if y < 0: y = _height - 1
+		return _cells[head.get_x()][y][0]
+	elif direction == Direction.RIGHT():
+		var x = head.get_x() + 1
+		if x == _width: x = 0
+		return _cells[x][head.get_y()][0]
+	elif direction == Direction.DOWN():
+		var y = head.get_y() + 1
+		if y == _height: y = 0
+		return _cells[head.get_x()][y][0]
+	else:
+		var x = head.get_x() - 1
+		if x < 0: x = _width - 1
+		return _cells[x][head.get_y()][0]
 
 func add_perk(perk: Perk) -> void:
 	_perks[perk.get_perk_type()].push_back(perk)

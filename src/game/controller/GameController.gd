@@ -156,7 +156,9 @@ func _handle_perks_spawn_tick(delta_seconds: float) -> void:
 	_spawn_attempt_elapsed_seconds += delta_seconds
 	if _spawn_attempt_elapsed_seconds >= _EDIBLES_SPAWN_ATTEMPT_FREQUENCY:
 		_spawn_attempt_elapsed_seconds -= _EDIBLES_SPAWN_ATTEMPT_FREQUENCY
-		var empty_coordinates: Array = _field.get_empty_coordinates()
+		var empty_coordinates: Array = _field.get_empty_coordinates(
+			_snake_properties.get_current_direction()
+		)
 		for r in _perks_rules:
 			if r.can_spawn(_field.count_perks_by_type(r.get_type()), _rng):
 				var coord: Coordinates = _get_spawn_coordinates(
