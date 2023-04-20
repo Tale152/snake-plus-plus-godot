@@ -22,7 +22,15 @@ func _calculate_and_add_sprite(
 			placement.get_next_direction(),
 			placement.get_previous_direction() == -1 # is also tail?
 		)
-	# TODO rest of body
+	elif(placement.get_previous_direction() != -1):
+		_sprite = visual_parameters.get_body_sprite(
+			placement.get_next_direction(),
+			placement.get_previous_direction()
+		)
+	else:
+		_sprite = visual_parameters.get_tail_sprite(
+			placement.get_next_direction()
+		)
 	self.add_child(_sprite)
 
 func play_sprite_animation(speed_scale: float) -> void:

@@ -16,6 +16,14 @@ static func LEFT() -> int: return DirectionEnum.LEFT
 static func get_directions() -> Array:
 	return [DirectionEnum.UP, DirectionEnum.RIGHT, DirectionEnum.DOWN, DirectionEnum.LEFT]
 
+static func get_opposite(dir: int) -> int:
+	match dir:
+		DirectionEnum.UP: return DirectionEnum.DOWN
+		DirectionEnum.RIGHT: return DirectionEnum.LEFT
+		DirectionEnum.DOWN: return DirectionEnum.UP
+		DirectionEnum.LEFT: return DirectionEnum.RIGHT
+	return -1
+
 static func are_opposite(dir1: int, dir2: int) -> bool:
 	match dir1:
 		DirectionEnum.UP: return dir2 == DirectionEnum.DOWN

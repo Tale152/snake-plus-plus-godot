@@ -13,5 +13,5 @@ func execute(
 	effect_container: EquippedEffectsContainer
 ) -> CollisionResult:
 	if !snake_properties.is_invincible():
-		effect_container.set_is_alive(false) 
+		snake_properties.set_is_alive(false) 
 	return self._false_collision_result

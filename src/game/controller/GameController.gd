@@ -212,9 +212,59 @@ func _handle_snake_movement(delta: float) -> void:
 		var next= _game_direction_input_handler.get_next_direction()
 		if next != -1:
 			_snake_properties.set_current_direction(next)
-		#_snake.move(current_snake_delta_seconds)
-		#_handle_snake_collision()
+		var current_direction: int = _snake_properties.get_current_direction()
+		var next_coord: Coordinates = _field.get_coord_from_head(
+			current_direction
+		)
+		var parts = _field.get_snake_body_parts()
+		var current_length: int = _snake_properties.get_current_length()
+		
+		if current_length == _snake_properties.get_potential_length():
+			if current_length == 1:
+				parts[0] = _body_part_factory.create_new(next_coord, -1, -1)
+			else:
+				parts.pop_back()
+				parts.push_front(_body_part_factory.create_new(
+					next_coord, -1, Direction.get_opposite(current_direction)
+				))
+				parts[1].set_preceding_part_direction(current_direction)
+				parts[current_length - 1].set_following_part_direction(-1)
+		elif current_length < _snake_properties.get_potential_length():
+			parts.push_front(_body_part_factory.create_new(
+				next_coord, -1, Direction.get_opposite(current_direction)
+			))
+			parts[1].set_preceding_part_direction(current_direction)
+			if current_length == 1: parts[1].set_following_part_direction(-1)
+			_snake_properties.set_current_length(current_length + 1)
+		else:
+			while(parts.size() > _snake_properties.get_potential_length()):
+				parts.pop_back()
+			var new_length = parts.size()
+			_snake_properties.set_current_length(new_length)
+			if new_length == 1:
+				parts[0] = _body_part_factory.create_new(next_coord, -1, -1)
+			else:
+				parts.pop_back()
+				parts.push_front(_body_part_factory.create_new(
+					next_coord, -1, Direction.get_opposite(current_direction)
+				))
+				parts[1].set_preceding_part_direction(current_direction)
+				parts[new_length - 1].set_following_part_direction(-1)
+		_field.set_snake_body_parts(parts)
+		_handle_snake_head_collision(parts[0], _field.get_at(next_coord))
 		_print_snake()
+
+func _handle_snake_head_collision(
+	head: SnakeBodyPart, next_coord_content: Array
+) -> void:
+	for collidable in next_coord_content:
+		if collidable != head:
+			var collision_result: CollisionResult = collidable.execute(
+				_snake_properties, _equipped_effects_container
+			)
+			if collision_result.has_to_be_removed():
+				_field.remove_perk(collidable)
+				_view.remove_perk(collidable.get_coordinates())
 
 func _create_new_game_model() -> GameModel:
 	var head: SnakeBodyPart = _body_part_factory.create_new(
@@ -223,7 +273,7 @@ func _create_new_game_model() -> GameModel:
 	var walls: Array = []
 	for w in _raw_material.get_walls_coordinates():
 		walls.push_back(_raw_material.get_wall_factory().create_new(
-			_raw_material.get_coordinates_instances()[w.get_x() + w.get_y()]
+			_raw_material.get_coordinates_instances()[(w.get_x() * _raw_material.get_field_height()) + w.get_y()]
 		))
 	return GameModel.new(
 		_raw_material.get_field_width(),

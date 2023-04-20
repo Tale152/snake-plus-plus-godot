@@ -38,8 +38,6 @@ func get_height() -> int:
 	return _height
 
 func get_at(coord: Coordinates) -> Array:
-	# called often (every snake movement), but typically 0 or 1 element (unless multiple snake body parts in it): can afford to use _copy_array
-	# having a copy is also useful for the collision algorythm
 	return _copy_array(_cells[coord.get_x()][coord.get_y()][1])
 
 func is_coordinate_empty(coord: Coordinates) -> bool:
@@ -47,12 +45,11 @@ func is_coordinate_empty(coord: Coordinates) -> bool:
 
 func get_empty_coordinates(current_direction: int) -> Array:
 	var sides: Array = Direction.get_sides(current_direction);
-	var head: Coordinates = _snake_body_parts[0].get_coordinates()
-	var current_direction_coord: Coordinates = _get_coord_from_head(
-		head, current_direction
+	var current_direction_coord: Coordinates = get_coord_from_head(
+		current_direction
 	)
-	var side1: Coordinates = _get_coord_from_head(head, sides[0])
-	var side2: Coordinates = _get_coord_from_head(head, sides[1])
+	var side1: Coordinates = get_coord_from_head(sides[0])
+	var side2: Coordinates = get_coord_from_head(sides[1])
 	var res: Array = []
 	for x in _width_range:
 		var height_array: Array = _cells[x]
@@ -74,7 +71,8 @@ func get_empty_coordinates(current_direction: int) -> Array:
 				if cell[1].size() == 0: res.push_back(cell[0])
 	return res
 
-func _get_coord_from_head(head: Coordinates, direction: int) -> Coordinates:
+func get_coord_from_head(direction: int) -> Coordinates:
+	var head: Coordinates = _snake_body_parts[0].get_coordinates()
 	if direction == Direction.UP():
 		var y = head.get_y() - 1
 		if y < 0: y = _height - 1
@@ -98,7 +96,7 @@ func add_perk(perk: Perk) -> void:
 
 func remove_perk(perk: Perk) -> void:
 	_perks[perk.get_perk_type()].erase(perk)
-	var coord = perk.get_coordinates()
+	var coord: Coordinates = perk.get_coordinates()
 	_cells[coord.get_x()][coord.get_y()][1].erase(perk)
 
 func get_perks() -> Dictionary:
@@ -114,12 +112,17 @@ func get_walls() -> Array:
 	return _copy_array(_walls)
 
 func get_snake_body_parts() -> Array:
-	# called often (every snake movement) with a decent amount of element in it: cannot afford time to use _copy_array
-	# since reference is returned, having a set_snake_body_parts is useless because every change is reflected also in _snake_body_parts
-	return _snake_body_parts
+	return _copy_array(_snake_body_parts)
 
 func set_snake_body_parts(body_parts: Array) -> void:
+	for bp in _snake_body_parts:
+		var coord: Coordinates = bp.get_coordinates()
+		_cells[coord.get_x()][coord.get_y()][1].erase(bp)
 	_snake_body_parts = body_parts
+	var i = _snake_body_parts.size() - 1
+	while(i > -1):
+		_push_back_collidable_in_cells(_snake_body_parts[i])
+		i -= 1
 
 func _push_back_collidable_in_cells(collidable: CollidableEntity) -> void:
 	var coord = collidable.get_coordinates()
