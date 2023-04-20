@@ -60,10 +60,11 @@ func remove_perk(coordinates: Coordinates) -> void:
 			_perks.erase(perk)
 			_FieldControl.remove_child(perk)
 
-func print_snake(snake_units: Array, speed_scale: float) -> void:
+func print_snake(snake_units: Array, movement_delta: float) -> void:
 	for s in _snake_units:
 		_FieldControl.remove_child(s)
 	_snake_units = snake_units
+	var speed_scale: float = 1 / movement_delta
 	for i in range(snake_units.size() - 1, -1, -1):
 		var unit: SnakeUnitView = snake_units[i]
 		_FieldControl.add_child(unit)

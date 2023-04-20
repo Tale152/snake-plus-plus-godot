@@ -93,7 +93,10 @@ func _print_snake() -> void:
 		snake_units.push_back(_create_snake_unit_view(
 			part, part.get_preceding_part_direction(), false
 		))
-	_view.print_snake(snake_units, 1) # TODO hardcoded speed_scale
+	_view.print_snake(
+		snake_units,
+		_snake_delta_seconds_calculator.get_last_calculated_delta()
+	)
 
 func _create_snake_unit_view(
 	snake_body_part: SnakeBodyPart,
