@@ -129,12 +129,13 @@ func tick(delta_seconds: float) -> void:
 		_handle_perks_spawn_tick(delta_seconds)
 
 func start_new_game() -> void:
+	_view.reset_perks()
+	_view.play_game_loop_music()
 	_rng.randomize()
 	_is_not_pause = true
 	_elapsed_seconds = 0.0
 	_movement_elapsed_seconds = 0.0
 	_game_direction_input_handler.reset()
-	_view.reset_perks()
 	_model = _create_new_game_model()
 	_field = _model.get_field()
 	_snake_properties = _model.get_snake_properties()
@@ -281,7 +282,10 @@ func _handle_snake_head_collision(
 				_field.remove_perk(collidable)
 				_view.remove_perk(collidable.get_coordinates())
 				_view.play_eat_sound()
-			if !_snake_properties.is_alive(): _view.show_game_over_menu()
+			if !_snake_properties.is_alive():
+				_view.show_game_over_menu()
+				_view.stop_game_loop_music()
+				_view.play_game_over_sound()
 
 func _create_new_game_model() -> GameModel:
 	var head: SnakeBodyPart = _body_part_factory.create_new(

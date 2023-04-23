@@ -8,6 +8,8 @@ onready var _Effects: Control = $GuiAreaControl/RectangleRatioContainer/Control/
 onready var _FieldControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/FieldControl
 onready var _BottomControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl
 onready var _PerkEat: AudioStreamPlayer = $PerkEatAudioStreamPlayer
+onready var _GameLoop: AudioStreamPlayer = $GameLoopAudioStreamPlayer
+onready var _GameOver: AudioStreamPlayer = $GameOverAudioStreamPlayer
 
 var _controller: GameController
 var _controls: Control
@@ -113,3 +115,12 @@ func update_hud(
 
 func play_eat_sound() -> void:
 	_PerkEat.play()
+
+func play_game_loop_music() -> void:
+	_GameLoop.play()
+
+func stop_game_loop_music() -> void:
+	_GameLoop.stop()
+
+func play_game_over_sound() -> void:
+	_GameOver.play()
