@@ -66,6 +66,11 @@ func remove_perk(coordinates: Coordinates) -> void:
 			_perks.erase(perk)
 			_FieldControl.remove_child(perk)
 
+func reset_perks() -> void:
+	for perk in _perks:
+		_FieldControl.remove_child(perk)
+	_perks = []
+
 func print_snake(snake_units: Array, movement_delta: float) -> void:
 	for s in _snake_units:
 		_FieldControl.remove_child(s)

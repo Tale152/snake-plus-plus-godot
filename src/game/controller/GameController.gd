@@ -134,6 +134,7 @@ func start_new_game() -> void:
 	_elapsed_seconds = 0.0
 	_movement_elapsed_seconds = 0.0
 	_game_direction_input_handler.reset()
+	_view.reset_perks()
 	_model = _create_new_game_model()
 	_field = _model.get_field()
 	_snake_properties = _model.get_snake_properties()
