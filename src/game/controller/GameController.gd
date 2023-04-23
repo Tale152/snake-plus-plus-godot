@@ -265,6 +265,7 @@ func _handle_snake_head_collision(
 			if collision_result.has_to_be_removed():
 				_field.remove_perk(collidable)
 				_view.remove_perk(collidable.get_coordinates())
+			if !_snake_properties.is_alive(): _view.show_game_over_menu()
 
 func _create_new_game_model() -> GameModel:
 	var head: SnakeBodyPart = _body_part_factory.create_new(

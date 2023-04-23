@@ -33,6 +33,9 @@ func get_pause_menu() -> Control:
 func get_restart_menu() -> Control:
 	return _RestartMenu
 
+func get_game_over_menu() -> Control:
+	return _GameOverMenu
+
 func set_controller(controller: GameController):
 	_controller = controller
 
@@ -70,16 +73,25 @@ func print_snake(snake_units: Array, movement_delta: float) -> void:
 		_FieldControl.add_child(unit)
 		unit.play_sprite_animation(speed_scale)
 
-func show_controls() -> void: _alter_input_visibility(true, false, false)
+func show_controls() -> void: _alter_input_visibility(true, false, false, false)
 
-func show_pause_menu() -> void: _alter_input_visibility(false, true, false)
+func show_pause_menu() -> void: _alter_input_visibility(false, true, false, false)
 
-func show_restart_menu() -> void: _alter_input_visibility(false, false, true)
+func show_restart_menu() -> void: _alter_input_visibility(false, false, true, false)
+
+func show_game_over_menu() -> void: _alter_input_visibility(false, false, false, true)
 	
-func _alter_input_visibility(controls: bool, pause: bool, restart: bool) -> void:
+func _alter_input_visibility(
+	controls: bool,
+	pause: bool,
+	restart: bool,
+	game_over: bool
+) -> void:
 	_controls.visible = controls
 	_PauseMenu.visible = pause
 	_RestartMenu.visible = restart
+	if(game_over): _GameOverMenu.show()
+	else: _GameOverMenu.visible = false
 
 func update_hud(
 	score: int,

@@ -21,3 +21,6 @@ static func bind(
 	var restart = view.get_restart_menu()
 	restart.set_on_yes_button_pressed_strategy(start_new_game_strategy)
 	restart.set_on_no_button_pressed_strategy(resume_game_strategy)
+	var game_over = view.get_game_over_menu()
+	game_over.set_on_play_again_button_pressed_strategy(start_new_game_strategy)
+	game_over.set_on_back_to_menu_button_pressed_strategy(exit_game_strategy)
