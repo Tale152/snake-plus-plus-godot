@@ -47,8 +47,8 @@ func _lifespan_strategy_not_expirable() -> float:
 	return -1.0
 
 func _lifespan_strategy_expirable() -> float:
-	var percentage: float = _elapsed_seconds / _lifespan_seconds
-	return 1.0 if percentage > 1.0 else percentage
+	var percentage: float = 1 - (_elapsed_seconds / _lifespan_seconds)
+	return 0.0 if percentage < 0.0 else percentage
 
-func get_lifespan_percentage() -> float:
+func get_remaining_lifespan_percentage() -> float:
 	return _lifespan_strategy.call_func()

@@ -19,10 +19,12 @@ func set_controls(controls: Control):
 	_controls = controls
 	_BottomControl.add_child(_controls)
 
-func scale(scale: float) -> void:
+func initialize(effects: Dictionary, scale: float) -> void:
 	_Hud.scale(scale)
 	_PauseMenu.scale_font(scale)
 	_RestartMenu.scale_font(scale)
+	_GameOverMenu.scale_font(scale)
+	_Effects.initialize(effects, scale)
 
 func get_controls() -> Control:
 	return _controls
@@ -72,6 +74,9 @@ func print_snake(snake_units: Array, movement_delta: float) -> void:
 		var unit: SnakeUnitView = snake_units[i]
 		_FieldControl.add_child(unit)
 		unit.play_sprite_animation(speed_scale)
+
+func print_effects(equipped_effects_timers: Array) -> void:
+	_Effects.render(equipped_effects_timers)
 
 func show_controls() -> void: _alter_input_visibility(true, false, false, false)
 

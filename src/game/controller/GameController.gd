@@ -50,7 +50,13 @@ func is_not_game_over() -> bool:
 
 func set_view(view, scale: float) -> void:
 	_view = view
-	_view.scale(scale)
+	var existing_effects: Array = EffectType.get_effects()
+	var stage_effects_sprite_dictionary: Dictionary = {}
+	for perk in _raw_material.get_perks_list():
+		if existing_effects.has(perk):
+			stage_effects_sprite_dictionary[perk] = _visual_parameters \
+				.get_perk_sprite(PerkType.get_perk_type_string(perk))
+	_view.initialize(stage_effects_sprite_dictionary, scale)
 	InputBinder.bind(self, view, _exit_game_strategy)
 	_print_background()
 	_print_walls()
@@ -141,10 +147,18 @@ func start_new_game() -> void:
 	_view.show_controls()
 
 func _handle_equipped_effects_tick(delta_seconds: float) -> void:
+	var effects_to_print: Array = []
 	for effect in _equipped_effects_container.get_equipped_effects():
-		effect.get_expire_timer().tick(delta_seconds)
-		if effect.get_expire_timer().has_expired():
+		var expire_timer: ExpireTimer = effect.get_expire_timer()
+		expire_timer.tick(delta_seconds)
+		if expire_timer.has_expired():
 			_equipped_effects_container.revoke_effect(effect, _snake_properties)
+		else:
+			effects_to_print.push_back(EquippedEffectTimer.new(
+				effect.get_effect_type(),
+				int(floor(expire_timer.get_remaining_lifespan_percentage() * 100))
+			))
+	_view.print_effects(effects_to_print)
 
 func _handle_perks_expire_tick(delta_seconds: float) -> void:
 	var perks: Dictionary = _field.get_perks()
