@@ -7,6 +7,7 @@ onready var _Hud: Control = $GuiAreaControl/RectangleRatioContainer/Control/HudC
 onready var _Effects: Control = $GuiAreaControl/RectangleRatioContainer/Control/EffectsControl/Effects
 onready var _FieldControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/FieldControl
 onready var _BottomControl: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl
+onready var _PerkEat: AudioStreamPlayer = $PerkEatAudioStreamPlayer
 
 var _controller: GameController
 var _controls: Control
@@ -104,3 +105,6 @@ func update_hud(
 	elapsed_seconds: float
 ) -> void:
 	_Hud.update_values(score, length, elapsed_seconds)
+
+func play_eat_sound() -> void:
+	_PerkEat.play()
