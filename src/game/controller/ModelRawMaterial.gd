@@ -28,7 +28,7 @@ func _init(parsed_stage: ParsedStage, effects_lifespan_seconds: float):
 			_coordinates_instances.push_back(Coordinates.new(x, y))
 
 	var spawn: Vector2 = parsed_stage.get_snake_spawn_point()
-	_snake_starting_coordinates = _coordinates_instances[spawn.x + spawn.y]
+	_snake_starting_coordinates = _coordinates_instances[(spawn.x * _field_width) + spawn.y]
 	_snake_initial_direction = parsed_stage.get_snake_initial_direction()
 
 	for wl in parsed_stage.get_walls_points():

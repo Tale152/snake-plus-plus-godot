@@ -184,7 +184,7 @@ func _handle_perks_spawn_tick(delta_seconds: float) -> void:
 					empty_coordinates, r.get_spawn_locations()
 				)
 				if coord != null:
-					empty_coordinates.erase(coord)
+					_remove_coordinate(empty_coordinates, coord)
 					_field.add_perk(Perk.new(
 						r.get_type(),
 						coord,
@@ -216,6 +216,14 @@ func _get_spawn_coordinates(
 	if choosable.size() > 0:
 		return choosable[_rng.randi_range(0, choosable.size() - 1)]
 	return null
+
+func _remove_coordinate(empty_coordinates: Array, coordinate: Coordinates) -> void:
+	var i: int = 0;
+	for c in empty_coordinates:
+		if c.equals_to(coordinate):
+			empty_coordinates.remove(i)
+			return
+		i += 1
 
 func _handle_snake_movement(delta: float) -> void:
 	_movement_elapsed_seconds += delta
