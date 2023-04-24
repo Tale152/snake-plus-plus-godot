@@ -33,6 +33,16 @@ func update_values(score: int, length: int, seconds: float) -> void:
 	$LengthLabel.text = str(length)
 	$TimeLabel.text = _get_time_text(seconds)
 
+func play_animations() -> void:
+	$ScoreAnimatedSprite.play()
+	$LengthAnimatedSprite.play()
+	$TimeAnimatedSprite.play()
+
+func stop_animations() -> void:
+	$ScoreAnimatedSprite.stop()
+	$LengthAnimatedSprite.stop()
+	$TimeAnimatedSprite.stop()
+
 func _get_time_text(seconds: float) -> String:
 	var s = floor(seconds)
 	var time_text = ""

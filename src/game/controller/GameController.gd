@@ -126,7 +126,7 @@ func tick(delta_seconds: float) -> void:
 		_handle_equipped_effects_tick(delta_seconds)
 		_handle_snake_movement(delta_seconds)
 		_update_hud()
-		_handle_perks_spawn_tick(delta_seconds)
+		if _snake_properties.is_alive(): _handle_perks_spawn_tick(delta_seconds)
 
 func start_new_game() -> void:
 	_view.reset_perks()
@@ -147,6 +147,7 @@ func start_new_game() -> void:
 	_update_hud()
 	_print_snake()
 	_view.show_controls()
+	_view.resume_animations(_snake_delta_seconds_calculator.get_last_calculated_delta())
 
 func _handle_equipped_effects_tick(delta_seconds: float) -> void:
 	var effects_to_print: Array = []
@@ -277,12 +278,17 @@ func _handle_snake_movement(delta: float) -> void:
 		_field.set_snake_body_parts(parts)
 		_handle_snake_head_collision(parts[0], _field.get_at(next_coord))
 		_print_snake()
+		if !_snake_properties.is_alive():
+			_view.show_game_over_menu()
+			_view.stop_game_loop_music()
+			_view.play_game_over_sound()
+			_view.stop_animations()
 
 func _handle_snake_head_collision(
 	head: SnakeBodyPart, next_coord_content: Array
 ) -> void:
 	for collidable in next_coord_content:
-		if collidable != head:
+		if collidable != head && _snake_properties.is_alive():
 			var collision_result: CollisionResult = collidable.execute(
 				_snake_properties, _equipped_effects_container
 			)
@@ -290,10 +296,6 @@ func _handle_snake_head_collision(
 				_field.remove_perk(collidable)
 				_view.remove_perk(collidable.get_coordinates())
 				_view.play_eat_sound()
-			if !_snake_properties.is_alive():
-				_view.show_game_over_menu()
-				_view.stop_game_loop_music()
-				_view.play_game_over_sound()
 
 func _create_new_game_model() -> GameModel:
 	var head: SnakeBodyPart = _body_part_factory.create_new(
@@ -331,11 +333,14 @@ func _left_direction_input() -> void: direction_input(Direction.LEFT())
 func _enter_pause() -> void:
 	_is_not_pause = false
 	_view.show_pause_menu()
+	_view.stop_animations()
 
 func _resume_game() -> void:
 	_is_not_pause = true
 	_view.show_controls()
+	_view.resume_animations(_snake_delta_seconds_calculator.get_last_calculated_delta())
 
 func _enter_restart() -> void:
 	_is_not_pause = false
 	_view.show_restart_menu()
+	_view.stop_animations()

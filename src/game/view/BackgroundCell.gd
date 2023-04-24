@@ -28,8 +28,7 @@ func _get_random_background_cell_sprite(
 func get_coordinates() -> Coordinates:
 	return _coordinates
 
-func play_sprite_animation(speed_scale: float) -> void:
-	_cell_sprite.speed_scale = speed_scale
+func play_sprite_animation() -> void:
 	_cell_sprite.play()
 
 func stop_sprite_animation() -> void:

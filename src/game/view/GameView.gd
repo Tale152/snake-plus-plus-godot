@@ -50,7 +50,7 @@ func get_field_px_size(scale: float) -> int:
 func add_background_cell(cell: BackgroundCell) -> void:
 	_background_cells.push_back(cell)
 	_FieldControl.add_child(cell)
-	cell.play_sprite_animation(0.3)
+	cell.play_sprite_animation()
 
 func add_wall(wall: WallView) -> void:
 	_walls.push_back(wall)
@@ -85,6 +85,21 @@ func print_snake(snake_units: Array, movement_delta: float) -> void:
 
 func print_effects(equipped_effects_timers: Array) -> void:
 	_Effects.render(equipped_effects_timers)
+
+func stop_animations() -> void:
+	_Hud.stop_animations()
+	for background_cell in _background_cells: background_cell.stop_sprite_animation()
+	for wall in _walls: wall.stop_sprite_animation()
+	for perk in _perks: perk.stop_sprite_animation()
+	for snake_unit in _snake_units: snake_unit.stop_sprite_animation()
+
+func resume_animations(movement_delta: float) -> void:
+	_Hud.play_animations()
+	var speed_scale: float = 1 / movement_delta
+	for snake_unit in _snake_units: snake_unit.play_sprite_animation(speed_scale)
+	for background_cell in _background_cells: background_cell.play_sprite_animation()
+	for wall in _walls: wall.play_sprite_animation()
+	for perk in _perks: perk.play_sprite_animation()
 
 func show_controls() -> void: _alter_input_visibility(true, false, false, false)
 
