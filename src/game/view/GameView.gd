@@ -28,6 +28,7 @@ func initialize(effects: Dictionary, scale: float) -> void:
 	_RestartMenu.scale_font(scale)
 	_GameOverMenu.scale_font(scale)
 	_Effects.initialize(effects, scale)
+	_controls.scale(scale)
 
 func get_controls() -> Control:
 	return _controls

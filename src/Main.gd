@@ -4,6 +4,7 @@ const Menu = preload("res://src/menu/Menu.tscn")
 const GameView = preload("res://src/game/view/GameView.tscn")
 const ArrowsControls = preload("res://src/game/view/controls/arrows_controls/ArrowsControls.tscn")
 const SplitControls = preload("res://src/game/view/controls/split_controls/SplitControls.tscn")
+const SwipeControls = preload("res://src/game/view/controls/swipe_controls/SwipeControls.tscn")
 
 const _ACTION_BACK_TO_MENU: String = "back_to_menu"
 const _ACTION_MOVE_RIGHT: String = "move_right"
@@ -62,6 +63,7 @@ func play(
 	)
 	if selected_controls == "Arrow": _game_view.set_controls(ArrowsControls.instance())
 	elif selected_controls == "Split": _game_view.set_controls(SplitControls.instance())
+	elif selected_controls == "Swipe": _game_view.set_controls(SwipeControls.instance())
 	_game_view.set_controller(_game_controller)
 	_game_controller.set_view(_game_view, get_scale())
 	_game_controller.start_new_game()

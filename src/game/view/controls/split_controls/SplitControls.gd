@@ -13,6 +13,9 @@ func _ready():
 	self.anchor_bottom = 1
 	self.anchor_left = 0
 
+func scale(scale: float) -> void:
+	pass
+
 func set_up_arrow_strategy(strategy: FuncRef) -> void:
 	_up_arrow_strategy = strategy
 
