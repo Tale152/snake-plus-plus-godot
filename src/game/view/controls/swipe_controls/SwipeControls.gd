@@ -12,7 +12,7 @@ var _swipe_negative_treshold: int
 var _swipe_relative_accumulator: Vector2 = Vector2(0, 0)
 
 func scale(scale: float) -> void:
-	_swipe_positive_treshhold = (ProjectSettings.get("display/window/size/width") / 8) * scale
+	_swipe_positive_treshhold = (ProjectSettings.get("display/window/size/width") / 8.5) * scale
 	_swipe_negative_treshold = _swipe_positive_treshhold * - 1
 
 func _ready():

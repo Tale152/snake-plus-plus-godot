@@ -1,6 +1,6 @@
 class_name GameOverMenu extends Control
 
-const _ENABLE_BUTTONS_DELAY_SECONDS: float = 1.2
+const _ENABLE_BUTTONS_DELAY_SECONDS: float = 2.7
 const _GAME_OVER_LABEL_DEFAULT_FONT_SIZE = 30
 const _BUTTONS_DEFAULT_FONT_SIZE = 20
 onready var _GameOverLabelFont = preload("res://src/game/view/popup_menus/game_over_menu/GameOverLabel.tres")
