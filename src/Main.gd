@@ -3,6 +3,7 @@ extends Node
 const Menu = preload("res://src/menu/Menu.tscn")
 const GameView = preload("res://src/game/view/GameView.tscn")
 const ArrowsControls = preload("res://src/game/view/controls/arrows_controls/ArrowsControls.tscn")
+const SplitControls = preload("res://src/game/view/controls/split_controls/SplitControls.tscn")
 
 const _ACTION_BACK_TO_MENU: String = "back_to_menu"
 const _ACTION_MOVE_RIGHT: String = "move_right"
@@ -13,7 +14,6 @@ const _ACTION_MOVE_DOWN: String = "move_down"
 var _menu
 var _game_controller: GameController
 var _game_view
-var _arrows_controls: ArrowsControls
 var _is_outside_menu
 
 func _init():
@@ -43,10 +43,10 @@ func show_menu():
 func play(
 	parsed_stage: ParsedStage,
 	difficulty_settings: DifficultySettings,
-	selected_skin: String
+	selected_skin: String,
+	selected_controls: String
 ):
 	_is_outside_menu = true
-	_arrows_controls = ArrowsControls.instance()
 	_game_view = GameView.instance()
 	if _menu != null:
 		remove_child(_menu)
@@ -60,7 +60,8 @@ func play(
 	_game_controller = GameController.new(
 		parsed_stage, difficulty_settings, visual_parameters, funcref(self, "show_menu")
 	)
-	_game_view.set_controls(_arrows_controls)
+	if selected_controls == "Arrow": _game_view.set_controls(ArrowsControls.instance())
+	elif selected_controls == "Split": _game_view.set_controls(SplitControls.instance())
 	_game_view.set_controller(_game_controller)
 	_game_controller.set_view(_game_view, get_scale())
 	_game_controller.start_new_game()

@@ -9,6 +9,8 @@ const SPEED_ARRAY: Array = ["very slow", "slow", "normal", "fast", "very fast"]
 const SPEED_DEFAULT_INDEX: int = 2
 const SKINS_ARRAY: Array = ["simple", "debug", "kawaii"]
 const SKINS_DEFAULT_INDEX: int = 0
+const CONTROLS_ARRAY: Array = ["Arrow", "Split"]
+const CONTROLS_DEFAULT_INDEX: int = 0
 const GAME_TITLE_DEFAULT_FONT_SIZE: int = 40
 const PLAY_BUTTON_DEFAULT_FONT_SIZE: int = 28
 
@@ -28,7 +30,10 @@ func _ready():
 		"Stage", _list_available_stages("res://assets/stages"), 0
 	)
 	$GuiAreaControl/RectangleAspectRatioContainer/RectangleControl/StageOptionChooser.scale_font(scale)
-
+	$GuiAreaControl/RectangleAspectRatioContainer/RectangleControl/ControlsOptionChooser.fill(
+		"Controls", CONTROLS_ARRAY, CONTROLS_DEFAULT_INDEX
+	)
+	$GuiAreaControl/RectangleAspectRatioContainer/RectangleControl/ControlsOptionChooser.scale_font(scale)
 func _get_int_font_size(default_value: int, scale: float) -> int:
 	return int(floor(default_value * scale))
 
@@ -61,7 +66,8 @@ func _on_PlayButton_pressed():
 	var parsed_stage: ParsedStage = JsonStageParser.parse(str(
 		"res://assets/stages/", stage_name, ".json"
 	))
-	_main.play(parsed_stage, difficulty_settings, selected_skin)
+	var selected_controls: String = $GuiAreaControl/RectangleAspectRatioContainer/RectangleControl/ControlsOptionChooser.get_selected_option()
+	_main.play(parsed_stage, difficulty_settings, selected_skin, selected_controls)
 
 func _list_available_stages(path: String) -> Array:
 	var files = _list_files_in_directory(path)
