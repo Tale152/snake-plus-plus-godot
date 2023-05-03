@@ -13,7 +13,8 @@ enum PerkTypeEnum {
 	CANDY,
 	SNAIL,
 	GHOST,
-	BEER
+	BEER,
+	WATERMELON
 }
 
 class_name PerkType
@@ -34,6 +35,7 @@ static func CANDY() -> int: return PerkTypeEnum.CANDY
 static func SNAIL() -> int: return PerkTypeEnum.SNAIL
 static func GHOST() -> int: return PerkTypeEnum.GHOST
 static func BEER() -> int: return PerkTypeEnum.BEER
+static func WATERMELON() -> int: return PerkTypeEnum.WATERMELON
 
 static func get_perk_type_string(type: int) -> String:
 	match type:
@@ -52,6 +54,7 @@ static func get_perk_type_string(type: int) -> String:
 		PerkTypeEnum.SNAIL: return "Snail"
 		PerkTypeEnum.GHOST: return "Ghost"
 		PerkTypeEnum.BEER: return "Beer"
+		PerkTypeEnum.WATERMELON: return "Watermelon"
 	return "ERROR"
 
 static func get_perk_type_int(type: String) -> int:
@@ -70,4 +73,5 @@ static func get_perk_type_int(type: String) -> int:
 	elif(type == "Snail"): return PerkTypeEnum.SNAIL
 	elif(type == "Ghost"): return PerkTypeEnum.GHOST
 	elif(type == "Beer"): return PerkTypeEnum.BEER
+	elif(type == "Watermelon"): return PerkTypeEnum.WATERMELON
 	return -1

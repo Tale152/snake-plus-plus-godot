@@ -418,6 +418,11 @@ _global_script_classes=[ {
 "class": "WallView",
 "language": "GDScript",
 "path": "res://src/game/view/WallView.gd"
+}, {
+"base": "CollisionStrategy",
+"class": "WatermelonStrategy",
+"language": "GDScript",
+"path": "res://src/game/model/collidables/perk/strategies/WatermelonStrategy.gd"
 } ]
 _global_script_class_icons={
 "AnimationUtils": "",
@@ -501,7 +506,8 @@ _global_script_class_icons={
 "WallCollisionStrategy": "",
 "WallFactory": "",
 "WallSprite": "",
-"WallView": ""
+"WallView": "",
+"WatermelonStrategy": ""
 }
 
 [application]

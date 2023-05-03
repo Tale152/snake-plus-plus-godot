@@ -7,6 +7,7 @@ var _potential_length: int = 1
 var _speed_multiplier: float = 1.0
 var _score: int = 0
 var _score_multiplier: float = 1.0
+var _growth_multiplier: float = 1.0
 var _invincible: bool = false
 var _intangible: bool = false
 var _inverted_controls: bool = false
@@ -43,6 +44,10 @@ func set_score(score: int) -> void: _score = score
 func get_score_multiplier() -> float: return _score_multiplier
 
 func set_score_multiplier(multiplier: float) -> void: _score_multiplier = multiplier
+
+func get_growth_multiplier() -> float: return _growth_multiplier
+
+func set_growth_multiplier(multiplier: float) -> void: _growth_multiplier = multiplier
 
 func is_invincible() -> bool: return _invincible
 

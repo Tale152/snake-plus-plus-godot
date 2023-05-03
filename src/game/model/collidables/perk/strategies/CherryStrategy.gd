@@ -18,7 +18,7 @@ func execute(
 		return self._false_collision_result
 	else:
 		snake_properties.set_potential_length(
-			snake_properties.get_potential_length() + 5
+			snake_properties.get_potential_length() + (5 * snake_properties.get_growth_multiplier())
 		)
 		snake_properties.set_score(
 			snake_properties.get_score() + (snake_properties.get_score_multiplier() * _CHERRY_SCORE)

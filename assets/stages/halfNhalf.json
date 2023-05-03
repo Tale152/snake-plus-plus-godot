@@ -109,13 +109,19 @@
         "type": "Beer",
         "max_instances": 2,
         "lifespan": 5,
-        "spawn_probability": 0.05
+        "spawn_probability": 0.08
       },
       {
         "type": "Chili",
         "max_instances": 2,
         "lifespan": 5,
         "spawn_probability": 0.05
+      },
+      {
+        "type": "Watermelon",
+        "max_instances": 2,
+        "lifespan": 10,
+        "spawn_probability": 0.1
       }
     ]
   }

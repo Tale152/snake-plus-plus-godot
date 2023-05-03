@@ -9,6 +9,7 @@ static func AVOCADO() -> int: return PerkType.AVOCADO()
 static func SNAIL() -> int: return PerkType.SNAIL()
 static func GHOST() -> int: return PerkType.GHOST()
 static func BEER() -> int: return PerkType.BEER()
+static func WATERMELON() -> int: return PerkType.WATERMELON()
 
 static func get_effects() -> Array:
 	return [
@@ -19,5 +20,6 @@ static func get_effects() -> Array:
 		PerkType.AVOCADO(),
 		PerkType.SNAIL(),
 		PerkType.GHOST(),
-		PerkType.BEER()
+		PerkType.BEER(),
+		PerkType.WATERMELON()
 	]

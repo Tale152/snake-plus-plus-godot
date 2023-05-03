@@ -66,5 +66,6 @@ static func _get_v1_perk_types() -> Array:
 		PerkType.get_perk_type_string(PerkType.LOSS_COIN()),
 		PerkType.get_perk_type_string(PerkType.SNAIL()),
 		PerkType.get_perk_type_string(PerkType.GHOST()),
-		PerkType.get_perk_type_string(PerkType.BEER())
+		PerkType.get_perk_type_string(PerkType.BEER()),
+		PerkType.get_perk_type_string(PerkType.WATERMELON())
 	]
