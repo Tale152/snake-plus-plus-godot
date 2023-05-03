@@ -66,7 +66,8 @@ func direction_input(input: int) -> void:
 		_snake_properties.get_current_direction(),
 		input,
 		_movement_elapsed_seconds,
-		_snake_delta_seconds_calculator.get_last_calculated_delta()
+		_snake_delta_seconds_calculator.get_last_calculated_delta(),
+		_snake_properties
 	)
 
 func _print_background() -> void:

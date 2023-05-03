@@ -9,6 +9,7 @@ var _score: int = 0
 var _score_multiplier: float = 1.0
 var _invincible: bool = false
 var _intangible: bool = false
+var _inverted_controls: bool = false
 
 func _init(initial_direction: int):
 	_current_direction = initial_direction
@@ -50,3 +51,7 @@ func set_invincible(flag: bool) -> void: _invincible = flag
 func is_intangible() -> bool: return _intangible
 
 func set_intangible(flag: bool) -> void: _intangible = flag
+
+func has_inverted_controls() -> bool: return _inverted_controls
+
+func set_inverted_controls(flag: bool) -> void: _inverted_controls = flag
