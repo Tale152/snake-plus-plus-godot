@@ -52,4 +52,8 @@ func create_collision_strategy(type: int) -> CollisionStrategy:
 		return SnailStrategy.new(
 			_true_coll_res, _false_coll_res, _effect_lifespan_seconds
 		)
+	elif(type == PerkType.GHOST()):
+		return GhostStrategy.new(
+			_true_coll_res, _false_coll_res, _effect_lifespan_seconds
+		)
 	return null
