@@ -79,7 +79,7 @@ func get_visual_parameters(
 	for p in parsed_stage.get_perks_rules():
 		vpb.add_perk_sprite(
 			PerkSprite.new(
-				str(selected_skin, "/edibles"), #TODO change
+				str(selected_skin, "/perks"), #TODO change
 				p.get_type()
 		))
 	vpb \

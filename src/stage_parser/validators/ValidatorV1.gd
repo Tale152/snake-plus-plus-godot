@@ -4,7 +4,7 @@ static func validate(stage: Dictionary) -> bool:
 	return (
 		_is_field_valid(stage) &&
 		_is_snake_valid(stage) &&
-		_is_edibles_valid(stage)
+		_is_perks_valid(stage)
 	)
 
 static func _is_field_valid(stage: Dictionary) -> bool:
@@ -27,12 +27,12 @@ static func _is_snake_valid(stage: Dictionary) -> bool:
 	if !DictionaryUtil.contains(stage.snake, "direction", TYPE_REAL): return false
 	return true
 
-static func _is_edibles_valid(stage: Dictionary) -> bool:
+static func _is_perks_valid(stage: Dictionary) -> bool:
 	if !DictionaryUtil.contains(stage, "perks", TYPE_ARRAY): return false
 	for perk in stage.perks:
 		if typeof(perk) != TYPE_DICTIONARY: return false
 		if !DictionaryUtil.contains(perk, "type", TYPE_STRING): return false
-		if !_get_v1_edible_types().has(perk.type): return false
+		if !_get_v1_perk_types().has(perk.type): return false
 		if !DictionaryUtil.contains(perk, "max_instances", TYPE_REAL): return false
 		if !_is_not_contained_or_typed(perk, "spawn_probability", TYPE_REAL): return false
 		if !_is_not_contained_or_typed(perk, "lifespan", TYPE_REAL): return false
@@ -50,7 +50,7 @@ static func _is_array_of_size(value, size: int) -> bool:
 static func _is_not_contained_or_typed(d: Dictionary, value: String, type: int) -> bool:
 	return DictionaryUtil.contains(d, value, type) || DictionaryUtil.does_not_contain(d, value)
 
-static func _get_v1_edible_types() -> Array:
+static func _get_v1_perk_types() -> Array:
 	return [
 		PerkType.get_perk_type_string(PerkType.APPLE()),
 		PerkType.get_perk_type_string(PerkType.LEMON()),

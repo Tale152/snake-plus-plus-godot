@@ -1,6 +1,6 @@
 class_name GameController extends Reference
 
-const _EDIBLES_SPAWN_ATTEMPT_FREQUENCY = 1
+const _PERKS_SPAWN_ATTEMPT_FREQUENCY = 1
 
 var _raw_material: ModelRawMaterial
 var _exit_game_strategy: FuncRef
@@ -174,8 +174,8 @@ func _handle_perks_expire_tick(delta_seconds: float) -> void:
 	
 func _handle_perks_spawn_tick(delta_seconds: float) -> void:
 	_spawn_attempt_elapsed_seconds += delta_seconds
-	if _spawn_attempt_elapsed_seconds >= _EDIBLES_SPAWN_ATTEMPT_FREQUENCY:
-		_spawn_attempt_elapsed_seconds -= _EDIBLES_SPAWN_ATTEMPT_FREQUENCY
+	if _spawn_attempt_elapsed_seconds >= _PERKS_SPAWN_ATTEMPT_FREQUENCY:
+		_spawn_attempt_elapsed_seconds -= _PERKS_SPAWN_ATTEMPT_FREQUENCY
 		var empty_coordinates: Array = _field.get_empty_coordinates(
 			_snake_properties.get_current_direction()
 		)
