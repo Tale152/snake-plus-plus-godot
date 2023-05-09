@@ -15,16 +15,10 @@ func _ready():
 	$MenuSceneControl._ContentContainerControl.add_child(_main_menu_content)
 	_NavigationBar.set_back_button_visible(false)
 	_NavigationBar.set_title_label_text("")
-	_NavigationBar.set_on_contextual_button_pressed_strategy(
-		funcref(self, "_settings_button_pressed")
-	)
+	_NavigationBar.set_contextual_button_visible(false)
 
 func initialize(main_scene_instance: Control) -> void:
 	_main_scene_instance = main_scene_instance
 	_main_scene_instance.clear()
 	_main_menu_content.initialize(main_scene_instance, self)
 	_main_scene_instance.add_child(self)
-
-func _settings_button_pressed() -> void:
-	print("settings TODO")
-	

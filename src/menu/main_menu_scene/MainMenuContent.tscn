@@ -1,18 +1,39 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/menu/main_menu_scene/MainMenuContent.gd" type="Script" id=1]
+[ext_resource path="res://src/menu/main_menu_scene/GameTitleLabelFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/menu/main_menu_scene/MenuButtonFont.tres" type="DynamicFont" id=3]
 
 [node name="MainMenuContentControl" type="Control"]
+anchor_right = 0.94
+anchor_bottom = 0.873
 script = ExtResource( 1 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="GameTitleLabel" type="Label" parent="."]
 anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.572549, 0.541176, 0.541176, 1 )
+anchor_bottom = 0.2
+margin_right = 0.335999
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Snake ++"
+align = 1
+valign = 1
 
-[node name="Button" type="Button" parent="."]
-anchor_top = 0.271
-anchor_right = 1.0
-anchor_bottom = 0.343
+[node name="WorldsButton" type="Button" parent="."]
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.9
+anchor_bottom = 0.33
+custom_fonts/font = ExtResource( 3 )
+disabled = true
+text = "Play"
 
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[node name="ArcadeButton" type="Button" parent="."]
+anchor_left = 0.1
+anchor_top = 0.35
+anchor_right = 0.9
+anchor_bottom = 0.48
+custom_fonts/font = ExtResource( 3 )
+text = "Arcade"
+
+[connection signal="pressed" from="ArcadeButton" to="." method="_on_ArcadeButton_pressed"]
