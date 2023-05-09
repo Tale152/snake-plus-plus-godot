@@ -1,4 +1,4 @@
-extends Control
+class_name NavigationBar extends Control
 
 onready var _TitleLabelFont = preload("res://src/menu/menu_scene/TitleLabelFont.tres")
 
