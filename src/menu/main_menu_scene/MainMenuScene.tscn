@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/menu/menu_scene/MenuScene.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/menu/main_menu_scene/MainMenuScene.gd" type="Script" id=2]
+
+[node name="MainMenuSceneControl" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="MenuSceneControl" parent="." instance=ExtResource( 1 )]

@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://src/game/model/collidables/perk/strategies/AppleStrategy.gd"
 }, {
 "base": "Control",
+"class": "ArcadeMenuScene",
+"language": "GDScript",
+"path": "res://src/menu/arcade_menu_scene/ArcadeMenuScene.gd"
+}, {
+"base": "Control",
 "class": "ArrowsControls",
 "language": "GDScript",
 "path": "res://src/game/view/controls/arrows_controls/ArrowsControls.gd"
@@ -235,6 +240,16 @@ _global_script_classes=[ {
 "path": "res://src/game/model/collidables/perk/strategies/LossCoinStrategy.gd"
 }, {
 "base": "Control",
+"class": "MainMenuContent",
+"language": "GDScript",
+"path": "res://src/menu/main_menu_scene/MainMenuContent.gd"
+}, {
+"base": "Control",
+"class": "MainMenuScene",
+"language": "GDScript",
+"path": "res://src/menu/main_menu_scene/MainMenuScene.gd"
+}, {
+"base": "Control",
 "class": "MenuScene",
 "language": "GDScript",
 "path": "res://src/menu/menu_scene/MenuScene.gd"
@@ -437,6 +452,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AnimationUtils": "",
 "AppleStrategy": "",
+"ArcadeMenuScene": "",
 "ArrowsControls": "",
 "AssetFiles": "",
 "AvocadoStrategy": "",
@@ -480,6 +496,8 @@ _global_script_class_icons={
 "JsonStageValidator": "",
 "LemonStrategy": "",
 "LossCoinStrategy": "",
+"MainMenuContent": "",
+"MainMenuScene": "",
 "MenuScene": "",
 "ModelRawMaterial": "",
 "NavigationBar": "",
