@@ -61,7 +61,7 @@ func _get_button_image_texture(icon: String) -> ImageTexture:
 	elif icon == "info": path = _info_icon_path
 	
 	var image = Image.new()
-	image.load(path)
+	image.load(ProjectSettings.globalize_path(path))
 	var t = ImageTexture.new()
 	t.create_from_image(image)
 	return t
