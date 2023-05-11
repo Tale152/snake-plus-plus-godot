@@ -2,38 +2,38 @@ class_name NavigationBar extends Control
 
 onready var _TitleLabelFont = preload("res://src/menu/menu_scene/TitleLabelFont.tres")
 
-var _back_button_pressed_strategy: FuncRef
-var _contextual_button_pressed_strategy: FuncRef
+var _left_button_pressed_strategy: FuncRef
+var _right_button_pressed_strategy: FuncRef
 
-func set_on_back_button_pressed_strategy(strategy: FuncRef) -> void:
-	_back_button_pressed_strategy = strategy
+func set_on_left_button_pressed_strategy(strategy: FuncRef) -> void:
+	_left_button_pressed_strategy = strategy
 
-func set_back_button_visible(flag: bool) -> void:
-	$BackButton.visible = flag
+func set_left_button_visible(flag: bool) -> void:
+	$LeftButton.visible = flag
 
-func is_back_button_visible() -> bool:
-	return $BackButton.visible
+func is_left_button_visible() -> bool:
+	return $LeftButton.visible
 
-func set_back_button_disabled(flag: bool) -> void:
-	$BackButton.disabled = flag
+func set_left_button_disabled(flag: bool) -> void:
+	$LeftButton.disabled = flag
 
-func is_back_button_disabled() -> bool:
-	return $BackButton.disabled
+func is_left_button_disabled() -> bool:
+	return $LeftButton.disabled
 
-func set_on_contextual_button_pressed_strategy(strategy: FuncRef) -> void:
-	_contextual_button_pressed_strategy = strategy
+func set_on_right_button_pressed_strategy(strategy: FuncRef) -> void:
+	_right_button_pressed_strategy = strategy
 
-func set_contextual_button_visible(flag: bool) -> void:
-	$ContextualButton.visible = flag
+func set_right_button_visible(flag: bool) -> void:
+	$RightButton.visible = flag
 
-func is_contextual_button_visible() -> bool:
-	return $ContextualButton.visible
+func is_right_button_visible() -> bool:
+	return $RightButton.visible
 
-func set_contextual_button_disabled(flag: bool) -> void:
-	$ContextualButton.disabled = flag
+func set_right_button_disabled(flag: bool) -> void:
+	$RightButton.disabled = flag
 
-func is_contextual_button_disabled() -> bool:
-	return $ContextualButton.disabled
+func is_right_button_disabled() -> bool:
+	return $RightButton.disabled
 
 func set_title_label_text(text: String) -> void:
 	$TitleLabel.text = text
@@ -41,8 +41,8 @@ func set_title_label_text(text: String) -> void:
 func get_title_label_text() -> String:
 	return $TitleLabel.text
 
-func _on_BackButton_pressed():
-	_back_button_pressed_strategy.call_func()
+func _on_RightButton_pressed():
+	_right_button_pressed_strategy.call_func()
 
-func _on_ContextualButton_pressed():
-	_contextual_button_pressed_strategy.call_func()
+func _on_LeftButton_pressed():
+	_left_button_pressed_strategy.call_func()

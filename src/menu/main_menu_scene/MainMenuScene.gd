@@ -13,9 +13,9 @@ func _ready():
 	_main_menu_content.anchor_top = 0
 	_main_menu_content.anchor_bottom = 1
 	$MenuSceneControl._ContentContainerControl.add_child(_main_menu_content)
-	_NavigationBar.set_back_button_visible(false)
+	_NavigationBar.set_left_button_visible(false)
 	_NavigationBar.set_title_label_text("")
-	_NavigationBar.set_contextual_button_visible(false)
+	_NavigationBar.set_right_button_visible(false)
 
 func initialize(main_scene_instance: Control) -> void:
 	_main_scene_instance = main_scene_instance

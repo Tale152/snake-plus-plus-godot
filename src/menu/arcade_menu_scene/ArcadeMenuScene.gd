@@ -7,8 +7,8 @@ var _main_menu_scene
 
 func _ready():
 	_NavigationBar.set_title_label_text("Arcade")
-	_NavigationBar.set_on_back_button_pressed_strategy(funcref(self, "_go_to_main_menu"))
-	_NavigationBar.set_on_contextual_button_pressed_strategy(funcref(self, "_info_button_pressed"))
+	_NavigationBar.set_on_left_button_pressed_strategy(funcref(self, "_go_to_main_menu"))
+	_NavigationBar.set_on_right_button_pressed_strategy(funcref(self, "_info_button_pressed"))
 	
 func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_main_scene_instance = main_scene_instance
