@@ -18,6 +18,7 @@ func _ready():
 	_NavigationBar.set_title_label_text("")
 	_NavigationBar.set_right_button_visible(true, "settings")
 	_NavigationBar.set_right_button_disabled(true)
+	_main_menu_content.scale($MenuSceneControl.get_scaling())
 
 func initialize(main_scene_instance: Control) -> void:
 	_main_scene_instance = main_scene_instance

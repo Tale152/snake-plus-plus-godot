@@ -1,6 +1,9 @@
 class_name NavigationBar extends Control
 
 onready var _TitleLabelFont = preload("res://src/menu/menu_scene/TitleLabelFont.tres")
+
+const _TITLE_FONT_DEFAULT_SIZE: int = 25
+
 var _trophy_icon_path = "res://assets/icons/trophy.png"
 var _settings_icon_path = "res://assets/icons/settings.png"
 var _back_icon_path = "res://assets/icons/back.png"
@@ -8,6 +11,9 @@ var _info_icon_path = "res://assets/icons/info.png"
 
 var _left_button_pressed_strategy: FuncRef
 var _right_button_pressed_strategy: FuncRef
+
+func scale(scale: int) -> void:
+	_TitleLabelFont.size = _TITLE_FONT_DEFAULT_SIZE * scale
 
 func set_on_left_button_pressed_strategy(strategy: FuncRef) -> void:
 	_left_button_pressed_strategy = strategy
