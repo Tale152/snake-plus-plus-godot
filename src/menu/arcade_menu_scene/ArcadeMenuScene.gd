@@ -7,8 +7,11 @@ var _main_menu_scene
 
 func _ready():
 	_NavigationBar.set_title_label_text("Arcade")
+	_NavigationBar.set_left_button_visible(true, "back")
+	_NavigationBar.set_left_button_disabled(false)
 	_NavigationBar.set_on_left_button_pressed_strategy(funcref(self, "_go_to_main_menu"))
-	_NavigationBar.set_on_right_button_pressed_strategy(funcref(self, "_info_button_pressed"))
+	_NavigationBar.set_right_button_visible(true, "info")
+	_NavigationBar.set_right_button_disabled(true)
 	
 func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_main_scene_instance = main_scene_instance
@@ -18,6 +21,3 @@ func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 
 func _go_to_main_menu() -> void:
 	_main_menu_scene.initialize(_main_scene_instance)
-
-func _info_button_pressed() -> void:
-	print("info TODO")

@@ -13,9 +13,11 @@ func _ready():
 	_main_menu_content.anchor_top = 0
 	_main_menu_content.anchor_bottom = 1
 	$MenuSceneControl._ContentContainerControl.add_child(_main_menu_content)
-	_NavigationBar.set_left_button_visible(false)
+	_NavigationBar.set_left_button_visible(true, "trophy")
+	_NavigationBar.set_left_button_disabled(true)
 	_NavigationBar.set_title_label_text("")
-	_NavigationBar.set_right_button_visible(false)
+	_NavigationBar.set_right_button_visible(true, "settings")
+	_NavigationBar.set_right_button_disabled(true)
 
 func initialize(main_scene_instance: Control) -> void:
 	_main_scene_instance = main_scene_instance
