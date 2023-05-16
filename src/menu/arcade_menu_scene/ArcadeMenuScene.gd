@@ -45,8 +45,7 @@ func _play_stage(data: ArcadeStageData) -> void:
 	var difficulty_settings: DifficultySettings = DifficultySettings.new(7, 0.5, 0.99)
 	#TODO retrieve selected skin from persistence
 	var selected_skin: String = "res://assets/skins/simple"
-	#TODO retrieve selected controls from persistence
-	var selected_controls: String = "Swipe"
+	var selected_controls: String = UserSettings.get_controls()
 	
 	var game_view = _GameView.instance()
 	game_view.set_controls(selected_controls)
