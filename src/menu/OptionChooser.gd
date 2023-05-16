@@ -11,11 +11,18 @@ const _BUTTONS_DEFAULT_FONT_SIZE: int = 17
 
 var _options: Array
 var _selected_index: int
+var _on_change_strategy: FuncRef
 
-func fill(title: String, options: Array, selected_index: int) -> void:
+func fill(
+	title: String,
+	options: Array,
+	selected_index: int,
+	on_change_strategy: FuncRef
+) -> void:
 	$TitleLabel.text = title
 	_options = options
 	_selected_index = selected_index
+	_on_change_strategy = on_change_strategy
 	_update_selected_option()
 
 func scale_font(scale: float) -> void:
@@ -40,11 +47,13 @@ func _on_PreviousOptionButton_pressed():
 	_selected_index -= 1
 	if _selected_index < 0: _selected_index = _options.size() - 1
 	_update_selected_option()
+	_on_change_strategy.call_func(get_selected_option())
 
 func _on_NextOptionButton_pressed():
 	_selected_index += 1
 	if _selected_index == _options.size(): _selected_index = 0
 	_update_selected_option()
+	_on_change_strategy.call_func(get_selected_option())
 
 func _get_int_font_size(default_value: int, scale: float) -> int:
 	return int(floor(default_value * scale))

@@ -34,6 +34,7 @@ func _ready():
 		"Controls", CONTROLS_ARRAY, CONTROLS_DEFAULT_INDEX
 	)
 	$GuiAreaControl/RectangleAspectRatioContainer/RectangleControl/ControlsOptionChooser.scale_font(scale)
+
 func _get_int_font_size(default_value: int, scale: float) -> int:
 	return int(floor(default_value * scale))
 

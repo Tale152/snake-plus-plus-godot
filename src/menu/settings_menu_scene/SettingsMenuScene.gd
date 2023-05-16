@@ -1,7 +1,10 @@
 class_name SettingsMenuScene extends Control
 
+const _SettingsMenuContent = preload("res://src/menu/settings_menu_scene/SettingsMenuContent.tscn")
+
 onready var _NavigationBar: NavigationBar = $MenuSceneControl.get_navigation_bar()
 
+var _settings_menu_content: SettingsMenuContent = _SettingsMenuContent.instance()
 var _main_scene_instance: Control
 var _main_menu_scene
 
@@ -12,6 +15,11 @@ func _ready():
 	_NavigationBar.set_title_label_text("Settings")
 	_NavigationBar.set_right_button_visible(false)
 	_NavigationBar.set_right_button_disabled(true)
+	_settings_menu_content.anchor_left = 0
+	_settings_menu_content.anchor_right = 1
+	_settings_menu_content.anchor_top = 0
+	_settings_menu_content.anchor_bottom = 1
+	$MenuSceneControl._ContentContainerControl.add_child(_settings_menu_content)
 
 func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_main_scene_instance = main_scene_instance

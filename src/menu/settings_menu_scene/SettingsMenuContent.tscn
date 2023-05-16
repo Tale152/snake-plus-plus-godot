@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/menu/settings_menu_scene/SettingsMenuContent.gd" type="Script" id=1]
+[ext_resource path="res://src/menu/OptionChooser.tscn" type="PackedScene" id=2]
+
+[node name="SettingsMenuContentControl" type="Control"]
+anchor_right = 0.94
+anchor_bottom = 0.873
+script = ExtResource( 1 )
+
+[node name="ControlsOptionChooser" parent="." instance=ExtResource( 2 )]
+anchor_top = 0.02
+anchor_bottom = 0.162
+margin_bottom = 0.0
