@@ -1,5 +1,9 @@
 class_name GameView extends Node
 
+const _ArrowsControls = preload("res://src/game/view/controls/arrows_controls/ArrowsControls.tscn")
+const _SplitControls = preload("res://src/game/view/controls/split_controls/SplitControls.tscn")
+const _SwipeControls = preload("res://src/game/view/controls/swipe_controls/SwipeControls.tscn")
+
 onready var _GameOverMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/GameOverMenu
 onready var _PauseMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/PauseMenu
 onready var _RestartMenu: Control = $GuiAreaControl/RectangleRatioContainer/Control/BottomControl/RestartMenu
@@ -18,9 +22,10 @@ var _walls: Array = []
 var _snake_units: Array = []
 var _perks: Array = []
 
-func set_controls(controls: Control):
-	_controls = controls
-	_BottomControl.add_child(_controls)
+func set_controls(controls: String):
+	if controls == "Arrow": _controls = _ArrowsControls.instance()
+	elif controls == "Split": _controls = _SplitControls.instance()
+	elif controls == "Swipe": _controls = _SwipeControls.instance()
 
 func initialize(effects: Dictionary, scale: float) -> void:
 	_Hud.scale(scale)
@@ -28,6 +33,7 @@ func initialize(effects: Dictionary, scale: float) -> void:
 	_RestartMenu.scale_font(scale)
 	_GameOverMenu.scale_font(scale)
 	_Effects.initialize(effects, scale)
+	_BottomControl.add_child(_controls)
 	_controls.scale(scale)
 
 func get_controls() -> Control:

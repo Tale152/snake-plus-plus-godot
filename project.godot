@@ -20,9 +20,24 @@ _global_script_classes=[ {
 "path": "res://src/game/model/collidables/perk/strategies/AppleStrategy.gd"
 }, {
 "base": "Control",
+"class": "ArcadeMenuContent",
+"language": "GDScript",
+"path": "res://src/menu/arcade_menu_scene/ArcadeMenuContent.gd"
+}, {
+"base": "Control",
 "class": "ArcadeMenuScene",
 "language": "GDScript",
 "path": "res://src/menu/arcade_menu_scene/ArcadeMenuScene.gd"
+}, {
+"base": "Control",
+"class": "ArcadeStageContainer",
+"language": "GDScript",
+"path": "res://src/menu/arcade_menu_scene/ArcadeStageContainer.gd"
+}, {
+"base": "Reference",
+"class": "ArcadeStageData",
+"language": "GDScript",
+"path": "res://src/menu/arcade_menu_scene/ArcadeStageData.gd"
 }, {
 "base": "Control",
 "class": "ArrowsControls",
@@ -415,6 +430,11 @@ _global_script_classes=[ {
 "path": "res://src/game/view/visual_parameters/VisualParametersBuilder.gd"
 }, {
 "base": "Reference",
+"class": "VisualParametersHelper",
+"language": "GDScript",
+"path": "res://src/game/view/utils/VisualParametersHelper.gd"
+}, {
+"base": "Reference",
 "class": "WaitTimer",
 "language": "GDScript",
 "path": "res://src/utils/WaitTimer.gd"
@@ -452,7 +472,10 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AnimationUtils": "",
 "AppleStrategy": "",
+"ArcadeMenuContent": "",
 "ArcadeMenuScene": "",
+"ArcadeStageContainer": "",
+"ArcadeStageData": "",
 "ArrowsControls": "",
 "AssetFiles": "",
 "AvocadoStrategy": "",
@@ -531,6 +554,7 @@ _global_script_class_icons={
 "ValidatorV1": "",
 "VisualParameters": "",
 "VisualParametersBuilder": "",
+"VisualParametersHelper": "",
 "WaitTimer": "",
 "Wall": "",
 "WallCollisionStrategy": "",
