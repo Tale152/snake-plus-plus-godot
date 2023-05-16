@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "stage": {
+    "field": {
+      "size": [
+        15,
+        15
+      ],
+      "walls": []
+    },
+    "snake": {
+      "spawn": [
+        0,
+        0
+      ],
+      "direction": 1
+    },
+    "perks": [
+      {
+        "type": "Apple",
+        "max_instances": 7
+      }
+    ]
+  }
+}
