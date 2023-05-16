@@ -20,6 +20,7 @@ func _ready():
 	_settings_menu_content.anchor_top = 0
 	_settings_menu_content.anchor_bottom = 1
 	$MenuSceneControl._ContentContainerControl.add_child(_settings_menu_content)
+	_settings_menu_content.scale($MenuSceneControl.get_scaling())
 
 func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_main_scene_instance = main_scene_instance

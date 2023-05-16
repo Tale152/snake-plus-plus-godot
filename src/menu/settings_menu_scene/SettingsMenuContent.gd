@@ -10,6 +10,9 @@ func _ready():
 		funcref(self, "_change_controls")
 	)
 
+func scale(scale: float) -> void:
+	$ControlsOptionChooser.scale_font(scale)
+
 func _change_controls(controls: String) -> void:
 	UserSettings.set_controls(controls)
 
