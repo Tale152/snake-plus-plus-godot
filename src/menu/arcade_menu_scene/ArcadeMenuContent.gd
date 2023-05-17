@@ -2,6 +2,9 @@ class_name ArcadeMenuContent extends Control
 
 var stages: Array = []
 
+func scale(scale: float) -> void:
+	$ArcadeDifficultySetterControl.scale(scale)
+
 func append_stage(stage) -> int:
 	stages.push_back(stage)
 	$ScrollContainer/VBoxContainer.add_child(stage)

@@ -32,6 +32,7 @@ func _ready():
 		)
 		_arcade_menu_content.append_stage(container)
 	$MenuSceneControl._ContentContainerControl.add_child(_arcade_menu_content)
+	_arcade_menu_content.scale(scale)
 
 func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_main_scene_instance = main_scene_instance
@@ -42,11 +43,10 @@ func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 func _play_stage(data: ArcadeStageData) -> void:
 	var scale = $MenuSceneControl.get_scaling()
 	var parsed_stage: ParsedStage = JsonStageParser.parse(data.get_stage_path())
-	#TODO retrieve difficulty settings from persistence
-	var difficulty_settings: DifficultySettings = DifficultySettings.new(7, 0.5, 0.99)
+	var difficulty_settings: String = PersistentDifficultySettings.get_arcade_difficulty()
 	#TODO retrieve selected skin from persistence
 	var selected_skin: String = "res://assets/skins/simple"
-	var selected_controls: String = UserSettings.get_controls()
+	var selected_controls: String = PersistentUserSettings.get_controls()
 	
 	var game_view = _GameView.instance()
 	game_view.set_controls(selected_controls)
@@ -60,7 +60,7 @@ func _play_stage(data: ArcadeStageData) -> void:
 		)
 	var game_controller: GameController = GameController.new(
 		parsed_stage,
-		difficulty_settings,
+		_get_difficulty_settings_values(difficulty_settings),
 		visual_parameters,
 		funcref(self, "_back_to_arcade_menu")
 	)
@@ -68,6 +68,11 @@ func _play_stage(data: ArcadeStageData) -> void:
 	game_controller.set_view(game_view, scale)
 	_main_scene_instance.add_game_controller(game_controller)
 	game_controller.start_new_game()
+
+func _get_difficulty_settings_values(difficulty: String) -> DifficultySettings:
+	if difficulty == "Noob": return DifficultySettings.new(12, 0.8, 0.996)
+	elif difficulty == "Regular" : return DifficultySettings.new(7, 0.5, 0.99)
+	else: return DifficultySettings.new(5, 0.4, 0.984)
 
 func _back_to_arcade_menu() -> void:
 	_main_scene_instance.clear()
