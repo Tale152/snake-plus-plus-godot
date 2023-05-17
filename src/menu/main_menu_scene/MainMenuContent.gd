@@ -1,6 +1,7 @@
 class_name MainMenuContent extends Control
 
 const _ArcadeMenuScene = preload("res://src/menu/arcade_menu_scene/ArcadeMenuScene.tscn")
+const _CustomizationMenuScene = preload("res://src/menu/customization_menu/CustomizationMenuScene.tscn")
 onready var _GameTitleLabelFont = preload("res://src/menu/main_menu_scene/GameTitleLabelFont.tres")
 onready var _MenuButtonFont = preload("res://src/menu/main_menu_scene/MenuButtonFont.tres")
 
@@ -21,3 +22,7 @@ func scale(scale: int) -> void:
 func _on_ArcadeButton_pressed():
 	var arcade_menu_scene: ArcadeMenuScene = _ArcadeMenuScene.instance()
 	arcade_menu_scene.initialize(_main_scene_instance, _main_menu_scene)
+
+func _on_CustomizationButton_pressed():
+	var customization_menu_scene: CustomizationMenuScene = _CustomizationMenuScene.instance()
+	customization_menu_scene.initialize(_main_scene_instance, _main_menu_scene)

@@ -42,7 +42,6 @@ anchor_top = 0.5
 anchor_right = 0.9
 anchor_bottom = 0.63
 custom_fonts/font = ExtResource( 3 )
-disabled = true
 text = "Customization"
 
 [node name="WikiButton" type="Button" parent="."]
@@ -55,3 +54,4 @@ disabled = true
 text = "Wiki"
 
 [connection signal="pressed" from="ArcadeButton" to="." method="_on_ArcadeButton_pressed"]
+[connection signal="pressed" from="CustomizationButton" to="." method="_on_CustomizationButton_pressed"]
