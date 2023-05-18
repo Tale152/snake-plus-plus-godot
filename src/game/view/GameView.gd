@@ -22,12 +22,11 @@ var _walls: Array = []
 var _snake_units: Array = []
 var _perks: Array = []
 
-func set_controls(controls: String):
-	if controls == "Arrow": _controls = _ArrowsControls.instance()
-	elif controls == "Split": _controls = _SplitControls.instance()
-	elif controls == "Swipe": _controls = _SwipeControls.instance()
-
 func initialize(effects: Dictionary, scale: float) -> void:
+	var controls_str: String = PersistentUserSettings.get_controls()
+	if controls_str == "Arrow": _controls = _ArrowsControls.instance()
+	elif controls_str == "Split": _controls = _SplitControls.instance()
+	elif controls_str == "Swipe": _controls = _SwipeControls.instance()
 	_Hud.scale(scale)
 	_PauseMenu.scale_font(scale)
 	_RestartMenu.scale_font(scale)
