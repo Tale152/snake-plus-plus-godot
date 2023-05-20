@@ -508,6 +508,16 @@ _global_script_classes=[ {
 "class": "WatermelonStrategy",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/strategies/WatermelonStrategy.gd"
+}, {
+"base": "Reference",
+"class": "WikiMenuContent",
+"language": "GDScript",
+"path": "res://src/menu/wiki_menu/WikiMenuContent.gd"
+}, {
+"base": "Control",
+"class": "WikiMenuScene",
+"language": "GDScript",
+"path": "res://src/menu/wiki_menu/WikiMenuScene.gd"
 } ]
 _global_script_class_icons={
 "AnimationUtils": "",
@@ -609,7 +619,9 @@ _global_script_class_icons={
 "WallFactory": "",
 "WallSprite": "",
 "WallView": "",
-"WatermelonStrategy": ""
+"WatermelonStrategy": "",
+"WikiMenuContent": "",
+"WikiMenuScene": ""
 }
 
 [application]
