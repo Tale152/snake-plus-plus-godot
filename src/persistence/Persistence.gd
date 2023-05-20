@@ -23,3 +23,9 @@ static func _open_file(file: File, path: String, mode) -> void:
 	var err = file.open(path, mode)
 	if err != OK:
 		print("Error opening " + path)
+
+static func fix_field(data: Dictionary, field_name: String, value) -> int:
+	if data.has(field_name): return 0
+	else:
+		data[field_name] = value
+		return 1

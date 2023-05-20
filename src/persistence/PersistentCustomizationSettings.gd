@@ -12,9 +12,9 @@ func _ready():
 		var has_changed: bool = false
 		var data: Dictionary = Persistence.read(_CUSTOMIZATION_FILE_PATH)
 		var changes: int = 0
-		changes += _fix_field(data, _SNAKE, "Simple")
-		changes += _fix_field(data, _FIELD, "Simple")
-		changes += _fix_field(data, _PERKS, "Simple")
+		changes += Persistence.fix_field(data, _SNAKE, "Simple")
+		changes += Persistence.fix_field(data, _FIELD, "Simple")
+		changes += Persistence.fix_field(data, _PERKS, "Simple")
 		if changes > 0:
 			Persistence.write(_CUSTOMIZATION_FILE_PATH, data)
 
@@ -24,13 +24,6 @@ func _get_default_customization() -> Dictionary:
 		_FIELD: "Simple",
 		_PERKS: "Simple"
 	}
-
-func _fix_field(data: Dictionary, field_name: String, value: String) -> int:
-	var field = data[field_name]
-	if field == null:
-		data[field_name] = value
-		return 1
-	return 0
 
 func get_snake_skin() -> String:
 	return Persistence.read(_CUSTOMIZATION_FILE_PATH)[_SNAKE]

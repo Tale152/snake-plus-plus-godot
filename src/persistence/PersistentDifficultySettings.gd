@@ -7,13 +7,10 @@ func _ready():
 	if not Persistence.exists(_DIFFICULTY_FILE_PATH):
 		Persistence.write(_DIFFICULTY_FILE_PATH, _get_default_difficulty())
 	else:
-		var has_changed: bool = false
 		var data: Dictionary = Persistence.read(_DIFFICULTY_FILE_PATH)
-		var arcade_difficulty = data[_ARCADE]
-		if arcade_difficulty == null:
-			data[_ARCADE] = "Regular"
-			has_changed = true
-		if has_changed:
+		var changes: int = 0
+		changes += Persistence.fix_field(data, _ARCADE, "Regular")
+		if changes > 0:
 			Persistence.write(_DIFFICULTY_FILE_PATH, data)
 
 func get_arcade_difficulty() -> String:
