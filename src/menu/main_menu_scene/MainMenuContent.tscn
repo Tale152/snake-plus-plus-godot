@@ -19,14 +19,13 @@ text = "Snake ++"
 align = 1
 valign = 1
 
-[node name="WorldsButton" type="Button" parent="."]
+[node name="AdventureButton" type="Button" parent="."]
 anchor_left = 0.1
 anchor_top = 0.2
 anchor_right = 0.9
 anchor_bottom = 0.33
 custom_fonts/font = ExtResource( 3 )
-disabled = true
-text = "Play"
+text = "Adventure"
 
 [node name="ArcadeButton" type="Button" parent="."]
 anchor_left = 0.1
@@ -52,6 +51,7 @@ anchor_bottom = 0.78
 custom_fonts/font = ExtResource( 3 )
 text = "Wiki"
 
+[connection signal="pressed" from="AdventureButton" to="." method="_on_AdventureButton_pressed"]
 [connection signal="pressed" from="ArcadeButton" to="." method="_on_ArcadeButton_pressed"]
 [connection signal="pressed" from="CustomizationButton" to="." method="_on_CustomizationButton_pressed"]
 [connection signal="pressed" from="WikiButton" to="." method="_on_WikiButton_pressed"]

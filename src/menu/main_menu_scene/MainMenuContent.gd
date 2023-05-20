@@ -1,5 +1,6 @@
 class_name MainMenuContent extends Control
 
+const _AdventureMenuScene = preload("res://src/menu/adventure_menu/AdventureMenuScene.tscn")
 const _ArcadeMenuScene = preload("res://src/menu/arcade_menu_scene/ArcadeMenuScene.tscn")
 const _CustomizationMenuScene = preload("res://src/menu/customization_menu/CustomizationMenuScene.tscn")
 const _WikiMenuScene = preload("res://src/menu/wiki_menu/WikiMenuScene.tscn")
@@ -19,6 +20,10 @@ func initialize(main_scene_instance, main_menu_scene) -> void:
 func scale(scale: int) -> void:
 	_GameTitleLabelFont.size = _GAME_TITLE_DEFAULT_FONT_SIZE * scale
 	_MenuButtonFont.size = _MENU_BUTTON_DEFAULT_FONT_SIZE * scale
+
+func _on_AdventureButton_pressed():
+	var adventure_menu_scene: AdventureMenuScene = _AdventureMenuScene.instance()
+	adventure_menu_scene.initialize(_main_scene_instance, _main_menu_scene)
 
 func _on_ArcadeButton_pressed():
 	var arcade_menu_scene: ArcadeMenuScene = _ArcadeMenuScene.instance()

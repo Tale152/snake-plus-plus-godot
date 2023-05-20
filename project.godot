@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Control",
+"class": "AdventureMenuContent",
+"language": "GDScript",
+"path": "res://src/menu/adventure_menu/AdventureMenuContent.gd"
+}, {
+"base": "Control",
+"class": "AdventureMenuScene",
+"language": "GDScript",
+"path": "res://src/menu/adventure_menu/AdventureMenuScene.gd"
+}, {
 "base": "Reference",
 "class": "AnimationUtils",
 "language": "GDScript",
@@ -509,7 +519,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/strategies/WatermelonStrategy.gd"
 }, {
-"base": "Reference",
+"base": "Control",
 "class": "WikiMenuContent",
 "language": "GDScript",
 "path": "res://src/menu/wiki_menu/WikiMenuContent.gd"
@@ -520,6 +530,8 @@ _global_script_classes=[ {
 "path": "res://src/menu/wiki_menu/WikiMenuScene.gd"
 } ]
 _global_script_class_icons={
+"AdventureMenuContent": "",
+"AdventureMenuScene": "",
 "AnimationUtils": "",
 "AppleStrategy": "",
 "ArcadeDifficultySetter": "",
