@@ -444,6 +444,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/view/controls/swipe_controls/SwipeControls.gd"
 }, {
+"base": "Control",
+"class": "TrophiesMenuContent",
+"language": "GDScript",
+"path": "res://src/menu/trophies_menu/TrophiesMenuContent.gd"
+}, {
+"base": "Control",
+"class": "TrophiesMenuScene",
+"language": "GDScript",
+"path": "res://src/menu/trophies_menu/TrophiesMenuScene.gd"
+}, {
 "base": "Reference",
 "class": "ValidatorV1",
 "language": "GDScript",
@@ -587,6 +597,8 @@ _global_script_class_icons={
 "SplitControls": "",
 "StarStrategy": "",
 "SwipeControls": "",
+"TrophiesMenuContent": "",
+"TrophiesMenuScene": "",
 "ValidatorV1": "",
 "VisualParameters": "",
 "VisualParametersBuilder": "",
