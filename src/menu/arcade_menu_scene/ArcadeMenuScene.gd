@@ -39,8 +39,10 @@ func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_main_menu_scene = main_menu_scene
 	_main_scene_instance.clear()
 	_main_scene_instance.add_child(self)
+	_arcade_menu_content.initialize(_main_scene_instance)
 
 func _play_stage(data: ArcadeStageData) -> void:
+	_main_scene_instance.play_button_click_sound()
 	var scale = $MenuSceneControl.get_scaling()
 	var parsed_stage: ParsedStage = JsonStageParser.parse(data.get_stage_path())
 	
@@ -71,6 +73,7 @@ func _get_difficulty_settings_values() -> DifficultySettings:
 	else: return DifficultySettings.new(5, 0.4, 0.984)
 
 func _back_to_arcade_menu() -> void:
+	_main_scene_instance.play_button_click_sound()
 	_main_scene_instance.clear()
 	_main_scene_instance.add_child(self)
 	_main_scene_instance.play_menu_music()

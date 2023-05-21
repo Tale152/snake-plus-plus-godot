@@ -9,6 +9,7 @@ const _ACTION_MOVE_UP: String = "move_up"
 const _ACTION_MOVE_DOWN: String = "move_down"
 
 onready var _MusicLoop: AudioStreamPlayer = $MenuMusicAudioStreamPlayer
+onready var _ButtonClick: AudioStreamPlayer = $ButtonClickAudioStreamPlayer
 var _game_controller: GameController = null
 var _process_strategy: FuncRef = null
 var _unhandled_input_strategy: FuncRef = null
@@ -32,7 +33,7 @@ func clear() -> void:
 	_game_controller = null
 	var i = 0
 	for n in get_children():
-		if i != 0: remove_child(n)
+		if i != 0 && i != 1: remove_child(n)
 		i += 1
 
 func play_menu_music() -> void:
@@ -40,6 +41,9 @@ func play_menu_music() -> void:
 
 func stop_menu_music() -> void:
 	_MusicLoop.stop()
+
+func play_button_click_sound() -> void:
+	_ButtonClick.play()
 
 func add_game_controller(game_controller: GameController) -> void:
 	_game_controller = game_controller

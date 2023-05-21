@@ -1,6 +1,7 @@
 class_name CustomizationMenuContent extends Control
 
 const _SKINS_ARRAY: Array = ["simple", "debug", "kawaii"]
+var _main_scene_instance
 
 func _ready():
 	$SnakeOptionChooser.fill(
@@ -22,13 +23,19 @@ func _ready():
 		funcref(self, "_change_perks")
 	)
 
+func initialize(main_scene_instance) -> void:
+	_main_scene_instance = main_scene_instance
+
 func _change_snake(skin: String) -> void:
+	_main_scene_instance.play_button_click_sound()
 	PersistentCustomizationSettings.set_snake_skin(skin)
 
 func _change_field(skin: String) -> void:
+	_main_scene_instance.play_button_click_sound()
 	PersistentCustomizationSettings.set_field_skin(skin)
 
 func _change_perks(skin: String) -> void:
+	_main_scene_instance.play_button_click_sound()
 	PersistentCustomizationSettings.set_perks_skin(skin)
 
 func _get_skins_array_index(skin: String) -> int:

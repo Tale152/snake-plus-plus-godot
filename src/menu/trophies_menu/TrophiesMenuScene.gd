@@ -29,4 +29,5 @@ func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_main_scene_instance.add_child(self)
 
 func _go_to_main_menu() -> void:
+	_main_scene_instance.play_button_click_sound()
 	_main_menu_scene.initialize(_main_scene_instance)

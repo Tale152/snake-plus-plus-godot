@@ -31,9 +31,11 @@ func initialize(main_scene_instance: Control) -> void:
 	_main_scene_instance.add_child(self)
 
 func _go_to_settings() -> void:
+	_main_scene_instance.play_button_click_sound()
 	var settings_menu_scene: SettingsMenuScene = _SettingsMenuScene.instance()
 	settings_menu_scene.initialize(_main_scene_instance, self)
 
 func _go_to_trophies() -> void:
+	_main_scene_instance.play_button_click_sound()
 	var trophies_menu_scene: TrophiesMenuScene = _TrophiesMenuScene.instance()
 	trophies_menu_scene.initialize(_main_scene_instance, self)
