@@ -40,16 +40,15 @@ func _playing_loop(delta) -> void:
 	if _game_controller.is_not_game_over():
 		_game_controller.tick(delta)
 
-func _menu_loop(delta) -> void:
+func _menu_loop(_delta) -> void:
 	pass
 
-func _playing_unhandled_input(event) -> void:
+func _playing_unhandled_input(_event) -> void:
 	if Input.is_action_pressed(_ACTION_MOVE_UP): _game_controller.direction_input(Direction.UP())
 	elif Input.is_action_pressed(_ACTION_MOVE_DOWN): _game_controller.direction_input(Direction.DOWN())
 	elif Input.is_action_pressed(_ACTION_MOVE_LEFT): _game_controller.direction_input(Direction.LEFT())
 	elif Input.is_action_pressed(_ACTION_MOVE_RIGHT): _game_controller.direction_input(Direction.RIGHT())
 	elif Input.is_action_pressed(_ACTION_BACK_TO_MENU): _game_controller._exit_game_strategy.call_func()
 	
-
 func _menu_unhandled_input(event) -> void:
 	pass

@@ -10,7 +10,7 @@ func _init(
 
 func execute(
 	snake_properties: SnakeProperties,
-	effect_container: EquippedEffectsContainer
+	_effect_container: EquippedEffectsContainer
 ) -> CollisionResult:
 	if !snake_properties.is_invincible() && !snake_properties.is_intangible():
 		snake_properties.set_is_alive(false) 

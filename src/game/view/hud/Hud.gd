@@ -45,7 +45,6 @@ func stop_animations() -> void:
 
 func _get_time_text(seconds: float) -> String:
 	var s = floor(seconds)
-	var time_text = ""
 	if s < 60:
 		return str("0:", s if s > 9 else str(0, s))
 	else:

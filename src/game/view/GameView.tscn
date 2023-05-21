@@ -84,9 +84,12 @@ anchor_bottom = 1.0
 
 [node name="PerkEatAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+bus = "Effects"
 
 [node name="GameLoopAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+bus = "Music"
 
 [node name="GameOverAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+bus = "Effects"

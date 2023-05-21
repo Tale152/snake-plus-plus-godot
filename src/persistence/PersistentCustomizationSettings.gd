@@ -9,7 +9,6 @@ func _ready():
 	if not Persistence.exists(_CUSTOMIZATION_FILE_PATH):
 		Persistence.write(_CUSTOMIZATION_FILE_PATH, _get_default_customization())
 	else:
-		var has_changed: bool = false
 		var data: Dictionary = Persistence.read(_CUSTOMIZATION_FILE_PATH)
 		var changes: int = 0
 		changes += Persistence.fix_field(data, _SNAKE, "Simple")
