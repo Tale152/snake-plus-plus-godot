@@ -61,6 +61,7 @@ func _play_stage(data: ArcadeStageData) -> void:
 	game_view.set_controller(game_controller)
 	game_controller.set_view(game_view, scale)
 	_main_scene_instance.add_game_controller(game_controller)
+	_main_scene_instance.stop_menu_music()
 	game_controller.start_new_game()
 
 func _get_difficulty_settings_values() -> DifficultySettings:
@@ -72,6 +73,7 @@ func _get_difficulty_settings_values() -> DifficultySettings:
 func _back_to_arcade_menu() -> void:
 	_main_scene_instance.clear()
 	_main_scene_instance.add_child(self)
+	_main_scene_instance.play_menu_music()
 
 func _go_to_main_menu() -> void:
 	_main_menu_scene.initialize(_main_scene_instance)
