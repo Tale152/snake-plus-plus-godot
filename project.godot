@@ -359,10 +359,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/view/PerkView.gd"
 }, {
-"base": "Reference",
-"class": "Persistence",
+"base": "Node",
+"class": "PersistentDictionaryNode",
 "language": "GDScript",
-"path": "res://src/persistence/Persistence.gd"
+"path": "res://src/persistence/PersistentDictionaryNode.gd"
 }, {
 "base": "Reference",
 "class": "PositionCalculator",
@@ -600,7 +600,7 @@ _global_script_class_icons={
 "PerkStrategiesFactory": "",
 "PerkType": "",
 "PerkView": "",
-"Persistence": "",
+"PersistentDictionaryNode": "",
 "PositionCalculator": "",
 "RestartMenu": "",
 "SettingsMenuContent": "",
