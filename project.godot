@@ -647,6 +647,7 @@ config/icon="res://icon.png"
 PersistentDifficultySettings="*res://src/persistence/PersistentDifficultySettings.gd"
 PersistentUserSettings="*res://src/persistence/PersistentUserSettings.gd"
 PersistentCustomizationSettings="*res://src/persistence/PersistentCustomizationSettings.gd"
+TranslationsManager="*res://src/utils/TranslationsManager.gd"
 
 [display]
 
@@ -692,6 +693,10 @@ back_to_menu={
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[locale]
+
+translations=PoolStringArray( "res://assets/international_strings.en.translation", "res://assets/international_strings.it.translation" )
 
 [physics]
 

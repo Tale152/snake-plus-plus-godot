@@ -25,7 +25,7 @@ anchor_top = 0.2
 anchor_right = 0.9
 anchor_bottom = 0.33
 custom_fonts/font = ExtResource( 3 )
-text = "Adventure"
+text = "ADVENTURE"
 
 [node name="ArcadeButton" type="Button" parent="."]
 anchor_left = 0.1

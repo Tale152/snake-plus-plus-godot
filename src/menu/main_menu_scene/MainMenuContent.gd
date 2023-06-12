@@ -14,6 +14,9 @@ var _main_scene_instance
 var _main_menu_scene
 
 func initialize(main_scene_instance, main_menu_scene) -> void:
+	$AdventureButton.text = TranslationsManager.get_localized_string(
+		TranslationsManager.ADVENTURE
+	)
 	_main_scene_instance = main_scene_instance
 	_main_menu_scene = main_menu_scene
 

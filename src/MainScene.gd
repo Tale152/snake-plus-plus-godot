@@ -15,6 +15,13 @@ var _process_strategy: FuncRef = null
 var _unhandled_input_strategy: FuncRef = null
 
 func _ready():
+	PersistentUserSettings.set_music_bus_volume(
+		PersistentUserSettings.get_music_bus_volume()
+	)
+	PersistentUserSettings.set_effects_bus_volume(
+		PersistentUserSettings.get_effects_bus_volume()
+	)
+	PersistentUserSettings.set_language(PersistentUserSettings.get_language())
 	_process_strategy = funcref(self, "_menu_loop")
 	_unhandled_input_strategy = funcref(self, "_menu_unhandled_input")
 	var main_menu_scene = _MainMenuScene.instance()

@@ -45,5 +45,9 @@ text = "Effects"
 align = 1
 valign = 1
 
+[node name="LanguageOptionChooser" parent="." instance=ExtResource( 2 )]
+anchor_top = 0.38
+anchor_bottom = 0.522
+
 [connection signal="value_changed" from="MusicHSlider" to="." method="_on_MusicHSlider_value_changed"]
 [connection signal="value_changed" from="EffectsHSlider" to="." method="_on_EffectsHSlider_value_changed"]
