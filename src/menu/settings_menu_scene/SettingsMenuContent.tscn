@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/menu/settings_menu_scene/SettingsMenuContent.gd" type="Script" id=1]
 [ext_resource path="res://src/menu/OptionChooser.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/menu/settings_menu_scene/EffectsFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/menu/settings_menu_scene/MusicFont.tres" type="DynamicFont" id=4]
 
 [node name="SettingsMenuContentControl" type="Control"]
 anchor_right = 0.94
@@ -32,6 +34,7 @@ anchor_top = 0.18
 anchor_right = 1.0
 anchor_bottom = 0.22
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
 text = "Music"
 align = 1
 valign = 1
@@ -41,6 +44,7 @@ anchor_top = 0.28
 anchor_right = 1.0
 anchor_bottom = 0.32
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "Effects"
 align = 1
 valign = 1

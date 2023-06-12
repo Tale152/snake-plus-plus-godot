@@ -1,6 +1,10 @@
 class_name SettingsMenuContent extends Control
 
+onready var _MusicFont = preload("res://src/menu/settings_menu_scene/MusicFont.tres")
+onready var _EffectsFont = preload("res://src/menu/settings_menu_scene/EffectsFont.tres")
+
 const _CONTROLS_ARRAY: Array = ["Swipe", "Arrow", "Split"]
+const _SLIDERS_DEFAULT_FONT_SIZE: int = 18
 var _main_scene_instance
 var _change_language_parent_strategy: FuncRef
 
@@ -31,6 +35,8 @@ func _ready():
 
 func scale(scale: float) -> void:
 	$ControlsOptionChooser.scale_font(scale)
+	_MusicFont.size = _get_int_font_size(_SLIDERS_DEFAULT_FONT_SIZE, scale)
+	_EffectsFont.size = _get_int_font_size(_SLIDERS_DEFAULT_FONT_SIZE, scale)
 
 func initialize(main_scene_instance) -> void:
 	_main_scene_instance  = main_scene_instance
@@ -58,6 +64,9 @@ func _get_array_index(arr: Array, elem) -> int:
 		if elem == v: return i
 		i += 1
 	return 0
+
+func _get_int_font_size(default_value: int, scale: float) -> int:
+	return int(floor(default_value * scale))
 
 func _on_MusicHSlider_value_changed(value: int) -> void:
 	PersistentUserSettings.set_music_bus_volume(value)
