@@ -9,6 +9,15 @@ const _NOT_SELECTED_COLOR: String = "#ffffff"
 var _main_scene_instance
 
 func _ready():
+	$NoobButton.text = TranslationsManager.get_localized_string(
+		TranslationsManager.NOOB
+	)
+	$RegularButton.text = TranslationsManager.get_localized_string(
+		TranslationsManager.REGULAR
+	)
+	$ProButton.text = TranslationsManager.get_localized_string(
+		TranslationsManager.PRO
+	)
 	var difficulty: String = PersistentDifficultySettings.get_arcade_difficulty()
 	if difficulty == "Noob": set_noob_selected()
 	elif difficulty == "Regular": set_regular_selected()

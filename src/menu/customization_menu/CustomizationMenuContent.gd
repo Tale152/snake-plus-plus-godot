@@ -5,19 +5,19 @@ var _main_scene_instance
 
 func _ready():
 	$SnakeOptionChooser.fill(
-		"Snake", 
+		TranslationsManager.get_localized_string(TranslationsManager.SNAKE), 
 		_SKINS_ARRAY,
 		_get_skins_array_index(PersistentCustomizationSettings.get_snake_skin()),
 		funcref(self, "_change_snake")
 	)
 	$FieldOptionChooser.fill(
-		"Field", 
+		TranslationsManager.get_localized_string(TranslationsManager.FIELD), 
 		_SKINS_ARRAY,
 		_get_skins_array_index(PersistentCustomizationSettings.get_field_skin()),
 		funcref(self, "_change_field")
 	)
 	$PerksOptionChooser.fill(
-		"Perks", 
+		TranslationsManager.get_localized_string(TranslationsManager.PERKS), 
 		_SKINS_ARRAY,
 		_get_skins_array_index(PersistentCustomizationSettings.get_perks_skin()),
 		funcref(self, "_change_perks")

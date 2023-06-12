@@ -10,11 +10,13 @@ var _main_scene_instance: Control
 var _main_menu_scene
 
 func _ready():
-	_NavigationBar.set_title_label_text("Arcade")
+	_NavigationBar.set_title_label_text(TranslationsManager.get_localized_string(
+		TranslationsManager.ARCADE
+	))
 	_NavigationBar.set_left_button_visible(true, "back")
 	_NavigationBar.set_left_button_disabled(false)
 	_NavigationBar.set_on_left_button_pressed_strategy(funcref(self, "_go_to_main_menu"))
-	_NavigationBar.set_right_button_visible(true, "info")
+	_NavigationBar.set_right_button_visible(false)
 	_NavigationBar.set_right_button_disabled(true)
 	_arcade_menu_content.anchor_left = 0
 	_arcade_menu_content.anchor_right = 1
@@ -79,6 +81,7 @@ func _back_to_arcade_menu() -> void:
 	_main_scene_instance.play_menu_music()
 
 func _go_to_main_menu() -> void:
+	_main_scene_instance.play_button_click_sound()
 	_main_menu_scene.initialize(_main_scene_instance)
 
 func _list_available_stages(path: String) -> Array:

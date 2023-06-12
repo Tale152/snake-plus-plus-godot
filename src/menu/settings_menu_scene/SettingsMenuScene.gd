@@ -21,6 +21,9 @@ func _ready():
 	_settings_menu_content.anchor_right = 1
 	_settings_menu_content.anchor_top = 0
 	_settings_menu_content.anchor_bottom = 1
+	_settings_menu_content.set_change_language_parent_strategy(
+		funcref(self, "_update_strings")
+	)
 	$MenuSceneControl._ContentContainerControl.add_child(_settings_menu_content)
 	_settings_menu_content.scale($MenuSceneControl.get_scaling())
 
@@ -34,3 +37,8 @@ func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 func _go_to_main_menu() -> void:
 	_main_scene_instance.play_button_click_sound()
 	_main_menu_scene.initialize(_main_scene_instance)
+
+func _update_strings() -> void:
+	_NavigationBar.set_title_label_text(
+		TranslationsManager.get_localized_string(TranslationsManager.SETTINGS)
+	)

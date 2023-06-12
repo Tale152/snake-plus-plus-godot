@@ -17,6 +17,15 @@ func initialize(main_scene_instance, main_menu_scene) -> void:
 	$AdventureButton.text = TranslationsManager.get_localized_string(
 		TranslationsManager.ADVENTURE
 	)
+	$ArcadeButton.text = TranslationsManager.get_localized_string(
+		TranslationsManager.ARCADE
+	)
+	$CustomizationButton.text = TranslationsManager.get_localized_string(
+		TranslationsManager.CUSTOMIZATION
+	)
+	$WikiButton.text = TranslationsManager.get_localized_string(
+		TranslationsManager.WIKI
+	)
 	_main_scene_instance = main_scene_instance
 	_main_menu_scene = main_menu_scene
 

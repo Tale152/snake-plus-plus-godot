@@ -8,7 +8,9 @@ var _main_scene_instance: Control
 var _main_menu_scene
 
 func _ready():
-	_NavigationBar.set_title_label_text("Customization")
+	_NavigationBar.set_title_label_text(TranslationsManager.get_localized_string(
+		TranslationsManager.CUSTOMIZATION
+	))
 	_NavigationBar.set_left_button_visible(true, "back")
 	_NavigationBar.set_left_button_disabled(false)
 	_NavigationBar.set_on_left_button_pressed_strategy(funcref(self, "_go_to_main_menu"))

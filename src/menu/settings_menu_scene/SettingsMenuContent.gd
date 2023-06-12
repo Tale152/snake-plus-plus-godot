@@ -2,6 +2,7 @@ class_name SettingsMenuContent extends Control
 
 const _CONTROLS_ARRAY: Array = ["Swipe", "Arrow", "Split"]
 var _main_scene_instance
+var _change_language_parent_strategy: FuncRef
 
 func _ready():
 	$ControlsOptionChooser.fill(
@@ -38,12 +39,17 @@ func _change_controls(controls: String) -> void:
 	_main_scene_instance.play_button_click_sound()
 	PersistentUserSettings.set_controls(controls)
 
+func set_change_language_parent_strategy(strategy: FuncRef) -> void:
+	_change_language_parent_strategy = strategy
+
 func _change_language(language: String) -> void:
 	for supported in TranslationsManager.get_supported_languages().keys():
 		if supported == language:
 			PersistentUserSettings.set_language(
 				TranslationsManager.get_supported_languages()[supported]
 			)
+			_main_scene_instance.play_button_click_sound()
+			_change_language_parent_strategy.call_func()
 			_ready()
 
 func _get_array_index(arr: Array, elem) -> int:
