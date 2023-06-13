@@ -4,8 +4,10 @@ const _PERKS_SPAWN_ATTEMPT_FREQUENCY = 1
 
 var _raw_material: ModelRawMaterial
 var _exit_game_strategy: FuncRef
+var _game_over_strategy: FuncRef
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
+var _uuid: String
 var _model: GameModel
 var _snake_properties: SnakeProperties
 var _field: Field
@@ -27,9 +29,13 @@ func _init(
 	parsed_stage: ParsedStage,
 	difficulty_settings: DifficultySettings,
 	visual_parameters: VisualParameters,
-	exit_game_strategy: FuncRef
+	uuid: String,
+	exit_game_strategy: FuncRef,
+	game_over_strategy: FuncRef
 ):
+	_uuid = uuid
 	_exit_game_strategy = exit_game_strategy
+	_game_over_strategy = game_over_strategy
 	_difficulty_settings = difficulty_settings
 	_visual_parameters = visual_parameters
 	_raw_material = ModelRawMaterial.new(
@@ -280,6 +286,14 @@ func _handle_snake_movement(delta: float) -> void:
 		_handle_snake_head_collision(parts[0], _field.get_at(next_coord))
 		_print_snake()
 		if !_snake_properties.is_alive():
+			_game_over_strategy.call_func(
+				_uuid,
+				StageResult.new(
+					_elapsed_seconds,
+					_snake_properties.get_score(),
+					_snake_properties.get_current_length()
+				)
+			)
 			_view.show_game_over_menu()
 			_view.stop_game_loop_music()
 			_view.play_game_over_sound()

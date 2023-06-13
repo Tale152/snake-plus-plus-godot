@@ -660,7 +660,7 @@ PersistentDifficultySettings="*res://src/persistence/PersistentDifficultySetting
 PersistentUserSettings="*res://src/persistence/PersistentUserSettings.gd"
 PersistentCustomizationSettings="*res://src/persistence/PersistentCustomizationSettings.gd"
 TranslationsManager="*res://src/utils/TranslationsManager.gd"
-PersistentArcadeRecords="*res://src/persistence/PersistentArcadeRecords.gd"
+PersistentArcadeStagesData="*res://src/persistence/PersistentArcadeStagesData.gd"
 
 [display]
 

@@ -8,6 +8,7 @@ const _GameView = preload("res://src/game/view/GameView.tscn")
 var _arcade_menu_content: ArcadeMenuContent = _ArcadeMenuContent.instance()
 var _main_scene_instance: Control
 var _main_menu_scene
+var _stages_data: Dictionary
 
 func _ready():
 	_NavigationBar.set_title_label_text(TranslationsManager.get_localized_string(
@@ -22,6 +23,7 @@ func _ready():
 	_arcade_menu_content.anchor_right = 1
 	_arcade_menu_content.anchor_top = 0
 	_arcade_menu_content.anchor_bottom = 1
+	_stages_data = PersistentArcadeStagesData.get_stages()
 	var stages: Array = _list_available_stages("res://assets/stages/arcade")
 	var scale: float = $MenuSceneControl.get_scaling()
 	for s in stages:
@@ -29,7 +31,7 @@ func _ready():
 		container.initialize(
 			funcref(self, "_play_stage"),
 			s.displayed_name,
-			ArcadeStageData.new(s.filepath, s.uuid, s.record),
+			ArcadeStageData.new(s.filepath, s.uuid, s.record, s.unlocked),
 			scale
 		)
 		_arcade_menu_content.append_stage(container)
@@ -60,13 +62,61 @@ func _play_stage(data: ArcadeStageData) -> void:
 		parsed_stage,
 		_get_difficulty_settings_values(),
 		visual_parameters,
-		funcref(self, "_back_to_arcade_menu")
+		data.get_uuid(),
+		funcref(self, "_back_to_arcade_menu"),
+		funcref(self, "_save_new_record")
 	)
 	game_view.set_controller(game_controller)
 	game_controller.set_view(game_view, scale)
 	_main_scene_instance.add_game_controller(game_controller)
 	_main_scene_instance.stop_menu_music()
 	game_controller.start_new_game()
+
+func _save_new_record(uuid: String, stage_result: StageResult) -> void:
+	var current_record: ArcadeRecord = _stages_data[uuid]
+	if current_record == null:
+		PersistentArcadeStagesData.set_new_record(
+			uuid,
+			ArcadeRecord.new(stage_result, stage_result)
+		)
+	var current_length_record: StageResult = current_record.get_length_record()
+	var current_score_record: StageResult = current_record.get_score_record()
+	
+	var new_length_record = null
+	if current_length_record == null:
+		new_length_record = stage_result
+	elif stage_result.get_length() > current_length_record.get_length():
+		new_length_record = stage_result
+	elif stage_result.get_length() == current_length_record.get_length():
+		if stage_result.get_score() > current_length_record.get_score():
+			new_length_record = stage_result
+		elif stage_result.get_score() == current_length_record.get_score():
+			if stage_result.get_time() < current_length_record.get_time():
+				new_length_record = stage_result
+	
+	var new_score_record = null
+	if current_score_record == null:
+		new_score_record = stage_result
+	elif stage_result.get_score() > current_score_record.get_score():
+		new_score_record = stage_result
+	elif stage_result.get_score() == current_score_record.get_score():
+		if stage_result.get_length() > current_score_record.get_length():
+			new_score_record = stage_result
+		elif stage_result.get_length() == current_score_record.get_length():
+			if stage_result.get_time() < current_score_record.get_time():
+				new_score_record = stage_result
+	
+	if new_length_record != null || new_score_record != null:
+		if new_length_record != null:
+			current_length_record = new_length_record
+		if new_score_record != null:
+			current_score_record = new_score_record
+		PersistentArcadeStagesData.set_new_record(
+			uuid,
+			ArcadeRecord.new(
+				current_score_record, current_length_record
+			)
+		)
 
 func _get_difficulty_settings_values() -> DifficultySettings:
 	var difficulty: String = PersistentDifficultySettings.get_arcade_difficulty()
@@ -85,7 +135,6 @@ func _go_to_main_menu() -> void:
 	_main_menu_scene.initialize(_main_scene_instance)
 
 func _list_available_stages(path: String) -> Array:
-	var records: Dictionary = PersistentArcadeRecords.get_records()
 	var files = _list_files_in_directory(path)
 	var res = []
 	for f in files:
@@ -101,12 +150,18 @@ func _list_available_stages(path: String) -> Array:
 		if name == null or name == "":
 			name = "ERROR: no name"
 		var uuid: String = json_data["uuid"]
-		var stage_record = null
-		if records.has(uuid): stage_record = records[uuid]
+		var stage_record = ArcadeRecord.new(null, null)
+		# ------ TODO remove -------
+		PersistentArcadeStagesData.unlock_stage(uuid)
+		_stages_data = PersistentArcadeStagesData.get_stages()
+		# --------------------------
+		
+		if _stages_data.has(uuid) && _stages_data[uuid] != null: stage_record = _stages_data[uuid]
 		res.push_back({
 			filepath = filepath,
 			displayed_name = name,
 			uuid = uuid,
+			unlocked = _stages_data.has(uuid),
 			record = stage_record
 		})
 	return res

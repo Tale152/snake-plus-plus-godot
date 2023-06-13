@@ -8,7 +8,7 @@ const _TIME: String = "time"
 const _SCORE: String = "score"
 const _LENGTH: String = "length"
 
-const _FILE_PATH: String = "user://arcade_records.json"
+const _FILE_PATH: String = "user://arcade_data.json"
 const _DEFAULT: Dictionary = {
 	_STAGES: []
 }
@@ -17,34 +17,40 @@ func _ready():
 	_initialize(_DEFAULT, _FILE_PATH)
 
 # key: uuid, value: ArcadeRecord
-func get_records() -> Dictionary:
-	var stored_records: Array = _get_data(_STAGES)
+func get_stages() -> Dictionary:
+	var stored_stages: Array = _get_data(_STAGES)
 	var result: Dictionary = {}
-	for record in stored_records:
-		result[record[_UUID]] = _dictionary_to_arcade_record(record)
+	for stage in stored_stages:
+		result[stage[_UUID]] = _dictionary_to_arcade_stage(stage)
 	return result
 
 # key: uuid, value: ArcadeRecord
-func set_records(stages: Dictionary) -> void:
+func set_stages(stages: Dictionary) -> void:
 	var to_be_stored: Array = []
 	for uuid in stages.keys():
-		to_be_stored.push_back(_arcade_record_to_dictionary(
+		to_be_stored.push_back(_arcade_data_to_dictionary(
 			uuid,
 			stages[uuid]
 		))
 	_set_data(_STAGES, to_be_stored)
 
 func set_new_record(uuid: String, arcade_record: ArcadeRecord) -> void:
-	var current_records: Dictionary = get_records()
+	var current_records: Dictionary = get_stages()
 	current_records[uuid] = arcade_record
-	set_records(current_records)
+	set_stages(current_records)
 
-func _arcade_record_to_dictionary(
+func unlock_stage(uuid: String) -> bool:
+	var current_stages: Dictionary = get_stages()
+	if current_stages.has(uuid): return false
+	current_stages[uuid] = ArcadeRecord.new(null, null)
+	set_stages(current_stages)
+	return true
+
+func _arcade_data_to_dictionary(
 	uuid: String, arcade_record: ArcadeRecord
 ) -> Dictionary:
-	var result: Dictionary = {
-		_UUID = uuid
-	}
+	var result: Dictionary = {}
+	result[_UUID] = uuid #if done in "result" declaration id does not work
 	if arcade_record.get_score_record() != null:
 		result[_SCORE_RECORD] = _stage_result_to_dictionary(
 			arcade_record.get_score_record()
@@ -56,13 +62,13 @@ func _arcade_record_to_dictionary(
 	return result
 
 func _stage_result_to_dictionary(stage_result: StageResult) -> Dictionary:
-	return {
-		_TIME = stage_result.get_time(),
-		_LENGTH = stage_result.get_length(),
-		_SCORE = stage_result.get_score()
-	}
+	var result: Dictionary = {}
+	result[_TIME] = stage_result.get_time()
+	result[_LENGTH] = stage_result.get_length()
+	result[_SCORE] = stage_result.get_score()
+	return result
 
-func _dictionary_to_arcade_record(dictionary: Dictionary) -> ArcadeRecord:
+func _dictionary_to_arcade_stage(dictionary: Dictionary) -> ArcadeRecord:
 	var score_record: StageResult = _extract_stage_result_from_dictionary(
 		dictionary, _SCORE_RECORD
 	)
