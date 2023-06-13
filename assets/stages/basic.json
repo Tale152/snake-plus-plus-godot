@@ -1,5 +1,12 @@
 {
+  "uuid": "fdc265cb-de12-4dd1-9f23-d4c6ac519f45",
   "version": 1,
+  "info": {
+    "name": {
+        "en": "Basic",
+        "it": "Base"
+    }
+  },
   "stage": {
     "field": {
       "size": [

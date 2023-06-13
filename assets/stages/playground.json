@@ -1,5 +1,12 @@
 {
+    "uuid": "0ff9acd9-fa05-4bbd-8e9c-c0e327acbb60",
     "version": 1,
+    "info": {
+        "name": {
+            "en": "Playground",
+            "it": "Parco giochi"
+        }
+    },
     "stage": {
         "field": {
             "size": [16,16],

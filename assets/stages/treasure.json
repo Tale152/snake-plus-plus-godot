@@ -1,5 +1,12 @@
 {
+    "uuid": "eee5e588-3f90-42fc-94d1-86924d4b70b2",
     "version": 1,
+    "info": {
+        "name": {
+            "en": "Lost treasure",
+            "it": "Tesoro perduto"
+        }
+    },
     "stage": {
         "field": {
             "size": [13,13],

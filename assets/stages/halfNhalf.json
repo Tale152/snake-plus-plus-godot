@@ -1,5 +1,12 @@
 {
+  "uuid": "04c15845-5682-46f2-8516-8eb6a6a90dcf",
   "version": 1,
+  "info": {
+    "name": {
+        "en": "HalfNHalf",
+        "it": "MezzoEMezzo"
+      }
+  },
   "stage": {
     "field": {
       "size": [

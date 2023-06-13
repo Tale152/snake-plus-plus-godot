@@ -1,5 +1,12 @@
 {
+    "uuid": "c9455276-0140-4c6d-868c-72cd0853c247",
     "version": 1,
+    "info": {
+        "name": {
+            "en": "Claustrophobia",
+            "it": "Claustrofobia"
+        }
+    },
     "stage": {
         "field": {
             "size": [13, 13],
