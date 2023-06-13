@@ -29,7 +29,7 @@ func _ready():
 		container.initialize(
 			funcref(self, "_play_stage"),
 			s.displayed_name,
-			ArcadeStageData.new(s.filepath, s.uuid),
+			ArcadeStageData.new(s.filepath, s.uuid, s.record),
 			scale
 		)
 		_arcade_menu_content.append_stage(container)
@@ -85,6 +85,7 @@ func _go_to_main_menu() -> void:
 	_main_menu_scene.initialize(_main_scene_instance)
 
 func _list_available_stages(path: String) -> Array:
+	var records: Dictionary = PersistentArcadeRecords.get_records()
 	var files = _list_files_in_directory(path)
 	var res = []
 	for f in files:
@@ -99,10 +100,14 @@ func _list_available_stages(path: String) -> Array:
 			name = name_dictionary[TranslationsManager.FALLBACK_LANGUAGE_ID]
 		if name == null or name == "":
 			name = "ERROR: no name"
+		var uuid: String = json_data["uuid"]
+		var stage_record = null
+		if records.has(uuid): stage_record = records[uuid]
 		res.push_back({
 			filepath = filepath,
 			displayed_name = name,
-			uuid = json_data["uuid"]
+			uuid = uuid,
+			record = stage_record
 		})
 	return res
 
