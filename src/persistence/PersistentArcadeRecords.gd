@@ -34,6 +34,11 @@ func set_records(stages: Dictionary) -> void:
 		))
 	_set_data(_STAGES, to_be_stored)
 
+func set_new_record(uuid: String, arcade_record: ArcadeRecord) -> void:
+	var current_records: Dictionary = get_records()
+	current_records[uuid] = arcade_record
+	set_records(current_records)
+
 func _arcade_record_to_dictionary(
 	uuid: String, arcade_record: ArcadeRecord
 ) -> Dictionary:
