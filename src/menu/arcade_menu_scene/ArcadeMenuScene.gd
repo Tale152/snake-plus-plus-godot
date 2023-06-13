@@ -28,8 +28,8 @@ func _ready():
 		var container: ArcadeStageContainer = _ArcadeStageContainer.instance()
 		container.initialize(
 			funcref(self, "_play_stage"),
-			s,
-			ArcadeStageData.new(str("res://assets/stages/arcade/", s, ".json")),
+			s.displayed_name,
+			ArcadeStageData.new(s.filepath, s.uuid),
 			scale
 		)
 		_arcade_menu_content.append_stage(container)
@@ -88,7 +88,22 @@ func _list_available_stages(path: String) -> Array:
 	var files = _list_files_in_directory(path)
 	var res = []
 	for f in files:
-		res.push_back(f.replace(".json", ""))
+		var filepath: String = path + "/" + f
+		var file = File.new()
+		file.open(filepath, File.READ)
+		var json_data = parse_json(file.get_as_text())
+		file.close()
+		var name_dictionary: Dictionary = json_data["info"]["name"]
+		var name: String = name_dictionary[PersistentUserSettings.get_language()]
+		if name == null or name == "":
+			name = name_dictionary[TranslationsManager.FALLBACK_LANGUAGE_ID]
+		if name == null or name == "":
+			name = "ERROR: no name"
+		res.push_back({
+			filepath = filepath,
+			displayed_name = name,
+			uuid = json_data["uuid"]
+		})
 	return res
 
 func _list_files_in_directory(path):
@@ -105,5 +120,10 @@ func _list_files_in_directory(path):
 			files.append(file)
 
 	dir.list_dir_end()
-
+	files.sort_custom(self, "_sort_by_progressive")
 	return files
+
+func _sort_by_progressive(x_filename: String, y_filename: String) -> bool:
+	var x_progr: int = int(x_filename.get_slice("-", 0).strip_edges(true, true))
+	var y_progr: int = int(y_filename.get_slice("-", 0).strip_edges(true, true))
+	return x_progr < y_progr
