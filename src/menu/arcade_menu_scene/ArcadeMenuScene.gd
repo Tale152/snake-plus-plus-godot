@@ -22,14 +22,14 @@ func _ready():
 	_arcade_menu_content.anchor_right = 1
 	_arcade_menu_content.anchor_top = 0
 	_arcade_menu_content.anchor_bottom = 1
-	var stages: Array = _list_available_stages("res://assets/stages")
+	var stages: Array = _list_available_stages("res://assets/stages/arcade")
 	var scale: float = $MenuSceneControl.get_scaling()
 	for s in stages:
 		var container: ArcadeStageContainer = _ArcadeStageContainer.instance()
 		container.initialize(
 			funcref(self, "_play_stage"),
 			s,
-			ArcadeStageData.new(str("res://assets/stages/", s, ".json")),
+			ArcadeStageData.new(str("res://assets/stages/arcade/", s, ".json")),
 			scale
 		)
 		_arcade_menu_content.append_stage(container)
