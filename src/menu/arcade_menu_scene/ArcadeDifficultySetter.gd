@@ -19,8 +19,8 @@ func _ready():
 		TranslationsManager.PRO
 	)
 	var difficulty: String = PersistentDifficultySettings.get_arcade_difficulty()
-	if difficulty == "Noob": set_noob_selected()
-	elif difficulty == "Regular": set_regular_selected()
+	if difficulty == PersistentDifficultySettings.NOOB: set_noob_selected()
+	elif difficulty == PersistentDifficultySettings.REGULAR: set_regular_selected()
 	else: set_pro_selected()
 
 func initialize(main_scene_instance) -> void:
@@ -35,17 +35,17 @@ func _get_int_font_size(default_value: int, scale: float) -> int:
 func set_noob_selected() -> void:
 	if _main_scene_instance != null: _main_scene_instance.play_button_click_sound()
 	_adeguate_buttons_color(true, false, false)
-	PersistentDifficultySettings.set_arcade_difficulty("Noob")
+	PersistentDifficultySettings.set_arcade_difficulty(PersistentDifficultySettings.NOOB)
 
 func set_regular_selected() -> void:
 	if _main_scene_instance != null: _main_scene_instance.play_button_click_sound()
 	_adeguate_buttons_color(false, true, false)
-	PersistentDifficultySettings.set_arcade_difficulty("Regular")
+	PersistentDifficultySettings.set_arcade_difficulty(PersistentDifficultySettings.REGULAR)
 
 func set_pro_selected() -> void:
 	if _main_scene_instance != null: _main_scene_instance.play_button_click_sound()
 	_adeguate_buttons_color(false, false, true)
-	PersistentDifficultySettings.set_arcade_difficulty("Pro")
+	PersistentDifficultySettings.set_arcade_difficulty(PersistentDifficultySettings.PRO)
 
 func _adeguate_buttons_color(noob: bool, regular: bool, pro: bool) -> void:
 	_set_button_color($NoobButton, _SELECTED_COLOR if noob else _NOT_SELECTED_COLOR)

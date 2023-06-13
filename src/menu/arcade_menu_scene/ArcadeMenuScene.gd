@@ -24,6 +24,13 @@ func _ready():
 	_arcade_menu_content.anchor_top = 0
 	_arcade_menu_content.anchor_bottom = 1
 	_stages_data = PersistentArcadeStagesData.get_stages()
+	$MenuSceneControl._ContentContainerControl.add_child(_arcade_menu_content)
+	_populate_stages()
+	
+
+func _populate_stages() -> void:
+	_arcade_menu_content.clear_stages()
+	
 	var stages: Array = _list_available_stages("res://assets/stages/arcade")
 	var scale: float = $MenuSceneControl.get_scaling()
 	for s in stages:
@@ -35,7 +42,6 @@ func _ready():
 			scale
 		)
 		_arcade_menu_content.append_stage(container)
-	$MenuSceneControl._ContentContainerControl.add_child(_arcade_menu_content)
 	_arcade_menu_content.scale(scale)
 
 func initialize(main_scene_instance: Control, main_menu_scene) -> void:
@@ -73,14 +79,23 @@ func _play_stage(data: ArcadeStageData) -> void:
 	game_controller.start_new_game()
 
 func _save_new_record(uuid: String, stage_result: StageResult) -> void:
+	var difficulty: String = PersistentDifficultySettings.get_arcade_difficulty()
 	var current_record: ArcadeRecord = _stages_data[uuid]
 	if current_record == null:
+		var new_record: ArcadeRecord
+		if difficulty == PersistentDifficultySettings.NOOB:
+			new_record = ArcadeRecord.new(stage_result, stage_result, null, null, null, null)
+		elif difficulty == PersistentDifficultySettings.REGULAR:
+			new_record = ArcadeRecord.new(null, null, stage_result, stage_result, null, null)
+		else:
+			new_record = ArcadeRecord.new(null, null, null, null, stage_result, stage_result)
 		PersistentArcadeStagesData.set_new_record(
 			uuid,
-			ArcadeRecord.new(stage_result, stage_result)
+			new_record
 		)
-	var current_length_record: StageResult = current_record.get_length_record()
-	var current_score_record: StageResult = current_record.get_score_record()
+		return
+	var current_length_record: StageResult = current_record.get_length_record(difficulty)
+	var current_score_record: StageResult = current_record.get_score_record(difficulty)
 	
 	var new_length_record = null
 	if current_length_record == null:
@@ -111,12 +126,35 @@ func _save_new_record(uuid: String, stage_result: StageResult) -> void:
 			current_length_record = new_length_record
 		if new_score_record != null:
 			current_score_record = new_score_record
-		PersistentArcadeStagesData.set_new_record(
-			uuid,
-			ArcadeRecord.new(
-				current_score_record, current_length_record
+		var new_record: ArcadeRecord
+		if difficulty == PersistentDifficultySettings.NOOB:
+			new_record = ArcadeRecord.new(
+				current_score_record,
+				current_length_record,
+				current_record.get_score_record(PersistentDifficultySettings.REGULAR),
+				current_record.get_length_record(PersistentDifficultySettings.REGULAR),
+				current_record.get_score_record(PersistentDifficultySettings.PRO),
+				current_record.get_length_record(PersistentDifficultySettings.PRO)
 			)
-		)
+		elif difficulty == PersistentDifficultySettings.REGULAR:
+			new_record = ArcadeRecord.new(
+				current_record.get_score_record(PersistentDifficultySettings.NOOB),
+				current_record.get_length_record(PersistentDifficultySettings.NOOB),
+				current_score_record,
+				current_length_record,
+				current_record.get_score_record(PersistentDifficultySettings.PRO),
+				current_record.get_length_record(PersistentDifficultySettings.PRO)
+			)
+		else:
+			new_record = ArcadeRecord.new(
+				current_record.get_score_record(PersistentDifficultySettings.NOOB),
+				current_record.get_length_record(PersistentDifficultySettings.NOOB),
+				current_record.get_score_record(PersistentDifficultySettings.REGULAR),
+				current_record.get_length_record(PersistentDifficultySettings.REGULAR),
+				current_score_record,
+				current_length_record
+			)
+		PersistentArcadeStagesData.set_new_record(uuid, new_record)
 
 func _get_difficulty_settings_values() -> DifficultySettings:
 	var difficulty: String = PersistentDifficultySettings.get_arcade_difficulty()
@@ -129,6 +167,7 @@ func _back_to_arcade_menu() -> void:
 	_main_scene_instance.clear()
 	_main_scene_instance.add_child(self)
 	_main_scene_instance.play_menu_music()
+	_populate_stages()
 
 func _go_to_main_menu() -> void:
 	_main_scene_instance.play_button_click_sound()
@@ -150,7 +189,7 @@ func _list_available_stages(path: String) -> Array:
 		if name == null or name == "":
 			name = "ERROR: no name"
 		var uuid: String = json_data["uuid"]
-		var stage_record = ArcadeRecord.new(null, null)
+		var stage_record = null
 		# ------ TODO remove -------
 		PersistentArcadeStagesData.unlock_stage(uuid)
 		_stages_data = PersistentArcadeStagesData.get_stages()

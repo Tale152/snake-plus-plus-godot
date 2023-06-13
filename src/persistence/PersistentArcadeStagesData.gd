@@ -1,8 +1,12 @@
 extends PersistentDictionaryNode
 
 const _STAGES: String = "stages"
-const _SCORE_RECORD: String = "score_record"
-const _LENGTH_RECORD: String = "length_record"
+const _SCORE_RECORD_NOOB: String = "score_record_noob"
+const _LENGTH_RECORD_NOOB: String = "length_record_noob"
+const _SCORE_RECORD_REGULAR: String = "score_record_regular"
+const _LENGTH_RECORD_REGULAR: String = "length_record_regular"
+const _SCORE_RECORD_PRO: String = "score_record_pro"
+const _LENGTH_RECORD_PRO: String = "length_record_pro"
 const _UUID: String = "uuid"
 const _TIME: String = "time"
 const _SCORE: String = "score"
@@ -42,7 +46,7 @@ func set_new_record(uuid: String, arcade_record: ArcadeRecord) -> void:
 func unlock_stage(uuid: String) -> bool:
 	var current_stages: Dictionary = get_stages()
 	if current_stages.has(uuid): return false
-	current_stages[uuid] = ArcadeRecord.new(null, null)
+	current_stages[uuid] = null
 	set_stages(current_stages)
 	return true
 
@@ -51,15 +55,33 @@ func _arcade_data_to_dictionary(
 ) -> Dictionary:
 	var result: Dictionary = {}
 	result[_UUID] = uuid #if done in "result" declaration id does not work
-	if arcade_record.get_score_record() != null:
-		result[_SCORE_RECORD] = _stage_result_to_dictionary(
-			arcade_record.get_score_record()
-	)
-	if arcade_record.get_length_record() != null:
-		result[_LENGTH_RECORD] = _stage_result_to_dictionary(
-			arcade_record.get_length_record()
-	)
+	if arcade_record != null:
+		_add_records_by_difficulty(
+			result, arcade_record, PersistentDifficultySettings.NOOB, _SCORE_RECORD_NOOB, _LENGTH_RECORD_NOOB
+		)
+		_add_records_by_difficulty(
+			result, arcade_record, PersistentDifficultySettings.REGULAR, _SCORE_RECORD_REGULAR, _LENGTH_RECORD_REGULAR
+		)
+		_add_records_by_difficulty(
+			result, arcade_record, PersistentDifficultySettings.PRO, _SCORE_RECORD_PRO, _LENGTH_RECORD_PRO
+		)
 	return result
+
+func _add_records_by_difficulty(
+	result: Dictionary,
+	arcade_record: ArcadeRecord,
+	difficulty: String,
+	score_key: String,
+	length_key: String
+):
+	if arcade_record.get_score_record(difficulty) != null:
+		result[score_key] = _stage_result_to_dictionary(
+			arcade_record.get_score_record(difficulty)
+	)
+	if arcade_record.get_length_record(difficulty) != null:
+		result[length_key] = _stage_result_to_dictionary(
+			arcade_record.get_length_record(difficulty)
+	)
 
 func _stage_result_to_dictionary(stage_result: StageResult) -> Dictionary:
 	var result: Dictionary = {}
@@ -69,13 +91,42 @@ func _stage_result_to_dictionary(stage_result: StageResult) -> Dictionary:
 	return result
 
 func _dictionary_to_arcade_stage(dictionary: Dictionary) -> ArcadeRecord:
-	var score_record: StageResult = _extract_stage_result_from_dictionary(
-		dictionary, _SCORE_RECORD
+	var score_record_noob: StageResult = _extract_stage_result_from_dictionary(
+		dictionary, _SCORE_RECORD_NOOB
 	)
-	var length_record: StageResult = _extract_stage_result_from_dictionary(
-		dictionary, _LENGTH_RECORD
+	var length_record_noob: StageResult = _extract_stage_result_from_dictionary(
+		dictionary, _LENGTH_RECORD_NOOB
 	)
-	return ArcadeRecord.new(score_record, length_record)
+	var score_record_regular: StageResult = _extract_stage_result_from_dictionary(
+		dictionary, _SCORE_RECORD_REGULAR
+	)
+	var length_record_regular: StageResult = _extract_stage_result_from_dictionary(
+		dictionary, _LENGTH_RECORD_REGULAR
+	)
+	var score_record_pro: StageResult = _extract_stage_result_from_dictionary(
+		dictionary, _SCORE_RECORD_PRO
+	)
+	var length_record_pro: StageResult = _extract_stage_result_from_dictionary(
+		dictionary, _LENGTH_RECORD_PRO
+	)
+	if(
+		score_record_noob == null &&
+		length_record_noob == null &&
+		score_record_regular == null &&
+		length_record_regular == null &&
+		score_record_pro == null &&
+		length_record_pro == null
+	):
+		return null
+	else:
+		return ArcadeRecord.new(
+			score_record_noob, 
+			length_record_noob,
+			score_record_regular,
+			length_record_regular,
+			score_record_pro,
+			length_record_pro
+		)
 
 func _extract_stage_result_from_dictionary(
 	dictionary: Dictionary, record_type: String

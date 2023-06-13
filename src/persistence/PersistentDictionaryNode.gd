@@ -45,7 +45,7 @@ func _read(path: String) -> Dictionary:
 func _write(path: String, data: Dictionary) -> void:
 	var file: File = File.new()
 	_open_file(file, path, File.WRITE)
-	file.store_string(JSON.print(data))
+	file.store_string(JSON.print(data, "\t"))
 	file.close()
 
 func _open_file(file: File, path: String, mode) -> void:
