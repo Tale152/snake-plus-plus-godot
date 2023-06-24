@@ -2,10 +2,12 @@ class_name ArcadeMenuScene extends Control
 
 onready var _NavigationBar: NavigationBar = $MenuSceneControl.get_navigation_bar()
 const _ArcadeMenuContent = preload("res://src/menu/arcade_menu_scene/ArcadeMenuContent.tscn")
+const _ArcadeStageInfo = preload("res://src/menu/arcade_menu_scene/ArcadeStageInfo.tscn")
 const _ArcadeStageContainer = preload("res://src/menu/arcade_menu_scene/ArcadeStageContainer.tscn")
 const _GameView = preload("res://src/game/view/GameView.tscn")
 
 var _arcade_menu_content: ArcadeMenuContent = _ArcadeMenuContent.instance()
+var _arcade_stage_info: ArcadeStageInfo = _ArcadeStageInfo.instance()
 var _main_scene_instance: Control
 var _main_menu_scene
 var _stages_data: Dictionary
@@ -23,8 +25,15 @@ func _ready():
 	_arcade_menu_content.anchor_right = 1
 	_arcade_menu_content.anchor_top = 0
 	_arcade_menu_content.anchor_bottom = 1
+	_arcade_menu_content.visible = true
 	_stages_data = PersistentArcadeStagesData.get_stages()
 	$MenuSceneControl._ContentContainerControl.add_child(_arcade_menu_content)
+	_arcade_stage_info.anchor_left = 0
+	_arcade_stage_info.anchor_right = 1
+	_arcade_stage_info.anchor_top = 0
+	_arcade_stage_info.anchor_bottom = 1
+	_arcade_stage_info.visible = false
+	$MenuSceneControl._ContentContainerControl.add_child(_arcade_stage_info)
 	_populate_stages()
 	
 
@@ -36,7 +45,7 @@ func _populate_stages() -> void:
 	for s in stages:
 		var container: ArcadeStageContainer = _ArcadeStageContainer.instance()
 		container.initialize(
-			funcref(self, "_play_stage"),
+			funcref(self, "_open_arcade_stage_info"),
 			s.displayed_name,
 			ArcadeStageData.new(s.filepath, s.uuid, s.record, s.unlocked),
 			scale
@@ -50,6 +59,15 @@ func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_main_scene_instance.clear()
 	_main_scene_instance.add_child(self)
 	_arcade_menu_content.initialize(_main_scene_instance)
+
+func _open_arcade_stage_info(data: ArcadeStageData) -> void:
+	_arcade_stage_info.initialize(
+		data,
+		funcref(self, "_play_stage"),
+		funcref(self, "_back_to_arcade_menu")
+	)
+	_arcade_menu_content.visible = false
+	_arcade_stage_info.visible = true
 
 func _play_stage(data: ArcadeStageData) -> void:
 	_main_scene_instance.play_button_click_sound()
@@ -168,6 +186,8 @@ func _back_to_arcade_menu() -> void:
 	_main_scene_instance.add_child(self)
 	_main_scene_instance.play_menu_music()
 	_populate_stages()
+	_arcade_menu_content.visible = true
+	_arcade_stage_info.visible = false
 
 func _go_to_main_menu() -> void:
 	_main_scene_instance.play_button_click_sound()
