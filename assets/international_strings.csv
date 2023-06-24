@@ -15,3 +15,9 @@ PRO,Pro,Pro
 SNAKE,Snake,Snake
 FIELD,Field,Arena
 PERKS,Perks,Perk
+LONGEST_SNAKE_GAME,Longest snake game,Partita con snake più lungo
+HIGHEST_SCORE_GAME,Highest score game,Partita con punteggio più alto
+LENGTH,Length,Lunghezza
+SCORE,Score,Punteggio
+TIME,Time,Tempo
+NO_RECORD,No record,Nessun record

@@ -60,9 +60,10 @@ func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_main_scene_instance.add_child(self)
 	_arcade_menu_content.initialize(_main_scene_instance)
 
-func _open_arcade_stage_info(data: ArcadeStageData) -> void:
+func _open_arcade_stage_info(data: ArcadeStageData, name: String) -> void:
 	_arcade_stage_info.initialize(
 		data,
+		name,
 		funcref(self, "_play_stage"),
 		funcref(self, "_back_to_arcade_menu")
 	)

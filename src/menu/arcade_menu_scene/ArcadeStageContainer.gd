@@ -28,4 +28,4 @@ func _get_int_font_size(default_value: int, scale: float) -> int:
 	return int(floor(default_value * scale))
 
 func _on_Button_pressed():
-	_on_pressed_strategy.call_func(_data)
+	_on_pressed_strategy.call_func(_data, $Button.text)

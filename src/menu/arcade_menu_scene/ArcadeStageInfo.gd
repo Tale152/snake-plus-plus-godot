@@ -6,12 +6,47 @@ var _on_back_pressed: FuncRef
 
 func initialize(
 	data: ArcadeStageData,
+	name: String,
 	on_play_pressed: FuncRef,
 	on_back_pressed: FuncRef
 ) -> void:
 	_data = data
+	$StageNameLabel.text = name
+	if data.get_record() == null:
+		$LongestSnakeGameDataLabel.text = TranslationsManager.get_localized_string(
+			TranslationsManager.NO_RECORD
+		)
+		$HighestScoreGameDataLabel.text = TranslationsManager.get_localized_string(
+			TranslationsManager.NO_RECORD
+		)
+	else:
+		$LongestSnakeGameDataLabel.text = _get_record_string(
+			data.get_record().get_length_record(PersistentDifficultySettings.get_arcade_difficulty())
+		)
+		$HighestScoreGameDataLabel.text = _get_record_string(
+			data.get_record().get_score_record(PersistentDifficultySettings.get_arcade_difficulty())
+		)
 	_on_play_pressed = on_play_pressed
 	_on_back_pressed = on_back_pressed
+
+func _get_record_string(result: StageResult) -> String:
+	if result == null:
+		return TranslationsManager.get_localized_string(
+			TranslationsManager.NO_RECORD
+		)
+	else:
+		return str(
+			_get_record_line(TranslationsManager.LENGTH, result.get_length()),
+			"\n",
+			_get_record_line(TranslationsManager.SCORE, result.get_score()),
+			"\n",
+			_get_record_line(TranslationsManager.TIME, result.get_time())
+		)
+
+func _get_record_line(field_name: String, value) -> String:
+	return str(
+		TranslationsManager.get_localized_string(field_name), ": ", value
+	)
 
 func _on_PlayButton_pressed():
 	_on_play_pressed.call_func(_data)
