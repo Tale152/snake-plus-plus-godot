@@ -67,6 +67,7 @@ func _open_arcade_stage_info(data: ArcadeStageData, name: String) -> void:
 		funcref(self, "_play_stage"),
 		funcref(self, "_back_to_arcade_menu")
 	)
+	_arcade_stage_info.scale($MenuSceneControl.get_scaling())
 	_arcade_menu_content.visible = false
 	_arcade_stage_info.visible = true
 

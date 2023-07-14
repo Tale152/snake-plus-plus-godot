@@ -1,5 +1,8 @@
 class_name ArcadeStageInfo extends Control
 
+var _ArcadeStageInfoFont = preload("res://src/menu/arcade_menu_scene/ArcadeStageInfoFont.tres")
+var _ArcadeStageInfoButtonFont = preload("res://src/menu/arcade_menu_scene/ArcadeStageInfoButtonFont.tres")
+
 var _data: ArcadeStageData
 var _on_play_pressed: FuncRef
 var _on_back_pressed: FuncRef
@@ -28,6 +31,10 @@ func initialize(
 		)
 	_on_play_pressed = on_play_pressed
 	_on_back_pressed = on_back_pressed
+
+func scale(scale: float) -> void:
+	_ArcadeStageInfoFont.size = 16 * scale
+	_ArcadeStageInfoButtonFont.size = 13 * scale
 
 func _get_record_string(result: StageResult) -> String:
 	if result == null:
