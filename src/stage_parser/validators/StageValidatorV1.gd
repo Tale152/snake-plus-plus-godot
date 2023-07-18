@@ -1,10 +1,12 @@
-class_name ValidatorV1 extends Reference
+class_name StageValidatorV1 extends Reference
 
 static func validate(stage: Dictionary) -> bool:
 	return (
 		_is_field_valid(stage) &&
 		_is_snake_valid(stage) &&
-		_is_perks_valid(stage)
+		_is_perks_valid(stage) &&
+		_is_win_valid(stage) &&
+		_is_lose_valid(stage)
 	)
 
 static func _is_field_valid(stage: Dictionary) -> bool:
@@ -69,3 +71,59 @@ static func _get_v1_perk_types() -> Array:
 		PerkType.get_perk_type_string(PerkType.BEER()),
 		PerkType.get_perk_type_string(PerkType.WATERMELON())
 	]
+
+static func _is_win_valid(stage: Dictionary) -> bool:
+	if !stage.has("conditions"): return true
+	if !DictionaryUtil.contains(stage.conditions, "win", TYPE_DICTIONARY): return false
+	return _is_condition_structure_valid(stage.conditions.win, stage)
+
+static func _is_lose_valid(stage: Dictionary) -> bool:
+	if !stage.has("conditions"): return true
+	if !stage.conditions.has("win") && !stage.conditions.has("lose"): return true
+	if stage.conditions.has("win") && !stage.conditions.has("lose"): return true
+	if !DictionaryUtil.contains(stage.conditions, "lose", TYPE_DICTIONARY): return false
+	return _is_condition_structure_valid(stage.conditions.lose, stage)
+
+static func _is_condition_structure_valid(
+	conditions_structure: Dictionary, stage: Dictionary
+) -> bool:
+	var conditionsToTrigger = 0
+	if DictionaryUtil.contains(conditions_structure, "time", TYPE_REAL):
+		if conditions_structure.time < 0.0: return false
+		conditionsToTrigger += 1
+	elif conditions_structure.has("time"): return false
+	
+	if DictionaryUtil.contains(conditions_structure, "length", TYPE_REAL):
+		if conditions_structure.length < 1: return false
+		conditionsToTrigger += 1
+	elif conditions_structure.has("length"): return false
+
+	if DictionaryUtil.contains(conditions_structure, "score", TYPE_REAL):
+		if conditions_structure.score < 1: return false
+		conditionsToTrigger += 1
+	elif conditions_structure.has("score"): return false
+	
+	if DictionaryUtil.contains(conditions_structure, "perks", TYPE_ARRAY):
+		var perks = conditions_structure.perks
+		if perks.size() == 0: return false
+		var parsed_perk_types = []
+		var stage_perk_types = []
+		for perk in stage.perks:
+			stage_perk_types.append(perk.type)
+		for perk in perks:
+			if !_is_array_of_size(perk, 2): return false
+			var perk_type = perk[0]
+			if !typeof(perk_type) == TYPE_STRING: return false
+			if !_get_v1_perk_types().has(perk_type): return false
+			if !stage_perk_types.has(perk_type): return false
+			var perk_quantity = perk[1]
+			if !typeof(perk_quantity) == TYPE_REAL: return false
+			if perk_quantity < 1: return false
+			parsed_perk_types.append(perk_type)
+		while(parsed_perk_types.size() > 0):
+			var p = parsed_perk_types.pop_back()
+			if parsed_perk_types.has(p): return false
+		conditionsToTrigger += 1
+	elif conditions_structure.has("perks"): return false
+
+	return conditionsToTrigger > 0 

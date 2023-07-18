@@ -459,6 +459,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/persistence/StageResult.gd"
 }, {
+"base": "Reference",
+"class": "StageValidatorV1",
+"language": "GDScript",
+"path": "res://src/stage_parser/validators/StageValidatorV1.gd"
+}, {
 "base": "CollisionStrategy",
 "class": "StarStrategy",
 "language": "GDScript",
@@ -478,11 +483,6 @@ _global_script_classes=[ {
 "class": "TrophiesMenuScene",
 "language": "GDScript",
 "path": "res://src/menu/trophies_menu/TrophiesMenuScene.gd"
-}, {
-"base": "Reference",
-"class": "ValidatorV1",
-"language": "GDScript",
-"path": "res://src/stage_parser/validators/ValidatorV1.gd"
 }, {
 "base": "Reference",
 "class": "VisualParameters",
@@ -635,11 +635,11 @@ _global_script_class_icons={
 "SnakeUnitView": "",
 "SplitControls": "",
 "StageResult": "",
+"StageValidatorV1": "",
 "StarStrategy": "",
 "SwipeControls": "",
 "TrophiesMenuContent": "",
 "TrophiesMenuScene": "",
-"ValidatorV1": "",
 "VisualParameters": "",
 "VisualParametersBuilder": "",
 "VisualParametersHelper": "",
