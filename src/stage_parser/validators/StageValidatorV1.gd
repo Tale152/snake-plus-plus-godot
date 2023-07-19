@@ -5,6 +5,7 @@ static func validate(stage: Dictionary) -> bool:
 		_is_field_valid(stage) &&
 		_is_snake_valid(stage) &&
 		_is_perks_valid(stage) &&
+		_is_ratings_valid(stage) &&
 		_is_win_valid(stage) &&
 		_is_lose_valid(stage)
 	)
@@ -72,13 +73,112 @@ static func _get_v1_perk_types() -> Array:
 		PerkType.get_perk_type_string(PerkType.WATERMELON())
 	]
 
+static func _is_ratings_valid(stage: Dictionary) -> bool:
+	if !stage.has("conditions"): return true
+	if !DictionaryUtil.contains(stage, "conditions", TYPE_DICTIONARY):
+		printerr("conditions found but type mismatch")
+		return false
+	if !DictionaryUtil.contains(stage.conditions, "ratings", TYPE_ARRAY):
+		printerr("conditions do not contain a ratings array")
+		return false
+	if !_is_array_of_size(stage.conditions.ratings, 3):
+		printerr("conditions' ratings array's size must be 3")
+		return false
+	var stars: Array = []
+	for rating in stage.conditions.ratings:
+		stars.push_back(_check_single_rating_structure(rating, stage))
+	if !stars.has(1):
+		printerr("conditions' ratings array's does not contain a valid rating object for stars 1")
+		return false
+	if !stars.has(2):
+		printerr("conditions' ratings array's does not contain a valid rating object for stars 2")
+		return false
+	if !stars.has(3):
+		printerr("conditions' ratings array's does not contain a valid rating object for stars 3")
+		return false
+	return true
+
+static func _check_single_rating_structure(rating: Dictionary, stage: Dictionary) -> int:
+	if !DictionaryUtil.contains(rating, "stars", TYPE_REAL): return -1
+	var stars = rating.stars
+	var valid_criteria = 0
+	valid_criteria += _check_rating_value(rating, "score", 1, stars)
+	valid_criteria += _check_rating_value(rating, "time", 1, stars)
+	valid_criteria += _check_rating_value(rating, "length", 1, stars)
+	if rating.has("perks"):
+		if !DictionaryUtil.contains(rating, "perks", TYPE_ARRAY):
+			printerr("the rating for stars " + stars + " contains a perks field that is not an array")
+			return -1
+		var perk_types_found: Array = []
+		var rating_perks = rating.perks
+		if rating_perks.size() == 0:
+			printerr("the rating for stars " + stars + " contains an empty perks array")
+			return -1
+		var stage_perk_types = [] #every perk type contained in the stage
+		for perk in stage.perks:
+			stage_perk_types.append(perk.type)
+		for rp in rating_perks:
+			if _generic_check_rating(rp, 1, stars) < 1: return -1
+			if !DictionaryUtil.contains(rp, "type", TYPE_STRING):
+				printerr("the rating for stars " + str(stars) + " perks array contains a perk which type is not a string")
+				return -1
+			if !_get_v1_perk_types().has(rp.type):
+				printerr("the rating for stars " + str(stars) + " perks array contains a perk which type " + rp.type + " does not exist")
+				return -1
+			if !stage_perk_types.has(rp.type):
+				printerr("the rating for stars " + str(stars) + " perks array contains a perk which type " + rp.type + " cannot spawn in the stage")
+				return -1
+			perk_types_found.push_back(rp.type)
+		# duplicates check
+		while(perk_types_found.size() > 0):
+			var p = perk_types_found.pop_back()
+			if perk_types_found.has(p):
+				printerr("the rating for stars " + str(stars) + " perks array contains a perk which type " + p + " appears more than once")
+				return -1
+	if valid_criteria > 0: return int(stars)
+	printerr("the rating for stars " + str(stars) + " does not contain at least one valid criteria")
+	return -1
+
+static func _check_rating_value(
+	rating: Dictionary,
+	value_string: String,
+	min_value: int,
+	stars
+) -> int:
+	if !rating.has(value_string): return 0
+	if !DictionaryUtil.contains(rating, value_string, TYPE_DICTIONARY):
+		printerr("the rating for stars " + str(stars) + " contains the criteria " + value_string + " which is not a dictionary")
+		return -100
+	return _generic_check_rating(rating[value_string], min_value, stars)
+
+static func _generic_check_rating(
+	value_dictionary: Dictionary,
+	min_value: int,
+	stars
+) -> int:
+	if !DictionaryUtil.contains(value_dictionary, "value", TYPE_REAL):
+		printerr("the rating for stars " + str(stars) + " contains a criteria which value is not a number")
+		return -100
+	if value_dictionary.value < min_value:
+		printerr("the rating for stars " + str(stars) + " contains a criteria which value is less than " + str(min_value))
+		return -100
+	if !DictionaryUtil.contains(value_dictionary, "criteria", TYPE_STRING):
+		printerr("the rating for stars " + str(stars) + " contains a criteria in which the criteria value is not a string")
+		return -100
+	if value_dictionary.criteria != "reach" && value_dictionary.criteria != "below":
+		printerr("the rating for stars " + str(stars) + " contains a criteria in which the criteria value is neither 'reach' or 'below'")
+		return -100
+	return 1
+
 static func _is_win_valid(stage: Dictionary) -> bool:
 	if !stage.has("conditions"): return true
+	if !DictionaryUtil.contains(stage, "conditions", TYPE_DICTIONARY): return false
 	if !DictionaryUtil.contains(stage.conditions, "win", TYPE_DICTIONARY): return false
 	return _is_condition_structure_valid(stage.conditions.win, stage)
 
 static func _is_lose_valid(stage: Dictionary) -> bool:
 	if !stage.has("conditions"): return true
+	if !DictionaryUtil.contains(stage, "conditions", TYPE_DICTIONARY): return false
 	if !stage.conditions.has("win") && !stage.conditions.has("lose"): return true
 	if stage.conditions.has("win") && !stage.conditions.has("lose"): return true
 	if !DictionaryUtil.contains(stage.conditions, "lose", TYPE_DICTIONARY): return false
