@@ -38,3 +38,15 @@ func get_perks_rules() -> Array:
 			perk.max_instances
 		))
 	return res
+
+func get_ratings():
+	if _stage.conditions == null: return null
+	return _stage.conditions.ratings
+
+func get_win_conditions():
+	if _stage.conditions == null: return null
+	return _stage.conditions.win
+
+func get_lose_conditions():
+	if _stage.conditions == null: return null
+	return _stage.conditions.lose
