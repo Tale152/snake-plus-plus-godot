@@ -5,8 +5,7 @@ static func validate(stage: Dictionary) -> bool:
 		_is_field_valid(stage) &&
 		_is_snake_valid(stage) &&
 		_is_perks_valid(stage) &&
-		_is_ratings_valid(stage) &&
-		_is_win_valid(stage) &&
+		_is_win_ratings_valid(stage) &&
 		_is_lose_valid(stage)
 	)
 
@@ -73,28 +72,28 @@ static func _get_v1_perk_types() -> Array:
 		PerkType.get_perk_type_string(PerkType.WATERMELON())
 	]
 
-static func _is_ratings_valid(stage: Dictionary) -> bool:
+static func _is_win_ratings_valid(stage: Dictionary) -> bool:
 	if !stage.has("conditions"): return true
 	if !DictionaryUtil.contains(stage, "conditions", TYPE_DICTIONARY):
 		printerr("conditions found but type mismatch")
 		return false
-	if !DictionaryUtil.contains(stage.conditions, "ratings", TYPE_ARRAY):
-		printerr("conditions do not contain a ratings array")
+	if !DictionaryUtil.contains(stage.conditions, "win_ratings", TYPE_ARRAY):
+		printerr("conditions do not contain a win ratings array")
 		return false
-	if !_is_array_of_size(stage.conditions.ratings, 3):
-		printerr("conditions' ratings array's size must be 3")
+	if !_is_array_of_size(stage.conditions.win_ratings, 3):
+		printerr("conditions' win ratings array's size must be 3")
 		return false
 	var stars: Array = []
-	for rating in stage.conditions.ratings:
+	for rating in stage.conditions.win_ratings:
 		stars.push_back(_check_single_rating_structure(rating, stage))
 	if !stars.has(1):
-		printerr("conditions' ratings array's does not contain a valid rating object for stars 1")
+		printerr("conditions' win ratings array's does not contain a valid rating object for stars 1")
 		return false
 	if !stars.has(2):
-		printerr("conditions' ratings array's does not contain a valid rating object for stars 2")
+		printerr("conditions' win ratings array's does not contain a valid rating object for stars 2")
 		return false
 	if !stars.has(3):
-		printerr("conditions' ratings array's does not contain a valid rating object for stars 3")
+		printerr("conditions' win ratings array's does not contain a valid rating object for stars 3")
 		return false
 	return true
 
@@ -170,23 +169,11 @@ static func _generic_check_rating(
 		return -100
 	return 1
 
-static func _is_win_valid(stage: Dictionary) -> bool:
-	if !stage.has("conditions"): return true
-	if !DictionaryUtil.contains(stage, "conditions", TYPE_DICTIONARY): return false
-	if !DictionaryUtil.contains(stage.conditions, "win", TYPE_DICTIONARY): return false
-	return _is_condition_structure_valid(stage.conditions.win, stage)
-
 static func _is_lose_valid(stage: Dictionary) -> bool:
 	if !stage.has("conditions"): return true
 	if !DictionaryUtil.contains(stage, "conditions", TYPE_DICTIONARY): return false
-	if !stage.conditions.has("win") && !stage.conditions.has("lose"): return true
-	if stage.conditions.has("win") && !stage.conditions.has("lose"): return true
 	if !DictionaryUtil.contains(stage.conditions, "lose", TYPE_DICTIONARY): return false
-	return _is_condition_structure_valid(stage.conditions.lose, stage)
-
-static func _is_condition_structure_valid(
-	conditions_structure: Dictionary, stage: Dictionary
-) -> bool:
+	var conditions_structure: Dictionary = stage.conditions.lose
 	var conditionsToTrigger = 0
 	if DictionaryUtil.contains(conditions_structure, "time", TYPE_REAL):
 		if conditions_structure.time < 0.0: return false
@@ -226,4 +213,4 @@ static func _is_condition_structure_valid(
 		conditionsToTrigger += 1
 	elif conditions_structure.has("perks"): return false
 
-	return conditionsToTrigger > 0 
+	return conditionsToTrigger > 0

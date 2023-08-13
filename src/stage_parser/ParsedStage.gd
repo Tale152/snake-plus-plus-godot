@@ -41,11 +41,7 @@ func get_perks_rules() -> Array:
 
 func get_ratings():
 	if _stage.conditions == null: return null
-	return _stage.conditions.ratings
-
-func get_win_conditions():
-	if _stage.conditions == null: return null
-	return _stage.conditions.win
+	return _stage.conditions.win_ratings
 
 func get_lose_conditions():
 	if _stage.conditions == null: return null
