@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/menu/play_menu_scene/PlaySettingButtonsFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/menu/play_menu_scene/PlayModeSetter.gd" type="Script" id=2]
+
+[node name="PlayModeSetterControl" type="Control"]
+anchor_right = 0.94
+anchor_bottom = 0.09
+script = ExtResource( 2 )
+
+[node name="ChallengeButton" type="Button" parent="."]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.48
+anchor_bottom = 0.9
+custom_colors/font_color_disabled = Color( 0.564706, 0.564706, 0.564706, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Challenge"
+
+[node name="ArcadeButton" type="Button" parent="."]
+anchor_left = 0.52
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+custom_colors/font_color_disabled = Color( 0.564706, 0.564706, 0.564706, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Arcade"
+
+[connection signal="pressed" from="ChallengeButton" to="." method="_on_ChallengeButton_pressed"]
+[connection signal="pressed" from="ArcadeButton" to="." method="_on_ArcadeButton_pressed"]

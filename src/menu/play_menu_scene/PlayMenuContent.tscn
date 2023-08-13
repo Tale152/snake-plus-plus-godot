@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/menu/play_menu_scene/PlayModeSetter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/menu/play_menu_scene/PlayDifficultySetter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/menu/play_menu_scene/PlayMenuContent.gd" type="Script" id=3]
+
+[node name="ArcadeMenuContentControl" type="Control"]
+anchor_right = 0.94
+anchor_bottom = 0.873
+script = ExtResource( 3 )
+
+[node name="PlayModeSetterControl" parent="." instance=ExtResource( 1 )]
+anchor_right = 1.0
+
+[node name="ArcadeDifficultySetterControl" parent="." instance=ExtResource( 2 )]
+anchor_top = 0.09
+anchor_right = 1.0
+anchor_bottom = 0.18
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_top = 0.18
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]

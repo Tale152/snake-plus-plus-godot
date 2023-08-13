@@ -14,7 +14,8 @@ func get_os_language() -> String:
 func get_localized_string(key: String) -> String:
 	return tr(key)
 
-const ADVENTURE: String = "ADVENTURE"
+const PLAY: String = "PLAY"
+const CHALLENGE: String = "CHALLENGE"
 const ARCADE: String = "ARCADE"
 const CUSTOMIZATION: String = "CUSTOMIZATION"
 const WIKI: String = "WIKI"

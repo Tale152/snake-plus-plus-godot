@@ -57,13 +57,13 @@ func _arcade_data_to_dictionary(
 	result[_UUID] = uuid #if done in "result" declaration id does not work
 	if arcade_record != null:
 		_add_records_by_difficulty(
-			result, arcade_record, PersistentDifficultySettings.NOOB, _SCORE_RECORD_NOOB, _LENGTH_RECORD_NOOB
+			result, arcade_record, PersistentPlaySettings.NOOB, _SCORE_RECORD_NOOB, _LENGTH_RECORD_NOOB
 		)
 		_add_records_by_difficulty(
-			result, arcade_record, PersistentDifficultySettings.REGULAR, _SCORE_RECORD_REGULAR, _LENGTH_RECORD_REGULAR
+			result, arcade_record, PersistentPlaySettings.REGULAR, _SCORE_RECORD_REGULAR, _LENGTH_RECORD_REGULAR
 		)
 		_add_records_by_difficulty(
-			result, arcade_record, PersistentDifficultySettings.PRO, _SCORE_RECORD_PRO, _LENGTH_RECORD_PRO
+			result, arcade_record, PersistentPlaySettings.PRO, _SCORE_RECORD_PRO, _LENGTH_RECORD_PRO
 		)
 	return result
 

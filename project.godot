@@ -9,16 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Control",
-"class": "AdventureMenuContent",
-"language": "GDScript",
-"path": "res://src/menu/adventure_menu/AdventureMenuContent.gd"
-}, {
-"base": "Control",
-"class": "AdventureMenuScene",
-"language": "GDScript",
-"path": "res://src/menu/adventure_menu/AdventureMenuScene.gd"
-}, {
 "base": "Reference",
 "class": "AnimationUtils",
 "language": "GDScript",
@@ -29,21 +19,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/strategies/AppleStrategy.gd"
 }, {
-"base": "Control",
-"class": "ArcadeDifficultySetter",
-"language": "GDScript",
-"path": "res://src/menu/arcade_menu_scene/ArcadeDifficultySetter.gd"
-}, {
-"base": "Control",
-"class": "ArcadeMenuContent",
-"language": "GDScript",
-"path": "res://src/menu/arcade_menu_scene/ArcadeMenuContent.gd"
-}, {
-"base": "Control",
-"class": "ArcadeMenuScene",
-"language": "GDScript",
-"path": "res://src/menu/arcade_menu_scene/ArcadeMenuScene.gd"
-}, {
 "base": "Reference",
 "class": "ArcadeRecord",
 "language": "GDScript",
@@ -52,17 +27,17 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "ArcadeStageContainer",
 "language": "GDScript",
-"path": "res://src/menu/arcade_menu_scene/ArcadeStageContainer.gd"
+"path": "res://src/menu/play_menu_scene/ArcadeStageContainer.gd"
 }, {
 "base": "Reference",
 "class": "ArcadeStageData",
 "language": "GDScript",
-"path": "res://src/menu/arcade_menu_scene/ArcadeStageData.gd"
+"path": "res://src/menu/play_menu_scene/ArcadeStageData.gd"
 }, {
 "base": "Control",
 "class": "ArcadeStageInfo",
 "language": "GDScript",
-"path": "res://src/menu/arcade_menu_scene/ArcadeStageInfo.gd"
+"path": "res://src/menu/play_menu_scene/ArcadeStageInfo.gd"
 }, {
 "base": "Control",
 "class": "ArrowsControls",
@@ -405,6 +380,26 @@ _global_script_classes=[ {
 "path": "res://src/persistence/PersistentDictionaryNode.gd"
 }, {
 "base": "Reference",
+"class": "PlayDifficultySetter",
+"language": "GDScript",
+"path": "res://src/menu/play_menu_scene/PlayDifficultySetter.gd"
+}, {
+"base": "Control",
+"class": "PlayMenuContent",
+"language": "GDScript",
+"path": "res://src/menu/play_menu_scene/PlayMenuContent.gd"
+}, {
+"base": "Control",
+"class": "PlayMenuScene",
+"language": "GDScript",
+"path": "res://src/menu/play_menu_scene/PlayMenuScene.gd"
+}, {
+"base": "Control",
+"class": "PlayModeSetter",
+"language": "GDScript",
+"path": "res://src/menu/play_menu_scene/PlayModeSetter.gd"
+}, {
+"base": "Reference",
 "class": "PositionCalculator",
 "language": "GDScript",
 "path": "res://src/game/view/utils/PositionCalculator.gd"
@@ -494,6 +489,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/persistence/StageResult.gd"
 }, {
+"base": "Control",
+"class": "StageSelectorContainer",
+"language": "GDScript",
+"path": "res://src/menu/play_menu_scene/StageSelectorContainer.gd"
+}, {
 "base": "Reference",
 "class": "StageValidatorV1",
 "language": "GDScript",
@@ -580,13 +580,8 @@ _global_script_classes=[ {
 "path": "res://src/menu/wiki_menu/WikiMenuScene.gd"
 } ]
 _global_script_class_icons={
-"AdventureMenuContent": "",
-"AdventureMenuScene": "",
 "AnimationUtils": "",
 "AppleStrategy": "",
-"ArcadeDifficultySetter": "",
-"ArcadeMenuContent": "",
-"ArcadeMenuScene": "",
 "ArcadeRecord": "",
 "ArcadeStageContainer": "",
 "ArcadeStageData": "",
@@ -659,6 +654,10 @@ _global_script_class_icons={
 "PerkType": "",
 "PerkView": "",
 "PersistentDictionaryNode": "",
+"PlayDifficultySetter": "",
+"PlayMenuContent": "",
+"PlayMenuScene": "",
+"PlayModeSetter": "",
 "PositionCalculator": "",
 "RatingTriggerCondition": "",
 "RestartMenu": "",
@@ -677,6 +676,7 @@ _global_script_class_icons={
 "SnakeUnitView": "",
 "SplitControls": "",
 "StageResult": "",
+"StageSelectorContainer": "",
 "StageValidatorV1": "",
 "StarStrategy": "",
 "SwipeControls": "",
@@ -704,11 +704,11 @@ config/icon="res://icon.png"
 
 [autoload]
 
-PersistentDifficultySettings="*res://src/persistence/PersistentDifficultySettings.gd"
 PersistentUserSettings="*res://src/persistence/PersistentUserSettings.gd"
 PersistentCustomizationSettings="*res://src/persistence/PersistentCustomizationSettings.gd"
 TranslationsManager="*res://src/utils/TranslationsManager.gd"
 PersistentArcadeStagesData="*res://src/persistence/PersistentArcadeStagesData.gd"
+PersistentPlaySettings="*res://src/persistence/PersistentPlaySettings.gd"
 
 [display]
 

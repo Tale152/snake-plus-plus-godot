@@ -1,6 +1,6 @@
-class_name ArcadeDifficultySetter extends Control
+class_name PlayDifficultySetter extends Control
 
-var _DifficultyFont = preload("res://src/menu/arcade_menu_scene/DifficultyFont.tres")
+var _DifficultyFont = preload("res://src/menu/play_menu_scene/PlaySettingButtonsFont.tres")
 
 const _DEFAULT_DIFFICULTY_FONT_SIZE: int = 14
 const _SELECTED_COLOR: String = "#5bd170"
@@ -18,9 +18,9 @@ func _ready():
 	$ProButton.text = TranslationsManager.get_localized_string(
 		TranslationsManager.PRO
 	)
-	var difficulty: String = PersistentDifficultySettings.get_arcade_difficulty()
-	if difficulty == PersistentDifficultySettings.NOOB: set_noob_selected()
-	elif difficulty == PersistentDifficultySettings.REGULAR: set_regular_selected()
+	var difficulty: String = PersistentPlaySettings.get_difficulty()
+	if difficulty == PersistentPlaySettings.NOOB: set_noob_selected()
+	elif difficulty == PersistentPlaySettings.REGULAR: set_regular_selected()
 	else: set_pro_selected()
 
 func initialize(main_scene_instance) -> void:
@@ -35,17 +35,17 @@ func _get_int_font_size(default_value: int, scale: float) -> int:
 func set_noob_selected() -> void:
 	if _main_scene_instance != null: _main_scene_instance.play_button_click_sound()
 	_adeguate_buttons_color(true, false, false)
-	PersistentDifficultySettings.set_arcade_difficulty(PersistentDifficultySettings.NOOB)
+	PersistentPlaySettings.set_difficulty(PersistentPlaySettings.NOOB)
 
 func set_regular_selected() -> void:
 	if _main_scene_instance != null: _main_scene_instance.play_button_click_sound()
 	_adeguate_buttons_color(false, true, false)
-	PersistentDifficultySettings.set_arcade_difficulty(PersistentDifficultySettings.REGULAR)
+	PersistentPlaySettings.set_difficulty(PersistentPlaySettings.REGULAR)
 
 func set_pro_selected() -> void:
 	if _main_scene_instance != null: _main_scene_instance.play_button_click_sound()
 	_adeguate_buttons_color(false, false, true)
-	PersistentDifficultySettings.set_arcade_difficulty(PersistentDifficultySettings.PRO)
+	PersistentPlaySettings.set_difficulty(PersistentPlaySettings.PRO)
 
 func _adeguate_buttons_color(noob: bool, regular: bool, pro: bool) -> void:
 	_set_button_color($NoobButton, _SELECTED_COLOR if noob else _NOT_SELECTED_COLOR)

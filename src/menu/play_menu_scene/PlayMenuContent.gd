@@ -1,11 +1,13 @@
-class_name ArcadeMenuContent extends Control
+class_name PlayMenuContent extends Control
 
 var stages: Array = []
 
 func scale(scale: float) -> void:
+	$PlayModeSetterControl.scale(scale)
 	$ArcadeDifficultySetterControl.scale(scale)
 
 func initialize(main_scene_instance) -> void:
+	$PlayModeSetterControl.initialize(main_scene_instance)
 	$ArcadeDifficultySetterControl.initialize(main_scene_instance)
 
 func append_stage(stage) -> int:

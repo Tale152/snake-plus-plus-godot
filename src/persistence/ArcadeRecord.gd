@@ -23,11 +23,11 @@ func _init(
 	_pro_length_record = pro_length_record
 
 func get_score_record(difficulty: String) -> StageResult:
-	if(difficulty == PersistentDifficultySettings.NOOB): return _noob_score_record
-	elif(difficulty == PersistentDifficultySettings.REGULAR): return _regular_score_record
+	if(difficulty == PersistentPlaySettings.NOOB): return _noob_score_record
+	elif(difficulty == PersistentPlaySettings.REGULAR): return _regular_score_record
 	else: return _pro_score_record
 
 func get_length_record(difficulty: String) -> StageResult:
-	if(difficulty == PersistentDifficultySettings.NOOB): return _noob_length_record
-	elif(difficulty == PersistentDifficultySettings.REGULAR): return _regular_length_record
+	if(difficulty == PersistentPlaySettings.NOOB): return _noob_length_record
+	elif(difficulty == PersistentPlaySettings.REGULAR): return _regular_length_record
 	else: return _pro_length_record

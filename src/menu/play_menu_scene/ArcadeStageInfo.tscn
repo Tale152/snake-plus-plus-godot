@@ -1,19 +1,19 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/menu/arcade_menu_scene/ArcadeStageInfo.gd" type="Script" id=1]
-[ext_resource path="res://src/menu/arcade_menu_scene/ArcadeStageInfoFont.tres" type="DynamicFont" id=2]
-[ext_resource path="res://src/menu/arcade_menu_scene/ArcadeStageInfoButtonFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/menu/play_menu_scene/ArcadeStageInfoFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/menu/play_menu_scene/ArcadeStageInfoButtonFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/menu/play_menu_scene/ArcadeStageInfo.gd" type="Script" id=3]
 
 [node name="ArcadeStageInfoControl" type="Control"]
 anchor_right = 0.94
 anchor_bottom = 0.873
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="StageNameLabel" type="Label" parent="."]
 anchor_right = 1.0
 anchor_bottom = 0.1
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "STAGE NAME"
 align = 1
 valign = 1
@@ -24,7 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 0.15
 margin_left = 10.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "LONGEST_SNAKE_GAME"
 valign = 1
 
@@ -33,7 +33,7 @@ anchor_top = 0.15
 anchor_right = 1.0
 anchor_bottom = 0.35
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "length:
 score:
 time:"
@@ -44,7 +44,7 @@ anchor_right = 1.0
 anchor_bottom = 0.4
 margin_left = 10.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "HIGHEST_SCORE_GAME"
 valign = 1
 
@@ -53,7 +53,7 @@ anchor_top = 0.4
 anchor_right = 1.0
 anchor_bottom = 0.6
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "length:
 score:
 time:"
@@ -64,7 +64,7 @@ anchor_top = 0.95
 anchor_right = 0.47
 anchor_bottom = 1.0
 margin_bottom = 0.200012
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 2 )
 text = "BACK"
 
 [node name="PlayButton" type="Button" parent="."]
@@ -73,7 +73,7 @@ anchor_top = 0.95
 anchor_right = 0.95
 anchor_bottom = 1.0
 margin_bottom = 0.200012
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 2 )
 text = "PLAY"
 
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]

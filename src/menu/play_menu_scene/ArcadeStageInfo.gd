@@ -1,7 +1,7 @@
 class_name ArcadeStageInfo extends Control
 
-var _ArcadeStageInfoFont = preload("res://src/menu/arcade_menu_scene/ArcadeStageInfoFont.tres")
-var _ArcadeStageInfoButtonFont = preload("res://src/menu/arcade_menu_scene/ArcadeStageInfoButtonFont.tres")
+var _ArcadeStageInfoFont = preload("res://src/menu/play_menu_scene/ArcadeStageInfoFont.tres")
+var _ArcadeStageInfoButtonFont = preload("res://src/menu/play_menu_scene/ArcadeStageInfoButtonFont.tres")
 
 var _data: ArcadeStageData
 var _on_play_pressed: FuncRef
@@ -24,10 +24,10 @@ func initialize(
 		)
 	else:
 		$LongestSnakeGameDataLabel.text = _get_record_string(
-			data.get_record().get_length_record(PersistentDifficultySettings.get_arcade_difficulty())
+			data.get_record().get_length_record(PersistentPlaySettings.get_difficulty())
 		)
 		$HighestScoreGameDataLabel.text = _get_record_string(
-			data.get_record().get_score_record(PersistentDifficultySettings.get_arcade_difficulty())
+			data.get_record().get_score_record(PersistentPlaySettings.get_difficulty())
 		)
 	_on_play_pressed = on_play_pressed
 	_on_back_pressed = on_back_pressed

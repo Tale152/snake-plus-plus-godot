@@ -1,6 +1,6 @@
 class_name ArcadeStageContainer extends Control
 
-var _StageNameFont = preload("res://src/menu/arcade_menu_scene/StageNameFont.tres")
+var _StageNameFont = preload("res://src/menu/play_menu_scene/StageNameFont.tres")
 
 var _on_pressed_strategy: FuncRef
 var _data: ArcadeStageData
