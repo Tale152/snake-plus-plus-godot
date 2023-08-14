@@ -8,6 +8,7 @@ var _game_over_strategy: FuncRef
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var _uuid: String
+var _is_challenge: bool
 var _model: GameModel
 var _snake_properties: SnakeProperties
 var _field: Field
@@ -24,9 +25,13 @@ var _game_direction_input_handler: GameDirectionInputHandler
 var _equipped_effects_container: EquippedEffectsContainer
 var _difficulty_settings: DifficultySettings
 var _visual_parameters: VisualParameters
+var _check_not_lost_by_modality_strategy: FuncRef
+var _lose_conditions = GameConclusionTriggers
+var _update_hud_strategy: FuncRef
 
 func _init(
 	parsed_stage: ParsedStage,
+	is_challenge: bool,
 	difficulty_settings: DifficultySettings,
 	visual_parameters: VisualParameters,
 	uuid: String,
@@ -34,6 +39,10 @@ func _init(
 	game_over_strategy: FuncRef
 ):
 	_uuid = uuid
+	_is_challenge = is_challenge
+	_lose_conditions = parsed_stage.get_lose_conditions()
+	_check_not_lost_by_modality_strategy = funcref(self, "_check_not_lost_challenge_strategy" if is_challenge && _lose_conditions != null else "_check_not_lost_arcade_strategy")
+	_update_hud_strategy = funcref(self, "_update_hud_with_lose_conditions" if is_challenge && _lose_conditions != null else "_update_hud_without_lose_conditions")
 	_exit_game_strategy = exit_game_strategy
 	_game_over_strategy = game_over_strategy
 	_difficulty_settings = difficulty_settings
@@ -52,7 +61,7 @@ func _init(
 	_game_direction_input_handler = GameDirectionInputHandler.new()
 
 func is_not_game_over() -> bool:
-	return _snake_properties.is_alive()
+	return _snake_properties.is_alive() && _check_not_lost_by_modality_strategy.call_func()
 
 func set_view(view, scale: float) -> void:
 	_view = view
@@ -132,8 +141,8 @@ func tick(delta_seconds: float) -> void:
 		_handle_perks_expire_tick(delta_seconds)
 		_handle_equipped_effects_tick(delta_seconds)
 		_handle_snake_movement(delta_seconds)
-		_update_hud()
-		if _snake_properties.is_alive(): _handle_perks_spawn_tick(delta_seconds)
+		_update_hud_strategy.call_func()
+		if is_not_game_over(): _handle_perks_spawn_tick(delta_seconds)
 
 func start_new_game() -> void:
 	_view.reset_perks()
@@ -151,7 +160,7 @@ func start_new_game() -> void:
 		_snake_properties.get_speed_multiplier()
 	)
 	_equipped_effects_container = _model.get_equipped_effects_container()
-	_update_hud()
+	_update_hud_strategy.call_func()
 	_print_snake()
 	_view.show_controls()
 	_view.resume_animations(_snake_delta_seconds_calculator.get_last_calculated_delta())
@@ -285,7 +294,7 @@ func _handle_snake_movement(delta: float) -> void:
 		_field.set_snake_body_parts(parts)
 		_handle_snake_head_collision(parts[0], _field.get_at(next_coord))
 		_print_snake()
-		if !_snake_properties.is_alive():
+		if !is_not_game_over():
 			_game_over_strategy.call_func(
 				_uuid,
 				StageResult.new(
@@ -303,7 +312,7 @@ func _handle_snake_head_collision(
 	head: SnakeBodyPart, next_coord_content: Array
 ) -> void:
 	for collidable in next_coord_content:
-		if collidable != head && _snake_properties.is_alive():
+		if collidable != head && is_not_game_over():
 			var collision_result: CollisionResult = collidable.execute(
 				_snake_properties, _equipped_effects_container
 			)
@@ -330,11 +339,29 @@ func _create_new_game_model() -> GameModel:
 		_raw_material.get_snake_initial_direction()
 	)
 
-func _update_hud() -> void:
+func _check_not_lost_challenge_strategy() -> bool:
+	return _lose_conditions.can_game_continue(
+		_elapsed_seconds,
+		_snake_properties.get_score(),
+		_snake_properties.get_current_length()
+	)
+
+func _check_not_lost_arcade_strategy() -> bool:
+	# does not check anything on purpose
+	return true
+
+func _update_hud_without_lose_conditions() -> void:
 	_view.update_hud(
 		_snake_properties.get_score(),
 		_snake_properties.get_current_length(),
 		_elapsed_seconds
+	)
+
+func _update_hud_with_lose_conditions() -> void:
+	_view.update_hud(
+		(_lose_conditions.get_score_trigger() - _snake_properties.get_score()) if _lose_conditions.has_score_trigger() else _snake_properties.get_score(),
+		(_lose_conditions.get_length_trigger() - _snake_properties.get_current_length()) if _lose_conditions.has_length_trigger() else _snake_properties.get_current_length(),
+		(_lose_conditions.get_time_trigger() - _elapsed_seconds) if _lose_conditions.has_time_trigger() else _elapsed_seconds
 	)
 
 func _up_direction_input() -> void: direction_input(Direction.UP())

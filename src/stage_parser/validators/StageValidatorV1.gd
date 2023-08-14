@@ -189,28 +189,5 @@ static func _is_lose_valid(stage: Dictionary) -> bool:
 		if conditions_structure.score < 1: return false
 		conditionsToTrigger += 1
 	elif conditions_structure.has("score"): return false
-	
-	if DictionaryUtil.contains(conditions_structure, "perks", TYPE_ARRAY):
-		var perks = conditions_structure.perks
-		if perks.size() == 0: return false
-		var parsed_perk_types = []
-		var stage_perk_types = []
-		for perk in stage.perks:
-			stage_perk_types.append(perk.type)
-		for perk in perks:
-			if !_is_array_of_size(perk, 2): return false
-			var perk_type = perk[0]
-			if !typeof(perk_type) == TYPE_STRING: return false
-			if !_get_v1_perk_types().has(perk_type): return false
-			if !stage_perk_types.has(perk_type): return false
-			var perk_quantity = perk[1]
-			if !typeof(perk_quantity) == TYPE_REAL: return false
-			if perk_quantity < 1: return false
-			parsed_perk_types.append(perk_type)
-		while(parsed_perk_types.size() > 0):
-			var p = parsed_perk_types.pop_back()
-			if parsed_perk_types.has(p): return false
-		conditionsToTrigger += 1
-	elif conditions_structure.has("perks"): return false
 
 	return conditionsToTrigger > 0

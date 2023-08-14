@@ -2,12 +2,12 @@ class_name PlayMenuScene extends Control
 
 onready var _NavigationBar: NavigationBar = $MenuSceneControl.get_navigation_bar()
 const _PlayMenuContent = preload("res://src/menu/play_menu_scene/PlayMenuContent.tscn")
-const _ArcadeStageInfo = preload("res://src/menu/play_menu_scene/ArcadeStageInfo.tscn")
+const _StagePrelude = preload("res://src/menu/play_menu_scene/StagePrelude.tscn")
 const _StageSelectorContainer = preload("res://src/menu/play_menu_scene/StageSelectorContainer.tscn")
 const _GameView = preload("res://src/game/view/GameView.tscn")
 
 var _play_menu_content: PlayMenuContent = _PlayMenuContent.instance()
-var _arcade_stage_info: ArcadeStageInfo = _ArcadeStageInfo.instance()
+var _stage_prelude: StagePrelude = _StagePrelude.instance()
 var _main_scene_instance: Control
 var _main_menu_scene
 var _stages_data: Dictionary
@@ -28,12 +28,12 @@ func _ready():
 	_play_menu_content.visible = true
 	_stages_data = PersistentArcadeStagesData.get_stages()
 	$MenuSceneControl._ContentContainerControl.add_child(_play_menu_content)
-	_arcade_stage_info.anchor_left = 0
-	_arcade_stage_info.anchor_right = 1
-	_arcade_stage_info.anchor_top = 0
-	_arcade_stage_info.anchor_bottom = 1
-	_arcade_stage_info.visible = false
-	$MenuSceneControl._ContentContainerControl.add_child(_arcade_stage_info)
+	_stage_prelude.anchor_left = 0
+	_stage_prelude.anchor_right = 1
+	_stage_prelude.anchor_top = 0
+	_stage_prelude.anchor_bottom = 1
+	_stage_prelude.visible = false
+	$MenuSceneControl._ContentContainerControl.add_child(_stage_prelude)
 	_populate_stages()
 	
 
@@ -61,15 +61,15 @@ func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_play_menu_content.initialize(_main_scene_instance)
 
 func _open_stage_selector_container(data: ArcadeStageData, name: String) -> void:
-	_arcade_stage_info.initialize(
+	_stage_prelude.initialize(
 		data,
 		name,
 		funcref(self, "_play_stage"),
 		funcref(self, "_back_to_play_menu")
 	)
-	_arcade_stage_info.scale($MenuSceneControl.get_scaling())
+	_stage_prelude.scale($MenuSceneControl.get_scaling())
 	_play_menu_content.visible = false
-	_arcade_stage_info.visible = true
+	_stage_prelude.visible = true
 
 func _play_stage(data: ArcadeStageData) -> void:
 	_main_scene_instance.play_button_click_sound()
@@ -86,6 +86,7 @@ func _play_stage(data: ArcadeStageData) -> void:
 		)
 	var game_controller: GameController = GameController.new(
 		parsed_stage,
+		PersistentPlaySettings.get_mode() == PersistentPlaySettings.CHALLENGE,
 		_get_difficulty_settings_values(),
 		visual_parameters,
 		data.get_uuid(),
@@ -189,7 +190,7 @@ func _back_to_play_menu() -> void:
 	_main_scene_instance.play_menu_music()
 	_populate_stages()
 	_play_menu_content.visible = true
-	_arcade_stage_info.visible = false
+	_stage_prelude.visible = false
 
 func _go_to_main_menu() -> void:
 	_main_scene_instance.play_button_click_sound()

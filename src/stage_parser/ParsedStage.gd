@@ -40,9 +40,9 @@ func get_perks_rules() -> Array:
 	return res
 
 func get_ratings():
-	if _stage.conditions == null: return null
+	if !_stage.has("conditions"): return null
 	return _stage.conditions.win_ratings
 
-func get_lose_conditions():
-	if _stage.conditions == null: return null
-	return _stage.conditions.lose
+func get_lose_conditions() -> GameConclusionTriggers:
+	if !_stage.has("conditions"): return null
+	return GameConclusionTriggers.new(_stage.conditions.lose)

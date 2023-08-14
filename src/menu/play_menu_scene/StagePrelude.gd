@@ -1,4 +1,4 @@
-class_name ArcadeStageInfo extends Control
+class_name StagePrelude extends Control
 
 var _ArcadeStageInfoFont = preload("res://src/menu/play_menu_scene/ArcadeStageInfoFont.tres")
 var _ArcadeStageInfoButtonFont = preload("res://src/menu/play_menu_scene/ArcadeStageInfoButtonFont.tres")
