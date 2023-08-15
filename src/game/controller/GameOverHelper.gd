@@ -23,39 +23,6 @@ func is_not_game_over(
 		elapsed_seconds, current_score, current_length
 	)
 
-# intended to be called AFTER game over to determine what caused it
-func was_one_lose_condition_trigger_reached(
-	elapsed_seconds: float, current_score: int, current_length: int
-) -> bool:
-	if !_is_challenge || _lose_conditions == null: return false
-	return !_lose_conditions.can_game_continue(
-		elapsed_seconds, current_score, current_length
-	)
-
-# you call this only if was_one_lose_condition_trigger_reached returns true
-func was_time_lose_condition_trigger_reached(elapsed_seconds: float) -> bool:
-	if _lose_conditions == null || !_lose_conditions.has_time_trigger():
-		return false
-	return _lose_conditions.is_trigger_not_reached(
-		_lose_conditions.get_time_trigger(), elapsed_seconds
-	)
-
-# you call this only if was_one_lose_condition_trigger_reached returns true
-func was_score_lose_condition_trigger_reached(current_score: int) -> bool:
-	if _lose_conditions == null || !_lose_conditions.has_score_trigger():
-		return false
-	return _lose_conditions.is_trigger_not_reached(
-		_lose_conditions.get_score_trigger(), current_score
-	)
-
-# you call this only if was_one_lose_condition_trigger_reached returns true
-func was_length_lose_condition_trigger_reached(current_length: int) -> bool:
-	if _lose_conditions == null || !_lose_conditions.has_length_trigger():
-		return false
-	return _lose_conditions.is_trigger_not_reached(
-		_lose_conditions.get_length_trigger(), current_length
-	)
-
 func _check_not_lost_with_conditions(
 	elapsed_seconds: float, current_score: int, current_length: int
 ) -> bool:

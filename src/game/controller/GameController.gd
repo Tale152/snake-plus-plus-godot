@@ -25,8 +25,7 @@ var _game_direction_input_handler: GameDirectionInputHandler
 var _equipped_effects_container: EquippedEffectsContainer
 var _difficulty_settings: DifficultySettings
 var _visual_parameters: VisualParameters
-var _update_hud_strategy: FuncRef
-var _lose_conditions: GameConclusionTriggers
+var _hud_updater_helper: HudUpdaterHelper
 var _game_over_helper: GameOverHelper
 
 func _init(
@@ -40,9 +39,8 @@ func _init(
 ):
 	_uuid = uuid
 	_is_challenge = is_challenge
-	_lose_conditions = parsed_stage.get_lose_conditions()
-	_game_over_helper = GameOverHelper.new(is_challenge, _lose_conditions)
-	_update_hud_strategy = funcref(self, "_update_hud_with_lose_conditions" if is_challenge && _lose_conditions != null else "_update_hud_without_lose_conditions")
+	_game_over_helper = GameOverHelper.new(is_challenge, parsed_stage.get_lose_conditions())
+	_hud_updater_helper = HudUpdaterHelper.new(parsed_stage.get_lose_conditions())
 	_exit_game_strategy = exit_game_strategy
 	_game_over_strategy = game_over_strategy
 	_difficulty_settings = difficulty_settings
@@ -146,7 +144,12 @@ func tick(delta_seconds: float) -> void:
 		_handle_perks_expire_tick(delta_seconds)
 		_handle_equipped_effects_tick(delta_seconds)
 		_handle_snake_movement(delta_seconds)
-		_update_hud_strategy.call_func()
+		_hud_updater_helper.update_hud(
+			_view,
+			_elapsed_seconds,
+			_snake_properties.get_score(),
+			_snake_properties.get_current_length()
+		)
 		if is_not_game_over(): _handle_perks_spawn_tick(delta_seconds)
 
 func start_new_game() -> void:
@@ -165,7 +168,12 @@ func start_new_game() -> void:
 		_snake_properties.get_speed_multiplier()
 	)
 	_equipped_effects_container = _model.get_equipped_effects_container()
-	_update_hud_strategy.call_func()
+	_hud_updater_helper.update_hud(
+		_view,
+		_elapsed_seconds,
+		_snake_properties.get_score(),
+		_snake_properties.get_current_length()
+	)
 	_print_snake()
 	_view.show_controls()
 	_view.resume_animations(_snake_delta_seconds_calculator.get_last_calculated_delta())
@@ -342,20 +350,6 @@ func _create_new_game_model() -> GameModel:
 		_raw_material.get_perks_list(),
 		walls,
 		_raw_material.get_snake_initial_direction()
-	)
-
-func _update_hud_without_lose_conditions() -> void:
-	_view.update_hud(
-		_snake_properties.get_score(),
-		_snake_properties.get_current_length(),
-		_elapsed_seconds
-	)
-
-func _update_hud_with_lose_conditions() -> void:
-	_view.update_hud(
-		(_lose_conditions.get_score_trigger() - _snake_properties.get_score()) if _lose_conditions.has_score_trigger() else _snake_properties.get_score(),
-		(_lose_conditions.get_length_trigger() - _snake_properties.get_current_length()) if _lose_conditions.has_length_trigger() else _snake_properties.get_current_length(),
-		(_lose_conditions.get_time_trigger() - _elapsed_seconds) if _lose_conditions.has_time_trigger() else _elapsed_seconds
 	)
 
 func _up_direction_input() -> void: direction_input(Direction.UP())
