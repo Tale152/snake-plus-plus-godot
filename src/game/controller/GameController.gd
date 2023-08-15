@@ -27,6 +27,7 @@ var _difficulty_settings: DifficultySettings
 var _visual_parameters: VisualParameters
 var _hud_updater_helper: HudUpdaterHelper
 var _game_over_helper: GameOverHelper
+var _was_game_over_handled: bool
 
 func _init(
 	parsed_stage: ParsedStage,
@@ -37,6 +38,7 @@ func _init(
 	exit_game_strategy: FuncRef,
 	game_over_strategy: FuncRef
 ):
+	_was_game_over_handled = false
 	_uuid = uuid
 	_is_challenge = is_challenge
 	_game_over_helper = GameOverHelper.new(is_challenge, parsed_stage.get_lose_conditions())
@@ -151,6 +153,7 @@ func tick(delta_seconds: float) -> void:
 			_snake_properties.get_current_length()
 		)
 		if is_not_game_over(): _handle_perks_spawn_tick(delta_seconds)
+		else: _on_game_over()
 
 func start_new_game() -> void:
 	_view.reset_perks()
@@ -177,6 +180,7 @@ func start_new_game() -> void:
 	_print_snake()
 	_view.show_controls()
 	_view.resume_animations(_snake_delta_seconds_calculator.get_last_calculated_delta())
+	_was_game_over_handled = false
 
 func _handle_equipped_effects_tick(delta_seconds: float) -> void:
 	var effects_to_print: Array = []
@@ -308,18 +312,23 @@ func _handle_snake_movement(delta: float) -> void:
 		_handle_snake_head_collision(parts[0], _field.get_at(next_coord))
 		_print_snake()
 		if !is_not_game_over():
-			_game_over_strategy.call_func(
-				_uuid,
-				StageResult.new(
-					_elapsed_seconds,
-					_snake_properties.get_score(),
-					_snake_properties.get_current_length()
-				)
+			_on_game_over()
+
+func _on_game_over() -> void:
+	if !_was_game_over_handled:
+		_was_game_over_handled = true
+		_game_over_strategy.call_func(
+			_uuid,
+			StageResult.new(
+				_elapsed_seconds,
+				_snake_properties.get_score(),
+				_snake_properties.get_current_length()
 			)
-			_view.show_game_over_menu()
-			_view.stop_game_loop_music()
-			_view.play_game_over_sound()
-			_view.stop_animations()
+		)
+		_view.show_game_over_menu()
+		_view.stop_game_loop_music()
+		_view.play_game_over_sound()
+		_view.stop_animations()
 
 func _handle_snake_head_collision(
 	head: SnakeBodyPart, next_coord_content: Array
