@@ -104,36 +104,6 @@ static func _check_single_rating_structure(rating: Dictionary, stage: Dictionary
 	valid_criteria += _check_rating_value(rating, "score", 1, stars)
 	valid_criteria += _check_rating_value(rating, "time", 1, stars)
 	valid_criteria += _check_rating_value(rating, "length", 1, stars)
-	if rating.has("perks"):
-		if !DictionaryUtil.contains(rating, "perks", TYPE_ARRAY):
-			printerr("the rating for stars " + stars + " contains a perks field that is not an array")
-			return -1
-		var perk_types_found: Array = []
-		var rating_perks = rating.perks
-		if rating_perks.size() == 0:
-			printerr("the rating for stars " + stars + " contains an empty perks array")
-			return -1
-		var stage_perk_types = [] #every perk type contained in the stage
-		for perk in stage.perks:
-			stage_perk_types.append(perk.type)
-		for rp in rating_perks:
-			if _generic_check_rating(rp, 1, stars) < 1: return -1
-			if !DictionaryUtil.contains(rp, "type", TYPE_STRING):
-				printerr("the rating for stars " + str(stars) + " perks array contains a perk which type is not a string")
-				return -1
-			if !_get_v1_perk_types().has(rp.type):
-				printerr("the rating for stars " + str(stars) + " perks array contains a perk which type " + rp.type + " does not exist")
-				return -1
-			if !stage_perk_types.has(rp.type):
-				printerr("the rating for stars " + str(stars) + " perks array contains a perk which type " + rp.type + " cannot spawn in the stage")
-				return -1
-			perk_types_found.push_back(rp.type)
-		# duplicates check
-		while(perk_types_found.size() > 0):
-			var p = perk_types_found.pop_back()
-			if perk_types_found.has(p):
-				printerr("the rating for stars " + str(stars) + " perks array contains a perk which type " + p + " appears more than once")
-				return -1
 	if valid_criteria > 0: return int(stars)
 	printerr("the rating for stars " + str(stars) + " does not contain at least one valid criteria")
 	return -1

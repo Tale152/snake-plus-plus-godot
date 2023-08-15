@@ -5,7 +5,7 @@ var _stages_data: Dictionary
 func _init(stages_data: Dictionary):
 	_stages_data = stages_data
 
-func _save_new_record(
+func save_new_record(
 	uuid: String, stage_result: StageResult
 ) -> void:
 	var difficulty: String = PersistentPlaySettings.get_difficulty()

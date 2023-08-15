@@ -12,6 +12,8 @@ var _main_scene_instance: Control
 var _main_menu_scene
 var _stages_data: Dictionary
 var _arcade_record_helper: ArcadeRecordHelper
+var _challenge_record_helper: ChallengeRecordHelper
+var _new_record_strategy: FuncRef
 
 func _ready():
 	_NavigationBar.set_title_label_text(TranslationsManager.get_localized_string(
@@ -29,6 +31,7 @@ func _ready():
 	_play_menu_content.visible = true
 	_stages_data = PersistentArcadeStagesData.get_stages()
 	_arcade_record_helper = ArcadeRecordHelper.new(_stages_data)
+	_challenge_record_helper = ChallengeRecordHelper.new()
 	$MenuSceneControl._ContentContainerControl.add_child(_play_menu_content)
 	_stage_prelude.anchor_left = 0
 	_stage_prelude.anchor_right = 1
@@ -86,6 +89,13 @@ func _play_stage(data: ArcadeStageData) -> void:
 			game_view.get_field_px_size(scale),
 			parsed_stage
 		)
+	
+	if PersistentPlaySettings.get_mode() == PersistentPlaySettings.CHALLENGE:
+		_challenge_record_helper.set_ratings_container(parsed_stage.get_ratings())
+		_new_record_strategy = funcref(_challenge_record_helper, "save_new_record")
+	else:
+		_new_record_strategy = funcref(_arcade_record_helper, "save_new_record")
+	
 	var game_controller: GameController = GameController.new(
 		parsed_stage,
 		PersistentPlaySettings.get_mode() == PersistentPlaySettings.CHALLENGE,
@@ -93,7 +103,7 @@ func _play_stage(data: ArcadeStageData) -> void:
 		visual_parameters,
 		data.get_uuid(),
 		funcref(self, "_back_to_play_menu"),
-		funcref(_arcade_record_helper, "_save_new_record")
+		_new_record_strategy
 	)
 	game_view.set_controller(game_controller)
 	game_controller.set_view(game_view, scale)

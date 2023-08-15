@@ -74,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/view/visual_parameters/utils/CardinalConnections.gd"
 }, {
+"base": "Reference",
+"class": "ChallengeRecordHelper",
+"language": "GDScript",
+"path": "res://src/menu/play_menu_scene/ChallengeRecordHelper.gd"
+}, {
 "base": "CollisionStrategy",
 "class": "CherryStrategy",
 "language": "GDScript",
@@ -339,11 +344,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/PerkBuilder.gd"
 }, {
-"base": "Reference",
-"class": "PerkCollisionsTracker",
-"language": "GDScript",
-"path": "res://src/game/model/collidables/PerkCollisionsTracker.gd"
-}, {
 "base": "RatingTriggerCondition",
 "class": "PerkRatingTriggerCondition",
 "language": "GDScript",
@@ -598,6 +598,7 @@ _global_script_class_icons={
 "BeerStrategy": "",
 "CandyStrategy": "",
 "CardinalConnections": "",
+"ChallengeRecordHelper": "",
 "CherryStrategy": "",
 "ChiliStrategy": "",
 "CollidableEntity": "",
@@ -651,7 +652,6 @@ _global_script_class_icons={
 "PauseMenu": "",
 "Perk": "",
 "PerkBuilder": "",
-"PerkCollisionsTracker": "",
 "PerkRatingTriggerCondition": "",
 "PerkRules": "",
 "PerkSprite": "",
