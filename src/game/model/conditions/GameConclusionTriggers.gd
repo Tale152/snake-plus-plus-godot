@@ -9,7 +9,7 @@ var _length_trigger_not_reached_strategy: FuncRef
 
 func _init(game_conclusion_dictionary: Dictionary):
 	var empty_strategy: FuncRef = funcref(self, "_is_trigger_not_reached_empty")
-	var non_empty_strategy: FuncRef = funcref(self, "_is_trigger_not_reached")
+	var non_empty_strategy: FuncRef = funcref(self, "is_trigger_not_reached")
 	if game_conclusion_dictionary.has("time"):
 		_time_trigger = float(game_conclusion_dictionary.time)
 		_time_trigger_not_reached_strategy = non_empty_strategy
@@ -51,7 +51,7 @@ func has_length_trigger() -> bool:
 func get_length_trigger() -> int:
 	return _length_trigger
 
-func _is_trigger_not_reached(trigger, value) -> bool:
+func is_trigger_not_reached(trigger, value) -> bool:
 	return value < trigger
 
 func _is_trigger_not_reached_empty(_trigger, _value) -> bool:

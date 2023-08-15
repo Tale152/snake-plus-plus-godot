@@ -25,9 +25,9 @@ var _game_direction_input_handler: GameDirectionInputHandler
 var _equipped_effects_container: EquippedEffectsContainer
 var _difficulty_settings: DifficultySettings
 var _visual_parameters: VisualParameters
-var _check_not_lost_by_modality_strategy: FuncRef
-var _lose_conditions = GameConclusionTriggers
 var _update_hud_strategy: FuncRef
+var _lose_conditions: GameConclusionTriggers
+var _game_over_helper: GameOverHelper
 
 func _init(
 	parsed_stage: ParsedStage,
@@ -41,7 +41,7 @@ func _init(
 	_uuid = uuid
 	_is_challenge = is_challenge
 	_lose_conditions = parsed_stage.get_lose_conditions()
-	_check_not_lost_by_modality_strategy = funcref(self, "_check_not_lost_challenge_strategy" if is_challenge && _lose_conditions != null else "_check_not_lost_arcade_strategy")
+	_game_over_helper = GameOverHelper.new(is_challenge, _lose_conditions)
 	_update_hud_strategy = funcref(self, "_update_hud_with_lose_conditions" if is_challenge && _lose_conditions != null else "_update_hud_without_lose_conditions")
 	_exit_game_strategy = exit_game_strategy
 	_game_over_strategy = game_over_strategy
@@ -61,7 +61,12 @@ func _init(
 	_game_direction_input_handler = GameDirectionInputHandler.new()
 
 func is_not_game_over() -> bool:
-	return _snake_properties.is_alive() && _check_not_lost_by_modality_strategy.call_func()
+	return _game_over_helper.is_not_game_over(
+		_snake_properties.is_alive(),
+		_elapsed_seconds,
+		_snake_properties.get_score(),
+		_snake_properties.get_current_length()
+	)
 
 func set_view(view, scale: float) -> void:
 	_view = view
@@ -338,17 +343,6 @@ func _create_new_game_model() -> GameModel:
 		walls,
 		_raw_material.get_snake_initial_direction()
 	)
-
-func _check_not_lost_challenge_strategy() -> bool:
-	return _lose_conditions.can_game_continue(
-		_elapsed_seconds,
-		_snake_properties.get_score(),
-		_snake_properties.get_current_length()
-	)
-
-func _check_not_lost_arcade_strategy() -> bool:
-	# does not check anything on purpose
-	return true
 
 func _update_hud_without_lose_conditions() -> void:
 	_view.update_hud(

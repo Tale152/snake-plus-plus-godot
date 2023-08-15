@@ -214,6 +214,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/model/GameModelBuilder.gd"
 }, {
+"base": "Reference",
+"class": "GameOverHelper",
+"language": "GDScript",
+"path": "res://src/game/controller/GameOverHelper.gd"
+}, {
 "base": "Control",
 "class": "GameOverMenu",
 "language": "GDScript",
@@ -616,6 +621,7 @@ _global_script_class_icons={
 "GameDirectionInputHandler": "",
 "GameModel": "",
 "GameModelBuilder": "",
+"GameOverHelper": "",
 "GameOverMenu": "",
 "GameRatingTriggerConditions": "",
 "GameRatingTriggerConditionsContainer": "",
