@@ -9,7 +9,7 @@ func save_new_record(
 	uuid: String, stage_result: StageResult
 ) -> void:
 	var difficulty: String = PersistentPlaySettings.get_difficulty()
-	var current_record: ArcadeRecord = _stages_data[uuid]
+	var current_record: ArcadeRecord = _stages_data[uuid].get_arcade_record()
 	if current_record == null:
 		var new_record: ArcadeRecord
 		if difficulty == PersistentPlaySettings.NOOB:
@@ -18,7 +18,7 @@ func save_new_record(
 			new_record = ArcadeRecord.new(null, null, stage_result, stage_result, null, null)
 		else:
 			new_record = ArcadeRecord.new(null, null, null, null, stage_result, stage_result)
-		PersistentArcadeStagesData.set_new_record(
+		PersistentStagesData.set_new_record(
 			uuid,
 			new_record
 		)
@@ -83,4 +83,4 @@ func save_new_record(
 				current_score_record,
 				current_length_record
 			)
-		PersistentArcadeStagesData.set_new_record(uuid, new_record)
+		PersistentStagesData.set_new_arcade_record(uuid, new_record)

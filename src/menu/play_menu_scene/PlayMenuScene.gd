@@ -29,7 +29,7 @@ func _ready():
 	_play_menu_content.anchor_top = 0
 	_play_menu_content.anchor_bottom = 1
 	_play_menu_content.visible = true
-	_stages_data = PersistentArcadeStagesData.get_stages()
+	_stages_data = PersistentStagesData.get_stages()
 	_arcade_record_helper = ArcadeRecordHelper.new(_stages_data)
 	_challenge_record_helper = ChallengeRecordHelper.new()
 	$MenuSceneControl._ContentContainerControl.add_child(_play_menu_content)
@@ -148,11 +148,12 @@ func _list_available_stages(path: String) -> Array:
 		var uuid: String = json_data["uuid"]
 		var stage_record = null
 		# ------ TODO remove -------
-		PersistentArcadeStagesData.unlock_stage(uuid)
-		_stages_data = PersistentArcadeStagesData.get_stages()
+		PersistentStagesData.unlock_stage(uuid)
+		_stages_data = PersistentStagesData.get_stages()
 		# --------------------------
 		
-		if _stages_data.has(uuid) && _stages_data[uuid] != null: stage_record = _stages_data[uuid]
+		if _stages_data.has(uuid) && _stages_data[uuid].get_arcade_record() != null:
+			 stage_record = _stages_data[uuid].get_arcade_record()
 		res.push_back({
 			filepath = filepath,
 			displayed_name = name,

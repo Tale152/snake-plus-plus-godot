@@ -484,6 +484,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/view/controls/split_controls/SplitControls.gd"
 }, {
+"base": "Reference",
+"class": "StageData",
+"language": "GDScript",
+"path": "res://src/persistence/StageData.gd"
+}, {
 "base": "Control",
 "class": "StagePrelude",
 "language": "GDScript",
@@ -680,6 +685,7 @@ _global_script_class_icons={
 "SnakeUnitPlacement": "",
 "SnakeUnitView": "",
 "SplitControls": "",
+"StageData": "",
 "StagePrelude": "",
 "StageResult": "",
 "StageSelectorContainer": "",
@@ -713,8 +719,8 @@ config/icon="res://icon.png"
 PersistentUserSettings="*res://src/persistence/PersistentUserSettings.gd"
 PersistentCustomizationSettings="*res://src/persistence/PersistentCustomizationSettings.gd"
 TranslationsManager="*res://src/utils/TranslationsManager.gd"
-PersistentArcadeStagesData="*res://src/persistence/PersistentArcadeStagesData.gd"
 PersistentPlaySettings="*res://src/persistence/PersistentPlaySettings.gd"
+PersistentStagesData="*res://src/persistence/PersistentStagesData.gd"
 
 [display]
 
