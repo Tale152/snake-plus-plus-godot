@@ -3,7 +3,7 @@ class_name StageSelectorContainer extends Control
 var _StageNameFont = preload("res://src/menu/play_menu_scene/StageNameFont.tres")
 
 var _on_pressed_strategy: FuncRef
-var _data: ArcadeStageData
+var _data: MenuStageData
 
 const _DEFAULT_STAGE_NAME_FONT_SIZE: int = 22
 const _DEFAULT_MIN_X: int = 282
@@ -12,7 +12,7 @@ const _DEFAULT_MIN_Y: int = 120
 func initialize(
 	on_pressed_strategy: FuncRef,
 	text: String,
-	data: ArcadeStageData,
+	data: MenuStageData,
 	scale: float
 ) -> void:
 	_on_pressed_strategy = on_pressed_strategy
@@ -23,6 +23,7 @@ func initialize(
 	_StageNameFont.size = _get_int_font_size(_DEFAULT_STAGE_NAME_FONT_SIZE, scale)
 	_data = data
 	$Button.text = text
+	$Button.disabled = !data.is_unlocked()
 
 func _get_int_font_size(default_value: int, scale: float) -> int:
 	return int(floor(default_value * scale))

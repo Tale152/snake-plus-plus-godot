@@ -29,11 +29,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/menu/play_menu_scene/ArcadeRecordHelper.gd"
 }, {
-"base": "Reference",
-"class": "ArcadeStageData",
-"language": "GDScript",
-"path": "res://src/menu/play_menu_scene/ArcadeStageData.gd"
-}, {
 "base": "Control",
 "class": "ArrowsControls",
 "language": "GDScript",
@@ -305,6 +300,11 @@ _global_script_classes=[ {
 "path": "res://src/menu/menu_scene/MenuScene.gd"
 }, {
 "base": "Reference",
+"class": "MenuStageData",
+"language": "GDScript",
+"path": "res://src/menu/play_menu_scene/MenuStageData.gd"
+}, {
+"base": "Reference",
 "class": "ModelRawMaterial",
 "language": "GDScript",
 "path": "res://src/game/controller/ModelRawMaterial.gd"
@@ -509,6 +509,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/stage_parser/validators/StageValidatorV1.gd"
 }, {
+"base": "Reference",
+"class": "StagesHelper",
+"language": "GDScript",
+"path": "res://src/utils/StagesHelper.gd"
+}, {
 "base": "CollisionStrategy",
 "class": "StarStrategy",
 "language": "GDScript",
@@ -594,7 +599,6 @@ _global_script_class_icons={
 "AppleStrategy": "",
 "ArcadeRecord": "",
 "ArcadeRecordHelper": "",
-"ArcadeStageData": "",
 "ArrowsControls": "",
 "AssetFiles": "",
 "AvocadoStrategy": "",
@@ -649,6 +653,7 @@ _global_script_class_icons={
 "MainMenuContent": "",
 "MainMenuScene": "",
 "MenuScene": "",
+"MenuStageData": "",
 "ModelRawMaterial": "",
 "NavigationBar": "",
 "OrangeStrategy": "",
@@ -690,6 +695,7 @@ _global_script_class_icons={
 "StageResult": "",
 "StageSelectorContainer": "",
 "StageValidatorV1": "",
+"StagesHelper": "",
 "StarStrategy": "",
 "SwipeControls": "",
 "TrophiesMenuContent": "",

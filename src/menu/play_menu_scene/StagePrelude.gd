@@ -3,12 +3,12 @@ class_name StagePrelude extends Control
 var _ArcadeStageInfoFont = preload("res://src/menu/play_menu_scene/ArcadeStageInfoFont.tres")
 var _ArcadeStageInfoButtonFont = preload("res://src/menu/play_menu_scene/ArcadeStageInfoButtonFont.tres")
 
-var _data: ArcadeStageData
+var _data: MenuStageData
 var _on_play_pressed: FuncRef
 var _on_back_pressed: FuncRef
 
 func initialize(
-	data: ArcadeStageData,
+	data: MenuStageData,
 	name: String,
 	on_play_pressed: FuncRef,
 	on_back_pressed: FuncRef
@@ -29,6 +29,9 @@ func initialize(
 		$HighestScoreGameDataLabel.text = _get_record_string(
 			data.get_record().get_score_record(PersistentPlaySettings.get_difficulty())
 		)
+	$StarsLabel.text = TranslationsManager.get_localized_string(
+		TranslationsManager.STARS_OBTAINED
+	) + ": " + str(data.get_stars())
 	_on_play_pressed = on_play_pressed
 	_on_back_pressed = on_back_pressed
 

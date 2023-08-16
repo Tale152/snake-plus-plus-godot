@@ -14,6 +14,7 @@ var _stages_data: Dictionary
 var _arcade_record_helper: ArcadeRecordHelper
 var _challenge_record_helper: ChallengeRecordHelper
 var _new_record_strategy: FuncRef
+var _stages_helper: StagesHelper = StagesHelper.new()
 
 func _ready():
 	_NavigationBar.set_title_label_text(TranslationsManager.get_localized_string(
@@ -29,9 +30,6 @@ func _ready():
 	_play_menu_content.anchor_top = 0
 	_play_menu_content.anchor_bottom = 1
 	_play_menu_content.visible = true
-	_stages_data = PersistentStagesData.get_stages()
-	_arcade_record_helper = ArcadeRecordHelper.new(_stages_data)
-	_challenge_record_helper = ChallengeRecordHelper.new(_stages_data)
 	$MenuSceneControl._ContentContainerControl.add_child(_play_menu_content)
 	_stage_prelude.anchor_left = 0
 	_stage_prelude.anchor_right = 1
@@ -39,20 +37,21 @@ func _ready():
 	_stage_prelude.anchor_bottom = 1
 	_stage_prelude.visible = false
 	$MenuSceneControl._ContentContainerControl.add_child(_stage_prelude)
+	_stages_helper.unlock_initial_stages()
 	_populate_stages()
 	
 
 func _populate_stages() -> void:
 	_play_menu_content.clear_stages()
 	
-	var stages: Array = _list_available_stages("res://assets/stages/arcade")
+	var stages: Array = _list_available_stages(StagesHelper.STAGES_PATH)
 	var scale: float = $MenuSceneControl.get_scaling()
 	for s in stages:
 		var container: StageSelectorContainer = _StageSelectorContainer.instance()
 		container.initialize(
 			funcref(self, "_open_stage_selector_container"),
 			s.displayed_name,
-			ArcadeStageData.new(s.filepath, s.uuid, s.record, s.unlocked),
+			MenuStageData.new(s.filepath, s.uuid, s.stars, s.record, s.unlocked),
 			scale
 		)
 		_play_menu_content.append_stage(container)
@@ -65,7 +64,7 @@ func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_main_scene_instance.add_child(self)
 	_play_menu_content.initialize(_main_scene_instance)
 
-func _open_stage_selector_container(data: ArcadeStageData, name: String) -> void:
+func _open_stage_selector_container(data: MenuStageData, name: String) -> void:
 	_stage_prelude.initialize(
 		data,
 		name,
@@ -76,7 +75,7 @@ func _open_stage_selector_container(data: ArcadeStageData, name: String) -> void
 	_play_menu_content.visible = false
 	_stage_prelude.visible = true
 
-func _play_stage(data: ArcadeStageData) -> void:
+func _play_stage(data: MenuStageData) -> void:
 	_main_scene_instance.play_button_click_sound()
 	var scale = $MenuSceneControl.get_scaling()
 	var parsed_stage: ParsedStage = JsonStageParser.parse(data.get_stage_path())
@@ -131,7 +130,10 @@ func _go_to_main_menu() -> void:
 	_main_menu_scene.initialize(_main_scene_instance)
 
 func _list_available_stages(path: String) -> Array:
-	var files = _list_files_in_directory(path)
+	var files = _stages_helper.list_stage_files()
+	_stages_data = PersistentStagesData.get_stages()
+	_arcade_record_helper = ArcadeRecordHelper.new(_stages_data)
+	_challenge_record_helper = ChallengeRecordHelper.new(_stages_data)
 	var res = []
 	for f in files:
 		var filepath: String = path + "/" + f
@@ -147,40 +149,18 @@ func _list_available_stages(path: String) -> Array:
 			name = "ERROR: no name"
 		var uuid: String = json_data["uuid"]
 		var stage_record = null
-		# ------ TODO remove -------
-		PersistentStagesData.unlock_stage(uuid)
-		_stages_data = PersistentStagesData.get_stages()
-		# --------------------------
-		
-		if _stages_data.has(uuid) && _stages_data[uuid].get_arcade_record() != null:
-			 stage_record = _stages_data[uuid].get_arcade_record()
+		var persisted_stars: int = 0
+		var is_unlocked: bool = _stages_data.has(uuid)
+		if is_unlocked:
+			if _stages_data[uuid].get_arcade_record() != null:
+				stage_record = _stages_data[uuid].get_arcade_record()
+			persisted_stars = _stages_data[uuid].get_stars()
 		res.push_back({
 			filepath = filepath,
 			displayed_name = name,
 			uuid = uuid,
-			unlocked = _stages_data.has(uuid),
-			record = stage_record
+			unlocked = is_unlocked,
+			record = stage_record,
+			stars = persisted_stars
 		})
 	return res
-
-func _list_files_in_directory(path):
-	var files = []
-	var dir = Directory.new()
-	dir.open(path)
-	dir.list_dir_begin()
-
-	while true:
-		var file = dir.get_next()
-		if file == "":
-			break
-		elif not file.begins_with("."):
-			files.append(file)
-
-	dir.list_dir_end()
-	files.sort_custom(self, "_sort_by_progressive")
-	return files
-
-func _sort_by_progressive(x_filename: String, y_filename: String) -> bool:
-	var x_progr: int = int(x_filename.get_slice("-", 0).strip_edges(true, true))
-	var y_progr: int = int(y_filename.get_slice("-", 0).strip_edges(true, true))
-	return x_progr < y_progr

@@ -144,20 +144,16 @@ static func _is_lose_valid(stage: Dictionary) -> bool:
 	if !DictionaryUtil.contains(stage, "conditions", TYPE_DICTIONARY): return false
 	if !DictionaryUtil.contains(stage.conditions, "lose", TYPE_DICTIONARY): return false
 	var conditions_structure: Dictionary = stage.conditions.lose
-	var conditionsToTrigger = 0
 	if DictionaryUtil.contains(conditions_structure, "time", TYPE_REAL):
 		if conditions_structure.time < 0.0: return false
-		conditionsToTrigger += 1
 	elif conditions_structure.has("time"): return false
 	
 	if DictionaryUtil.contains(conditions_structure, "length", TYPE_REAL):
 		if conditions_structure.length < 1: return false
-		conditionsToTrigger += 1
 	elif conditions_structure.has("length"): return false
 
 	if DictionaryUtil.contains(conditions_structure, "score", TYPE_REAL):
 		if conditions_structure.score < 1: return false
-		conditionsToTrigger += 1
 	elif conditions_structure.has("score"): return false
 
-	return conditionsToTrigger > 0
+	return true

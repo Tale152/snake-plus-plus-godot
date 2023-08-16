@@ -31,12 +31,14 @@ func save_new_record(
 				stage_result
 			):
 				stars_reached = 3
-	print(stars_reached)
-	print(persisted_stars)
-	print(stars_reached > persisted_stars)
 	if stars_reached > persisted_stars:
 		PersistentStagesData.set_new_challenge_stars(uuid, stars_reached)
 		_stages_data = PersistentStagesData.get_stages()
+		# stage completed for the first time since persisted_stars was 0 before
+		# but stars_reached is greater
+		if persisted_stars == 0:
+			var stages_unlocked: int = StagesHelper.new().unlock_stages()
+			# TODO show something if stages_unlocked > 0
 
 func _are_star_rating_conditions_satisfied(
 	conditions: GameRatingTriggerConditions, stage_result: StageResult
