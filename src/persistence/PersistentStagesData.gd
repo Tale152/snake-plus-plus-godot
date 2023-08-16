@@ -40,10 +40,15 @@ func set_stages(stages: Dictionary) -> void:
 		))
 	_set_data(_STAGES, to_be_stored)
 
+func set_new_challenge_stars(uuid: String, stars: int) -> void:
+	var current_stages: Dictionary = get_stages()
+	current_stages[uuid].set_stars(stars)
+	set_stages(current_stages)
+
 func set_new_arcade_record(uuid: String, arcade_record: ArcadeRecord) -> void:
-	var current_records: Dictionary = get_stages()
-	current_records[uuid].set_arcade_record(arcade_record)
-	set_stages(current_records)
+	var current_stages: Dictionary = get_stages()
+	current_stages[uuid].set_arcade_record(arcade_record)
+	set_stages(current_stages)
 
 func unlock_stage(uuid: String) -> bool:
 	var current_stages: Dictionary = get_stages()

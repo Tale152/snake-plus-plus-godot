@@ -18,10 +18,11 @@ func save_new_record(
 			new_record = ArcadeRecord.new(null, null, stage_result, stage_result, null, null)
 		else:
 			new_record = ArcadeRecord.new(null, null, null, null, stage_result, stage_result)
-		PersistentStagesData.set_new_record(
+		PersistentStagesData.set_new_arcade_record(
 			uuid,
 			new_record
 		)
+		_stages_data = PersistentStagesData.get_stages()
 		return
 	var current_length_record: StageResult = current_record.get_length_record(difficulty)
 	var current_score_record: StageResult = current_record.get_score_record(difficulty)
@@ -84,3 +85,4 @@ func save_new_record(
 				current_length_record
 			)
 		PersistentStagesData.set_new_arcade_record(uuid, new_record)
+		_stages_data = PersistentStagesData.get_stages()

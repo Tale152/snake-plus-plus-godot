@@ -1,6 +1,10 @@
 class_name ChallengeRecordHelper extends Reference
 
 var _ratings_container: GameRatingTriggerConditionsContainer
+var _stages_data: Dictionary
+
+func _init(stages_data: Dictionary):
+	_stages_data = stages_data
 
 func set_ratings_container(
 	ratings_container: GameRatingTriggerConditionsContainer
@@ -10,6 +14,7 @@ func set_ratings_container(
 func save_new_record(
 	uuid: String, stage_result: StageResult
 ) -> void:
+	var persisted_stars = _stages_data[uuid].get_stars()
 	var stars_reached: int = 0
 	if _are_star_rating_conditions_satisfied(
 		_ratings_container.get_one_star_game_rating_trigger_conditions(),
@@ -26,10 +31,12 @@ func save_new_record(
 				stage_result
 			):
 				stars_reached = 3
-	print("stars reached: " + str(stars_reached))
-	# TODO if stars reached > 0 get the persisted result
-	# if it does not exist then save this
-	# else check if it is greater than the previous one and, if so, save it
+	print(stars_reached)
+	print(persisted_stars)
+	print(stars_reached > persisted_stars)
+	if stars_reached > persisted_stars:
+		PersistentStagesData.set_new_challenge_stars(uuid, stars_reached)
+		_stages_data = PersistentStagesData.get_stages()
 
 func _are_star_rating_conditions_satisfied(
 	conditions: GameRatingTriggerConditions, stage_result: StageResult

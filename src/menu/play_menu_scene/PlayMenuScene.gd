@@ -31,7 +31,7 @@ func _ready():
 	_play_menu_content.visible = true
 	_stages_data = PersistentStagesData.get_stages()
 	_arcade_record_helper = ArcadeRecordHelper.new(_stages_data)
-	_challenge_record_helper = ChallengeRecordHelper.new()
+	_challenge_record_helper = ChallengeRecordHelper.new(_stages_data)
 	$MenuSceneControl._ContentContainerControl.add_child(_play_menu_content)
 	_stage_prelude.anchor_left = 0
 	_stage_prelude.anchor_right = 1
