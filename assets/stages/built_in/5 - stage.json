@@ -227,64 +227,27 @@
         {
           "stars": 1,
           "length": {
-            "value": 30,
+            "value": 5,
             "criteria": "reach"
-          },
-          "perks": [
-            {
-              "type": "Apple",
-              "value": 10,
-              "criteria": "reach"
-            }
-          ]
+          }
         },
         {
           "stars": 2,
-          "score": {
-            "value": 10000,
-            "criteria": "reach"
-          },
-          "time": {
-            "value": 600,
-            "criteria": "below"
-          },
           "length": {
-            "value": 50,
+            "value": 7,
             "criteria": "reach"
-          },
-          "perks": [
-            {
-              "type": "Apple",
-              "value": 10,
-              "criteria": "reach"
-            }
-          ]
+          }
         },
         {
           "stars": 3,
-          "score": {
-            "value": 10000,
-            "criteria": "reach"
-          },
-          "time": {
-            "value": 600,
-            "criteria": "below"
-          },
           "length": {
-            "value": 50,
+            "value": 9,
             "criteria": "reach"
-          },
-          "perks": [
-            {
-              "type": "Apple",
-              "value": 10,
-              "criteria": "reach"
-            }
-          ]
+          }
         }
       ],
       "lose": {
-        "time": 120
+        "time": 200
       }
     }
   }

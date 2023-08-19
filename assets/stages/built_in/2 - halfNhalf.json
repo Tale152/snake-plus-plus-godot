@@ -130,6 +130,32 @@
         "lifespan": 10,
         "spawn_probability": 0.1
       }
-    ]
+    ],
+    "conditions": {
+      "win_ratings": [
+        {
+          "stars": 1,
+          "length": {
+            "value": 1,
+            "criteria": "reach"
+          }
+        },
+        {
+          "stars": 2,
+          "length": {
+            "value": 2,
+            "criteria": "reach"
+          }
+        },
+        {
+          "stars": 3,
+          "length": {
+            "value": 3,
+            "criteria": "reach"
+          }
+        }
+      ],
+      "lose": {}
+    }
   }
 }

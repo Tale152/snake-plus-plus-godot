@@ -1,6 +1,6 @@
 class_name StagesHelper extends Reference
 
-const STAGES_PATH: String = "res://assets/stages/arcade"
+const STAGES_PATH: String = "res://assets/stages/built_in"
 const _INITIAL_STAGES_UNLOCKED_NUMBER: int = 3
 const _STAGES_UNLOCK_PROGRESSION: int = 2
 
