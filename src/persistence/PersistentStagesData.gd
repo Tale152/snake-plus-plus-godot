@@ -14,7 +14,7 @@ const _TIME: String = "time"
 const _SCORE: String = "score"
 const _LENGTH: String = "length"
 
-const _FILE_PATH: String = "user://arcade_data.json"
+const _FILE_PATH: String = "user://stages_data.json"
 const _DEFAULT: Dictionary = {
 	_STAGES: []
 }
