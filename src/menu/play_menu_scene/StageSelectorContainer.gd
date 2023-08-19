@@ -40,23 +40,50 @@ func _get_int_size(default_value: int, scale: float) -> int:
 	return int(floor(default_value * scale))
 
 func update_container() -> void:
-	if PersistentPlaySettings.get_mode() == PersistentPlaySettings.CHALLENGE:
-		$Label.align = Label.ALIGN_LEFT
-		if _data.get_stars() == 0:
-			$TextureButton.texture_normal = challenge_unlocked_0
-		elif _data.get_stars() == 1:
-			$TextureButton.texture_normal = challenge_unlocked_1
-		elif _data.get_stars() == 2:
-			$TextureButton.texture_normal = challenge_unlocked_2
+	$Label.text = _text
+	var stage_data: StageData = null
+	if PersistentStagesData.get_stages().has(_data.get_uuid()):
+		stage_data = PersistentStagesData.get_stages()[_data.get_uuid()]
+	
+	if stage_data == null:
+		$TextureButton.disabled = true
+		if PersistentPlaySettings.get_mode() == PersistentPlaySettings.ARCADE:
+			$Label.align = Label.ALIGN_CENTER
+			$TextureButton.texture_disabled = arcade_locked
 		else:
-			$TextureButton.texture_normal = challenge_unlocked_3
-		$TextureButton.texture_disabled = challenge_locked
-	else:
+			$Label.align = Label.ALIGN_LEFT
+			$TextureButton.texture_disabled = challenge_locked
+		return
+	
+	if PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.PRO:
+		if stage_data.get_stars_regular() == 0:
+			$TextureButton.disabled = true
+				
+	if PersistentPlaySettings.get_mode() == PersistentPlaySettings.ARCADE:
 		$Label.align = Label.ALIGN_CENTER
 		$TextureButton.texture_normal = arcade_unlocked
 		$TextureButton.texture_disabled = arcade_locked
-	$Label.text = _text
-	$TextureButton.disabled = !_data.is_unlocked()
+	else:
+		$Label.align = Label.ALIGN_LEFT
+		$TextureButton.texture_disabled = challenge_locked
+		if PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.PRO:
+			if stage_data.get_stars_pro() == 0:
+				$TextureButton.texture_normal = challenge_unlocked_0
+			elif stage_data.get_stars_pro() == 1:
+				$TextureButton.texture_normal = challenge_unlocked_1
+			elif stage_data.get_stars_pro() == 2:
+				$TextureButton.texture_normal = challenge_unlocked_2
+			else:
+				$TextureButton.texture_normal = challenge_unlocked_3
+		else:
+			if stage_data.get_stars_regular() == 0:
+				$TextureButton.texture_normal = challenge_unlocked_0
+			elif stage_data.get_stars_regular() == 1:
+				$TextureButton.texture_normal = challenge_unlocked_1
+			elif stage_data.get_stars_regular() == 2:
+				$TextureButton.texture_normal = challenge_unlocked_2
+			else:
+				$TextureButton.texture_normal = challenge_unlocked_3
 
 func _on_TextureButton_pressed():
 	_on_pressed_strategy.call_func(_data, _text)

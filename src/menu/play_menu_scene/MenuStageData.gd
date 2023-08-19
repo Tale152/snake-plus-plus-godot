@@ -2,34 +2,16 @@ class_name MenuStageData extends Reference
 
 var _stage_path: String
 var _uuid: String
-var _stars: int
-var _record: ArcadeRecord
-var _is_unlocked: bool
 
 func _init(
 	stage_path: String,
-	uuid: String,
-	stars: int,
-	record: ArcadeRecord,
-	is_unlocked: bool
+	uuid: String
 ):
 	_stage_path = stage_path
 	_uuid = uuid
-	_stars = stars
-	_record = record
-	_is_unlocked = is_unlocked
 
 func get_stage_path() -> String:
 	return _stage_path
 
 func get_uuid() -> String:
 	return _uuid
-
-func get_stars() -> int:
-	return _stars
-
-func get_record() -> ArcadeRecord:
-	return _record
-
-func is_unlocked() -> bool:
-	return _is_unlocked

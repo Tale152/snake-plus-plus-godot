@@ -51,7 +51,7 @@ func _do_stages_need_to_be_unlocked() -> bool:
 	for uuid in currently_unlocked_stages.keys():
 		unlocked_stages_number += 1
 		var stage_data: StageData = currently_unlocked_stages[uuid]
-		if stage_data.get_stars() > 0:
+		if stage_data.get_stars_regular() > 0:
 			completed_stages += 1
 	return (_INITIAL_STAGES_UNLOCKED_NUMBER - _STAGES_UNLOCK_PROGRESSION) == (unlocked_stages_number - completed_stages)
 

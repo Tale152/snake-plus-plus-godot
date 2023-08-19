@@ -51,7 +51,7 @@ func _populate_stages() -> void:
 		container.initialize(
 			funcref(self, "_open_stage_selector_container"),
 			s.displayed_name,
-			MenuStageData.new(s.filepath, s.uuid, s.stars, s.record, s.unlocked),
+			MenuStageData.new(s.filepath, s.uuid),
 			scale
 		)
 		_play_menu_content.append_stage(container)
@@ -147,20 +147,9 @@ func _list_available_stages(path: String) -> Array:
 			name = name_dictionary[TranslationsManager.FALLBACK_LANGUAGE_ID]
 		if name == null or name == "":
 			name = "ERROR: no name"
-		var uuid: String = json_data["uuid"]
-		var stage_record = null
-		var persisted_stars: int = 0
-		var is_unlocked: bool = _stages_data.has(uuid)
-		if is_unlocked:
-			if _stages_data[uuid].get_arcade_record() != null:
-				stage_record = _stages_data[uuid].get_arcade_record()
-			persisted_stars = _stages_data[uuid].get_stars()
 		res.push_back({
 			filepath = filepath,
 			displayed_name = name,
-			uuid = uuid,
-			unlocked = is_unlocked,
-			record = stage_record,
-			stars = persisted_stars
+			uuid = json_data["uuid"]
 		})
 	return res

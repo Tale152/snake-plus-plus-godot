@@ -14,7 +14,11 @@ func set_ratings_container(
 func save_new_record(
 	uuid: String, stage_result: StageResult
 ) -> void:
-	var persisted_stars = _stages_data[uuid].get_stars()
+	var persisted_stars = null
+	if PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.PRO:
+		persisted_stars = _stages_data[uuid].get_stars_pro()
+	else:
+		persisted_stars = _stages_data[uuid].get_stars_regular()
 	var stars_reached: int = 0
 	if _are_star_rating_conditions_satisfied(
 		_ratings_container.get_one_star_game_rating_trigger_conditions(),
@@ -32,11 +36,15 @@ func save_new_record(
 			):
 				stars_reached = 3
 	if stars_reached > persisted_stars:
-		PersistentStagesData.set_new_challenge_stars(uuid, stars_reached)
+		if PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.PRO:
+			PersistentStagesData.set_new_challenge_stars_pro(uuid, stars_reached)
+		else:
+			PersistentStagesData.set_new_challenge_stars_regular(uuid, stars_reached)
 		_stages_data = PersistentStagesData.get_stages()
+		
 		# stage completed for the first time since persisted_stars was 0 before
 		# but stars_reached is greater
-		if persisted_stars == 0:
+		if persisted_stars == 0 && PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.REGULAR:
 			var stages_unlocked: int = StagesHelper.new().unlock_stages()
 			# TODO show something if stages_unlocked > 0
 

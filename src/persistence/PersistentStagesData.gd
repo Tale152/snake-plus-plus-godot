@@ -9,7 +9,8 @@ const _SCORE_RECORD_PRO: String = "score_record_pro"
 const _LENGTH_RECORD_PRO: String = "length_record_pro"
 const _UUID: String = "uuid"
 const _ARCADE: String = "arcade"
-const _STARS: String = "stars"
+const _STARS_REGULAR: String = "stars_regular"
+const _STARS_PRO: String = "stars_pro"
 const _TIME: String = "time"
 const _SCORE: String = "score"
 const _LENGTH: String = "length"
@@ -40,9 +41,14 @@ func set_stages(stages: Dictionary) -> void:
 		))
 	_set_data(_STAGES, to_be_stored)
 
-func set_new_challenge_stars(uuid: String, stars: int) -> void:
+func set_new_challenge_stars_regular(uuid: String, stars: int) -> void:
 	var current_stages: Dictionary = get_stages()
-	current_stages[uuid].set_stars(stars)
+	current_stages[uuid].set_stars_regular(stars)
+	set_stages(current_stages)
+
+func set_new_challenge_stars_pro(uuid: String, stars: int) -> void:
+	var current_stages: Dictionary = get_stages()
+	current_stages[uuid].set_stars_pro(stars)
 	set_stages(current_stages)
 
 func set_new_arcade_record(uuid: String, arcade_record: ArcadeRecord) -> void:
@@ -53,7 +59,7 @@ func set_new_arcade_record(uuid: String, arcade_record: ArcadeRecord) -> void:
 func unlock_stage(uuid: String) -> bool:
 	var current_stages: Dictionary = get_stages()
 	if current_stages.has(uuid): return false
-	current_stages[uuid] = StageData.new(0, ArcadeRecord.new(
+	current_stages[uuid] = StageData.new(0, 0, ArcadeRecord.new(
 		null, null, null, null, null, null
 	))
 	set_stages(current_stages)
@@ -64,7 +70,8 @@ func _stage_data_to_dictionary(
 ) -> Dictionary:
 	var result: Dictionary = {}
 	result[_UUID] = uuid #if done in "result" declaration id does not work
-	result[_STARS] = stage_data.get_stars()
+	result[_STARS_REGULAR] = stage_data.get_stars_regular()
+	result[_STARS_PRO] = stage_data.get_stars_pro()
 	var arcade_data: Dictionary = {}
 	var arcade_record = stage_data.get_arcade_record()
 	if arcade_record != null:
@@ -104,7 +111,8 @@ func _stage_result_to_dictionary(stage_result: StageResult) -> Dictionary:
 	return result
 
 func _dictionary_to_stage_data(dictionary: Dictionary) -> StageData:
-	var stars: int = 0
+	var stars_regular: int = 0
+	var stars_pro: int = 0
 	var score_record_noob: StageResult = null
 	var length_record_noob: StageResult = null
 	var score_record_regular: StageResult = null
@@ -140,9 +148,11 @@ func _dictionary_to_stage_data(dictionary: Dictionary) -> StageData:
 			score_record_pro,
 			length_record_pro
 		)
-	if dictionary.has(_STARS):
-		stars = dictionary[_STARS]
-	return StageData.new(stars, arcade_record)
+	if dictionary.has(_STARS_REGULAR):
+		stars_regular = dictionary[_STARS_REGULAR]
+	if dictionary.has(_STARS_PRO):
+		stars_pro = dictionary[_STARS_PRO]
+	return StageData.new(stars_regular, stars_pro, arcade_record)
 
 func _extract_stage_result_from_dictionary(
 	dictionary: Dictionary, record_type: String

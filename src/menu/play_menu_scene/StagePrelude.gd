@@ -15,7 +15,8 @@ func initialize(
 ) -> void:
 	_data = data
 	$StageNameLabel.text = name
-	if data.get_record() == null:
+	var stage_data: StageData = PersistentStagesData.get_stages()[_data.get_uuid()]
+	if stage_data.get_arcade_record() == null:
 		$LongestSnakeGameDataLabel.text = TranslationsManager.get_localized_string(
 			TranslationsManager.NO_RECORD
 		)
@@ -24,14 +25,20 @@ func initialize(
 		)
 	else:
 		$LongestSnakeGameDataLabel.text = _get_record_string(
-			data.get_record().get_length_record(PersistentPlaySettings.get_difficulty())
+			stage_data.get_arcade_record().get_length_record(PersistentPlaySettings.get_difficulty())
 		)
 		$HighestScoreGameDataLabel.text = _get_record_string(
-			data.get_record().get_score_record(PersistentPlaySettings.get_difficulty())
+			stage_data.get_arcade_record().get_score_record(PersistentPlaySettings.get_difficulty())
 		)
-	$StarsLabel.text = TranslationsManager.get_localized_string(
-		TranslationsManager.STARS_OBTAINED
-	) + ": " + str(data.get_stars())
+	if PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.PRO:
+		$StarsLabel.text = TranslationsManager.get_localized_string(
+			TranslationsManager.STARS_OBTAINED
+			) + ": " + str(stage_data.get_stars_pro())
+	else:
+		$StarsLabel.text = TranslationsManager.get_localized_string(
+			TranslationsManager.STARS_OBTAINED
+			) + ": " + str(stage_data.get_stars_regular())
+	
 	_on_play_pressed = on_play_pressed
 	_on_back_pressed = on_back_pressed
 

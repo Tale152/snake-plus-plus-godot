@@ -1,17 +1,25 @@
 class_name StageData extends Reference
 
-var _stars: int
+var _stars_regular: int
+var _stars_pro: int
 var _arcade_record: ArcadeRecord
 
-func _init(stars: int, arcade_record: ArcadeRecord):
-	_stars = stars
+func _init(stars_regular: int, stars_pro: int, arcade_record: ArcadeRecord):
+	_stars_regular = stars_regular
+	_stars_pro = stars_pro
 	_arcade_record = arcade_record
 
-func get_stars() -> int:
-	return _stars
+func get_stars_regular() -> int:
+	return _stars_regular
 
-func set_stars(stars: int) -> void:
-	_stars = stars
+func set_stars_regular(stars: int) -> void:
+	_stars_regular = stars
+
+func get_stars_pro() -> int:
+	return _stars_pro
+
+func set_stars_pro(stars: int) -> void:
+	_stars_pro = stars
 
 func get_arcade_record() -> ArcadeRecord:
 	return _arcade_record
