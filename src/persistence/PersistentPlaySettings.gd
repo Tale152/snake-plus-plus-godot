@@ -6,7 +6,6 @@ const _DIFFICULTY: String = "difficulty"
 const CHALLENGE: String = "Challenge"
 const ARCADE: String = "Arcade"
 
-const NOOB: String = "Noob"
 const REGULAR: String = "Regular"
 const PRO: String = "Pro"
 

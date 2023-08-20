@@ -60,7 +60,7 @@ func unlock_stage(uuid: String) -> bool:
 	var current_stages: Dictionary = get_stages()
 	if current_stages.has(uuid): return false
 	current_stages[uuid] = StageData.new(0, 0, ArcadeRecord.new(
-		null, null, null, null, null, null
+		null, null, null, null
 	))
 	set_stages(current_stages)
 	return true
@@ -75,9 +75,6 @@ func _stage_data_to_dictionary(
 	var arcade_data: Dictionary = {}
 	var arcade_record = stage_data.get_arcade_record()
 	if arcade_record != null:
-		_add_arcade_records_by_difficulty(
-			arcade_data, arcade_record, PersistentPlaySettings.NOOB, _SCORE_RECORD_NOOB, _LENGTH_RECORD_NOOB
-		)
 		_add_arcade_records_by_difficulty(
 			arcade_data, arcade_record, PersistentPlaySettings.REGULAR, _SCORE_RECORD_REGULAR, _LENGTH_RECORD_REGULAR
 		)
@@ -113,8 +110,6 @@ func _stage_result_to_dictionary(stage_result: StageResult) -> Dictionary:
 func _dictionary_to_stage_data(dictionary: Dictionary) -> StageData:
 	var stars_regular: int = 0
 	var stars_pro: int = 0
-	var score_record_noob: StageResult = null
-	var length_record_noob: StageResult = null
 	var score_record_regular: StageResult = null
 	var length_record_regular: StageResult = null
 	var score_record_pro: StageResult = null
@@ -122,12 +117,6 @@ func _dictionary_to_stage_data(dictionary: Dictionary) -> StageData:
 	
 	if dictionary.has(_ARCADE):
 		var arcade_dictionary = dictionary[_ARCADE]
-		score_record_noob = _extract_stage_result_from_dictionary(
-			arcade_dictionary, _SCORE_RECORD_NOOB
-		)
-		length_record_noob = _extract_stage_result_from_dictionary(
-			arcade_dictionary, _LENGTH_RECORD_NOOB
-		)
 		score_record_regular = _extract_stage_result_from_dictionary(
 			arcade_dictionary, _SCORE_RECORD_REGULAR
 		)
@@ -141,8 +130,6 @@ func _dictionary_to_stage_data(dictionary: Dictionary) -> StageData:
 			arcade_dictionary, _LENGTH_RECORD_PRO
 		)
 	var arcade_record = ArcadeRecord.new(
-			score_record_noob, 
-			length_record_noob,
 			score_record_regular,
 			length_record_regular,
 			score_record_pro,

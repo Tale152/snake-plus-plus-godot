@@ -56,9 +56,10 @@ func update_container() -> void:
 		return
 	
 	if PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.PRO:
-		if stage_data.get_stars_regular() == 0:
-			$TextureButton.disabled = true
-				
+		$TextureButton.disabled = stage_data.get_stars_regular() == 0
+	else:
+		$TextureButton.disabled = false
+
 	if PersistentPlaySettings.get_mode() == PersistentPlaySettings.ARCADE:
 		$Label.align = Label.ALIGN_CENTER
 		$TextureButton.texture_normal = arcade_unlocked

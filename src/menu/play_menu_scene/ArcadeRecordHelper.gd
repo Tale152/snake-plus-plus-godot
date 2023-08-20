@@ -12,12 +12,10 @@ func save_new_record(
 	var current_record: ArcadeRecord = _stages_data[uuid].get_arcade_record()
 	if current_record == null:
 		var new_record: ArcadeRecord
-		if difficulty == PersistentPlaySettings.NOOB:
-			new_record = ArcadeRecord.new(stage_result, stage_result, null, null, null, null)
-		elif difficulty == PersistentPlaySettings.REGULAR:
-			new_record = ArcadeRecord.new(null, null, stage_result, stage_result, null, null)
+		if difficulty == PersistentPlaySettings.REGULAR:
+			new_record = ArcadeRecord.new(stage_result, stage_result, null, null)
 		else:
-			new_record = ArcadeRecord.new(null, null, null, null, stage_result, stage_result)
+			new_record = ArcadeRecord.new(null, null, stage_result, stage_result)
 		PersistentStagesData.set_new_arcade_record(
 			uuid,
 			new_record
@@ -57,19 +55,8 @@ func save_new_record(
 		if new_score_record != null:
 			current_score_record = new_score_record
 		var new_record: ArcadeRecord
-		if difficulty == PersistentPlaySettings.NOOB:
+		if difficulty == PersistentPlaySettings.REGULAR:
 			new_record = ArcadeRecord.new(
-				current_score_record,
-				current_length_record,
-				current_record.get_score_record(PersistentPlaySettings.REGULAR),
-				current_record.get_length_record(PersistentPlaySettings.REGULAR),
-				current_record.get_score_record(PersistentPlaySettings.PRO),
-				current_record.get_length_record(PersistentPlaySettings.PRO)
-			)
-		elif difficulty == PersistentPlaySettings.REGULAR:
-			new_record = ArcadeRecord.new(
-				current_record.get_score_record(PersistentPlaySettings.NOOB),
-				current_record.get_length_record(PersistentPlaySettings.NOOB),
 				current_score_record,
 				current_length_record,
 				current_record.get_score_record(PersistentPlaySettings.PRO),
@@ -77,8 +64,6 @@ func save_new_record(
 			)
 		else:
 			new_record = ArcadeRecord.new(
-				current_record.get_score_record(PersistentPlaySettings.NOOB),
-				current_record.get_length_record(PersistentPlaySettings.NOOB),
 				current_record.get_score_record(PersistentPlaySettings.REGULAR),
 				current_record.get_length_record(PersistentPlaySettings.REGULAR),
 				current_score_record,
