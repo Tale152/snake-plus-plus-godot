@@ -7,6 +7,7 @@ const _SELECTED_COLOR: String = "#5bd170"
 const _NOT_SELECTED_COLOR: String = "#ffffff"
 
 var _main_scene_instance
+var _on_update: FuncRef
 
 func _ready():
 	$ChallengeButton.text = TranslationsManager.get_localized_string(
@@ -23,8 +24,9 @@ func _ready():
 		PersistentPlaySettings.ARCADE, false
 	)
 
-func initialize(main_scene_instance) -> void:
+func initialize(main_scene_instance, on_update: FuncRef) -> void:
 	_main_scene_instance = main_scene_instance
+	_on_update = on_update
 
 func scale(scale: float) -> void:
 	_ModeFont.size = _get_int_font_size(_DEFAULT_MODE_FONT_SIZE, scale)
@@ -46,6 +48,8 @@ func _set_button_color(button: Button, color: String) -> void:
 
 func _on_ChallengeButton_pressed():
 	_on_mode_selected(PersistentPlaySettings.CHALLENGE, true)
+	_on_update.call_func()
 
 func _on_ArcadeButton_pressed():
 	_on_mode_selected(PersistentPlaySettings.ARCADE, true)
+	_on_update.call_func()

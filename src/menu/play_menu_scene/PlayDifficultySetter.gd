@@ -7,6 +7,7 @@ const _SELECTED_COLOR: String = "#5bd170"
 const _NOT_SELECTED_COLOR: String = "#ffffff"
 
 var _main_scene_instance
+var _on_update: FuncRef
 
 func _ready():
 	$NoobButton.text = TranslationsManager.get_localized_string(
@@ -23,8 +24,9 @@ func _ready():
 	elif difficulty == PersistentPlaySettings.REGULAR: set_regular_selected()
 	else: set_pro_selected()
 
-func initialize(main_scene_instance) -> void:
+func initialize(main_scene_instance, on_update: FuncRef) -> void:
 	_main_scene_instance = main_scene_instance
+	_on_update = on_update
 
 func scale(scale: float) -> void:
 	_DifficultyFont.size = _get_int_font_size(_DEFAULT_DIFFICULTY_FONT_SIZE, scale)
@@ -60,9 +62,12 @@ func _set_button_color(button: Button, color: String) -> void:
 
 func _on_NoobButton_pressed():
 	set_noob_selected()
+	_on_update.call_func()
 
 func _on_RegularButton_pressed():
 	set_regular_selected()
+	_on_update.call_func()
 
 func _on_ProButton_pressed():
 	set_pro_selected()
+	_on_update.call_func()
