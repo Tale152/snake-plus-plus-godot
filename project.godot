@@ -394,11 +394,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/menu/play_menu_scene/PlayMenuScene.gd"
 }, {
-"base": "Control",
-"class": "PlayModeSetter",
-"language": "GDScript",
-"path": "res://src/menu/play_menu_scene/PlayModeSetter.gd"
-}, {
 "base": "Reference",
 "class": "PositionCalculator",
 "language": "GDScript",
@@ -672,7 +667,6 @@ _global_script_class_icons={
 "PlayDifficultySetter": "",
 "PlayMenuContent": "",
 "PlayMenuScene": "",
-"PlayModeSetter": "",
 "PositionCalculator": "",
 "RatingTriggerCondition": "",
 "RestartMenu": "",

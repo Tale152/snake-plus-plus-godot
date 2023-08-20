@@ -8,7 +8,7 @@
 
 [node name="OptionChooserControl" type="Control"]
 anchor_right = 1.0
-anchor_bottom = 0.142
+anchor_bottom = 0.08
 margin_bottom = -0.200005
 script = ExtResource( 5 )
 
@@ -19,7 +19,7 @@ color = Color( 0.14902, 0.14902, 0.156863, 0.686275 )
 
 [node name="TitleLabel" type="Label" parent="."]
 anchor_right = 1.0
-anchor_bottom = 0.55
+anchor_bottom = 0.7
 custom_fonts/font = ExtResource( 1 )
 text = "Title"
 align = 1
@@ -27,7 +27,7 @@ valign = 1
 
 [node name="SelectedOptionLabel" type="Label" parent="."]
 anchor_left = 0.263
-anchor_top = 0.415
+anchor_top = 0.45
 anchor_right = 0.737
 anchor_bottom = 1.0
 margin_top = -0.0400047
@@ -40,7 +40,7 @@ valign = 1
 
 [node name="PreviousOptionButton" type="Button" parent="."]
 anchor_left = 0.02
-anchor_top = 0.5
+anchor_top = 0.15
 anchor_right = 0.24
 anchor_bottom = 0.85
 margin_top = -0.0400047
@@ -50,7 +50,7 @@ text = "<"
 
 [node name="NextOptionButton" type="Button" parent="."]
 anchor_left = 0.76
-anchor_top = 0.5
+anchor_top = 0.15
 anchor_right = 0.98
 anchor_bottom = 0.85
 margin_top = -0.0400047
