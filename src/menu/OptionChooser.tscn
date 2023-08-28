@@ -33,6 +33,7 @@ anchor_bottom = 1.0
 margin_top = -0.0400047
 margin_right = -4.57764e-05
 margin_bottom = 0.0399933
+custom_colors/font_color = Color( 0.356863, 0.819608, 0.439216, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "Selected option"
 align = 1

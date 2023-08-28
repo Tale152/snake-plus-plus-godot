@@ -8,14 +8,29 @@ var _MODES_ARRAY: Array = [
 	PersistentPlaySettings.CHALLENGE,
 	PersistentPlaySettings.ARCADE
 ]
+var _DIFFICULTY_ARRAY_LOCALIZED: Array = [
+	TranslationsManager.get_localized_string(TranslationsManager.REGULAR),
+	TranslationsManager.get_localized_string(TranslationsManager.PRO)
+]
+var _DIFFICULTY_ARRAY: Array = [
+	PersistentPlaySettings.REGULAR,
+	PersistentPlaySettings.PRO
+]
 var stages: Array = []
+var _main_menu_scene
 
 func _ready():
 	$ModeOptionChooserControl.fill(
-		"Game mode", #TODO localize 
+		TranslationsManager.get_localized_string(TranslationsManager.GAME_MODE),
 		_MODES_ARRAY_LOCALIZED,
 		_get_array_index(_MODES_ARRAY, PersistentPlaySettings.get_mode()),
 		funcref(self, "_change_mode")
+	)
+	$DifficultyOptionChooserControl.fill(
+		TranslationsManager.get_localized_string(TranslationsManager.DIFFICULTY),
+		_DIFFICULTY_ARRAY_LOCALIZED,
+		_get_array_index(_DIFFICULTY_ARRAY, PersistentPlaySettings.get_difficulty()),
+		funcref(self, "_change_difficulty")
 	)
 
 func _get_array_index(arr: Array, elem) -> int:
@@ -29,13 +44,21 @@ func _change_mode(mode_localized: String) -> void:
 	PersistentPlaySettings.set_mode(
 		_MODES_ARRAY[_get_array_index(_MODES_ARRAY_LOCALIZED, mode_localized)]
 	)
+	_main_menu_scene.play_button_click_sound()
+	update_stages()
+
+func _change_difficulty(difficulty_localized: String) -> void:
+	PersistentPlaySettings.set_difficulty(
+		_DIFFICULTY_ARRAY[_get_array_index(_DIFFICULTY_ARRAY_LOCALIZED, difficulty_localized)]
+	)
+	_main_menu_scene.play_button_click_sound()
 	update_stages()
 
 func scale(scale: float) -> void:
-	$PlayDifficultySetterControl.scale(scale)
+	pass
 
 func initialize(main_scene_instance) -> void:
-	$PlayDifficultySetterControl.initialize(main_scene_instance, funcref(self, "update_stages"))
+	_main_menu_scene = main_scene_instance
 
 func append_stage(stage) -> int:
 	stages.push_back(stage)

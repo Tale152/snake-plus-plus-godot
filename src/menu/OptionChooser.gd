@@ -5,8 +5,8 @@ onready var _SelectedOptionLabelFont = preload("res://src/menu/OptionChooserSele
 onready var _PreviousButtonFont = preload("res://src/menu/OptionChooserPreviousFont.tres")
 onready var _NextButtonFont = preload("res://src/menu/OptionChooserNextFont.tres")
 
-const _TITLE_LABEL_DEFAULT_FONT_SIZE: int = 18
-const _SELECTED_OPTION_LABEL_DEFAULT_FONT_SIZE: int = 15
+const _TITLE_LABEL_DEFAULT_FONT_SIZE: int = 16
+const _SELECTED_OPTION_LABEL_DEFAULT_FONT_SIZE: int = 17
 const _BUTTONS_DEFAULT_FONT_SIZE: int = 17
 
 var _options: Array

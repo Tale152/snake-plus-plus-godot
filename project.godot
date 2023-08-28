@@ -380,11 +380,6 @@ _global_script_classes=[ {
 "path": "res://src/persistence/PersistentDictionaryNode.gd"
 }, {
 "base": "Control",
-"class": "PlayDifficultySetter",
-"language": "GDScript",
-"path": "res://src/menu/play_menu_scene/PlayDifficultySetter.gd"
-}, {
-"base": "Control",
 "class": "PlayMenuContent",
 "language": "GDScript",
 "path": "res://src/menu/play_menu_scene/PlayMenuContent.gd"
@@ -664,7 +659,6 @@ _global_script_class_icons={
 "PerkType": "",
 "PerkView": "",
 "PersistentDictionaryNode": "",
-"PlayDifficultySetter": "",
 "PlayMenuContent": "",
 "PlayMenuScene": "",
 "PositionCalculator": "",
