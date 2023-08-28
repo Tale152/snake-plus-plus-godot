@@ -10,8 +10,7 @@ func update() -> void:
 		var obtained_stars: String = _get_obtained_stars()
 		$SummaryRichLabel.text = obtained_stars + " / " + total_stars
 	else:
-		# TODO implement arcade total length record count
-		pass
+		$SummaryRichLabel.text = _get_total_length_reached()
 
 func _get_obtained_stars() -> String:
 	var stages_data: Dictionary = PersistentStagesData.get_stages()
@@ -23,4 +22,16 @@ func _get_obtained_stars() -> String:
 			total += data.get_stars_regular()
 		elif data.get_stars_pro() != null:
 			total += data.get_stars_pro()
+	return str(total)
+
+func _get_total_length_reached() -> String:
+	var stages_data: Dictionary = PersistentStagesData.get_stages()
+	var is_regular: bool = PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.REGULAR
+	var total: int = 0
+	for uuid in stages_data.keys():
+		var data: StageData = stages_data[uuid]
+		if is_regular && data.get_regular_record() != null:
+			total += data.get_regular_record().get_length()
+		elif data.get_pro_record() != null:
+			total += data.get_pro_record().get_length()
 	return str(total)

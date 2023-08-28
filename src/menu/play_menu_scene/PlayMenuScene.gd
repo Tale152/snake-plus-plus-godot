@@ -123,6 +123,7 @@ func _back_to_play_menu() -> void:
 	_main_scene_instance.play_menu_music()
 	_populate_stages()
 	_play_menu_content.visible = true
+	_play_menu_content.refresh_data()
 	_stage_prelude.visible = false
 
 func _go_to_main_menu() -> void:

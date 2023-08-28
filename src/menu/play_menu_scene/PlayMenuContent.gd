@@ -63,6 +63,9 @@ func initialize(main_scene_instance) -> void:
 	_main_menu_scene = main_scene_instance
 	$SummaryDisplayControl.update()
 
+func refresh_data() -> void:
+	$SummaryDisplayControl.update()
+
 func append_stage(stage) -> int:
 	stages.push_back(stage)
 	$ScrollContainer/VBoxContainer.add_child(stage)

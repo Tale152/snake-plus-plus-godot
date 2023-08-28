@@ -40,8 +40,12 @@ func scale(scale: float) -> void:
 
 func _get_record_string(result: StageResult) -> String:
 	if result == null:
-		return TranslationsManager.get_localized_string(
-			TranslationsManager.NO_RECORD
+		return str(
+			_get_record_line(TranslationsManager.LENGTH, 0),
+			"\n",
+			_get_record_line(TranslationsManager.SCORE, 0),
+			"\n",
+			_get_record_line(TranslationsManager.TIME, 0)
 		)
 	else:
 		return str(
