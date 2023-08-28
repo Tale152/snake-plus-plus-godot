@@ -46,6 +46,7 @@ func _change_mode(mode_localized: String) -> void:
 	)
 	_main_menu_scene.play_button_click_sound()
 	update_stages()
+	$SummaryDisplayControl.update()
 
 func _change_difficulty(difficulty_localized: String) -> void:
 	PersistentPlaySettings.set_difficulty(
@@ -53,12 +54,14 @@ func _change_difficulty(difficulty_localized: String) -> void:
 	)
 	_main_menu_scene.play_button_click_sound()
 	update_stages()
+	$SummaryDisplayControl.update()
 
 func scale(scale: float) -> void:
 	pass
 
 func initialize(main_scene_instance) -> void:
 	_main_menu_scene = main_scene_instance
+	$SummaryDisplayControl.update()
 
 func append_stage(stage) -> int:
 	stages.push_back(stage)
