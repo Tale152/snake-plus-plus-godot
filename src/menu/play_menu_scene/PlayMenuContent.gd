@@ -57,7 +57,8 @@ func _change_difficulty(difficulty_localized: String) -> void:
 	$SummaryDisplayControl.update()
 
 func scale(scale: float) -> void:
-	pass
+	$ModeOptionChooserControl.scale_font(scale)
+	$DifficultyOptionChooserControl.scale_font(scale)
 
 func initialize(main_scene_instance) -> void:
 	_main_menu_scene = main_scene_instance
