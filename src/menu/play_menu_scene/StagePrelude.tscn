@@ -38,26 +38,6 @@ text = "length:
 score:
 time:"
 
-[node name="HighestScoreGameLabel" type="Label" parent="."]
-anchor_top = 0.35
-anchor_right = 1.0
-anchor_bottom = 0.4
-margin_left = 10.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
-text = "HIGHEST_SCORE_GAME"
-valign = 1
-
-[node name="HighestScoreGameDataLabel" type="Label" parent="."]
-anchor_top = 0.4
-anchor_right = 1.0
-anchor_bottom = 0.6
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
-text = "length:
-score:
-time:"
-
 [node name="StarsLabel" type="Label" parent="."]
 anchor_top = 0.6
 anchor_right = 1.0

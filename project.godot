@@ -20,11 +20,6 @@ _global_script_classes=[ {
 "path": "res://src/game/model/collidables/perk/strategies/AppleStrategy.gd"
 }, {
 "base": "Reference",
-"class": "ArcadeRecord",
-"language": "GDScript",
-"path": "res://src/persistence/ArcadeRecord.gd"
-}, {
-"base": "Reference",
 "class": "ArcadeRecordHelper",
 "language": "GDScript",
 "path": "res://src/menu/play_menu_scene/ArcadeRecordHelper.gd"
@@ -587,7 +582,6 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AnimationUtils": "",
 "AppleStrategy": "",
-"ArcadeRecord": "",
 "ArcadeRecordHelper": "",
 "ArrowsControls": "",
 "AssetFiles": "",

@@ -1,16 +1,11 @@
 extends PersistentDictionaryNode
 
 const _STAGES: String = "stages"
-const _SCORE_RECORD_NOOB: String = "score_record_noob"
-const _LENGTH_RECORD_NOOB: String = "length_record_noob"
-const _SCORE_RECORD_REGULAR: String = "score_record_regular"
-const _LENGTH_RECORD_REGULAR: String = "length_record_regular"
-const _SCORE_RECORD_PRO: String = "score_record_pro"
-const _LENGTH_RECORD_PRO: String = "length_record_pro"
 const _UUID: String = "uuid"
-const _ARCADE: String = "arcade"
 const _STARS_REGULAR: String = "stars_regular"
 const _STARS_PRO: String = "stars_pro"
+const _ARCADE_REGULAR: String = "arcade_regular"
+const _ARCADE_PRO: String = "arcade_pro"
 const _TIME: String = "time"
 const _SCORE: String = "score"
 const _LENGTH: String = "length"
@@ -51,17 +46,20 @@ func set_new_challenge_stars_pro(uuid: String, stars: int) -> void:
 	current_stages[uuid].set_stars_pro(stars)
 	set_stages(current_stages)
 
-func set_new_arcade_record(uuid: String, arcade_record: ArcadeRecord) -> void:
+func set_new_arcade_regular_record(uuid: String, record: StageResult) -> void:
 	var current_stages: Dictionary = get_stages()
-	current_stages[uuid].set_arcade_record(arcade_record)
+	current_stages[uuid].set_regular_record(record)
+	set_stages(current_stages)
+
+func set_new_arcade_pro_record(uuid: String, record: StageResult) -> void:
+	var current_stages: Dictionary = get_stages()
+	current_stages[uuid].set_pro_record(record)
 	set_stages(current_stages)
 
 func unlock_stage(uuid: String) -> bool:
 	var current_stages: Dictionary = get_stages()
 	if current_stages.has(uuid): return false
-	current_stages[uuid] = StageData.new(0, 0, ArcadeRecord.new(
-		null, null, null, null
-	))
+	current_stages[uuid] = StageData.new(0, 0, null, null)
 	set_stages(current_stages)
 	return true
 
@@ -72,84 +70,47 @@ func _stage_data_to_dictionary(
 	result[_UUID] = uuid #if done in "result" declaration id does not work
 	result[_STARS_REGULAR] = stage_data.get_stars_regular()
 	result[_STARS_PRO] = stage_data.get_stars_pro()
-	var arcade_data: Dictionary = {}
-	var arcade_record = stage_data.get_arcade_record()
-	if arcade_record != null:
-		_add_arcade_records_by_difficulty(
-			arcade_data, arcade_record, PersistentPlaySettings.REGULAR, _SCORE_RECORD_REGULAR, _LENGTH_RECORD_REGULAR
-		)
-		_add_arcade_records_by_difficulty(
-			arcade_data, arcade_record, PersistentPlaySettings.PRO, _SCORE_RECORD_PRO, _LENGTH_RECORD_PRO
-		)
-	result[_ARCADE] = arcade_data
+	var regular_record = _stage_result_to_dictionary(stage_data.get_regular_record())
+	if regular_record != null:
+		result[_ARCADE_REGULAR] = regular_record
+	var pro_record = _stage_result_to_dictionary(stage_data.get_pro_record())
+	if pro_record != null:
+		result[_ARCADE_PRO] = pro_record
 	return result
 
-func _add_arcade_records_by_difficulty(
-	result: Dictionary,
-	arcade_record: ArcadeRecord,
-	difficulty: String,
-	score_key: String,
-	length_key: String
-):
-	if arcade_record.get_score_record(difficulty) != null:
-		result[score_key] = _stage_result_to_dictionary(
-			arcade_record.get_score_record(difficulty)
-	)
-	if arcade_record.get_length_record(difficulty) != null:
-		result[length_key] = _stage_result_to_dictionary(
-			arcade_record.get_length_record(difficulty)
-	)
-
-func _stage_result_to_dictionary(stage_result: StageResult) -> Dictionary:
+func _stage_result_to_dictionary(record: StageResult):
+	if record == null: return null
 	var result: Dictionary = {}
-	result[_TIME] = stage_result.get_time()
-	result[_LENGTH] = stage_result.get_length()
-	result[_SCORE] = stage_result.get_score()
+	result[_LENGTH] = record.get_length()
+	result[_SCORE] = record.get_score()
+	result[_TIME] = record.get_time()
 	return result
 
 func _dictionary_to_stage_data(dictionary: Dictionary) -> StageData:
 	var stars_regular: int = 0
 	var stars_pro: int = 0
-	var score_record_regular: StageResult = null
-	var length_record_regular: StageResult = null
-	var score_record_pro: StageResult = null
-	var length_record_pro: StageResult = null
+	var arcade_record_regular: StageResult = null
+	var arcade_record_pro: StageResult = null
 	
-	if dictionary.has(_ARCADE):
-		var arcade_dictionary = dictionary[_ARCADE]
-		score_record_regular = _extract_stage_result_from_dictionary(
-			arcade_dictionary, _SCORE_RECORD_REGULAR
+	if dictionary.has(_ARCADE_REGULAR):
+		arcade_record_regular = _extract_stage_result_from_dictionary(
+			dictionary[_ARCADE_REGULAR]
 		)
-		length_record_regular = _extract_stage_result_from_dictionary(
-			arcade_dictionary, _LENGTH_RECORD_REGULAR
-		)
-		score_record_pro = _extract_stage_result_from_dictionary(
-			arcade_dictionary, _SCORE_RECORD_PRO
-		)
-		length_record_pro = _extract_stage_result_from_dictionary(
-			arcade_dictionary, _LENGTH_RECORD_PRO
-		)
-	var arcade_record = ArcadeRecord.new(
-			score_record_regular,
-			length_record_regular,
-			score_record_pro,
-			length_record_pro
+	if dictionary.has(_ARCADE_PRO):
+		arcade_record_pro = _extract_stage_result_from_dictionary(
+			dictionary[_ARCADE_PRO]
 		)
 	if dictionary.has(_STARS_REGULAR):
 		stars_regular = dictionary[_STARS_REGULAR]
 	if dictionary.has(_STARS_PRO):
 		stars_pro = dictionary[_STARS_PRO]
-	return StageData.new(stars_regular, stars_pro, arcade_record)
+	return StageData.new(
+		stars_regular, stars_pro, arcade_record_regular, arcade_record_pro
+	)
 
-func _extract_stage_result_from_dictionary(
-	dictionary: Dictionary, record_type: String
-) -> StageResult:
-	if !dictionary.has(record_type):
-		return null
-	else:
-		var record_dictionary: Dictionary = dictionary[record_type]
-		return StageResult.new(
-			record_dictionary[_TIME],
-			record_dictionary[_SCORE],
-			record_dictionary[_LENGTH]
-		)
+func _extract_stage_result_from_dictionary(dictionary: Dictionary) -> StageResult:
+	return StageResult.new(
+		dictionary[_TIME],
+		dictionary[_SCORE],
+		dictionary[_LENGTH]
+	)
