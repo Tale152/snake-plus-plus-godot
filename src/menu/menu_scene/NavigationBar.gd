@@ -2,7 +2,7 @@ class_name NavigationBar extends Control
 
 onready var _TitleLabelFont = preload("res://src/menu/menu_scene/TitleLabelFont.tres")
 
-const _TITLE_FONT_DEFAULT_SIZE: int = 25
+const _TITLE_FONT_DEFAULT_SIZE: int = 40
 
 var _trophy_icon_path = "res://assets/icons/trophy.png"
 var _settings_icon_path = "res://assets/icons/settings.png"
