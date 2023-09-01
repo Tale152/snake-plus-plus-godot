@@ -5,13 +5,15 @@ onready var _SelectedOptionLabelFont = preload("res://src/menu/OptionChooserSele
 onready var _PreviousButtonFont = preload("res://src/menu/OptionChooserPreviousFont.tres")
 onready var _NextButtonFont = preload("res://src/menu/OptionChooserNextFont.tres")
 
-const _TITLE_LABEL_DEFAULT_FONT_SIZE: int = 16
+const _TITLE_LABEL_DEFAULT_FONT_SIZE: int = 14
 const _SELECTED_OPTION_LABEL_DEFAULT_FONT_SIZE: int = 17
 const _BUTTONS_DEFAULT_FONT_SIZE: int = 17
+const _DEFAULT_WAVE_AMP: int = 6
 
 var _options: Array
 var _selected_index: int
 var _on_change_strategy: FuncRef
+var _wave_amp: int = _DEFAULT_WAVE_AMP
 
 func fill(
 	title: String,
@@ -26,6 +28,7 @@ func fill(
 	_update_selected_option()
 
 func scale_font(scale: float) -> void:
+	_wave_amp = _get_int_font_size(_DEFAULT_WAVE_AMP, scale)
 	_TitleLabelFont.size = _get_int_font_size(_TITLE_LABEL_DEFAULT_FONT_SIZE, scale)
 	_SelectedOptionLabelFont.size = _get_int_font_size(_SELECTED_OPTION_LABEL_DEFAULT_FONT_SIZE, scale)
 	_PreviousButtonFont.size = _get_int_font_size(_BUTTONS_DEFAULT_FONT_SIZE, scale)
@@ -59,4 +62,4 @@ func _get_int_font_size(default_value: int, scale: float) -> int:
 	return int(floor(default_value * scale))
 
 func _update_selected_option() -> void:
-	$SelectedOptionLabel.text = _options[_selected_index]
+	$SelectedOptionLabel.bbcode_text = "[center][wave amp=" + str(_wave_amp) + "]" + _options[_selected_index] + "[/wave][/center]"

@@ -2,8 +2,8 @@
 
 [ext_resource path="res://src/menu/OptionChooserTitleFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/menu/OptionChooserSelectedOptionFont.tres" type="DynamicFont" id=2]
-[ext_resource path="res://src/menu/OptionChooserNextFont.tres" type="DynamicFont" id=3]
-[ext_resource path="res://src/menu/OptionChooserPreviousFont.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/icons/right_arrow.png" type="Texture" id=3]
+[ext_resource path="res://assets/icons/left_arrow.png" type="Texture" id=4]
 [ext_resource path="res://src/menu/OptionChooser.gd" type="Script" id=5]
 
 [node name="OptionChooserControl" type="Control"]
@@ -13,9 +13,23 @@ margin_bottom = -0.200005
 script = ExtResource( 5 )
 
 [node name="BackgroundColorRect" type="ColorRect" parent="."]
-anchor_right = 1.0
+anchor_left = 0.05
+anchor_right = 0.95
 anchor_bottom = 1.0
 color = Color( 0.14902, 0.14902, 0.156863, 0.686275 )
+
+[node name="SelectedOptionLabel" type="RichTextLabel" parent="."]
+anchor_left = 0.263
+anchor_top = 0.5
+anchor_right = 0.737
+anchor_bottom = 1.0
+margin_right = -4.57764e-05
+margin_bottom = 0.0399933
+custom_colors/default_color = Color( 0.517647, 0.74902, 0.996078, 1 )
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center][wave amp=6]Selected[/wave][/center]"
+text = "Selected"
 
 [node name="TitleLabel" type="Label" parent="."]
 anchor_right = 1.0
@@ -25,39 +39,27 @@ text = "Title"
 align = 1
 valign = 1
 
-[node name="SelectedOptionLabel" type="Label" parent="."]
-anchor_left = 0.263
-anchor_top = 0.45
-anchor_right = 0.737
-anchor_bottom = 1.0
-margin_top = -0.0400047
-margin_right = -4.57764e-05
-margin_bottom = 0.0399933
-custom_colors/font_color = Color( 0.356863, 0.819608, 0.439216, 1 )
-custom_fonts/font = ExtResource( 2 )
-text = "Selected option"
-align = 1
-valign = 1
-
-[node name="PreviousOptionButton" type="Button" parent="."]
-anchor_left = 0.02
+[node name="PreviousOptionButton" type="TextureButton" parent="."]
+anchor_left = 0.07
 anchor_top = 0.15
-anchor_right = 0.24
+anchor_right = 0.19
 anchor_bottom = 0.85
 margin_top = -0.0400047
 margin_bottom = 0.0400009
-custom_fonts/font = ExtResource( 4 )
-text = "<"
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 4
 
-[node name="NextOptionButton" type="Button" parent="."]
+[node name="NextOptionButton" type="TextureButton" parent="."]
 anchor_left = 0.76
 anchor_top = 0.15
 anchor_right = 0.98
 anchor_bottom = 0.85
 margin_top = -0.0400047
 margin_bottom = 0.0400009
-custom_fonts/font = ExtResource( 3 )
-text = ">"
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 5
 
 [connection signal="pressed" from="PreviousOptionButton" to="." method="_on_PreviousOptionButton_pressed"]
 [connection signal="pressed" from="NextOptionButton" to="." method="_on_NextOptionButton_pressed"]
