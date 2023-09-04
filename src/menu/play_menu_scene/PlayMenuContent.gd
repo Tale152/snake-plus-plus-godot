@@ -20,13 +20,13 @@ var stages: Array = []
 var _main_menu_scene
 
 func _ready():
-	$ModeOptionChooserControl.fill(
+	$OptionsContainerControl/ModeOptionChooserControl.fill(
 		TranslationsManager.get_localized_string(TranslationsManager.GAME_MODE),
 		_MODES_ARRAY_LOCALIZED,
 		_get_array_index(_MODES_ARRAY, PersistentPlaySettings.get_mode()),
 		funcref(self, "_change_mode")
 	)
-	$DifficultyOptionChooserControl.fill(
+	$OptionsContainerControl/DifficultyOptionChooserControl.fill(
 		TranslationsManager.get_localized_string(TranslationsManager.DIFFICULTY),
 		_DIFFICULTY_ARRAY_LOCALIZED,
 		_get_array_index(_DIFFICULTY_ARRAY, PersistentPlaySettings.get_difficulty()),
@@ -46,7 +46,7 @@ func _change_mode(mode_localized: String) -> void:
 	)
 	_main_menu_scene.play_button_click_sound()
 	update_stages()
-	$SummaryDisplayControl.update()
+	$OptionsContainerControl/SummaryDisplayControl.update()
 
 func _change_difficulty(difficulty_localized: String) -> void:
 	PersistentPlaySettings.set_difficulty(
@@ -54,19 +54,19 @@ func _change_difficulty(difficulty_localized: String) -> void:
 	)
 	_main_menu_scene.play_button_click_sound()
 	update_stages()
-	$SummaryDisplayControl.update()
+	$OptionsContainerControl/SummaryDisplayControl.update()
 
 func scale(scale: float) -> void:
-	$ModeOptionChooserControl.scale_font(scale)
-	$DifficultyOptionChooserControl.scale_font(scale)
-	$SummaryDisplayControl.scale_font(scale)
+	$OptionsContainerControl/ModeOptionChooserControl.scale_font(scale)
+	$OptionsContainerControl/DifficultyOptionChooserControl.scale_font(scale)
+	$OptionsContainerControl/SummaryDisplayControl.scale_font(scale)
 
 func initialize(main_scene_instance) -> void:
 	_main_menu_scene = main_scene_instance
-	$SummaryDisplayControl.update()
+	$OptionsContainerControl/SummaryDisplayControl.update()
 
 func refresh_data() -> void:
-	$SummaryDisplayControl.update()
+	$OptionsContainerControl/SummaryDisplayControl.update()
 
 func append_stage(stage) -> int:
 	stages.push_back(stage)

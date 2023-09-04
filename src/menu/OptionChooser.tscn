@@ -16,7 +16,7 @@ script = ExtResource( 5 )
 anchor_left = 0.05
 anchor_right = 0.95
 anchor_bottom = 1.0
-color = Color( 0.14902, 0.14902, 0.156863, 0.686275 )
+color = Color( 0.14902, 0.14902, 0.156863, 0 )
 
 [node name="SelectedOptionLabel" type="RichTextLabel" parent="."]
 anchor_left = 0.263
