@@ -32,6 +32,7 @@ func _ready():
 		_get_array_index(_DIFFICULTY_ARRAY, PersistentPlaySettings.get_difficulty()),
 		funcref(self, "_change_difficulty")
 	)
+	_handle_scroll_arrows()
 
 func _get_array_index(arr: Array, elem) -> int:
 	var i = 0
@@ -70,14 +71,37 @@ func refresh_data() -> void:
 
 func append_stage(stage) -> int:
 	stages.push_back(stage)
-	$ScrollContainer/VBoxContainer.add_child(stage)
+	$StagesContainerControl/ScrollContainer/VBoxContainer.add_child(stage)
 	return stages.size() - 1
 
 func clear_stages() -> void:
 	for stage in stages:
-		$ScrollContainer/VBoxContainer.remove_child(stage)
+		$StagesContainerControl/ScrollContainer/VBoxContainer.remove_child(stage)
 	stages = []
 
 func update_stages() -> void:
 	for stage in stages:
 		stage.update_container()
+
+func _on_ScrollContainer_scroll_ended():
+	_handle_scroll_arrows()
+
+func _on_ScrollContainer_scroll_started():
+	_handle_scroll_arrows()
+
+func _on_ScrollContainer_gui_input(_event):
+	_handle_scroll_arrows()
+
+func _handle_scroll_arrows() -> void:
+	var max_scroll_value = $StagesContainerControl/ScrollContainer.get_v_scrollbar().max_value - $StagesContainerControl/ScrollContainer.rect_size.y
+	var scroll_value = $StagesContainerControl/ScrollContainer.get_v_scrollbar().value
+	_handle_arrows_disabled(
+		scroll_value == 0,
+		scroll_value == max_scroll_value
+	)
+
+func _handle_arrows_disabled(up: bool, down: bool) -> void:
+	$StagesContainerControl/UpperLimitControl/ScrollUpTextureButton.visible = !up
+	$StagesContainerControl/UpperLimitControl/ScrollUpTextureButton.disabled = up
+	$StagesContainerControl/LowerLimitControl/ScrollDownTextureButton.visible = !down
+	$StagesContainerControl/LowerLimitControl/ScrollDownTextureButton.disabled = down

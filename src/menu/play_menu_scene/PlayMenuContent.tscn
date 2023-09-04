@@ -3,8 +3,8 @@
 [ext_resource path="res://src/menu/OptionChooser.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/menu/play_menu_scene/SummaryDisplay.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/menu/play_menu_scene/PlayMenuContent.gd" type="Script" id=3]
-[ext_resource path="res://src/menu/play_menu_scene/StageSelectorScrollArrowUp.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/menu/play_menu_scene/StageSelectorScrollArrowDown.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/icons/up_arrow.png" type="Texture" id=4]
+[ext_resource path="res://assets/icons/down_arrow.png" type="Texture" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=5]
 
@@ -34,7 +34,8 @@ anchor_right = 1.0
 anchor_bottom = 0.22
 
 [node name="ColorRect" type="ColorRect" parent="OptionsContainerControl"]
-anchor_right = 1.0
+anchor_left = 0.04
+anchor_right = 0.96
 anchor_bottom = 1.0
 color = Color( 0.14902, 0.14902, 0.156863, 0.686275 )
 
@@ -52,18 +53,63 @@ anchor_top = 0.8
 anchor_bottom = 1.0
 margin_bottom = 0.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-anchor_top = 0.27
+[node name="StagesContainerControl" type="Control" parent="."]
+anchor_top = 0.24
 anchor_right = 1.0
-anchor_bottom = 0.952
+anchor_bottom = 0.98
+
+[node name="ColorRect" type="ColorRect" parent="StagesContainerControl"]
+anchor_left = 0.04
+anchor_top = 0.03
+anchor_right = 0.96
+anchor_bottom = 0.97
+color = Color( 0.14902, 0.14902, 0.156863, 0.686275 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="StagesContainerControl"]
+anchor_top = 0.03
+anchor_right = 1.0
+anchor_bottom = 0.97
 theme = SubResource( 2 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="StagesContainerControl/ScrollContainer"]
 
-[node name="StageSelectorScrollArrowControlUp" parent="." instance=ExtResource( 4 )]
-anchor_top = 0.22
-anchor_bottom = 0.32
+[node name="UpperLimitControl" type="Control" parent="StagesContainerControl"]
+anchor_right = 1.0
+anchor_bottom = 0.03
 
-[node name="StageSelectorScrollArrowUpControl" parent="." instance=ExtResource( 5 )]
-anchor_top = 0.9
+[node name="ColorRect" type="ColorRect" parent="StagesContainerControl/UpperLimitControl"]
+anchor_right = 1.0
 anchor_bottom = 1.0
+color = Color( 0.14902, 0.14902, 0.156863, 1 )
+
+[node name="ScrollUpTextureButton" type="TextureButton" parent="StagesContainerControl/UpperLimitControl"]
+anchor_left = 0.4
+anchor_top = -0.5
+anchor_right = 0.6
+anchor_bottom = 1.5
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 5
+
+[node name="LowerLimitControl" type="Control" parent="StagesContainerControl"]
+anchor_top = 0.97
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="StagesContainerControl/LowerLimitControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.14902, 0.14902, 0.156863, 1 )
+
+[node name="ScrollDownTextureButton" type="TextureButton" parent="StagesContainerControl/LowerLimitControl"]
+anchor_left = 0.4
+anchor_top = -0.5
+anchor_right = 0.6
+anchor_bottom = 1.5
+texture_normal = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+
+[connection signal="gui_input" from="StagesContainerControl/ScrollContainer" to="." method="_on_ScrollContainer_gui_input"]
+[connection signal="scroll_ended" from="StagesContainerControl/ScrollContainer" to="." method="_on_ScrollContainer_scroll_ended"]
+[connection signal="scroll_started" from="StagesContainerControl/ScrollContainer" to="." method="_on_ScrollContainer_scroll_started"]
