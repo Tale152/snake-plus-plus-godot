@@ -26,7 +26,7 @@ func fill(
 	_update_selected_option()
 
 func scale_font(scale: float) -> void:
-	_wave_amp = _get_int_font_size(_DEFAULT_WAVE_AMP, scale)
+	_wave_amp = _get_int_font_size(_DEFAULT_WAVE_AMP, scale) + (3 * scale)
 	_TitleLabelFont.size = _get_int_font_size(_TITLE_LABEL_DEFAULT_FONT_SIZE, scale)
 	_SelectedOptionLabelFont.size = _get_int_font_size(_SELECTED_OPTION_LABEL_DEFAULT_FONT_SIZE, scale)
 	$SelectedOptionLabel.add_font_override("normal_font", _SelectedOptionLabelFont)

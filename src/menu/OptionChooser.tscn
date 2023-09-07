@@ -1,14 +1,36 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/menu/OptionChooserTitleFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/fonts/8bitOperatorPlus8-Regular.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/icons/right_arrow.png" type="Texture" id=3]
-[ext_resource path="res://assets/icons/left_arrow.png" type="Texture" id=4]
+[ext_resource path="res://assets/icons/right_arrow_2.png" type="Texture" id=3]
+[ext_resource path="res://assets/icons/left_arrow_2.png" type="Texture" id=4]
 [ext_resource path="res://src/menu/OptionChooser.gd" type="Script" id=5]
+[ext_resource path="res://assets/icons/left_arrow_1.png" type="Texture" id=6]
+[ext_resource path="res://assets/icons/left_arrow_0.png" type="Texture" id=7]
+[ext_resource path="res://assets/icons/right_arrow_0.png" type="Texture" id=8]
+[ext_resource path="res://assets/icons/right_arrow_1.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 17
 font_data = ExtResource( 2 )
+
+[sub_resource type="AnimatedTexture" id=2]
+flags = 4
+frames = 3
+frame_0/texture = ExtResource( 7 )
+frame_1/texture = ExtResource( 6 )
+frame_1/delay_sec = 0.0
+frame_2/texture = ExtResource( 4 )
+frame_2/delay_sec = 0.0
+
+[sub_resource type="AnimatedTexture" id=3]
+flags = 4
+frames = 3
+frame_0/texture = ExtResource( 8 )
+frame_1/texture = ExtResource( 9 )
+frame_1/delay_sec = 0.0
+frame_2/texture = ExtResource( 3 )
+frame_2/delay_sec = 0.0
 
 [node name="OptionChooserControl" type="Control"]
 anchor_right = 1.0
@@ -50,7 +72,7 @@ anchor_right = 0.19
 anchor_bottom = 0.85
 margin_top = -0.0400047
 margin_bottom = 0.0400009
-texture_normal = ExtResource( 4 )
+texture_normal = SubResource( 2 )
 expand = true
 stretch_mode = 4
 
@@ -61,7 +83,7 @@ anchor_right = 0.98
 anchor_bottom = 0.85
 margin_top = -0.0400047
 margin_bottom = 0.0400009
-texture_normal = ExtResource( 3 )
+texture_normal = SubResource( 3 )
 expand = true
 stretch_mode = 5
 

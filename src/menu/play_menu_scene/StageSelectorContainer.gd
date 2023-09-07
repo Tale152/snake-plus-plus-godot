@@ -21,6 +21,7 @@ var _length_top_anchor_delta: float
 const _DEFAULT_STAGE_NAME_FONT_SIZE: int = 17
 const _DEFAULT_STAGE_NAME_OUTLINE_SIZE: int = 2
 const _DEFAULT_STAGE_NUMBER_FONT_SIZE: int = 20
+const _DEFAULT_STAGE_NUMBER_OUTLINE_SIZE: int = 2
 const _DEFAULT_LENGTH_FONT_SIZE: int = 15
 const _DEFAULT_LENGTH_OUTLINE_SIZE: int = 2
 const _DEFAULT_MIN_X: int = 282
@@ -45,6 +46,7 @@ func initialize(
 	_LengthFont.size = _get_int_size(_DEFAULT_LENGTH_FONT_SIZE, scale)
 	_LengthFont.outline_size = _get_int_size(_DEFAULT_LENGTH_OUTLINE_SIZE, scale)
 	_StageNumberFont.size = _get_int_size(_DEFAULT_STAGE_NUMBER_FONT_SIZE, scale)
+	_StageNumberFont.outline_size = _get_int_size(_DEFAULT_STAGE_NUMBER_OUTLINE_SIZE, scale)
 	_data = data
 	$StageNumberLabel.text = str(StagesHelper.new().get_stage_number(_data.get_stage_path()) + 1)
 	_text = text

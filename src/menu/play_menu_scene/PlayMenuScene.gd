@@ -65,6 +65,7 @@ func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_play_menu_content.initialize(_main_scene_instance)
 
 func _open_stage_selector_container(data: MenuStageData, name: String) -> void:
+	_main_scene_instance.play_button_click_sound()
 	_stage_prelude.initialize(
 		data,
 		name,
