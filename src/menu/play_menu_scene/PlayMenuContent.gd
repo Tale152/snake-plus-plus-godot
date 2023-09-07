@@ -19,6 +19,8 @@ var _DIFFICULTY_ARRAY: Array = [
 var stages: Array = []
 var _main_menu_scene
 
+var i = 0
+
 func _ready():
 	$OptionsContainerControl/ModeOptionChooserControl.fill(
 		TranslationsManager.get_localized_string(TranslationsManager.GAME_MODE),
@@ -33,6 +35,27 @@ func _ready():
 		funcref(self, "_change_difficulty")
 	)
 	_handle_scroll_arrows()
+
+func _process(_delta):
+	if $StagesContainerControl/UpperLimitControl/ScrollUpTextureButton.pressed:
+		var max_scroll_value = $StagesContainerControl/ScrollContainer.get_v_scrollbar().max_value - $StagesContainerControl/ScrollContainer.rect_size.y
+		var delta = max_scroll_value * 0.05
+		var scroll_value = $StagesContainerControl/ScrollContainer.get_v_scrollbar().value
+		if scroll_value > delta:
+			$StagesContainerControl/ScrollContainer.get_v_scrollbar().value = scroll_value - delta
+		else:
+			$StagesContainerControl/ScrollContainer.get_v_scrollbar().value = 0
+		_handle_scroll_arrows()
+
+	if $StagesContainerControl/LowerLimitControl/ScrollDownTextureButton.pressed:
+		var max_scroll_value = $StagesContainerControl/ScrollContainer.get_v_scrollbar().max_value - $StagesContainerControl/ScrollContainer.rect_size.y
+		var delta = max_scroll_value * 0.05
+		var scroll_value = $StagesContainerControl/ScrollContainer.get_v_scrollbar().value
+		if (max_scroll_value - scroll_value) > delta:
+			$StagesContainerControl/ScrollContainer.get_v_scrollbar().value = scroll_value + delta
+		else:
+			$StagesContainerControl/ScrollContainer.get_v_scrollbar().value = max_scroll_value
+		_handle_scroll_arrows()
 
 func _get_array_index(arr: Array, elem) -> int:
 	var i = 0
