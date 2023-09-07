@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/menu/OptionChooserTitleFont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://src/menu/OptionChooserSelectedOptionFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/fonts/8bitOperatorPlus8-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/icons/right_arrow.png" type="Texture" id=3]
 [ext_resource path="res://assets/icons/left_arrow.png" type="Texture" id=4]
 [ext_resource path="res://src/menu/OptionChooser.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 17
+font_data = ExtResource( 2 )
 
 [node name="OptionChooserControl" type="Control"]
 anchor_right = 1.0
@@ -26,7 +30,7 @@ anchor_bottom = 1.0
 margin_right = -4.57764e-05
 margin_bottom = 0.0399933
 custom_colors/default_color = Color( 0.517647, 0.74902, 0.996078, 1 )
-custom_fonts/normal_font = ExtResource( 2 )
+custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center][wave amp=6]Selected[/wave][/center]"
 text = "Selected"

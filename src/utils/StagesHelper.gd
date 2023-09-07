@@ -21,6 +21,15 @@ func list_stage_files() -> Array:
 	files.sort_custom(self, "_sort_by_progressive")
 	return files
 
+func get_stage_number(stage_path: String) -> int:
+	var stages: Array = list_stage_files()
+	var i = 0
+	for s in stages:
+		if (STAGES_PATH + "/" + s) == stage_path:
+			return i
+		i += 1
+	return -1
+
 func _sort_by_progressive(x_filename: String, y_filename: String) -> bool:
 	var x_progr: int = int(x_filename.get_slice("-", 0).strip_edges(true, true))
 	var y_progr: int = int(y_filename.get_slice("-", 0).strip_edges(true, true))

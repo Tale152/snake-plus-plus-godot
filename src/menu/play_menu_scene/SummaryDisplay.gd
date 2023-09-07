@@ -2,8 +2,8 @@ extends Control
 
 onready var _SummaryLabelFont = preload("res://src/menu/play_menu_scene/SummaryLabelFont.tres")
 
-const _DEFAULT_FONT_SIZE: int = 13
-const _ICON_DEFAULT_SIZE: int = 15
+const _DEFAULT_FONT_SIZE: int = 15
+const _ICON_DEFAULT_SIZE: int = 12
 var _icon_size: int = _ICON_DEFAULT_SIZE
 
 func _ready():
@@ -12,6 +12,7 @@ func _ready():
 func scale_font(scale: float) -> void:
 	_SummaryLabelFont.size = _get_int_font_size(_DEFAULT_FONT_SIZE, scale)
 	_icon_size = _get_int_font_size(_ICON_DEFAULT_SIZE, scale)
+	$SummaryRichLabel.add_font_override("normal_font", _SummaryLabelFont)
 	update()
 
 func _get_int_font_size(default_value: int, scale: float) -> int:
