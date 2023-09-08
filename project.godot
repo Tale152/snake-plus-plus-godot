@@ -475,9 +475,14 @@ _global_script_classes=[ {
 "path": "res://src/persistence/StageData.gd"
 }, {
 "base": "Control",
-"class": "StagePrelude",
+"class": "StagePreludeContent",
 "language": "GDScript",
-"path": "res://src/menu/play_menu_scene/StagePrelude.gd"
+"path": "res://src/menu/stage_prelude_menu/StagePreludeContent.gd"
+}, {
+"base": "Control",
+"class": "StagePreludeScene",
+"language": "GDScript",
+"path": "res://src/menu/stage_prelude_menu/StagePreludeScene.gd"
 }, {
 "base": "Reference",
 "class": "StageResult",
@@ -673,7 +678,8 @@ _global_script_class_icons={
 "SnakeUnitView": "",
 "SplitControls": "",
 "StageData": "",
-"StagePrelude": "",
+"StagePreludeContent": "",
+"StagePreludeScene": "",
 "StageResult": "",
 "StageSelectorContainer": "",
 "StageValidatorV1": "",
