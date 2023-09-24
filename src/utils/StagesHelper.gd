@@ -41,12 +41,7 @@ func unlock_initial_stages() -> void:
 	var i = 0
 	for f in files:
 		if i < _INITIAL_STAGES_UNLOCKED_NUMBER:
-			var filepath: String = STAGES_PATH + "/" + f
-			var file = File.new()
-			file.open(filepath, File.READ)
-			var json_data = parse_json(file.get_as_text())
-			file.close()
-			var uuid: String = json_data["uuid"]
+			var uuid: String = read_file_as_json(STAGES_PATH + "/" + f)["uuid"]
 			if !currently_unlocked_stages.has(uuid):
 				PersistentStagesData.unlock_stage(uuid)
 		else:
@@ -73,15 +68,17 @@ func unlock_stages() -> int:
 		return 0
 	var stages_unlocked: int = 0
 	for f in files:
-		var filepath: String = STAGES_PATH + "/" + f
-		var file = File.new()
-		file.open(filepath, File.READ)
-		var json_data = parse_json(file.get_as_text())
-		file.close()
-		var uuid: String = json_data["uuid"]
+		var uuid: String = read_file_as_json(STAGES_PATH + "/" + f)["uuid"]
 		if !currently_unlocked_stages.has(uuid):
 			stages_unlocked += 1
 			PersistentStagesData.unlock_stage(uuid)
 			if stages_unlocked == _STAGES_UNLOCK_PROGRESSION:
 				return stages_unlocked
 	return stages_unlocked
+
+func read_file_as_json(path: String) -> Dictionary:
+	var file = File.new()
+	file.open(path, File.READ)
+	var json_data = parse_json(file.get_as_text())
+	file.close()
+	return json_data

@@ -33,8 +33,12 @@
         {
           "stars": 1,
           "length": {
-            "value": 1,
+            "value": 69,
             "criteria": "reach"
+          },
+          "score": {
+            "value": 123456,
+            "criteria": "below"
           }
         },
         {
@@ -42,6 +46,10 @@
           "length": {
             "value": 2,
             "criteria": "reach"
+          },
+          "time": {
+            "value": 300,
+            "criteria": "below"
           }
         },
         {
@@ -52,7 +60,9 @@
           }
         }
       ],
-      "lose": {}
+      "lose": {
+        "time": 600
+      }
     }
   }
 }

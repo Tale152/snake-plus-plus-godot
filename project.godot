@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/strategies/BeerStrategy.gd"
 }, {
+"base": "Control",
+"class": "BestScoreStarsIndicator",
+"language": "GDScript",
+"path": "res://src/menu/stage_prelude_menu/BestScoreStarsIndicator.gd"
+}, {
 "base": "CollisionStrategy",
 "class": "CandyStrategy",
 "language": "GDScript",
@@ -93,6 +98,11 @@ _global_script_classes=[ {
 "class": "CollisionStrategy",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/CollisionStrategy.gd"
+}, {
+"base": "Control",
+"class": "ConditionsIndicator",
+"language": "GDScript",
+"path": "res://src/menu/stage_prelude_menu/ConditionsIndicator.gd"
 }, {
 "base": "Reference",
 "class": "ConnectionsCalculator",
@@ -313,6 +323,11 @@ _global_script_classes=[ {
 "class": "OrangeStrategy",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/strategies/OrangeStrategy.gd"
+}, {
+"base": "Control",
+"class": "ParametersInfo",
+"language": "GDScript",
+"path": "res://src/menu/stage_prelude_menu/ParametersInfo.gd"
 }, {
 "base": "Reference",
 "class": "ParsedPerkRules",
@@ -594,6 +609,7 @@ _global_script_class_icons={
 "BackgroundCell": "",
 "BananaStrategy": "",
 "BeerStrategy": "",
+"BestScoreStarsIndicator": "",
 "CandyStrategy": "",
 "CardinalConnections": "",
 "ChallengeRecordHelper": "",
@@ -602,6 +618,7 @@ _global_script_class_icons={
 "CollidableEntity": "",
 "CollisionResult": "",
 "CollisionStrategy": "",
+"ConditionsIndicator": "",
 "ConnectionsCalculator": "",
 "Coordinates": "",
 "CustomizationMenuContent": "",
@@ -646,6 +663,7 @@ _global_script_class_icons={
 "ModelRawMaterial": "",
 "NavigationBar": "",
 "OrangeStrategy": "",
+"ParametersInfo": "",
 "ParsedPerkRules": "",
 "ParsedStage": "",
 "PauseMenu": "",

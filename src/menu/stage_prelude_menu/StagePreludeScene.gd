@@ -14,7 +14,14 @@ var _arcade_record_helper: ArcadeRecordHelper
 var _challenge_record_helper: ChallengeRecordHelper
 
 func _ready():
-	_NavigationBar.set_title_label_text("")
+	if PersistentPlaySettings.get_mode() == PersistentPlaySettings.CHALLENGE:
+		_NavigationBar.set_title_label_text(TranslationsManager.get_localized_string(
+			TranslationsManager.CHALLENGE
+		))
+	else:
+		_NavigationBar.set_title_label_text(TranslationsManager.get_localized_string(
+			TranslationsManager.ARCADE
+		))
 	_NavigationBar.set_left_button_visible(true, "back")
 	_NavigationBar.set_left_button_disabled(false)
 	_NavigationBar.set_on_left_button_pressed_strategy(funcref(self, "_go_to_previous_scene"))

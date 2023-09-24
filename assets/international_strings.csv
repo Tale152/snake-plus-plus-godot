@@ -25,3 +25,7 @@ STARS_OBTAINED,Stars obtained,Stelle ottenute
 GAME_MODE,Game mode,Modalità di gioco
 DIFFICULTY,Difficulty,Difficoltà
 LOCKED,Locked,Bloccato
+REQUIREMENTS,Requirements,Requisiti
+NO_REQUIREMENT,No requirement,Nessun requisito
+GAME_OVER_IF,Game over if,Game over se
+NO_TRIGGER,No trigger,Nessun innesco

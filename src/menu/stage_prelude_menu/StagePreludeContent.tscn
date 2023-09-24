@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/menu/stage_prelude_menu/ArcadeStageInfoButtonFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/menu/stage_prelude_menu/ArcadeStageInfoFont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://src/menu/stage_prelude_menu/StagePreludeContent.gd" type="Script" id=3]
+[ext_resource path="res://src/menu/stage_prelude_menu/BestScoreStarsIndicator.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/menu/stage_prelude_menu/ConditionsIndicator.tscn" type="PackedScene" id=5]
 
 [node name="StagePreludeContentControl" type="Control"]
 anchor_right = 0.94
@@ -11,42 +13,22 @@ script = ExtResource( 3 )
 
 [node name="StageNameLabel" type="Label" parent="."]
 anchor_right = 1.0
-anchor_bottom = 0.1
+anchor_bottom = 0.08
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "STAGE NAME"
 align = 1
 valign = 1
 
-[node name="LongestSnakeGameLabel" type="Label" parent="."]
-anchor_top = 0.1
+[node name="BestScoreStarsIndicatorControl" parent="." instance=ExtResource( 4 )]
+anchor_top = 0.08
 anchor_right = 1.0
-anchor_bottom = 0.15
-margin_left = 10.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
-text = "LONGEST_SNAKE_GAME"
-valign = 1
+anchor_bottom = 0.18
 
-[node name="LongestSnakeGameDataLabel" type="Label" parent="."]
-anchor_top = 0.15
+[node name="ConditionsIndicatorControl" parent="." instance=ExtResource( 5 )]
+anchor_top = 0.23
 anchor_right = 1.0
-anchor_bottom = 0.35
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
-text = "length:
-score:
-time:"
-
-[node name="StarsLabel" type="Label" parent="."]
-anchor_top = 0.6
-anchor_right = 1.0
-anchor_bottom = 0.65
-margin_left = 10.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
-text = "STARS: 0"
-valign = 1
+anchor_bottom = 0.83
 
 [node name="PlayButton" type="Button" parent="."]
 anchor_left = 0.05
