@@ -27,6 +27,7 @@ func initialize(
 func scale(scale: float) -> void:
 	_ArcadeStageInfoFont.size = STAGE_NAME_DEFAULT_FONT_SIZE * scale
 	_ArcadeStageInfoButtonFont.size = 20 * scale
+	$ConditionsIndicatorControl.scale_text(scale)
 
 func _on_PlayButton_pressed():
 	_on_play_pressed.call_func(_data)

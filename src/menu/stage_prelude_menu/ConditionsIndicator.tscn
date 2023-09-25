@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/icons/right_arrow_2.png" type="Texture" id=1]
 [ext_resource path="res://assets/icons/left_arrow_2.png" type="Texture" id=2]
@@ -35,6 +35,11 @@ frame_1/texture = ExtResource( 4 )
 frame_1/delay_sec = 0.0
 frame_2/texture = ExtResource( 1 )
 frame_2/delay_sec = 0.0
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+outline_size = 2
+font_data = SubResource( 3 )
 
 [node name="ConditionsIndicatorControl" type="Control"]
 anchor_right = 0.94
@@ -103,12 +108,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.14902, 0.14902, 0.156863, 0.686275 )
 
-[node name="RequirementsLabel" type="Label" parent="LoseConditionsContainerControl"]
+[node name="GameOverLabel" type="Label" parent="LoseConditionsContainerControl"]
 anchor_right = 1.0
 anchor_bottom = 0.186
 margin_bottom = 0.6
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "Game over if:"
 align = 1
 valign = 1

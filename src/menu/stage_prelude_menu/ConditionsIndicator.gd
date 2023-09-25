@@ -7,6 +7,11 @@ var _star_selection_3 = preload("res://assets/icons/star_selection_3.png")
 var stars: int = 1
 var _file_content: Dictionary
 
+const REQUIREMENTS_LABEL_DEFAULT_SIZE: int = 20
+const REQUIREMENTS_LABEL_DEFAULT_OUTLINE_SIZE: int = 2
+const GAME_OVER_LABEL_DEFAULT_SIZE: int = 20
+const GAME_OVER_LABEL_DEFAULT_OUTLINE_SIZE: int = 2
+
 func _update_star_selection() -> void:
 	var rating_requirements = _file_content["stage"]["conditions"]["win_ratings"]
 	if stars == 1:
@@ -47,12 +52,28 @@ func _update_star_selection() -> void:
 				ParametersInfo.LIKE, TranslationsManager.get_localized_string(TranslationsManager.NO_REQUIREMENT)
 			)
 
+func scale_text(scale: float) -> void:
+	$RequirementsContainerControl/RequirementsParametersInfoControl.scale_text(scale)
+	$LoseConditionsContainerControl/GameOverParametersInfoControl.scale_text(scale)
+	ScalingHelper.scale_label_text(
+		$RequirementsContainerControl/RequirementsLabel, REQUIREMENTS_LABEL_DEFAULT_SIZE, scale
+	)
+	ScalingHelper.scale_label_outline(
+		$RequirementsContainerControl/RequirementsLabel, REQUIREMENTS_LABEL_DEFAULT_OUTLINE_SIZE, scale
+	)
+	ScalingHelper.scale_label_text(
+		$LoseConditionsContainerControl/GameOverLabel, GAME_OVER_LABEL_DEFAULT_SIZE, scale
+	)
+	ScalingHelper.scale_label_outline(
+		$LoseConditionsContainerControl/GameOverLabel, GAME_OVER_LABEL_DEFAULT_OUTLINE_SIZE, scale
+	)
+
 func set_file_content(file_content: Dictionary) -> void:
 	_file_content = file_content
 	$RequirementsContainerControl/RequirementsLabel.text = TranslationsManager.get_localized_string(
 		TranslationsManager.REQUIREMENTS
 	) + " :"
-	$LoseConditionsContainerControl/RequirementsLabel.text = TranslationsManager.get_localized_string(
+	$LoseConditionsContainerControl/GameOverLabel.text = TranslationsManager.get_localized_string(
 		TranslationsManager.GAME_OVER_IF
 	) + " :"
 	_update_star_selection()
