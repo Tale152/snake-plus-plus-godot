@@ -26,6 +26,11 @@
       {
         "type": "Apple",
         "max_instances": 7
+      },
+      {
+        "type": "Lemon",
+        "max_instances": 2,
+        "lifespan": 3
       }
     ],
     "conditions": {
@@ -33,35 +38,35 @@
         {
           "stars": 1,
           "length": {
-            "value": 69,
+            "value": 40,
             "criteria": "reach"
-          },
-          "score": {
-            "value": 123456,
-            "criteria": "below"
           }
         },
         {
           "stars": 2,
           "length": {
-            "value": 2,
+            "value": 60,
             "criteria": "reach"
           },
           "time": {
-            "value": 300,
+            "value": 240,
             "criteria": "below"
           }
         },
         {
           "stars": 3,
           "length": {
-            "value": 3,
+            "value": 80,
             "criteria": "reach"
+          },
+          "time": {
+            "value": 210,
+            "criteria": "below"
           }
         }
       ],
       "lose": {
-        "time": 600
+        "time": 300
       }
     }
   }

@@ -1,8 +1,6 @@
 
 class_name ParametersInfo extends Control
 
-var _ParametersFont = preload("res://src/menu/stage_prelude_menu/ParametersFont.tres")
-
 var _greater_than_equals_icon = preload("res://assets/icons/greater_than_equals.png")
 var _equals_icon = preload("res://assets/icons/equals.png")
 var _less_than_icon = preload("res://assets/icons/less_than.png")
@@ -17,8 +15,14 @@ const LESS_THAN: int = 2
 const LIKE: int = 3
 
 func scale_text(scale: float) -> void:
-	_ParametersFont.size = ScalingHelper.get_int_size(_DEFAULT_LABEL_SIZE, scale)
-	_ParametersFont.outline_size = ScalingHelper.get_int_size(_DEFAULT_LABEL_OUTLINE_SIZE, scale)
+	_scale_text_helper($SnakeLabel, scale)
+	_scale_text_helper($ScoreLabel, scale)
+	_scale_text_helper($TimeLabel, scale)
+
+func _scale_text_helper(label: Label, scale: float) -> void:
+	ScalingHelper.scale_text_and_outline(
+		label, _DEFAULT_LABEL_SIZE, _DEFAULT_LABEL_OUTLINE_SIZE, scale
+	)
 
 func set_snake(icon: int, text: String = "") -> void:
 	_alter_icons($SnakeCriteriaTextureButton, icon)
