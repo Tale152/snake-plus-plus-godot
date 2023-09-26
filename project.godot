@@ -419,6 +419,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/utils/ScalingHelper.gd"
 }, {
+"base": "Reference",
+"class": "SceneCreation",
+"language": "GDScript",
+"path": "res://src/utils/SceneCreation.gd"
+}, {
 "base": "Control",
 "class": "SettingsMenuContent",
 "language": "GDScript",
@@ -493,6 +498,11 @@ _global_script_classes=[ {
 "class": "StageData",
 "language": "GDScript",
 "path": "res://src/persistence/StageData.gd"
+}, {
+"base": "Control",
+"class": "StagePreludeChallengeContent",
+"language": "GDScript",
+"path": "res://src/menu/stage_prelude_menu/StagePreludeChallengeContent.gd"
 }, {
 "base": "Control",
 "class": "StagePreludeContent",
@@ -687,6 +697,7 @@ _global_script_class_icons={
 "RatingTriggerCondition": "",
 "RestartMenu": "",
 "ScalingHelper": "",
+"SceneCreation": "",
 "SettingsMenuContent": "",
 "SettingsMenuScene": "",
 "SnailStrategy": "",
@@ -702,6 +713,7 @@ _global_script_class_icons={
 "SnakeUnitView": "",
 "SplitControls": "",
 "StageData": "",
+"StagePreludeChallengeContent": "",
 "StagePreludeContent": "",
 "StagePreludeScene": "",
 "StageResult": "",

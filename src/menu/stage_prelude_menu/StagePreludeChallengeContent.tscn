@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/menu/stage_prelude_menu/BestScoreStarsIndicator.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/menu/stage_prelude_menu/ConditionsIndicator.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/menu/stage_prelude_menu/StagePreludeChallengeContent.gd" type="Script" id=3]
+
+[node name="Control" type="Control"]
+anchor_right = 0.94
+anchor_bottom = 0.655
+script = ExtResource( 3 )
+
+[node name="BestScoreStarsIndicatorControl" parent="." instance=ExtResource( 1 )]
+anchor_right = 1.0
+anchor_bottom = 0.133
+
+[node name="ConditionsIndicatorControl" parent="." instance=ExtResource( 2 )]
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 1.0
