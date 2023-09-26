@@ -17,15 +17,16 @@ func _init(lose_conditions: GameConclusionTriggers):
 		_calculate_time_strategy = base_calculation_strategy_only_instance
 		_calculate_score_strategy = base_calculation_strategy_only_instance
 		_calculate_length_strategy = base_calculation_strategy_only_instance
-		if _lose_conditions.has_time_trigger():
-			_time_trigger = _lose_conditions.get_time_trigger()
-			_calculate_time_strategy = funcref(self, "_calculate_time_with_lose_condition")
-		if _lose_conditions.has_score_trigger():
-			_score_trigger = _lose_conditions.get_score_trigger()
-			_calculate_score_strategy = funcref(self, "_calculate_score_with_lose_condition")
-		if _lose_conditions.has_length_trigger():
-			_length_trigger = _lose_conditions.get_length_trigger()
-			_calculate_length_strategy = funcref(self, "_calculate_length_with_lose_condition")
+		if PersistentPlaySettings.is_challenge_mode():
+			if _lose_conditions.has_time_trigger():
+				_time_trigger = _lose_conditions.get_time_trigger()
+				_calculate_time_strategy = funcref(self, "_calculate_time_with_lose_condition")
+			if _lose_conditions.has_score_trigger():
+				_score_trigger = _lose_conditions.get_score_trigger()
+				_calculate_score_strategy = funcref(self, "_calculate_score_with_lose_condition")
+			if _lose_conditions.has_length_trigger():
+				_length_trigger = _lose_conditions.get_length_trigger()
+				_calculate_length_strategy = funcref(self, "_calculate_length_with_lose_condition")
 	else:
 		_update_hud_strategy = funcref(self, "_update_hud_base")
 

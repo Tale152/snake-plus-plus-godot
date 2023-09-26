@@ -16,6 +16,13 @@ static func scale_label_text(
 		default_font_size, scale
 	)
 
+static func scale_button_text(
+	button: Button, default_font_size: int, scale: float
+) -> void:
+	button.get_font("font", "Button").size = get_int_size(
+		default_font_size, scale
+	)
+
 static func scale_label_outline(
 	label: Label, default_outline_size: int, scale: float
 ) -> void:

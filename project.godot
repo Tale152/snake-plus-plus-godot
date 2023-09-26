@@ -500,6 +500,11 @@ _global_script_classes=[ {
 "path": "res://src/persistence/StageData.gd"
 }, {
 "base": "Control",
+"class": "StagePreludeArcadeContent",
+"language": "GDScript",
+"path": "res://src/menu/stage_prelude_menu/StagePreludeArcadeContent.gd"
+}, {
+"base": "Control",
 "class": "StagePreludeChallengeContent",
 "language": "GDScript",
 "path": "res://src/menu/stage_prelude_menu/StagePreludeChallengeContent.gd"
@@ -543,6 +548,11 @@ _global_script_classes=[ {
 "class": "SwipeControls",
 "language": "GDScript",
 "path": "res://src/game/view/controls/swipe_controls/SwipeControls.gd"
+}, {
+"base": "Node",
+"class": "TimeUtils",
+"language": "GDScript",
+"path": "res://src/utils/TimeUtils.gd"
 }, {
 "base": "Control",
 "class": "TrophiesMenuContent",
@@ -713,6 +723,7 @@ _global_script_class_icons={
 "SnakeUnitView": "",
 "SplitControls": "",
 "StageData": "",
+"StagePreludeArcadeContent": "",
 "StagePreludeChallengeContent": "",
 "StagePreludeContent": "",
 "StagePreludeScene": "",
@@ -722,6 +733,7 @@ _global_script_class_icons={
 "StagesHelper": "",
 "StarStrategy": "",
 "SwipeControls": "",
+"TimeUtils": "",
 "TrophiesMenuContent": "",
 "TrophiesMenuScene": "",
 "VisualParameters": "",

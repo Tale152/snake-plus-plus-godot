@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/menu/stage_prelude_menu/ArcadeStageInfoButtonFont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://src/menu/stage_prelude_menu/ArcadeStageInfoFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/fonts/MyFont.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/menu/stage_prelude_menu/StagePreludeContent.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+font_data = ExtResource( 1 )
 
 [node name="StagePreludeContentControl" type="Control"]
 anchor_right = 0.94
@@ -13,7 +20,7 @@ script = ExtResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 0.08
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "STAGE NAME"
 align = 1
 valign = 1
@@ -29,7 +36,7 @@ anchor_top = 0.9
 anchor_right = 0.95
 anchor_bottom = 1.0
 margin_bottom = 0.200012
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "PLAY"
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]

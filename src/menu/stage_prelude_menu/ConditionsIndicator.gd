@@ -45,7 +45,7 @@ func _update_star_selection() -> void:
 		if rating_requirements.has("time"):
 			$RequirementsContainerControl/RequirementsParametersInfoControl.set_time(
 				ParametersInfo.GREATER_THAN_EQUALS if rating_requirements["time"]["criteria"] == "reach" else ParametersInfo.LESS_THAN,
-				_seconds_to_minutes_seconds(rating_requirements["time"]["value"])
+				TimeUtils.seconds_to_minutes_seconds(rating_requirements["time"]["value"])
 			)
 		else:
 			$RequirementsContainerControl/RequirementsParametersInfoControl.set_time(
@@ -97,15 +97,12 @@ func set_file_content(file_content: Dictionary) -> void:
 			)
 		if lose_conditions.has("time"):
 			$LoseConditionsContainerControl/GameOverParametersInfoControl.set_time(
-				ParametersInfo.EQUALS, _seconds_to_minutes_seconds(lose_conditions["time"])
+				ParametersInfo.EQUALS, TimeUtils.seconds_to_minutes_seconds(lose_conditions["time"])
 			)
 		else:
 			$LoseConditionsContainerControl/GameOverParametersInfoControl.set_time(
 				ParametersInfo.LIKE, TranslationsManager.get_localized_string(TranslationsManager.NO_TRIGGER)
 			)
-
-func _seconds_to_minutes_seconds(seconds: float):
-	return str(int(seconds / 60)) + ":" + str(int(seconds) % 60).pad_zeros(2)
 
 func _on_StarsRightTextureButton_pressed():
 	stars += 1
