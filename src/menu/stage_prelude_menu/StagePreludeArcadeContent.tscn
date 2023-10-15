@@ -18,17 +18,18 @@ anchor_right = 0.94
 anchor_bottom = 0.655
 script = ExtResource( 1 )
 
-[node name="HighestScoreContainerControl" type="Control" parent="."]
-anchor_top = 0.3
+[node name="BestResultLengthContainerControl" type="Control" parent="."]
+visible = false
+anchor_top = 0.1
 anchor_right = 1.0
-anchor_bottom = 0.7
+anchor_bottom = 0.5
 
-[node name="ColorRect" type="ColorRect" parent="HighestScoreContainerControl"]
+[node name="ColorRect" type="ColorRect" parent="BestResultLengthContainerControl"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.14902, 0.14902, 0.156863, 0.686275 )
 
-[node name="MaxLengthReachedLabel" type="Label" parent="HighestScoreContainerControl"]
+[node name="BestResultLabel" type="Label" parent="BestResultLengthContainerControl"]
 anchor_right = 1.0
 anchor_bottom = 0.2
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -37,12 +38,61 @@ text = "Max length reached :"
 align = 1
 valign = 1
 
-[node name="ParametersInfoControl" parent="HighestScoreContainerControl" instance=ExtResource( 2 )]
+[node name="ParametersInfoControl" parent="BestResultLengthContainerControl" instance=ExtResource( 2 )]
 anchor_top = 0.2
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="NoResultYetLabel" type="Label" parent="HighestScoreContainerControl"]
+[node name="BestResultScoreContainerControl" type="Control" parent="."]
+visible = false
+anchor_top = 0.6
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="BestResultScoreContainerControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.14902, 0.14902, 0.156863, 0.686275 )
+
+[node name="BestResultLabel" type="Label" parent="BestResultScoreContainerControl"]
+anchor_right = 1.0
+anchor_bottom = 0.2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Highest score reached :"
+align = 1
+valign = 1
+
+[node name="ParametersInfoControl" parent="BestResultScoreContainerControl" instance=ExtResource( 2 )]
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BestResultSingleContainerControl" type="Control" parent="."]
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.7
+
+[node name="ColorRect" type="ColorRect" parent="BestResultSingleContainerControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.14902, 0.14902, 0.156863, 0.686275 )
+
+[node name="BestResultLabel" type="Label" parent="BestResultSingleContainerControl"]
+anchor_right = 1.0
+anchor_bottom = 0.2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Best result :"
+align = 1
+valign = 1
+
+[node name="ParametersInfoControl" parent="BestResultSingleContainerControl" instance=ExtResource( 2 )]
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="NoResultYetLabel" type="Label" parent="BestResultSingleContainerControl"]
 visible = false
 anchor_top = 0.2
 anchor_right = 1.0

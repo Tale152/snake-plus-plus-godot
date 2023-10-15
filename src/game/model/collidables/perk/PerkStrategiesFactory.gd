@@ -28,6 +28,8 @@ func create_collision_strategy(type: int) -> CollisionStrategy:
 		return DiamondStrategy.new(_true_coll_res, _false_coll_res)
 	elif(type == PerkType.CANDY()):
 		return CandyStrategy.new(_true_coll_res, _false_coll_res)
+	elif(type == PerkType.PILL()):
+		return PillStrategy.new(_true_coll_res, _false_coll_res)
 	elif(type == PerkType.STAR()):
 		return StarStrategy.new(
 			_true_coll_res, _false_coll_res, _effect_lifespan_seconds

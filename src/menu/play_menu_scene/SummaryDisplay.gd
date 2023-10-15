@@ -1,4 +1,4 @@
-extends Control
+class_name SummaryDisplay extends Control
 
 onready var _SummaryLabelFont = preload("res://src/menu/play_menu_scene/SummaryLabelFont.tres")
 
@@ -56,8 +56,8 @@ func _get_total_length_reached() -> String:
 	var total: int = 0
 	for uuid in stages_data.keys():
 		var data: StageData = stages_data[uuid]
-		if is_regular && data.get_regular_record() != null:
-			total += data.get_regular_record().get_length()
-		elif data.get_pro_record() != null:
-			total += data.get_pro_record().get_length()
+		if is_regular && data.get_regular_length_record() != null:
+			total += data.get_regular_length_record().get_length()
+		elif data.get_pro_length_record() != null:
+			total += data.get_pro_length_record().get_length()
 	return str(total)

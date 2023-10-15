@@ -17,6 +17,7 @@ FIELD,Field,Arena
 PERKS,Perks,Perk
 MAX_LENGTH_REACHED,Max length reached,Lunghezza massima raggiunta
 MAX_SCORE_REACHED,Max score reached,Punteggio massimo raggiunto
+BEST_SCORE_REACHED,Best score,Miglior risultato
 LENGTH,Length,Lunghezza
 SCORE,Score,Punteggio
 TIME,Time,Tempo

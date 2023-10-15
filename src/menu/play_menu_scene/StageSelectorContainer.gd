@@ -84,7 +84,7 @@ func update_container() -> void:
 	if PersistentPlaySettings.get_mode() == PersistentPlaySettings.ARCADE:
 		$TextureButton.texture_normal = arcade_unlocked
 		$TextureButton.texture_disabled = arcade_locked
-		var record: StageResult = stage_data.get_regular_record() if PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.REGULAR else stage_data.get_pro_record()
+		var record: StageResult = stage_data.get_regular_length_record() if PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.REGULAR else stage_data.get_pro_length_record()
 		$LengthLabel.text = str(record.get_length() if record != null else 0)
 	else:
 		$LengthLabel.text = ""

@@ -389,6 +389,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/persistence/PersistentDictionaryNode.gd"
 }, {
+"base": "CollisionStrategy",
+"class": "PillStrategy",
+"language": "GDScript",
+"path": "res://src/game/model/collidables/perk/strategies/PillStrategy.gd"
+}, {
 "base": "Control",
 "class": "PlayMenuContent",
 "language": "GDScript",
@@ -543,6 +548,11 @@ _global_script_classes=[ {
 "class": "StarStrategy",
 "language": "GDScript",
 "path": "res://src/game/model/collidables/perk/strategies/StarStrategy.gd"
+}, {
+"base": "Control",
+"class": "SummaryDisplay",
+"language": "GDScript",
+"path": "res://src/menu/play_menu_scene/SummaryDisplay.gd"
 }, {
 "base": "Control",
 "class": "SwipeControls",
@@ -701,6 +711,7 @@ _global_script_class_icons={
 "PerkType": "",
 "PerkView": "",
 "PersistentDictionaryNode": "",
+"PillStrategy": "",
 "PlayMenuContent": "",
 "PlayMenuScene": "",
 "PositionCalculator": "",
@@ -732,6 +743,7 @@ _global_script_class_icons={
 "StageValidatorV1": "",
 "StagesHelper": "",
 "StarStrategy": "",
+"SummaryDisplay": "",
 "SwipeControls": "",
 "TimeUtils": "",
 "TrophiesMenuContent": "",

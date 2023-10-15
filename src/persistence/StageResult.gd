@@ -17,3 +17,10 @@ func get_score() -> int:
 
 func get_length() -> int:
 	return _length
+
+func equals_to(compared: StageResult) -> bool:
+	return (
+		_time == compared.get_time() &&
+		_score == compared.get_score() &&
+		_length == compared.get_length()
+	)
