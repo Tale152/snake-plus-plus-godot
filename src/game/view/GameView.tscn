@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/game/view/effects/Effects.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/game/view/popup_menus/pause_menu/PauseMenu.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/sound_effects/perk_eating.mp3" type="AudioStream" id=7]
 [ext_resource path="res://assets/sound_effects/game_loop.mp3" type="AudioStream" id=8]
 [ext_resource path="res://assets/sound_effects/game_over.mp3" type="AudioStream" id=9]
+[ext_resource path="res://assets/sound_effects/new_high_score.mp3" type="AudioStream" id=10]
 
 [node name="VerticalGame" type="Node"]
 script = ExtResource( 6 )
@@ -92,4 +93,8 @@ bus = "Music"
 
 [node name="GameOverAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+bus = "Effects"
+
+[node name="NewHighScoreAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
 bus = "Effects"

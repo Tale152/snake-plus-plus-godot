@@ -317,7 +317,7 @@ func _handle_snake_movement(delta: float) -> void:
 func _on_game_over() -> void:
 	if !_was_game_over_handled:
 		_was_game_over_handled = true
-		_game_over_strategy.call_func(
+		var game_over_data: GameOverData = _game_over_strategy.call_func(
 			_uuid,
 			StageResult.new(
 				_elapsed_seconds,
@@ -325,10 +325,13 @@ func _on_game_over() -> void:
 				_snake_properties.get_current_length()
 			)
 		)
-		_view.show_game_over_menu()
+		_view.show_game_over_menu(game_over_data)
 		_view.stop_game_loop_music()
-		_view.play_game_over_sound()
 		_view.stop_animations()
+		if game_over_data.is_highscore():
+			_view.play_new_high_score_sound()
+		else:
+			_view.play_game_over_sound()
 
 func _handle_snake_head_collision(
 	head: SnakeBodyPart, next_coord_content: Array

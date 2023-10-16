@@ -14,6 +14,7 @@ onready var _BottomControl: Control = $GuiAreaControl/RectangleRatioContainer/Co
 onready var _PerkEat: AudioStreamPlayer = $PerkEatAudioStreamPlayer
 onready var _GameLoop: AudioStreamPlayer = $GameLoopAudioStreamPlayer
 onready var _GameOver: AudioStreamPlayer = $GameOverAudioStreamPlayer
+onready var _NewHighScore: AudioStreamPlayer = $NewHighScoreAudioStreamPlayer
 
 var _controller: GameController
 var _controls: Control
@@ -113,7 +114,9 @@ func show_pause_menu() -> void: _alter_input_visibility(false, true, false, fals
 
 func show_restart_menu() -> void: _alter_input_visibility(false, false, true, false)
 
-func show_game_over_menu() -> void: _alter_input_visibility(false, false, false, true)
+func show_game_over_menu(game_over_data: GameOverData) -> void:
+	_alter_input_visibility(false, false, false, true)
+	_GameOverMenu.set_result(game_over_data)
 	
 func _alter_input_visibility(
 	controls: bool,
@@ -145,3 +148,7 @@ func stop_game_loop_music() -> void:
 
 func play_game_over_sound() -> void:
 	_GameOver.play()
+
+func play_new_high_score_sound() -> void:
+	_NewHighScore.stream.loop = false
+	_NewHighScore.play()

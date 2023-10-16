@@ -7,7 +7,7 @@ func _init(stages_data: Dictionary):
 
 func save_new_record(
 	uuid: String, stage_result: StageResult
-) -> void:
+) -> GameOverData:
 	var selected_stage_data: StageData = _stages_data[uuid]
 	var refresh_data: bool = false
 	
@@ -28,6 +28,7 @@ func save_new_record(
 	
 	if refresh_data:
 		_stages_data = PersistentStagesData.get_stages()
+	return GameOverData.new(refresh_data, 0)
 
 func _is_result_new_length_record(result: StageResult, current_record: StageResult) -> bool:
 	if current_record == null: return true

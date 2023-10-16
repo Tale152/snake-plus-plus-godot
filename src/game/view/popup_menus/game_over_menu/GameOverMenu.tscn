@@ -1,9 +1,24 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://src/game/view/popup_menus/game_over_menu/BackToMenuButton.tres" type="DynamicFont" id=1]
-[ext_resource path="res://src/game/view/popup_menus/game_over_menu/GameOverLabel.tres" type="DynamicFont" id=2]
-[ext_resource path="res://src/game/view/popup_menus/game_over_menu/PlayAgainButton.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/fonts/8bitOperatorPlus8-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/menu/stage_prelude_menu/BestScoreStarsIndicator.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/game/view/popup_menus/game_over_menu/GameOverMenu.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 18
+font_data = ExtResource( 1 )
 
 [node name="GameOverMenu" type="Control"]
 anchor_right = 1.0
@@ -16,23 +31,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.14902, 0.14902, 0.14902, 1 )
 
-[node name="GameOverLabel" type="Label" parent="."]
-anchor_top = 0.1
-anchor_right = 1.0
-anchor_bottom = 0.4
-margin_bottom = 0.0399971
-custom_fonts/font = ExtResource( 2 )
-text = "Game Over"
-align = 1
-valign = 1
-
 [node name="PlayAgainButton" type="Button" parent="."]
 anchor_left = 0.05
 anchor_top = 0.45
 anchor_right = 0.95
 anchor_bottom = 0.65
 margin_bottom = 0.0999985
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = SubResource( 1 )
 disabled = true
 text = "Play Again"
 
@@ -42,9 +47,64 @@ anchor_top = 0.7
 anchor_right = 0.95
 anchor_bottom = 0.9
 margin_bottom = 0.0999985
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = SubResource( 2 )
 disabled = true
 text = "Back To Menu"
+
+[node name="ArcadeGameOverContainerControl" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 0.45
+
+[node name="GameOverLabel" type="Label" parent="ArcadeGameOverContainerControl"]
+anchor_right = 1.0
+anchor_bottom = 0.8
+margin_bottom = 0.0399971
+custom_fonts/font = SubResource( 3 )
+text = "Game Over"
+align = 1
+valign = 1
+
+[node name="NewHighscoreLabel" type="Label" parent="ArcadeGameOverContainerControl"]
+anchor_top = 0.6
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 0.0399971
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "New highscore!"
+align = 1
+valign = 1
+
+[node name="ChallengeGameOverContainerControl" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 0.45
+
+[node name="GameOverLabel" type="Label" parent="ChallengeGameOverContainerControl"]
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_bottom = 0.0399971
+custom_fonts/font = SubResource( 3 )
+text = "Game Over"
+align = 1
+valign = 1
+
+[node name="BestScoreStarsIndicatorControl" parent="ChallengeGameOverContainerControl" instance=ExtResource( 2 )]
+anchor_left = 0.2
+anchor_top = 0.38
+anchor_right = 0.8
+anchor_bottom = 0.78
+
+[node name="NewHighscoreLabel" type="Label" parent="ChallengeGameOverContainerControl"]
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 0.0399971
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "New highscore!"
+align = 1
+valign = 1
 
 [connection signal="pressed" from="PlayAgainButton" to="." method="_on_PlayAgainButton_pressed"]
 [connection signal="pressed" from="BackToMenuButton" to="." method="_on_BackToMenuButton_pressed"]

@@ -13,7 +13,7 @@ func set_ratings_container(
 
 func save_new_record(
 	uuid: String, stage_result: StageResult
-) -> void:
+) -> GameOverData:
 	var persisted_stars = null
 	if PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.PRO:
 		persisted_stars = _stages_data[uuid].get_stars_pro()
@@ -46,7 +46,8 @@ func save_new_record(
 		# but stars_reached is greater
 		if persisted_stars == 0 && PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.REGULAR:
 			var stages_unlocked: int = StagesHelper.new().unlock_stages()
-			# TODO show something if stages_unlocked > 0
+			# TODO show something on new stage unlocked
+	return GameOverData.new(stars_reached > persisted_stars, stars_reached)
 
 func _are_star_rating_conditions_satisfied(
 	conditions: GameRatingTriggerConditions, stage_result: StageResult
