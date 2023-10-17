@@ -781,6 +781,7 @@ PersistentCustomizationSettings="*res://src/persistence/PersistentCustomizationS
 TranslationsManager="*res://src/utils/TranslationsManager.gd"
 PersistentPlaySettings="*res://src/persistence/PersistentPlaySettings.gd"
 PersistentStagesData="*res://src/persistence/PersistentStagesData.gd"
+PersistentUserWallet="*res://src/persistence/PersistentUserWallet.gd"
 
 [display]
 

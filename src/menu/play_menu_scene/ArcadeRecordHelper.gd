@@ -26,9 +26,12 @@ func save_new_record(
 			PersistentStagesData.set_new_arcade_pro_score_record(uuid, stage_result)
 			refresh_data = true
 	
+	var coins_added: int = PersistentUserWallet.add_arcade_coins(
+		stage_result.get_score(), stage_result.get_length()
+	)
 	if refresh_data:
 		_stages_data = PersistentStagesData.get_stages()
-	return GameOverData.new(refresh_data, 0)
+	return GameOverData.new(refresh_data, 0, coins_added)
 
 func _is_result_new_length_record(result: StageResult, current_record: StageResult) -> bool:
 	if current_record == null: return true

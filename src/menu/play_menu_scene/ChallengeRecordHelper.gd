@@ -20,21 +20,31 @@ func save_new_record(
 	else:
 		persisted_stars = _stages_data[uuid].get_stars_regular()
 	var stars_reached: int = 0
+	var stars_obtained: Array = []
 	if _are_star_rating_conditions_satisfied(
 		_ratings_container.get_one_star_game_rating_trigger_conditions(),
 		stage_result
 	):
 		stars_reached = 1
+		if persisted_stars < 1:
+			stars_obtained.push_back(1)
 		if _are_star_rating_conditions_satisfied(
 			_ratings_container.get_two_stars_game_rating_trigger_conditions(),
 			stage_result
 		):
 			stars_reached = 2
+			if persisted_stars < 2:
+				stars_obtained.push_back(2)
 			if _are_star_rating_conditions_satisfied(
 				_ratings_container.get_three_stars_game_rating_trigger_conditions(),
 				stage_result
 			):
 				stars_reached = 3
+				if persisted_stars < 3:
+					stars_obtained.push_back(3)
+	
+	var coins_added: int = PersistentUserWallet.add_challenge_coins(stars_obtained)
+	
 	if stars_reached > persisted_stars:
 		if PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.PRO:
 			PersistentStagesData.set_new_challenge_stars_pro(uuid, stars_reached)
@@ -47,7 +57,7 @@ func save_new_record(
 		if persisted_stars == 0 && PersistentPlaySettings.get_difficulty() == PersistentPlaySettings.REGULAR:
 			var stages_unlocked: int = StagesHelper.new().unlock_stages()
 			# TODO show something on new stage unlocked
-	return GameOverData.new(stars_reached > persisted_stars, stars_reached)
+	return GameOverData.new(stars_reached > persisted_stars, stars_reached, coins_added)
 
 func _are_star_rating_conditions_satisfied(
 	conditions: GameRatingTriggerConditions, stage_result: StageResult

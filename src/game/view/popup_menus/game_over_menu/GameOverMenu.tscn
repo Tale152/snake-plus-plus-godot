@@ -1,8 +1,27 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/fonts/8bitOperatorPlus8-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/menu/stage_prelude_menu/BestScoreStarsIndicator.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/skins/simple/perks/GainCoin_3.png" type="Texture" id=3]
 [ext_resource path="res://src/game/view/popup_menus/game_over_menu/GameOverMenu.gd" type="Script" id=4]
+[ext_resource path="res://assets/skins/simple/perks/GainCoin_0.png" type="Texture" id=5]
+[ext_resource path="res://assets/skins/simple/perks/GainCoin_1.png" type="Texture" id=6]
+[ext_resource path="res://assets/skins/simple/perks/GainCoin_2.png" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="AnimatedTexture" id=6]
+flags = 4
+frames = 4
+frame_0/texture = ExtResource( 5 )
+frame_1/texture = ExtResource( 6 )
+frame_1/delay_sec = 0.0
+frame_2/texture = ExtResource( 7 )
+frame_2/delay_sec = 0.0
+frame_3/texture = ExtResource( 3 )
+frame_3/delay_sec = 0.0
 
 [sub_resource type="DynamicFont" id=1]
 size = 20
@@ -31,11 +50,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.14902, 0.14902, 0.14902, 1 )
 
+[node name="CoinsEarnedLabel" type="Label" parent="."]
+anchor_right = 0.87
+anchor_bottom = 0.2
+custom_colors/font_color = Color( 0.243137, 1, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "+420"
+align = 2
+valign = 1
+
+[node name="CoinsEarnedTextureButton" type="TextureButton" parent="."]
+anchor_left = 0.872
+anchor_top = 0.018
+anchor_right = 0.972
+anchor_bottom = 0.163
+texture_normal = SubResource( 6 )
+expand = true
+stretch_mode = 5
+
 [node name="PlayAgainButton" type="Button" parent="."]
 anchor_left = 0.05
-anchor_top = 0.45
+anchor_top = 0.5
 anchor_right = 0.95
-anchor_bottom = 0.65
+anchor_bottom = 0.7
 margin_bottom = 0.0999985
 custom_fonts/font = SubResource( 1 )
 disabled = true
@@ -43,9 +80,9 @@ text = "Play Again"
 
 [node name="BackToMenuButton" type="Button" parent="."]
 anchor_left = 0.05
-anchor_top = 0.7
+anchor_top = 0.75
 anchor_right = 0.95
-anchor_bottom = 0.9
+anchor_bottom = 0.95
 margin_bottom = 0.0999985
 custom_fonts/font = SubResource( 2 )
 disabled = true
@@ -54,7 +91,7 @@ text = "Back To Menu"
 [node name="ArcadeGameOverContainerControl" type="Control" parent="."]
 visible = false
 anchor_right = 1.0
-anchor_bottom = 0.45
+anchor_bottom = 0.5
 
 [node name="GameOverLabel" type="Label" parent="ArcadeGameOverContainerControl"]
 anchor_right = 1.0
@@ -66,7 +103,7 @@ align = 1
 valign = 1
 
 [node name="NewHighscoreLabel" type="Label" parent="ArcadeGameOverContainerControl"]
-anchor_top = 0.6
+anchor_top = 0.55
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = 0.0399971
@@ -78,11 +115,11 @@ valign = 1
 
 [node name="ChallengeGameOverContainerControl" type="Control" parent="."]
 anchor_right = 1.0
-anchor_bottom = 0.45
+anchor_bottom = 0.5
 
 [node name="GameOverLabel" type="Label" parent="ChallengeGameOverContainerControl"]
 anchor_right = 1.0
-anchor_bottom = 0.5
+anchor_bottom = 0.8
 margin_bottom = 0.0399971
 custom_fonts/font = SubResource( 3 )
 text = "Game Over"
@@ -90,16 +127,16 @@ align = 1
 valign = 1
 
 [node name="BestScoreStarsIndicatorControl" parent="ChallengeGameOverContainerControl" instance=ExtResource( 2 )]
-anchor_left = 0.2
-anchor_top = 0.38
-anchor_right = 0.8
+anchor_left = 0.25
+anchor_top = 0.5
+anchor_right = 0.75
 anchor_bottom = 0.78
 
 [node name="NewHighscoreLabel" type="Label" parent="ChallengeGameOverContainerControl"]
 anchor_top = 0.8
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = 0.0399971
+margin_top = -0.200005
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 custom_fonts/font = SubResource( 4 )
 text = "New highscore!"
