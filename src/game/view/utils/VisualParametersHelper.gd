@@ -8,20 +8,17 @@ static func load_visual_parameters(
 	var vpb: VisualParametersBuilder = VisualParametersBuilder.new()
 	for p in parsed_stage.get_perks_rules():
 		vpb.add_perk_sprite(
-			PerkSprite.new(
-				_build_path(PersistentCustomizationSettings.get_perks_skin(), "perks"),
-				p.get_type()
-		))
+			PerkSprite.new(SkinPathUtils.get_perks_root_path(), p.get_type())
+		)
 	vpb \
-		.set_snake_skin_path(
-			_build_path(PersistentCustomizationSettings.get_snake_skin(), "snake")
-		) \
-		.set_field_elements_skin_path(_build_path(
-			PersistentCustomizationSettings.get_field_skin(), "field")
-		) \
+		.set_snake_skin_path(_build_path(
+			SkinPathUtils.get_skin_path(PersistentCustomizationSettings.get_selected_skin_uuid()),
+			"snake"
+		)) \
+		.set_field_elements_skin_path(SkinPathUtils.get_field_root_path()) \
 		.set_cell_pixels_size(px) \
 		.set_game_pixels_offset(Vector2(offset, offset))
 	return vpb.build()
 
 static func _build_path(skin: String, type: String) -> String:
-	return str("res://assets/skins/", skin, "/" + type)
+	return str(skin, "/" + type)

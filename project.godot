@@ -469,6 +469,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/menu/customization_menu/SkinContainer.gd"
 }, {
+"base": "Reference",
+"class": "SkinPathUtils",
+"language": "GDScript",
+"path": "res://src/utils/SkinPathUtils.gd"
+}, {
 "base": "CollisionStrategy",
 "class": "SnailStrategy",
 "language": "GDScript",
@@ -757,6 +762,7 @@ _global_script_class_icons={
 "SettingsMenuContent": "",
 "SettingsMenuScene": "",
 "SkinContainer": "",
+"SkinPathUtils": "",
 "SnailStrategy": "",
 "SnakeBodyPart": "",
 "SnakeBodyPartCollisionStrategy": "",

@@ -2,11 +2,11 @@
 
 [ext_resource path="res://assets/fonts/8bitOperatorPlus8-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/menu/stage_prelude_menu/BestScoreStarsIndicator.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/skins/simple/perks/GainCoin_3.png" type="Texture" id=3]
+[ext_resource path="res://assets/game/hud/Coin_1.png" type="Texture" id=3]
 [ext_resource path="res://src/game/view/popup_menus/game_over_menu/GameOverMenu.gd" type="Script" id=4]
-[ext_resource path="res://assets/skins/simple/perks/GainCoin_0.png" type="Texture" id=5]
-[ext_resource path="res://assets/skins/simple/perks/GainCoin_1.png" type="Texture" id=6]
-[ext_resource path="res://assets/skins/simple/perks/GainCoin_2.png" type="Texture" id=7]
+[ext_resource path="res://assets/game/hud/Coin_2.png" type="Texture" id=5]
+[ext_resource path="res://assets/game/hud/Coin_3.png" type="Texture" id=6]
+[ext_resource path="res://assets/game/hud/Coin_0.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=5]
 size = 20
@@ -15,12 +15,12 @@ font_data = ExtResource( 1 )
 [sub_resource type="AnimatedTexture" id=6]
 flags = 4
 frames = 4
-frame_0/texture = ExtResource( 5 )
-frame_1/texture = ExtResource( 6 )
+frame_0/texture = ExtResource( 7 )
+frame_1/texture = ExtResource( 3 )
 frame_1/delay_sec = 0.0
-frame_2/texture = ExtResource( 7 )
+frame_2/texture = ExtResource( 5 )
 frame_2/delay_sec = 0.0
-frame_3/texture = ExtResource( 3 )
+frame_3/texture = ExtResource( 6 )
 frame_3/delay_sec = 0.0
 
 [sub_resource type="DynamicFont" id=1]

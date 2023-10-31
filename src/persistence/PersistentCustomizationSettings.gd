@@ -1,33 +1,30 @@
 extends PersistentDictionaryNode
 
-const _SNAKE: String = "snake"
-const _FIELD: String = "field"
-const _PERKS: String = "perks"
+const _SKIN: String = "skin"
+const _UNLOCKED: String = "unlocked"
+const _STARTING_SKIN: String = "0c0ee443-97c5-42b2-a334-f57daf4484f2"
 
 const _FILE_PATH: String = "user://customization_settings.json"
 const _DEFAULT: Dictionary = {
-	_SNAKE: "simple",
-	_FIELD: "simple",
-	_PERKS: "simple"
+	_SKIN: _STARTING_SKIN,
+	_UNLOCKED: [_STARTING_SKIN]
 }
 
 func _ready():
 	_initialize(_DEFAULT, _FILE_PATH)
 
-func get_snake_skin() -> String:
-	return _get_data(_SNAKE)
+func get_selected_skin_uuid() -> String:
+	return _get_data(_SKIN)
 
-func set_snake_skin(skin: String) -> void:
-	_set_data(_SNAKE, skin)
+func set_selected_skin_uuid(uuid: String) -> void:
+	_set_data(_SKIN, uuid)
 
-func get_field_skin() -> String:
-	return _get_data(_FIELD)
+func is_unlocked(uuid: String) -> bool:
+	return ArrayUtils.get_array_index(_get_data(_UNLOCKED), uuid) > 0
 
-func set_field_skin(skin: String) -> void:
-	_set_data(_FIELD, skin)
-
-func get_perks_skin() -> String: 
-	return _get_data(_PERKS)
-
-func set_perks_skin(skin: String) -> void:
-	_set_data(_PERKS, skin)
+func unlock(uuid: String) -> void:
+	if !is_unlocked(uuid):
+		var unlocked: Array = _get_data(_UNLOCKED)
+		unlocked.push_back(uuid)
+		_set_data(_UNLOCKED, unlocked)
+ 

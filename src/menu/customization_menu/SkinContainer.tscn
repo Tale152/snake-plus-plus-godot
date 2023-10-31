@@ -1,12 +1,24 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/menu/customization_menu/skin_button.jpg" type="Texture" id=1]
 [ext_resource path="res://assets/skins/simple/snake/head_tail_UP_0.png" type="Texture" id=2]
 [ext_resource path="res://assets/skins/simple/snake/head_tail_UP_1.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/8bitOperatorPlus8-Regular.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://assets/menu/customization_menu/action_button.png" type="Texture" id=5]
+[ext_resource path="res://assets/menu/customization_menu/equip_button_disabled.png" type="Texture" id=5]
 [ext_resource path="res://assets/menu/customization_menu/sprite_background.png" type="Texture" id=6]
 [ext_resource path="res://src/menu/customization_menu/SkinContainer.gd" type="Script" id=7]
+[ext_resource path="res://assets/menu/customization_menu/equip_button_enabled.png" type="Texture" id=8]
+[ext_resource path="res://assets/menu/customization_menu/buy_button.png" type="Texture" id=9]
+
+[sub_resource type="DynamicFont" id=3]
+size = 18
+outline_size = 2
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 18
+outline_size = 2
+font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 20
@@ -33,13 +45,49 @@ anchor_bottom = 0.95
 texture_normal = ExtResource( 1 )
 expand = true
 
-[node name="ActionButtonTextureButton" type="TextureButton" parent="."]
+[node name="EquipButtonContainerControl" type="Control" parent="."]
 anchor_left = 0.35
 anchor_top = 0.5
 anchor_right = 0.9
 anchor_bottom = 0.8
-texture_normal = ExtResource( 5 )
+
+[node name="EquipButtonTextureButton" type="TextureButton" parent="EquipButtonContainerControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture_normal = ExtResource( 8 )
+texture_disabled = ExtResource( 5 )
 expand = true
+
+[node name="EquipButtonLabel" type="Label" parent="EquipButtonContainerControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Equip"
+align = 1
+valign = 1
+
+[node name="BuyButtonContainerControl" type="Control" parent="."]
+visible = false
+anchor_left = 0.35
+anchor_top = 0.5
+anchor_right = 0.9
+anchor_bottom = 0.8
+
+[node name="BuyButtonTextureButton" type="TextureButton" parent="BuyButtonContainerControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture_normal = ExtResource( 9 )
+expand = true
+
+[node name="BuyButtonLabel" type="Label" parent="BuyButtonContainerControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "1000"
+align = 1
+valign = 1
 
 [node name="SpriteBackgroundTextureButton" type="TextureButton" parent="."]
 anchor_left = 0.1
