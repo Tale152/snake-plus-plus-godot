@@ -5,7 +5,7 @@
         "it": "Prova"
     },
     "cost": {
-        "value": 100,
+        "value": 1,
         "currency": "coins"
     }
 }

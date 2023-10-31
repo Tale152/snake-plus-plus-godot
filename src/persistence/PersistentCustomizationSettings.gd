@@ -20,7 +20,7 @@ func set_selected_skin_uuid(uuid: String) -> void:
 	_set_data(_SKIN, uuid)
 
 func is_unlocked(uuid: String) -> bool:
-	return ArrayUtils.get_array_index(_get_data(_UNLOCKED), uuid) > 0
+	return ArrayUtils.get_array_index(_get_data(_UNLOCKED), uuid) > -1
 
 func unlock(uuid: String) -> void:
 	if !is_unlocked(uuid):

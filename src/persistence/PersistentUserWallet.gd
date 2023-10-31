@@ -33,7 +33,7 @@ func add_coins(to_add: int) -> void:
 
 func subtract_coins(to_subtract: int) -> bool:
 	var current_coins: int = get_coins()
-	if (current_coins - to_subtract) > 0:
+	if (current_coins - to_subtract) >= 0:
 		set_coins(current_coins - to_subtract)
 		return true
 	return false

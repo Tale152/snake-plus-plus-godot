@@ -28,20 +28,13 @@ func scale_text(scale: float) -> void:
 func build_skin_list() -> void:
 	$ScrollableContainerControl.clear_content()
 	var skin_paths: Array = FileUtils.get_directories_list(SKINS_PATH)
+	var strategy: FuncRef = funcref(self, "_refresh")
 	for path in skin_paths:
 		var skin_container: SkinContainer = _SkinContainer.instance()
-		skin_container.initialize(path)
+		skin_container.initialize(path, strategy)
 		$ScrollableContainerControl.append_content(skin_container)
 
-#TODO integrate
-func _change_snake(skin: String) -> void:
-	_main_scene_instance.play_button_click_sound()
-	PersistentCustomizationSettings.set_snake_skin(skin)
-
-func _change_field(skin: String) -> void:
-	_main_scene_instance.play_button_click_sound()
-	PersistentCustomizationSettings.set_field_skin(skin)
-
-func _change_perks(skin: String) -> void:
-	_main_scene_instance.play_button_click_sound()
-	PersistentCustomizationSettings.set_perks_skin(skin)
+func _refresh() -> void:
+	_refresh_wallet()
+	for b in $ScrollableContainerControl.get_content():
+		b.refresh_button()
