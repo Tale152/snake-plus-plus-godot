@@ -1,0 +1,11 @@
+{
+    "uuid": "0c0ee443-97c5-42b2-a334-f57daf4484f2",
+    "name": {
+        "en": "Simple",
+        "it": "Semplice"
+    },
+    "cost": {
+        "value": 1,
+        "currency": "coins"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "uuid": "441815e0-70cc-42d2-9dc7-ee8799f03600",
+    "name": {
+        "en": "Debug",
+        "it": "Prova"
+    },
+    "cost": {
+        "value": 100,
+        "currency": "coins"
+    }
+}

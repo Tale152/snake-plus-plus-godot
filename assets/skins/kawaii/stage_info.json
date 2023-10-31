@@ -1,0 +1,11 @@
+{
+    "uuid": "fa956b6a-90fc-4735-abef-9fa87fd18519",
+    "name": {
+        "en": "Kawaii",
+        "it": "Kawaii"
+    },
+    "cost": {
+        "value": 90,
+        "currency": "coins"
+    }
+}

@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/menu/customization_menu/skin_button.jpg" type="Texture" id=1]
+[ext_resource path="res://assets/skins/simple/snake/head_tail_UP_0.png" type="Texture" id=2]
+[ext_resource path="res://assets/skins/simple/snake/head_tail_UP_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/8bitOperatorPlus8-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/menu/customization_menu/action_button.png" type="Texture" id=5]
+[ext_resource path="res://assets/menu/customization_menu/sprite_background.png" type="Texture" id=6]
+[ext_resource path="res://src/menu/customization_menu/SkinContainer.gd" type="Script" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+outline_size = 2
+font_data = ExtResource( 4 )
+
+[sub_resource type="AnimatedTexture" id=2]
+flags = 4
+frames = 2
+frame_0/texture = ExtResource( 2 )
+frame_1/texture = ExtResource( 3 )
+frame_1/delay_sec = 0.0
+
+[node name="Control" type="Control"]
+anchor_right = 0.94
+anchor_bottom = 0.15
+script = ExtResource( 7 )
+
+[node name="SkinButtonTextureButton" type="TextureButton" parent="."]
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+texture_normal = ExtResource( 1 )
+expand = true
+
+[node name="ActionButtonTextureButton" type="TextureButton" parent="."]
+anchor_left = 0.35
+anchor_top = 0.5
+anchor_right = 0.9
+anchor_bottom = 0.8
+texture_normal = ExtResource( 5 )
+expand = true
+
+[node name="SpriteBackgroundTextureButton" type="TextureButton" parent="."]
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.3
+anchor_bottom = 0.8
+texture_normal = ExtResource( 6 )
+expand = true
+
+[node name="SkinNameLabel" type="Label" parent="."]
+anchor_left = 0.35
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.6
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Skin name"
+valign = 1
+
+[node name="SpriteTextureButton" type="TextureButton" parent="."]
+anchor_left = 0.11
+anchor_top = 0.21
+anchor_right = 0.29
+anchor_bottom = 0.79
+texture_normal = SubResource( 2 )
+expand = true
+stretch_mode = 5
+flip_v = true

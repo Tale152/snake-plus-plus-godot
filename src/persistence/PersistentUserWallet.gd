@@ -1,7 +1,6 @@
 extends PersistentDictionaryNode
 
 const _COINS: String = "coins"
-const _GEMS: String = "gems"
 
 const FIRST_STAR_COINS_REGULAR: int = 100
 const SECOND_STAR_COINS_REGULAR: int = 200
@@ -17,8 +16,7 @@ const ARCADE_LENGTH_TRESHOLD_PRO: int = 25
 
 const _FILE_PATH: String = "user://wallet.json"
 const _DEFAULT: Dictionary = {
-	_COINS: 0,
-	_GEMS: 0
+	_COINS: 0
 }
 
 func _ready():
@@ -80,19 +78,3 @@ func add_challenge_coins(unlocked_stars: Array) -> int:
 	if to_add > 0:
 		add_coins(to_add)
 	return to_add
-
-func get_gems() -> int:
-	return _get_data(_GEMS)
-
-func set_gems(gems: int) -> void:
-	_set_data(_GEMS, gems)
-
-func add_gems(to_add: int) -> void:
-	set_gems(get_gems() + to_add)
-
-func subtract_gems(to_subtract: int) -> bool:
-	var current_gems: int = get_gems()
-	if (current_gems - to_subtract) > 0:
-		set_gems(current_gems - to_subtract)
-		return true
-	return false

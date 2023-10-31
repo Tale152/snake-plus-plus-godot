@@ -28,6 +28,8 @@ func initialize(main_scene_instance: Control, main_menu_scene) -> void:
 	_main_scene_instance.clear()
 	_main_scene_instance.add_child(self)
 	_customization_menu_content.initialize(_main_scene_instance)
+	var scale: float = $MenuSceneControl.get_scaling()
+	_customization_menu_content.scale_text(scale)
 
 func _go_to_main_menu() -> void:
 	_main_scene_instance.play_button_click_sound()
